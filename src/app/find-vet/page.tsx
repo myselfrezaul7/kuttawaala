@@ -58,7 +58,7 @@ export default function FindVetPage() {
 
                 <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredClinics.map(clinic => (
-                        <div key={clinic.id} className="bg-white dark:bg-zinc-900 p-6 rounded-2xl shadow-sm border border-orange-100 dark:border-zinc-800 hover:shadow-md transition-shadow">
+                        <div key={clinic.id} className="bg-white/40 dark:bg-black/40 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white/20 dark:border-white/10 hover:shadow-2xl transition-all hover:-translate-y-1">
                             <div className="flex justify-between items-start mb-4">
                                 <div>
                                     <h3 className="font-bold text-lg text-slate-900 dark:text-slate-100">{clinic.name}</h3>

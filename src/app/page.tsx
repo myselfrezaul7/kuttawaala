@@ -51,15 +51,15 @@ export default function Home() {
                         We are building a community of dog lovers who care. From rescue operations to community education, we are changing lives one wag at a time.
                     </p>
                     <div className="flex flex-wrap gap-4 justify-center">
-                        <div className="bg-white dark:bg-zinc-800 px-8 py-4 rounded-2xl shadow-sm">
+                        <div className="bg-white/40 dark:bg-black/40 backdrop-blur-md px-8 py-4 rounded-2xl shadow-lg border border-white/20">
                             <span className="block text-3xl font-bold text-orange-600 mb-1">1000+</span>
                             <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Rescues</span>
                         </div>
-                        <div className="bg-white dark:bg-zinc-800 px-8 py-4 rounded-2xl shadow-sm">
+                        <div className="bg-white/40 dark:bg-black/40 backdrop-blur-md px-8 py-4 rounded-2xl shadow-lg border border-white/20">
                             <span className="block text-3xl font-bold text-amber-600 mb-1">850+</span>
                             <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Adoptions</span>
                         </div>
-                        <div className="bg-white dark:bg-zinc-800 px-8 py-4 rounded-2xl shadow-sm">
+                        <div className="bg-white/40 dark:bg-black/40 backdrop-blur-md px-8 py-4 rounded-2xl shadow-lg border border-white/20">
                             <span className="block text-3xl font-bold text-green-600 mb-1">150+</span>
                             <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Volunteers</span>
                         </div>
