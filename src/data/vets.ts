@@ -17,25 +17,25 @@ export const MOCK_VET_CLINICS: VetClinic[] = [
     //           DHAKA DIVISION (13 Districts)
     // ==========================================
     {
-        id: 101, name: 'Central Veterinary Hospital (Dhaka)',
+        id: 101, name: 'Central Veterinary Hospital, Dhaka',
         address: '48 Kazi Alauddin Road, Dhaka-1000',
         phone: '01745-137090',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=Central+Veterinary+Hospital+Dhaka',
         hours: '24 Hours', district: 'Dhaka', rating: 3.8, reviewCount: 450, services: ['Government', 'Emergency', 'Surgery', 'Vaccination']
     },
     {
-        id: 102, name: 'Gulshan Pet-Animal Clinic (Private)',
+        id: 102, name: 'Gulshan Pet-Animal Clinic',
         address: '4-5 DCC Super Market, Gulshan-2, Dhaka',
         phone: '+8801912345680', website: 'https://gulshanpetclinic.com',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=Gulshan+Pet-Animal+Clinic+Dhaka',
-        hours: '11 AM - 7 PM', district: 'Dhaka', rating: 4.6, reviewCount: 320, services: ['General Checkup', 'Vaccination', 'Surgery']
+        hours: '11 AM - 7 PM', district: 'Dhaka', rating: 4.6, reviewCount: 320, services: ['Private', 'General Checkup', 'Vaccination']
     },
     {
         id: 103, name: 'District Veterinary Hospital, Gazipur',
         address: 'Gazipur Sadar, Gazipur',
         phone: '16358',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=District+Veterinary+Hospital+Gazipur',
-        hours: '9 AM - 5 PM', district: 'Gazipur', rating: 3.8, reviewCount: 45, services: ['Government', 'Livestock', 'General Care']
+        hours: '9 AM - 5 PM', district: 'Gazipur', rating: 3.8, reviewCount: 45, services: ['Government', 'Livestock']
     },
     {
         id: 104, name: 'District Veterinary Hospital, Narayanganj',
@@ -119,7 +119,7 @@ export const MOCK_VET_CLINICS: VetClinic[] = [
     //         CHATTOGRAM DIVISION (11 Districts)
     // ==========================================
     {
-        id: 201, name: 'CVASU Veterinary Hospital (Chittagong)',
+        id: 201, name: 'CVASU Veterinary Hospital',
         address: 'Zakir Hossain Rd, Khulshi, Chattogram',
         phone: '01314-300655',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=CVASU+Veterinary+Hospital+Chittagong',
@@ -135,7 +135,7 @@ export const MOCK_VET_CLINICS: VetClinic[] = [
     {
         id: 203, name: 'District Veterinary Hospital, Cumilla',
         address: 'Rammala Mor, Kotbari Rd, Cumilla',
-        phone: '01876-354898',
+        phone: '01716-567403',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=Zilla+Veterinary+Hospital+Comilla',
         hours: '9 AM - 5 PM', district: 'Cumilla', rating: 3.9, reviewCount: 110, services: ['Government', 'Surgery']
     },
@@ -156,7 +156,7 @@ export const MOCK_VET_CLINICS: VetClinic[] = [
     {
         id: 206, name: 'District Livestock Office, Noakhali',
         address: 'Maijdee Court, Noakhali',
-        phone: '02334493221',
+        phone: '01716-474944',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=District+Livestock+Office+Noakhali',
         hours: '9 AM - 5 PM', district: 'Noakhali', rating: 3.8, reviewCount: 40, services: ['Government', 'Animal Health']
     },
@@ -209,7 +209,7 @@ export const MOCK_VET_CLINICS: VetClinic[] = [
     {
         id: 301, name: 'District Veterinary Hospital, Rajshahi',
         address: 'Rajshahi Sadar',
-        phone: '01733-445566',
+        phone: '01324-289419',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=District+Veterinary+Hospital+Rajshahi',
         hours: '9 AM - 5 PM', district: 'Rajshahi', rating: 4.1, reviewCount: 88, services: ['Government', 'Surgery']
     },
@@ -228,10 +228,10 @@ export const MOCK_VET_CLINICS: VetClinic[] = [
         hours: '9 AM - 5 PM', district: 'Pabna', rating: 3.9, reviewCount: 50, services: ['Government', 'Vaccination']
     },
     {
-        id: 304, name: 'Upazila Veterinary Hospital, Bogura',
+        id: 304, name: 'District Livestock Office, Bogura',
         address: 'Bogura Sadar',
-        phone: '16358',
-        mapUrl: 'https://www.google.com/maps/search/?api=1&query=Upazila+Veterinary+Hospital+Bogura',
+        phone: '01324-289324',
+        mapUrl: 'https://www.google.com/maps/search/?api=1&query=District+Livestock+Office+Bogura',
         hours: '9 AM - 5 PM', district: 'Bogura', rating: 3.9, reviewCount: 55, services: ['Government', 'Surgery']
     },
     {
@@ -243,8 +243,8 @@ export const MOCK_VET_CLINICS: VetClinic[] = [
     },
     {
         id: 306, name: 'Upazila Livestock Office, Naogaon',
-        address: 'Naogaon Sadar',
-        phone: '01324289388',
+        address: 'Atrai, Naogaon',
+        phone: '01324-289389',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=Upazila+Livestock+Office+Naogaon',
         hours: '9 AM - 5 PM', district: 'Naogaon', rating: 3.7, reviewCount: 25, services: ['Government', 'Consultation']
     },
@@ -269,14 +269,14 @@ export const MOCK_VET_CLINICS: VetClinic[] = [
     {
         id: 401, name: 'District Veterinary Hospital, Khulna',
         address: 'Sonadanga, Khulna',
-        phone: '01711-122334',
+        phone: '01324-289843',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=District+Veterinary+Hospital+Khulna',
         hours: '9 AM - 5 PM', district: 'Khulna', rating: 4.1, reviewCount: 50, services: ['Government', 'Surgery']
     },
     {
         id: 402, name: 'District Veterinary Hospital, Jashore',
         address: 'Jashore Sadar',
-        phone: '16358',
+        phone: '01711-018601',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=District+Veterinary+Hospital+Jashore',
         hours: '9 AM - 5 PM', district: 'Jashore', rating: 4.0, reviewCount: 60, services: ['Government', 'General Checkup']
     },
@@ -343,7 +343,7 @@ export const MOCK_VET_CLINICS: VetClinic[] = [
     {
         id: 501, name: 'District Veterinary Hospital, Barishal',
         address: 'Kehya Ghat, Barishal',
-        phone: '01777-889900',
+        phone: '02-478861084',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=District+Veterinary+Hospital+Barishal',
         hours: '9 AM - 5 PM', district: 'Barishal', rating: 4.0, reviewCount: 40, services: ['Government', 'Surgery']
     },
@@ -389,14 +389,14 @@ export const MOCK_VET_CLINICS: VetClinic[] = [
     {
         id: 601, name: 'Sylhet District Veterinary Hospital',
         address: 'Tilagor, Sylhet',
-        phone: '01711-287533',
+        phone: '01770-519680',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=Sylhet+District+Veterinary+Hospital',
         hours: '9 AM - 5 PM', district: 'Sylhet', rating: 4.0, reviewCount: 150, services: ['Government', 'General Care']
     },
     {
         id: 602, name: 'District Veterinary Hospital, Moulvibazar',
         address: 'Moulvibazar Sadar',
-        phone: '16358',
+        phone: '01324-290686',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=District+Veterinary+Hospital+Moulvibazar',
         hours: '9 AM - 5 PM', district: 'Moulvibazar', rating: 3.9, reviewCount: 45, services: ['Government', 'Vaccination']
     },
@@ -421,7 +421,7 @@ export const MOCK_VET_CLINICS: VetClinic[] = [
     {
         id: 701, name: 'District Veterinary Hospital, Rangpur',
         address: 'Grand Hotel Mor, Rangpur',
-        phone: '01744-556677',
+        phone: '01712-196670',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=District+Veterinary+Hospital+Rangpur',
         hours: '9 AM - 5 PM', district: 'Rangpur', rating: 3.8, reviewCount: 110, services: ['Government', 'Livestock']
     },
@@ -479,37 +479,37 @@ export const MOCK_VET_CLINICS: VetClinic[] = [
     //         MYMENSINGH DIVISION (4 Districts)
     // ==========================================
     {
-        id: 801, name: 'Mymensingh Iron Hide Vet Clinic (Private)',
+        id: 801, name: 'District Livestock Office, Mymensingh',
+        address: 'Mymensingh Sadar',
+        phone: '01711-045813',
+        mapUrl: 'https://www.google.com/maps/search/?api=1&query=District+Livestock+Office+Mymensingh',
+        hours: '9 AM - 5 PM', district: 'Mymensingh', rating: 3.9, reviewCount: 65, services: ['Government', 'Veterinary']
+    },
+    {
+        id: 802, name: 'Mymensingh Iron Hide Vet Clinic (Private)',
         address: 'Naumahal, Mymensingh',
         phone: '01766-778899',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=Mymensingh+Iron+Hide+Vet+Clinic',
-        hours: '10 AM - 8 PM', district: 'Mymensingh', rating: 4.8, reviewCount: 42, services: ['Orthopedic', 'Surgery', 'X-Ray']
-    },
-    {
-        id: 802, name: 'Upazila Veterinary Hospital, Mymensingh',
-        address: 'Trishal/Sadar',
-        phone: '16358',
-        mapUrl: 'https://www.google.com/maps/search/?api=1&query=Upazila+Veterinary+Hospital+Mymensingh',
-        hours: '9 AM - 5 PM', district: 'Mymensingh', rating: 3.8, reviewCount: 30, services: ['Government', 'General']
+        hours: '10 AM - 8 PM', district: 'Mymensingh', rating: 4.8, reviewCount: 42, services: ['Private', 'Orthopedic', 'Surgery']
     },
     {
         id: 803, name: 'District Veterinary Hospital, Jamalpur',
         address: 'Jamalpur Sadar',
-        phone: '01324-290126',
+        phone: '01324-290109',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=District+Veterinary+Hospital+Jamalpur',
         hours: '9 AM - 5 PM', district: 'Jamalpur', rating: 3.8, reviewCount: 35, services: ['Government', 'Livestock']
     },
     {
         id: 804, name: 'District Veterinary Hospital, Sherpur',
         address: 'Sherpur Sadar',
-        phone: '01711467755',
+        phone: '01324-290135',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=District+Veterinary+Hospital+Sherpur',
         hours: '9 AM - 5 PM', district: 'Sherpur', rating: 3.9, reviewCount: 28, services: ['Government', 'Surgery']
     },
     {
         id: 805, name: 'District Veterinary Hospital, Netrokona',
         address: 'Netrokona Sadar',
-        phone: '01324290225',
+        phone: '01324-290202',
         mapUrl: 'https://www.google.com/maps/search/?api=1&query=District+Veterinary+Hospital+Netrokona',
         hours: '9 AM - 5 PM', district: 'Netrokona', rating: 3.8, reviewCount: 25, services: ['Government', 'Vaccine']
     }
