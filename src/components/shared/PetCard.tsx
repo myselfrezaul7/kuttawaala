@@ -1,6 +1,4 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Dog } from "@/data/dogs"; // Assuming a type exists, or I'll infer
 import { Heart, MapPin } from "lucide-react";
 import Image from "next/image";
