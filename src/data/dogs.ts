@@ -6,7 +6,7 @@ export const dogs = [
         age: '2 years',
         gender: 'Female',
         location: "Dhanmondi, Dhaka",
-        description: 'Lali is the unofficial queen of her block. She was found charming customers at a tea stall for biscuits. She has that classic Desi intelligence—she knows exactly how to look fast asleep until she hears a treat wrapper.',
+        description: 'Lali is the unofficial queen of her block. She was found charming customers at a tea stall for biscuits. She has that classic Desi intelligence; she knows exactly how to look fast asleep until she hears a treat wrapper.',
         imageUrl: '/assets/dog1.jpg',
         tag: 'Urgent',
         temperamentTags: ['Smart', 'Loyal', 'Street-Smart', 'Good Watchdog'],
