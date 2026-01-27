@@ -19,8 +19,8 @@ const config = {
         },
         extend: {
             fontFamily: {
-                sans: ["var(--font-poppins)", "sans-serif"],
-                heading: ["var(--font-poppins)", "sans-serif"],
+                sans: ["var(--font-ibm-plex-sans)", "sans-serif"],
+                heading: ["var(--font-ibm-plex-sans)", "sans-serif"],
             },
             colors: {
                 border: "hsl(var(--border))",
