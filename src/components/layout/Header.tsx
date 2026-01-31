@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { Menu, X, Sun, Moon, Heart, User, LogIn } from "lucide-react";
+import { Menu, X, Sun, Moon, Heart, User, LogIn, Dog } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Header() {
@@ -26,8 +26,9 @@ export function Header() {
             <div className="container mx-auto px-4 py-4 flex justify-between items-center">
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2 group">
-                    <span className="text-2xl font-bold font-sans text-orange-600 dark:text-orange-400 group-hover:scale-105 transition-transform">
-                        🐕 KUTTAWAALA
+                    <Dog className="w-8 h-8 text-orange-600 dark:text-orange-400 transition-transform group-hover:rotate-12" />
+                    <span className="text-2xl font-bold font-sans text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                        KUTTAWAALA
                     </span>
                 </Link>
 

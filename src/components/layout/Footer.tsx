@@ -10,8 +10,12 @@ export function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                     <div className="space-y-4">
                         <h3 className="text-2xl font-bold text-orange-600 dark:text-orange-400">🐕 KUTTAWAALA</h3>
+                        <p className="text-xs font-semibold text-orange-500 dark:text-orange-300 mb-2">Non-Profit Animal Welfare Organization</p>
                         <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                             Giving every street dog a chance at a loving home. Join our mission to care for our canine companions.
+                        </p>
+                        <p className="text-xs text-slate-500 dark:text-slate-500 mt-2 italic border-l-2 border-orange-200 pl-2">
+                            We explicitly promote "Adopt Don't Shop". We do not support buying, selling, or breeding.
                         </p>
                     </div>
 
@@ -22,6 +26,7 @@ export function Footer() {
                             <li><Link href="/report" className="hover:text-orange-600">Report a Stray</Link></li>
                             <li><Link href="/volunteer" className="hover:text-orange-600">Volunteer</Link></li>
                             <li><Link href="/donate" className="hover:text-orange-600">Donate</Link></li>
+                            <li><Link href="https://www.catwaala.com" target="_blank" rel="noopener noreferrer" className="hover:text-orange-600 font-medium text-rose-500">Visit Catwaala (Cats) 🐱</Link></li>
                         </ul>
                     </div>
 

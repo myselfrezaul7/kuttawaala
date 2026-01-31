@@ -46,7 +46,7 @@ export function Hero() {
                     </motion.div>
                 </div>
 
-                {/* Hero Illustration/Image Placeholder */}
+                {/* Hero Illustration/Image */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -54,10 +54,11 @@ export function Hero() {
                     className="relative order-1 lg:order-2 flex justify-center"
                 >
                     <div className="relative w-full max-w-md aspect-[3/4] rounded-t-full rounded-b-[200px] overflow-hidden border-8 border-white/50 dark:border-white/10 shadow-2xl bg-orange-100 flex items-center justify-center">
-                        {/* This would be a real image */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-orange-200 to-amber-100 flex items-center justify-center">
-                            <PawPrint className="w-40 h-40 text-white opacity-50 rotate-12" />
-                        </div>
+                        <img
+                            src="/hero-kuttawaala.png"
+                            alt="Mother dog with puppies"
+                            className="w-full h-full object-cover"
+                        />
 
                         {/* Floating badge */}
                         <motion.div
