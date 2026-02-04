@@ -1,0 +1,14 @@
+{
+  "HomePage": {
+    "title": "Welcome to Kuttawaala",
+    "description": "Premium dog care services in Bangladesh.",
+    "findVet": "Find a Vet",
+    "donate": "Donate"
+  },
+  "Navigation": {
+    "home": "Home",
+    "vets": "Vets",
+    "about": "About Us",
+    "contact": "Contact"
+  }
+}
