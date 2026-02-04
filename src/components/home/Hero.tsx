@@ -5,7 +5,11 @@ import { motion } from "framer-motion";
 import { PawPrint, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+import { useTranslations } from 'next-intl';
+
 export function Hero() {
+    const t = useTranslations('Hero');
+
     return (
         <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-orange-50/50 dark:bg-zinc-900/50">
             {/* Decorative blobs */}
@@ -20,10 +24,10 @@ export function Hero() {
                         transition={{ duration: 0.6 }}
                     >
                         <h1 className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-slate-100 leading-[1.1] mb-6 font-heading">
-                            Find Your New <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">Best Friend.</span>
+                            {t('title')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">{t('titleAccent')}</span>
                         </h1>
                         <p className="text-xl text-slate-600 dark:text-slate-400 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                            Connect with local shelters, find volunteer opportunities, and give a stray dog a forever home.
+                            {t('description')}
                         </p>
                     </motion.div>
 
@@ -35,12 +39,12 @@ export function Hero() {
                     >
                         <Link href="/adopt">
                             <Button size="lg" className="w-full sm:w-auto text-lg h-14 rounded-full shadow-xl shadow-orange-500/20 bg-orange-600 hover:bg-orange-700 text-white">
-                                Adopt a Dog
+                                {t('adoptButton')}
                             </Button>
                         </Link>
                         <Link href="/volunteer">
                             <Button size="lg" variant="outline" className="w-full sm:w-auto text-lg h-14 rounded-full border-2">
-                                Become a Volunteer
+                                {t('volunteerButton')}
                             </Button>
                         </Link>
                     </motion.div>
@@ -70,8 +74,8 @@ export function Hero() {
                                 <Heart className="w-5 h-5 fill-current" />
                             </div>
                             <div>
-                                <p className="font-bold text-sm">3,500+ Rescued</p>
-                                <p className="text-xs text-slate-500">Since 2021</p>
+                                <p className="font-bold text-sm">{t('rescuedCount')}</p>
+                                <p className="text-xs text-slate-500">{t('since')}</p>
                             </div>
                         </motion.div>
                     </div>

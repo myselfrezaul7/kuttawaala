@@ -1,14 +1,32 @@
 {
+  "Hero": {
+    "title": "Find Your New",
+    "titleAccent": "Best Friend.",
+    "description": "Connect with local shelters, find volunteer opportunities, and give a stray dog a forever home.",
+    "adoptButton": "Adopt a Dog",
+    "volunteerButton": "Become a Volunteer",
+    "rescuedCount": "3,500+ Rescued",
+    "since": "Since 2021"
+  },
   "HomePage": {
-    "title": "Welcome to Kuttawaala",
-    "description": "Premium dog care services in Bangladesh.",
-    "findVet": "Find a Vet",
-    "donate": "Donate"
+    "starsTitle": "Meet the",
+    "starsAccent": "Stars",
+    "starsDescription": "These amazing companions are vaccinated, health-checked, and ready to find their forever homes.",
+    "viewAll": "View All Dogs",
+    "missionTitle": "More Than Just Adoption",
+    "missionDescription": "We are building a community of dog lovers who care. From rescue operations to community education, we are changing lives one wag at a time.",
+    "rescuesCount": "1000+",
+    "rescuesLabel": "Rescues",
+    "adoptionsCount": "850+",
+    "adoptionsLabel": "Adoptions",
+    "volunteersCount": "150+",
+    "volunteersLabel": "Volunteers"
   },
   "Navigation": {
     "home": "Home",
-    "vets": "Vets",
-    "about": "About Us",
-    "contact": "Contact"
+    "adopt": "Adopt",
+    "volunteer": "Volunteer",
+    "vets": "Find a Vet",
+    "donate": "Donate"
   }
 }
