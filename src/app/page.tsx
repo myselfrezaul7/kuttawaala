@@ -18,15 +18,15 @@ export default function Home() {
                     <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
                         <div className="space-y-2">
                             <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-slate-100 font-heading">
-                                Meet Our <span className="text-orange-600">Stars</span>
+                                Our Shining <span className="text-orange-600">Stars</span>
                             </h2>
                             <p className="text-slate-500 dark:text-slate-400 max-w-md">
-                                These adorable dogs are looking for their forever homes
+                                Meet some of our lovely rescues waiting for a home.
                             </p>
                         </div>
                         <Link href="/adopt">
                             <Button variant="ghost" className="gap-2 text-orange-600 hover:text-orange-700 hover:bg-orange-50 text-base">
-                                View All <ArrowRight className="w-5 h-5" />
+                                View All Dogs <ArrowRight className="w-5 h-5" />
                             </Button>
                         </Link>
                     </div>
@@ -48,19 +48,19 @@ export default function Home() {
                         Our Mission
                     </h2>
                     <p className="text-xl text-slate-600 dark:text-slate-300 mb-12 leading-relaxed">
-                        We are dedicated to improving the lives of street dogs in Bangladesh through rescue, rehabilitation, and adoption programs.
+                        We are dedicated to improving the lives of street dogs through rescue, rehabilitation, and adoption.
                     </p>
                     <div className="flex flex-wrap gap-4 justify-center">
                         <div className="bg-white/40 dark:bg-black/40 backdrop-blur-md px-8 py-4 rounded-2xl shadow-lg border border-white/20">
-                            <span className="block text-3xl font-bold text-orange-600 mb-1">1000+</span>
-                            <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Dogs Rescued</span>
+                            <span className="block text-3xl font-bold text-orange-600 mb-1">500+</span>
+                            <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Rescues</span>
                         </div>
                         <div className="bg-white/40 dark:bg-black/40 backdrop-blur-md px-8 py-4 rounded-2xl shadow-lg border border-white/20">
-                            <span className="block text-3xl font-bold text-amber-600 mb-1">500+</span>
+                            <span className="block text-3xl font-bold text-amber-600 mb-1">300+</span>
                             <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Adoptions</span>
                         </div>
                         <div className="bg-white/40 dark:bg-black/40 backdrop-blur-md px-8 py-4 rounded-2xl shadow-lg border border-white/20">
-                            <span className="block text-3xl font-bold text-green-600 mb-1">100+</span>
+                            <span className="block text-3xl font-bold text-green-600 mb-1">50+</span>
                             <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Volunteers</span>
                         </div>
                     </div>

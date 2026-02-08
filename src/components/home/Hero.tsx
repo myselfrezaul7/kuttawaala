@@ -1,15 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { PawPrint, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-import { useTranslations } from 'next-intl';
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export function Hero() {
-    const t = useTranslations('Hero');
-
     return (
         <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-orange-50/50 dark:bg-zinc-900/50">
             {/* Decorative blobs */}
@@ -24,10 +20,10 @@ export function Hero() {
                         transition={{ duration: 0.6 }}
                     >
                         <h1 className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-slate-100 leading-[1.1] mb-6 font-heading">
-                            {t('title')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">{t('titleAccent')}</span>
+                            Find a Friend <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">Save a Life</span>
                         </h1>
                         <p className="text-xl text-slate-600 dark:text-slate-400 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                            {t('description')}
+                            Connecting street dogs in Bangladesh with loving homes. Be the hero they need.
                         </p>
                     </motion.div>
 
@@ -38,48 +34,22 @@ export function Hero() {
                         className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
                     >
                         <Link href="/adopt">
-                            <Button size="lg" className="w-full sm:w-auto text-lg h-14 rounded-full shadow-xl shadow-orange-500/20 bg-orange-600 hover:bg-orange-700 text-white">
-                                {t('adoptButton')}
+                            <Button size="lg" className="text-lg px-8 py-6 rounded-full bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-500/30 transition-all hover:-translate-y-1">
+                                Adopt a Dog
                             </Button>
                         </Link>
-                        <Link href="/volunteer">
-                            <Button size="lg" variant="outline" className="w-full sm:w-auto text-lg h-14 rounded-full border-2">
-                                {t('volunteerButton')}
+                        <Link href="/report">
+                            <Button size="lg" variant="outline" className="text-lg px-8 py-6 rounded-full border-2 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-all">
+                                Report a Stray
                             </Button>
                         </Link>
                     </motion.div>
                 </div>
 
-                {/* Hero Illustration/Image */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8 }}
-                    className="relative order-1 lg:order-2 flex justify-center"
-                >
-                    <div className="relative w-full max-w-md aspect-[3/4] rounded-t-full rounded-b-[200px] overflow-hidden border-8 border-white/50 dark:border-white/10 shadow-2xl bg-orange-100 flex items-center justify-center">
-                        <img
-                            src="/hero-kuttawaala.png"
-                            alt="Mother dog with puppies"
-                            className="w-full h-full object-cover"
-                        />
-
-                        {/* Floating badge */}
-                        <motion.div
-                            animate={{ y: [0, -15, 0] }}
-                            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute bottom-20 -left-6 bg-white dark:bg-zinc-800 p-4 rounded-2xl shadow-xl flex items-center gap-3 z-20 max-w-[200px]"
-                        >
-                            <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 shrink-0">
-                                <Heart className="w-5 h-5 fill-current" />
-                            </div>
-                            <div>
-                                <p className="font-bold text-sm">{t('rescuedCount')}</p>
-                                <p className="text-xs text-slate-500">{t('since')}</p>
-                            </div>
-                        </motion.div>
-                    </div>
-                </motion.div>
+                {/* Image/Hero Content - Placeholder for right side if previously existing */}
+                <div className="order-1 lg:order-2 relative">
+                    {/* Add image or graphic if needed/available */}
+                </div>
             </div>
         </section>
     );

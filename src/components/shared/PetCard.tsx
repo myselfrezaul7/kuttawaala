@@ -13,7 +13,7 @@ export function PetCard({ cat }: PetCardProps) {
             {/* Image Container */}
             <div className="relative aspect-[4/5] overflow-hidden">
                 <Image
-                    src={cat.image}
+                    src={cat.image || cat.imageUrl}
                     alt={cat.name}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -49,7 +49,7 @@ export function PetCard({ cat }: PetCardProps) {
                     </div>
 
                     <div className="flex gap-2 mb-6">
-                        {cat.attributes?.slice(0, 2).map((attr: string) => (
+                        {(cat.attributes || cat.temperamentTags)?.slice(0, 2).map((attr: string) => (
                             <span key={attr} className="px-2 py-1 rounded-md bg-white/10 backdrop-blur-sm text-xs border border-white/10">
                                 {attr}
                             </span>
