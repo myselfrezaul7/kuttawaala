@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { MOCK_VET_CLINICS, VetClinic } from "@/data/vets";
 import { Button } from "@/components/ui/button";
-import { MapPin, Phone, Clock, ExternalLink, Search, Star } from "lucide-react";
+import { MapPin, Phone, Clock, ExternalLink, Search, Star, Filter, X, Building2, Stethoscope } from "lucide-react";
 
 interface VetFinderProps {
     initialVets?: VetClinic[];
@@ -11,106 +11,231 @@ interface VetFinderProps {
 
 export function VetFinder({ initialVets }: VetFinderProps) {
     const [searchQuery, setSearchQuery] = useState("");
-    const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
+    const [selectedDistrict, setSelectedDistrict] = useState<string>("all");
+    const [selectedService, setSelectedService] = useState<string>("all");
 
     const allVets = initialVets || MOCK_VET_CLINICS;
-    const districts = Array.from(new Set(allVets.map(v => v.district))).sort();
 
-    const filteredVets = allVets.filter(vet => {
-        const matchesSearch = vet.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            vet.address.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesDistrict = selectedDistrict ? vet.district === selectedDistrict : true;
-        return matchesSearch && matchesDistrict;
-    });
+    // Extract unique districts and services
+    const districts = useMemo(() => {
+        return Array.from(new Set(allVets.map(v => v.district))).sort();
+    }, [allVets]);
+
+    const allServices = useMemo(() => {
+        const services = new Set<string>();
+        allVets.forEach(vet => vet.services.forEach(s => services.add(s)));
+        return Array.from(services).sort();
+    }, [allVets]);
+
+    // Filter vets based on search, district, and service
+    const filteredVets = useMemo(() => {
+        return allVets.filter(vet => {
+            const searchLower = searchQuery.toLowerCase();
+            const matchesSearch = searchQuery === "" ||
+                vet.name.toLowerCase().includes(searchLower) ||
+                vet.address.toLowerCase().includes(searchLower) ||
+                vet.district.toLowerCase().includes(searchLower) ||
+                vet.services.some(s => s.toLowerCase().includes(searchLower));
+
+            const matchesDistrict = selectedDistrict === "all" || vet.district === selectedDistrict;
+            const matchesService = selectedService === "all" || vet.services.includes(selectedService);
+
+            return matchesSearch && matchesDistrict && matchesService;
+        });
+    }, [allVets, searchQuery, selectedDistrict, selectedService]);
+
+    // Stats
+    const stats = useMemo(() => ({
+        total: allVets.length,
+        districts: districts.length,
+        emergency: allVets.filter(v => v.services.some(s => s.toLowerCase().includes("24") || s.toLowerCase().includes("emergency"))).length,
+    }), [allVets, districts]);
+
+    const resetFilters = () => {
+        setSearchQuery("");
+        setSelectedDistrict("all");
+        setSelectedService("all");
+    };
+
+    const hasActiveFilters = searchQuery || selectedDistrict !== "all" || selectedService !== "all";
 
     return (
         <div className="min-h-screen bg-muted/30 dark:bg-zinc-950 pb-20">
-            {/* Header */}
-            <div className="bg-emerald-600 text-white py-16 text-center px-4 relative overflow-hidden">
-                <div className="relative z-10">
-                    <h1 className="text-4xl font-bold mb-4 font-heading">Find a Vet Near You</h1>
-                    <p className="text-emerald-100 max-w-xl mx-auto">
-                        Locate verified veterinary clinics and hospitals across Bangladesh. Urgent care for your furry friends.
+            {/* Hero Header */}
+            <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 text-white py-16 text-center px-4 relative overflow-hidden">
+                <div className="relative z-10 container mx-auto">
+                    <h1 className="text-4xl md:text-5xl font-bold mb-4 font-heading">Find a Vet Near You</h1>
+                    <p className="text-emerald-100 max-w-2xl mx-auto text-lg">
+                        Search {stats.total}+ verified veterinary clinics across {stats.districts} districts in Bangladesh
                     </p>
+
+                    {/* Stats Pills */}
+                    <div className="flex flex-wrap justify-center gap-4 mt-8">
+                        <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+                            <Building2 className="w-5 h-5" />
+                            <span className="font-semibold">{stats.total} Clinics</span>
+                        </div>
+                        <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+                            <MapPin className="w-5 h-5" />
+                            <span className="font-semibold">{stats.districts} Districts</span>
+                        </div>
+                        <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+                            <Stethoscope className="w-5 h-5" />
+                            <span className="font-semibold">{stats.emergency} 24/7 Available</span>
+                        </div>
+                    </div>
                 </div>
-                {/* Decorative Pattern */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                <div className="absolute bottom-0 left-0 w-48 h-48 bg-emerald-700/20 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2" />
+
+                {/* Decorative Elements */}
+                <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-400/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-teal-600/30 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2" />
             </div>
 
             <div className="container mx-auto px-4 -mt-8 relative z-20">
-                <div className="bg-white dark:bg-zinc-900 p-6 rounded-2xl shadow-lg border border-border/50 dark:border-zinc-800 space-y-6">
-                    {/* Search & Filter */}
-                    <div className="flex flex-col md:flex-row gap-4">
-                        <div className="relative flex-grow">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground/80 w-5 h-5" />
-                            <input
-                                type="text"
-                                placeholder="Search clinic name or area..."
-                                className="w-full pl-10 pr-4 py-3 rounded-xl border border-border dark:border-zinc-700 bg-transparent focus:ring-2 focus:ring-emerald-500 outline-none transition-all"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
-                        </div>
-                        <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
-                            <Button
-                                variant={selectedDistrict === null ? "default" : "outline"}
-                                onClick={() => setSelectedDistrict(null)}
-                                className={selectedDistrict === null ? "bg-emerald-600 hover:bg-emerald-700" : ""}
+                {/* Search & Filter Card */}
+                <div className="bg-white dark:bg-zinc-900 p-6 rounded-2xl shadow-xl border border-border/50 dark:border-zinc-800 space-y-4">
+                    {/* Main Search */}
+                    <div className="relative">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/80 w-5 h-5" />
+                        <input
+                            type="text"
+                            placeholder="Search by clinic name, area, or service..."
+                            className="w-full pl-12 pr-4 py-4 rounded-xl border border-border dark:border-zinc-700 bg-muted/30 dark:bg-zinc-800/50 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-lg"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        {searchQuery && (
+                            <button
+                                onClick={() => setSearchQuery("")}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                             >
-                                All Districts
-                            </Button>
-                            {districts.map(district => (
-                                <Button
-                                    key={district}
-                                    variant={selectedDistrict === district ? "default" : "outline"}
-                                    onClick={() => setSelectedDistrict(district)}
-                                    className={selectedDistrict === district ? "bg-emerald-600 hover:bg-emerald-700" : ""}
-                                >
-                                    {district}
-                                </Button>
-                            ))}
+                                <X className="w-5 h-5" />
+                            </button>
+                        )}
+                    </div>
+
+                    {/* Filter Row */}
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        {/* District Dropdown */}
+                        <div className="flex-1">
+                            <label className="text-sm font-medium text-muted-foreground mb-1 block">
+                                <MapPin className="w-4 h-4 inline mr-1" /> District
+                            </label>
+                            <select
+                                value={selectedDistrict}
+                                onChange={(e) => setSelectedDistrict(e.target.value)}
+                                className="w-full p-3 rounded-xl border border-border dark:border-zinc-700 bg-muted/30 dark:bg-zinc-800/50 focus:ring-2 focus:ring-emerald-500 outline-none transition-all cursor-pointer"
+                            >
+                                <option value="all">All Districts ({allVets.length})</option>
+                                {districts.map(district => (
+                                    <option key={district} value={district}>
+                                        {district} ({allVets.filter(v => v.district === district).length})
+                                    </option>
+                                ))}
+                            </select>
                         </div>
+
+                        {/* Service Dropdown */}
+                        <div className="flex-1">
+                            <label className="text-sm font-medium text-muted-foreground mb-1 block">
+                                <Filter className="w-4 h-4 inline mr-1" /> Service Type
+                            </label>
+                            <select
+                                value={selectedService}
+                                onChange={(e) => setSelectedService(e.target.value)}
+                                className="w-full p-3 rounded-xl border border-border dark:border-zinc-700 bg-muted/30 dark:bg-zinc-800/50 focus:ring-2 focus:ring-emerald-500 outline-none transition-all cursor-pointer"
+                            >
+                                <option value="all">All Services</option>
+                                {allServices.map(service => (
+                                    <option key={service} value={service}>{service}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+
+                    {/* Active Filters & Results Count */}
+                    <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-border/50">
+                        <p className="text-muted-foreground">
+                            Showing <span className="font-bold text-foreground">{filteredVets.length}</span> of {allVets.length} clinics
+                        </p>
+                        {hasActiveFilters && (
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={resetFilters}
+                                className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20"
+                            >
+                                <X className="w-4 h-4 mr-1" /> Clear All Filters
+                            </Button>
+                        )}
                     </div>
                 </div>
 
                 {/* Results Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
                     {filteredVets.map(vet => (
-                        <div key={vet.id} className="bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-border/50 dark:border-zinc-800 hover:shadow-xl transition-all duration-300 group">
+                        <div
+                            key={vet.id}
+                            className="bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-border/50 dark:border-zinc-800 hover:shadow-xl hover:border-emerald-200 dark:hover:border-emerald-800/50 transition-all duration-300 group"
+                        >
                             <div className="p-6">
+                                {/* Header */}
                                 <div className="flex justify-between items-start mb-4">
-                                    <div>
-                                        <h3 className="text-xl font-bold text-foreground dark:text-white group-hover:text-emerald-600 transition-colors mb-1">{vet.name}</h3>
-                                        <span className="text-xs font-semibold px-2 py-1 bg-muted dark:bg-zinc-800 rounded-lg text-muted-foreground">
-                                            {vet.district}
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="text-lg font-bold text-foreground dark:text-white group-hover:text-emerald-600 transition-colors mb-2 line-clamp-2">
+                                            {vet.name}
+                                        </h3>
+                                        <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-lg">
+                                            <MapPin className="w-3 h-3" /> {vet.district}
                                         </span>
                                     </div>
-                                    <div className="flex items-center gap-1 bg-yellow-50 dark:bg-yellow-900/20 px-2 py-1 rounded-lg">
+                                    <div className="flex items-center gap-1 bg-yellow-50 dark:bg-yellow-900/20 px-2.5 py-1.5 rounded-lg shrink-0 ml-2">
                                         <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                                         <span className="font-bold text-sm text-yellow-700 dark:text-yellow-400">{vet.rating}</span>
+                                        <span className="text-xs text-yellow-600/70 dark:text-yellow-500/70">({vet.reviewCount})</span>
                                     </div>
                                 </div>
 
-                                <div className="space-y-3 text-sm text-muted-foreground dark:text-muted-foreground/80 mb-6">
-                                    <div className="flex items-start gap-3">
+                                {/* Info */}
+                                <div className="space-y-2.5 text-sm text-muted-foreground dark:text-muted-foreground/80 mb-4">
+                                    <div className="flex items-start gap-2.5">
                                         <MapPin className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                                        <p>{vet.address}</p>
+                                        <p className="line-clamp-2">{vet.address}</p>
                                     </div>
-                                    <div className="flex items-center gap-3">
+                                    <div className="flex items-center gap-2.5">
                                         <Phone className="w-4 h-4 text-emerald-500 shrink-0" />
                                         <p>{vet.phone}</p>
                                     </div>
-                                    <div className="flex items-center gap-3">
+                                    <div className="flex items-center gap-2.5">
                                         <Clock className="w-4 h-4 text-emerald-500 shrink-0" />
-                                        <p>{vet.hours}</p>
+                                        <p className={vet.hours.includes("24") ? "text-emerald-600 font-semibold" : ""}>
+                                            {vet.hours}
+                                        </p>
                                     </div>
                                 </div>
 
+                                {/* Service Tags */}
+                                <div className="flex flex-wrap gap-1.5 mb-5">
+                                    {vet.services.slice(0, 4).map(service => (
+                                        <span
+                                            key={service}
+                                            className="text-xs px-2 py-0.5 bg-muted dark:bg-zinc-800 text-muted-foreground rounded-md"
+                                        >
+                                            {service}
+                                        </span>
+                                    ))}
+                                    {vet.services.length > 4 && (
+                                        <span className="text-xs px-2 py-0.5 bg-muted dark:bg-zinc-800 text-muted-foreground rounded-md">
+                                            +{vet.services.length - 4} more
+                                        </span>
+                                    )}
+                                </div>
+
+                                {/* Action Buttons */}
                                 <div className="grid grid-cols-2 gap-3">
                                     <a
-                                        href={`tel:${vet.phone}`}
-                                        className="flex items-center justify-center gap-2 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-900/30 text-emerald-600 dark:text-emerald-400 font-semibold hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors"
+                                        href={`tel:${vet.phone.replace(/[^0-9+]/g, '')}`}
+                                        className="flex items-center justify-center gap-2 py-2.5 rounded-xl border-2 border-emerald-200 dark:border-emerald-800/50 text-emerald-600 dark:text-emerald-400 font-semibold hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors"
                                     >
                                         <Phone className="w-4 h-4" /> Call
                                     </a>
@@ -128,11 +253,14 @@ export function VetFinder({ initialVets }: VetFinderProps) {
                     ))}
                 </div>
 
+                {/* Empty State */}
                 {filteredVets.length === 0 && (
-                    <div className="text-center py-20">
-                        <p className="text-muted-foreground text-lg">No clinics found matching your search.</p>
-                        <Button variant="link" onClick={() => { setSearchQuery(""); setSelectedDistrict(null); }} className="text-emerald-600">
-                            Clear Filters
+                    <div className="text-center py-20 bg-white dark:bg-zinc-900 rounded-2xl border border-border/50 dark:border-zinc-800 mt-8">
+                        <Search className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
+                        <h3 className="text-xl font-semibold text-foreground mb-2">No clinics found</h3>
+                        <p className="text-muted-foreground mb-6">Try adjusting your search or filter criteria</p>
+                        <Button onClick={resetFilters} className="bg-emerald-600 hover:bg-emerald-700">
+                            Clear All Filters
                         </Button>
                     </div>
                 )}
