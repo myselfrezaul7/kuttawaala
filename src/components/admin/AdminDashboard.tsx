@@ -10,11 +10,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Edit, Trash, LayoutDashboard, FileText } from "lucide-react";
 
 interface AdminDashboardProps {
-    initialCats: Dog[];
+    initialDogs: Dog[];
     initialVets: VetClinic[];
 }
 
-export function AdminDashboard({ initialCats, initialVets }: AdminDashboardProps) {
+export function AdminDashboard({ initialDogs, initialVets }: AdminDashboardProps) {
     const { user, loading } = useAuth();
     const router = useRouter();
 
@@ -45,7 +45,7 @@ export function AdminDashboard({ initialCats, initialVets }: AdminDashboardProps
                 <Tabs defaultValue="dogs" className="w-full">
                     <TabsList className="mb-8">
                         <TabsTrigger value="dogs" className="flex items-center gap-2">
-                            <LayoutDashboard className="w-4 h-4" /> Dogs ({initialCats.length})
+                            <LayoutDashboard className="w-4 h-4" /> Dogs ({initialDogs.length})
                         </TabsTrigger>
                         <TabsTrigger value="vets" className="flex items-center gap-2">
                             <FileText className="w-4 h-4" /> Vets ({initialVets.length})
@@ -65,15 +65,15 @@ export function AdminDashboard({ initialCats, initialVets }: AdminDashboardProps
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100 dark:divide-zinc-800">
-                                    {initialCats.map((dog) => (
+                                    {initialDogs.map((dog) => (
                                         <tr key={dog.id} className="hover:bg-muted/30 dark:hover:bg-zinc-800/50 transition-colors">
                                             <td className="px-6 py-4 font-semibold text-foreground dark:text-white">{dog.name}</td>
                                             <td className="px-6 py-4 text-muted-foreground">{dog.breed}</td>
                                             <td className="px-6 py-4 text-muted-foreground">{dog.age}</td>
                                             <td className="px-6 py-4">
                                                 <span className={`px-2 py-1 rounded-full text-xs font-bold ${dog.tag === 'Urgent' ? 'bg-red-100 text-red-700' :
-                                                        dog.tag === 'Adopted' ? 'bg-green-100 text-green-700' :
-                                                            'bg-blue-100 text-blue-700'
+                                                    dog.tag === 'Adopted' ? 'bg-green-100 text-green-700' :
+                                                        'bg-blue-100 text-blue-700'
                                                     }`}>
                                                     {dog.tag || 'Available'}
                                                 </span>

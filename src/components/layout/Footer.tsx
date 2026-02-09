@@ -18,7 +18,7 @@ export function Footer() {
                             <div className="space-y-4">
                                 <div className="flex items-center gap-2">
                                     <Dog className="w-8 h-8 text-primary" />
-                                    <h3 className="text-2xl font-bold text-foreground dark:text-white">CATWAALA</h3>
+                                    <h3 className="text-2xl font-bold text-foreground dark:text-white">KUTTAWAALA</h3>
                                 </div>
                                 <p className="text-xs font-semibold text-primary dark:text-primary/80">
                                     Non-Profit Animal Welfare Organization

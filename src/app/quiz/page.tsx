@@ -29,7 +29,7 @@ export default function QuizPage() {
     };
 
     // Logic to match dogs based on tags
-    const matchedCats = completed ? dogs.filter(dog => {
+    const matchedDogs = completed ? dogs.filter(dog => {
         // Very simple matching check - does the dog have any tag relevant?
         // In a real app we'd have temperament tags on dogs. 
         // For now mocking 'matched' by just returning consistent set or random for demo
@@ -76,7 +76,7 @@ export default function QuizPage() {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {matchedCats.map(dog => (
+                        {matchedDogs.map(dog => (
                             // @ts-ignore
                             <PetCard key={dog.id} dog={dog} />
                         ))}

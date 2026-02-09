@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function AdoptPage() {
-    return <AdoptPageContent initialCats={dogs} />;
+    return <AdoptPageContent initialDogs={dogs} />;
 }

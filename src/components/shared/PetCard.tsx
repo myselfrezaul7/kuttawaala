@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useFavorites } from "@/contexts/FavoritesContext";
 import { motion } from "framer-motion";
 
-interface CatProps {
+interface DogProps {
     id: string;
     name: string;
     breed: string;
@@ -17,7 +17,7 @@ interface CatProps {
     tag: string | null;
 }
 
-export function PetCard({ dog }: { dog: CatProps }) {
+export function PetCard({ dog }: { dog: DogProps }) {
     const { isFavorite, toggleFavorite } = useFavorites();
     const favorite = isFavorite(dog.id);
 
@@ -47,8 +47,8 @@ export function PetCard({ dog }: { dog: CatProps }) {
                         toggleFavorite(dog.id);
                     }}
                     className={`absolute top-4 right-4 p-3 rounded-full backdrop-blur-xl transition-all duration-300 ${favorite
-                            ? "bg-secondary/500/90 text-white shadow-lg shadow-secondary0/30"
-                            : "bg-white/20 text-white hover:bg-secondary/500/80 hover:shadow-lg hover:shadow-secondary0/20"
+                        ? "bg-secondary/500/90 text-white shadow-lg shadow-secondary0/30"
+                        : "bg-white/20 text-white hover:bg-secondary/500/80 hover:shadow-lg hover:shadow-secondary0/20"
                         }`}
                 >
                     <Heart className={`w-5 h-5 transition-transform duration-300 ${favorite ? "fill-current scale-110" : "group-hover:scale-110"}`} />
@@ -57,10 +57,10 @@ export function PetCard({ dog }: { dog: CatProps }) {
                 {/* Tag badge with glass effect */}
                 {dog.tag && (
                     <span className={`absolute top-4 left-4 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-xl shadow-lg ${dog.tag === 'Urgent'
-                            ? 'bg-secondary/500/90 text-white shadow-secondary0/30'
-                            : dog.tag === 'New'
-                                ? 'bg-indigo-500/90 text-white shadow-indigo-500/30'
-                                : 'bg-emerald-500/90 text-white shadow-emerald-500/30'
+                        ? 'bg-secondary/500/90 text-white shadow-secondary0/30'
+                        : dog.tag === 'New'
+                            ? 'bg-indigo-500/90 text-white shadow-indigo-500/30'
+                            : 'bg-emerald-500/90 text-white shadow-emerald-500/30'
                         }`}>
                         {dog.tag}
                     </span>

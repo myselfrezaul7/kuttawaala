@@ -7,10 +7,10 @@ import { Search, Filter, X } from "lucide-react";
 import { dogs, getAgeCategory, type AgeCategory, type Dog } from "@/data/dogs";
 
 interface AdoptPageContentProps {
-    initialCats?: Dog[];
+    initialDogs?: Dog[];
 }
 
-export function AdoptPageContent({ initialCats }: AdoptPageContentProps) {
+export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedGender, setSelectedGender] = useState<string>("All");
     const [selectedAge, setSelectedAge] = useState<AgeCategory | "All">("All");
@@ -20,9 +20,9 @@ export function AdoptPageContent({ initialCats }: AdoptPageContentProps) {
         goodWithKids: false,
     });
 
-    const allCats = initialCats || dogs;
+    const allDogs = initialDogs || dogs;
 
-    const filteredCats = allCats.filter(dog => {
+    const filteredDogs = allDogs.filter(dog => {
         // Text Search
         const matchesSearch = searchQuery === "" ||
             dog.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -155,7 +155,7 @@ export function AdoptPageContent({ initialCats }: AdoptPageContentProps) {
 
                 {/* Results & Stats */}
                 <div className="mt-8 flex justify-between items-center text-muted-foreground mb-6">
-                    <p className="font-medium">Showing {filteredCats.length} dogs</p>
+                    <p className="font-medium">Showing {filteredDogs.length} dogs</p>
                     {(searchQuery || selectedGender !== "All" || selectedAge !== "All" || Object.values(attributes).some(Boolean)) && (
                         <Button variant="ghost" onClick={resetFilters} className="text-primary hover:text-primary h-auto p-0 hover:bg-transparent">
                             <X className="w-4 h-4 mr-1" /> Clear Filters
@@ -164,8 +164,8 @@ export function AdoptPageContent({ initialCats }: AdoptPageContentProps) {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {filteredCats.length > 0 ? (
-                        filteredCats.map(dog => (
+                    {filteredDogs.length > 0 ? (
+                        filteredDogs.map(dog => (
                             // @ts-ignore
                             <PetCard key={dog.id} dog={dog} />
                         ))

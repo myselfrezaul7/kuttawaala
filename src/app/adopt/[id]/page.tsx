@@ -10,7 +10,7 @@ type Props = {
     params: Promise<{ id: string }>;
 };
 
-export default async function CatDetailPage({ params }: Props) {
+export default async function DogDetailPage({ params }: Props) {
     const { id } = await params;
     const dog = dogs.find(c => c.id === id);
 

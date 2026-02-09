@@ -15,7 +15,7 @@ export default function DashboardPage() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
     // Filter favorite dogs
-    const favoriteCats = dogs.filter(dog => favoriteIds.includes(dog.id));
+    const favoriteDogs = dogs.filter(dog => favoriteIds.includes(dog.id));
 
     // Determine initial based on name
     const getInitials = (name: string) => {
@@ -100,9 +100,9 @@ export default function DashboardPage() {
                         Your Favorite Dogs
                     </h2>
 
-                    {favoriteCats.length > 0 ? (
+                    {favoriteDogs.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {favoriteCats.map(dog => (
+                            {favoriteDogs.map(dog => (
                                 // @ts-ignore
                                 <PetCard key={dog.id} dog={dog} />
                             ))}

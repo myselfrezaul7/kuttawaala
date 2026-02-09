@@ -33,7 +33,7 @@ export function Header() {
                     <Link href="/" className="flex items-center gap-2 group">
                         <Dog className="w-8 h-8 text-primary dark:text-primary/80 transition-transform group-hover:rotate-12" />
                         <span className="text-2xl font-bold font-sans text-foreground dark:text-white group-hover:text-primary dark:group-hover:text-primary/80 transition-colors">
-                            CATWAALA
+                            KUTTAWAALA
                         </span>
                     </Link>
 

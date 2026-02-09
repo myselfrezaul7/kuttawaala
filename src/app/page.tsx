@@ -6,7 +6,7 @@ import { ArrowRight, Sparkles, Heart, Users, Stethoscope } from "lucide-react";
 import { dogs } from "@/data/dogs";
 
 export default function Home() {
-    const featuredCats = dogs.slice(0, 3);
+    const featuredDogs = dogs.slice(0, 3);
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -36,7 +36,7 @@ export default function Home() {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {featuredCats.map((dog, index) => (
+                        {featuredDogs.map((dog, index) => (
                             // @ts-ignore
                             <PetCard key={dog.id} dog={dog} />
                         ))}
