@@ -81,7 +81,7 @@ export default function FAQPage() {
                                     What dog food brands are available in Dhaka?
                                 </AccordionTrigger>
                                 <AccordionContent className="text-muted-foreground dark:text-muted-foreground/80 leading-relaxed">
-                                    Popular and available brands include <strong>Lara, Reflex, Bonnie, and Whiskas</strong>. You can find them at pet shops in Katabon, Gulshan, or order online from sites like Chaldal or specialized pet supply shops.
+                                    Popular and available brands include <strong>Pedigree, Royal Canin, Drools, and Bonnie</strong>. You can find them at pet shops in Katabon, Gulshan, or order online from sites like Daraz or specialized pet supply shops.
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>
@@ -98,8 +98,8 @@ export default function FAQPage() {
                                     What vaccines does a dog need in Bangladesh?
                                 </AccordionTrigger>
                                 <AccordionContent className="text-muted-foreground dark:text-muted-foreground/80 leading-relaxed">
-                                    1. <strong>Tricat / Ducat</strong> (Viral rhinotracheitis, Calicivirus, Panleukopenia): Yearly.<br />
-                                    2. <strong>Rabies</strong>: Yearly.<br />
+                                    1. <strong>DHPP / 5-in-1</strong> (Distemper, Hepatitis, Parvovirus, Parainfluenza): Yearly.<br />
+                                    2. <strong>Rabies</strong>: Yearly (mandatory in Bangladesh).<br />
                                     Deworming should be done every 3 months. Check our &quot;Find a Vet&quot; page for clinics near you.
                                 </AccordionContent>
                             </AccordionItem>
@@ -109,7 +109,7 @@ export default function FAQPage() {
                                     Why is Spaying/Neutering important?
                                 </AccordionTrigger>
                                 <AccordionContent className="text-muted-foreground dark:text-muted-foreground/80 leading-relaxed">
-                                    It prevents unwanted kittens (reducing the stray population), eliminates spraying/marking in males, and reduces the risk of cancers. It&apos;s a standard procedure available at most vet clinics in Dhaka.
+                                    It prevents unwanted puppies (reducing the stray population), eliminates marking in males, and reduces the risk of cancers. It&apos;s a standard procedure available at most vet clinics in Dhaka.
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>

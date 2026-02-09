@@ -83,10 +83,10 @@ export function ReportForm() {
             <div className="max-w-xl mx-auto">
                 <div className="text-center mb-10">
                     <h1 className="text-3xl font-bold mb-2 flex items-center justify-center gap-2 font-heading">
-                        <AlertTriangle className="text-primary" /> Report an Issue
+                        <AlertTriangle className="text-primary" /> Report a Rescue
                     </h1>
                     <p className="text-muted-foreground dark:text-muted-foreground/80">
-                        Found a stray puppy alone? Or a dog in distress?
+                        Found a stray dog in need of help? Report it to our rescue network.
                     </p>
                 </div>
 
@@ -135,7 +135,7 @@ export function ReportForm() {
                             <textarea
                                 {...register("description", { required: "Please provide details" })}
                                 className="w-full p-3 rounded-lg border bg-background focus:ring-2 focus:ring-primary outline-none min-h-[100px]"
-                                placeholder="Calico dog with a limp, missing collar..."
+                                placeholder="Brown mixed breed with injured leg, friendly..."
                             />
                             {errors.description && <p className="text-xs text-red-500">{errors.description.message}</p>}
                         </div>
