@@ -1,16 +1,16 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { Heart } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function Hero() {
     return (
-        <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-orange-50/50 dark:bg-zinc-900/50">
+        <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-secondary/50/50 dark:bg-zinc-900/50">
             {/* Decorative blobs */}
-            <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-orange-200/30 mix-blend-multiply filter blur-3xl opacity-60 animate-float" />
-            <div className="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] rounded-full bg-amber-200/30 mix-blend-multiply filter blur-3xl opacity-60 animate-float delay-1000" />
+            <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-secondary/30 mix-blend-multiply filter blur-3xl opacity-60 animate-float" />
+            <div className="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] rounded-full bg-indigo-200/30 mix-blend-multiply filter blur-3xl opacity-60 animate-float delay-1000" />
 
             <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center relative z-10">
                 <div className="space-y-8 text-center lg:text-left order-2 lg:order-1">
@@ -19,11 +19,11 @@ export function Hero() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <h1 className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-slate-100 leading-[1.1] mb-6 font-heading">
-                            Find a Friend <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">Save a Life</span>
+                        <h1 className="text-5xl md:text-7xl font-bold text-foreground dark:text-muted leading-[1.1] mb-6 font-heading">
+                            Every Dog Deserves a <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-500">Loving Home</span>
                         </h1>
-                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                            Connecting street dogs in Bangladesh with loving homes. Be the hero they need.
+                        <p className="text-xl text-muted-foreground dark:text-muted-foreground/80 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                            Join us in transforming the lives of street dogs in Bangladesh through rescue, care, and adoption.
                         </p>
                     </motion.div>
 
@@ -34,22 +34,49 @@ export function Hero() {
                         className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
                     >
                         <Link href="/adopt">
-                            <Button size="lg" className="text-lg px-8 py-6 rounded-full bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-500/30 transition-all hover:-translate-y-1">
+                            <Button size="lg" className="w-full sm:w-auto text-lg h-14 rounded-full shadow-xl shadow-secondary0/20 bg-primary/90 hover:bg-primary">
                                 Adopt a Dog
                             </Button>
                         </Link>
-                        <Link href="/report">
-                            <Button size="lg" variant="outline" className="text-lg px-8 py-6 rounded-full border-2 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-all">
-                                Report a Stray
+                        <Link href="/volunteer">
+                            <Button size="lg" variant="outline" className="w-full sm:w-auto text-lg h-14 rounded-full border-2">
+                                Become a Volunteer
                             </Button>
                         </Link>
                     </motion.div>
                 </div>
 
-                {/* Image/Hero Content - Placeholder for right side if previously existing */}
-                <div className="order-1 lg:order-2 relative">
-                    {/* Add image or graphic if needed/available */}
-                </div>
+                {/* Hero Illustration/Image Placeholder */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
+                    className="relative order-1 lg:order-2 flex justify-center"
+                >
+                    <div className="relative w-full max-w-md aspect-[3/4] rounded-t-full rounded-b-[200px] overflow-hidden border-8 border-white/50 dark:border-white/10 shadow-2xl bg-secondary flex items-center justify-center">
+                        {/* This would be a real image */}
+                        <img
+                            src="/hero-community.png"
+                            alt="Community caring for dogs"
+                            className="w-full h-full object-cover"
+                        />
+
+                        {/* Floating badge */}
+                        <motion.div
+                            animate={{ y: [0, -15, 0] }}
+                            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                            className="absolute bottom-20 -left-6 bg-white dark:bg-zinc-800 p-4 rounded-2xl shadow-xl flex items-center gap-3 z-20 max-w-[200px]"
+                        >
+                            <div className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-primary shrink-0">
+                                <Heart className="w-5 h-5 fill-current" />
+                            </div>
+                            <div>
+                                <p className="font-bold text-sm">500+ Rescued</p>
+                                <p className="text-xs text-muted-foreground">Since 2020</p>
+                            </div>
+                        </motion.div>
+                    </div>
+                </motion.div>
             </div>
         </section>
     );

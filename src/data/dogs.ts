@@ -1,27 +1,43 @@
-export const dogs = [
+export type Dog = {
+    id: string;
+    name: string;
+    breed: string;
+    age: string;
+    gender: string;
+    location: string;
+    description: string;
+    imageUrl: string;
+    tag: string | null;
+    temperamentTags: string[];
+    vaccinated: boolean;
+    neutered: boolean;
+    goodWithKids: boolean;
+};
+
+export const dogs: Dog[] = [
     {
         id: "1",
-        name: 'Lali',
-        breed: 'Desi Mix (Indian Pariah)',
+        name: 'Mimi',
+        breed: 'Desi Dog (Bangladeshi Stray)',
         age: '2 years',
         gender: 'Female',
         location: "Dhanmondi, Dhaka",
-        description: 'Lali is the unofficial queen of her block. She was found charming customers at a tea stall for biscuits. She has that classic Desi intelligence; she knows exactly how to look fast asleep until she hears a treat wrapper.',
-        imageUrl: '/assets/dog1.jpg',
+        description: 'Mimi is the queen of her neighborhood. She was found charming locals for biscuits at a tea stall. She has that classic Desi dog intelligence; she knows exactly how to look adorable when she wants treats.',
+        imageUrl: '/assets/dog1.jpg', // Placeholder, in real app would use ported assets
         tag: 'Urgent',
-        temperamentTags: ['Smart', 'Loyal', 'Street-Smart', 'Good Watchdog'],
+        temperamentTags: ['Smart', 'Affectionate', 'Street-Smart', 'Good Guard'],
         vaccinated: true,
         neutered: true,
         goodWithKids: true,
     },
     {
         id: "2",
-        name: 'Bholu',
+        name: 'Billu',
         breed: 'Local Mixed Breed',
         age: '4 years',
         gender: 'Male',
         location: "Uttara, Dhaka",
-        description: 'Bholu is an old soul in a young body. Life on the streets was tough, and now he just wants a soft rug and zero drama. He\'s the perfect roommate: quiet, grateful, and an excellent listener.',
+        description: 'Billu is an old soul in a young body. Life on the streets was tough, and now he just wants a soft rug and zero drama. He\'s the perfect companion: quiet, grateful, and an excellent listener.',
         imageUrl: '/assets/dog2.jpg',
         tag: 'New',
         temperamentTags: ['Calm', 'Gentle', 'Low Energy', 'Loving'],
@@ -31,62 +47,77 @@ export const dogs = [
     },
     {
         id: "3",
-        name: 'Sheru',
-        breed: 'Indian Pariah Dog',
+        name: 'Motu',
+        breed: 'Bangladeshi Desi Dog',
         age: '1 year',
         gender: 'Male',
         location: "Gulshan 1, Dhaka",
-        description: 'Sheru thinks he is a racecar. He\'s got that signature Desi energy and needs a human who loves long walks (or marathons). If you want an adventure buddy who will never quit on you, Sheru is your guy.',
+        description: 'Motu thinks he is a lion. He\'s got that signature Desi dog energy and loves to play and explore. If you want an adventure buddy who will keep you entertained, Motu is your guy.',
         imageUrl: '/assets/dog3.jpg',
         tag: null,
-        temperamentTags: ['High Energy', 'Playful', 'Intelligent', 'Needs Space'],
+        temperamentTags: ['High Energy', 'Playful', 'Curious', 'Needs Space'],
         vaccinated: true,
         neutered: false,
         goodWithKids: false,
     },
     {
         id: "4",
-        name: 'Bagha',
-        breed: 'Desi Mix',
-        age: '3 years',
-        gender: 'Male',
-        location: "Banani, Dhaka",
-        description: 'Named for his tiger-like stripes (brindle), Bagha is a handsome and distinctive dog. He is very trainable and eager to please.',
-        imageUrl: '/assets/dog1.jpg', // recycled placeholder
+        name: 'Mishti',
+        breed: 'Desi Dog',
+        age: '8 months',
+        gender: 'Female',
+        location: "Mirpur, Dhaka",
+        description: 'Mishti has a lot of opinions and she will tell you all of them. A classic Desi stray dog: smart, sassy, but wags her whole body once she trusts you. Excellent ball chaser.',
+        imageUrl: '/assets/dog1.jpg',
         tag: 'Adopted',
-        temperamentTags: ['Intelligent', 'Trainable', 'Loyal', 'Unique Coat'],
+        temperamentTags: ['Vocal', 'Sassy', 'Ball Chaser', 'Apartment Friendly'],
         vaccinated: true,
         neutered: true,
         goodWithKids: true,
     },
     {
         id: "5",
-        name: 'Snowy',
-        breed: 'Labrador Mix',
-        age: '1.5 years',
-        gender: 'Female',
-        location: "Bashundhara R/A, Dhaka",
-        description: 'Snowy is pure sunshine in dog form. She loves everyone she meets and has never had a bad day. Perfect for a family looking for a happy-go-lucky companion.',
+        name: 'Bagha',
+        breed: 'Desi Tiger Mix',
+        age: '3 years',
+        gender: 'Male',
+        location: "Banani, Dhaka",
+        description: 'Named for his tiger-like stripes, Bagha is a handsome and distinctive dog. He is very trainable and eager to please with his playful yet gentle nature.',
         imageUrl: '/assets/dog2.jpg',
         tag: null,
-        temperamentTags: ['Friendly', 'Social', 'High Energy', 'Good with Kids'],
+        temperamentTags: ['Intelligent', 'Trainable', 'Loyal', 'Unique Coat'],
         vaccinated: true,
         neutered: true,
         goodWithKids: true,
     },
     {
         id: "6",
-        name: 'Rocky',
-        breed: 'German Shepherd Mix',
-        age: '6 months',
-        gender: 'Male',
-        location: "Mirpur, Dhaka",
-        description: 'Rocky is a smart puppy who learns fast. He needs an experienced owner who can give him the mental stimulation he craves.',
+        name: 'Tuni',
+        breed: 'Rescue Puppy',
+        age: '3 months',
+        gender: 'Female',
+        location: "Bashundhara R/A, Dhaka",
+        description: 'Tuni was a tiny orphan but is now a bundle of joy. She loves running and chasing tennis balls. Needs a loving home to grow up in.',
         imageUrl: '/assets/dog3.jpg',
         tag: 'Urgent',
-        temperamentTags: ['Smart', 'Puppy', 'Active', 'Trainable'],
+        temperamentTags: ['Playful', 'Puppy', 'Cuddly', 'Needs Attention'],
         vaccinated: false,
         neutered: false,
         goodWithKids: true,
     },
 ] as const;
+
+export type AgeCategory = 'Puppy' | 'Adult' | 'Senior';
+
+export function getAgeCategory(age: string): AgeCategory {
+    const lowerAge = age.toLowerCase();
+    if (lowerAge.includes('month') || (lowerAge.includes('year') && parseInt(age) < 1)) {
+        return 'Puppy';
+    }
+    const years = parseInt(age);
+    if (!isNaN(years)) {
+        if (years >= 7) return 'Senior';
+        return 'Adult';
+    }
+    return 'Adult'; // Default
+}
