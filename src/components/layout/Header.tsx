@@ -7,23 +7,34 @@ import { Menu, X, Sun, Moon, Heart, User, LogIn, Dog, Search } from "lucide-reac
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
+import { useRouter } from "next/navigation";
+import { LanguageToggle } from "@/components/shared/LanguageToggle";
+import { useLanguage } from "@/contexts/LanguageContext";
+
 export function Header() {
+    const router = useRouter();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
     const { user, loading } = useAuth();
+    const { t } = useLanguage();
 
     useEffect(() => setMounted(true), []);
 
     const navLinks = [
-        { name: "Home", href: "/" },
-        { name: "Adopt", href: "/adopt" },
-        { name: "Find Vet", href: "/find-vet" },
-        { name: "Report", href: "/report" },
-        { name: "Dashboard", href: "/dashboard" },
+        { name: t.nav.home, href: "/" },
+        { name: t.nav.adopt, href: "/adopt" },
+        { name: t.nav.findVet, href: "/find-vet" },
+        { name: t.nav.report, href: "/report" },
+        { name: t.nav.dashboard, href: "/dashboard" },
     ];
+
+    const handleSearch = () => {
+        setIsSearchOpen(false);
+        router.push(`/adopt?query=${encodeURIComponent(searchQuery)}`);
+    };
 
     return (
         <>
@@ -31,8 +42,8 @@ export function Header() {
                 <div className="container mx-auto px-4 py-4 flex justify-between items-center">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
-                        <Dog className="w-8 h-8 text-primary dark:text-primary/80 transition-transform group-hover:rotate-12" />
-                        <span className="text-2xl font-bold font-sans text-foreground dark:text-white group-hover:text-primary dark:group-hover:text-primary/80 transition-colors">
+                        <Dog className="w-8 h-8 text-primary dark:text-primary transition-transform group-hover:rotate-12" />
+                        <span className="text-2xl font-bold font-sans text-foreground dark:text-white group-hover:text-primary dark:group-hover:text-primary transition-colors">
                             KUTTAWAALA
                         </span>
                     </Link>
@@ -41,26 +52,24 @@ export function Header() {
                     <nav className="hidden md:flex items-center gap-8">
                         {navLinks.map((link) => (
                             <Link
-                                key={link.name}
+                                key={link.href}
                                 href={link.href}
-                                className="text-sm font-medium text-foreground/90 dark:text-muted hover:text-primary dark:hover:text-primary/80 transition-colors"
+                                className="text-sm font-medium text-foreground/90 dark:text-muted hover:text-primary dark:hover:text-primary transition-colors"
                             >
                                 {link.name}
                             </Link>
                         ))}
                         <button
                             onClick={() => setIsSearchOpen(true)}
-                            className="text-sm font-medium text-foreground/90 dark:text-muted hover:text-primary dark:hover:text-primary/80 transition-colors flex items-center gap-2"
+                            className="text-sm font-medium text-foreground/90 dark:text-muted hover:text-primary dark:hover:text-primary transition-colors flex items-center gap-2"
                         >
-                            <Search className="w-4 h-4" /> Search
+                            <Search className="w-4 h-4" /> {t.nav.search}
                         </button>
                     </nav>
 
                     {/* Actions */}
                     <div className="hidden md:flex items-center gap-4">
-                        <button className="p-2 text-muted-foreground dark:text-muted-foreground hover:text-primary transition-colors">
-                            <Heart className="w-5 h-5" />
-                        </button>
+                        <LanguageToggle />
                         <button
                             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                             className="p-2 text-muted-foreground dark:text-muted-foreground hover:text-primary transition-colors"
@@ -121,13 +130,16 @@ export function Header() {
                         </button>
                         <div className="h-px bg-border my-2" />
                         <div className="flex justify-between items-center px-2">
-                            <span className="text-sm font-medium">Theme</span>
-                            <button
-                                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                                className="p-2 bg-muted dark:bg-zinc-800 rounded-full"
-                            >
-                                {mounted && theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                            </button>
+                            <span className="text-sm font-medium">{t.nav.theme}</span>
+                            <div className="flex items-center gap-2">
+                                <LanguageToggle />
+                                <button
+                                    onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                                    className="p-2 bg-muted dark:bg-zinc-800 rounded-full"
+                                >
+                                    {mounted && theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                                </button>
+                            </div>
                         </div>
                         <Link href="/login" onClick={() => setIsMenuOpen(false)}>
                             <Button className="w-full mt-2">Login</Button>
@@ -157,6 +169,11 @@ export function Header() {
                                 className="w-full pl-16 pr-6 py-6 text-xl rounded-2xl bg-muted/30 dark:bg-zinc-900 border-2 border-border/50 dark:border-zinc-800 focus:border-primary focus:ring-0 outline-none transition-all shadow-xl"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        handleSearch();
+                                    }
+                                }}
                             />
                         </div>
 

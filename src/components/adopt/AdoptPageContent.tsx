@@ -1,17 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PetCard } from "@/components/shared/PetCard";
 import { Button } from "@/components/ui/button";
 import { Search, Filter, X } from "lucide-react";
 import { dogs, getAgeCategory, type AgeCategory, type Dog } from "@/data/dogs";
+
+import { useSearchParams } from "next/navigation";
 
 interface AdoptPageContentProps {
     initialDogs?: Dog[];
 }
 
 export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
+    const searchParams = useSearchParams();
     const [searchQuery, setSearchQuery] = useState("");
+
+    useEffect(() => {
+        const query = searchParams.get("query");
+        if (query) {
+            setSearchQuery(query);
+        }
+    }, [searchParams]);
+
     const [selectedGender, setSelectedGender] = useState<string>("All");
     const [selectedAge, setSelectedAge] = useState<AgeCategory | "All">("All");
     const [attributes, setAttributes] = useState({

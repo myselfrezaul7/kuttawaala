@@ -6,6 +6,8 @@ import { FavoritesProvider } from "@/contexts/FavoritesContext";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
+import { LanguageProvider } from "@/contexts/LanguageContext";
+import { Toaster } from "sonner";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -26,6 +28,11 @@ export const metadata: Metadata = {
         template: "%s | Kuttawaala",
     },
     description: "Bangladesh's first dedicated platform for stray dog rescue, adoption, and care. Join our mission to give every street dog a home.",
+    icons: {
+        icon: "/logo.png",
+        shortcut: "/logo.png",
+        apple: "/logo.png",
+    },
     keywords: ["dog adoption bangladesh", "stray dog rescue dhaka", "veterinary clinics dhaka", "kuttawaala", "animal welfare bangladesh"],
     authors: [{ name: "Kuttawaala Team" }],
     creator: "Kuttawaala",
@@ -71,13 +78,16 @@ export default function RootLayout({
                 >
                     <AuthProvider>
                         <FavoritesProvider>
-                            <div className="flex flex-col min-h-screen">
-                                <Header />
-                                <main className="flex-grow pt-24">
-                                    {children}
-                                </main>
-                                <Footer />
-                            </div>
+                            <LanguageProvider>
+                                <div className="flex flex-col min-h-screen">
+                                    <Header />
+                                    <main className="flex-grow pt-24">
+                                        {children}
+                                    </main>
+                                    <Footer />
+                                </div>
+                                <Toaster position="top-center" richColors />
+                            </LanguageProvider>
                         </FavoritesProvider>
                     </AuthProvider>
                 </ThemeProvider>
