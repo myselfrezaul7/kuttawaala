@@ -81,13 +81,13 @@ export function Header() {
                             user ? (
                                 <Link href="/profile">
                                     <Button variant="ghost" size="sm" className="gap-2 rounded-full text-foreground/90 dark:text-muted hover:bg-muted dark:hover:bg-zinc-800">
-                                        {user.user_metadata.avatar_url ? (
+                                        {user.photoURL ? (
                                             // eslint-disable-next-line @next/next/no-img-element
-                                            <img src={user.user_metadata.avatar_url} alt="User" className="w-6 h-6 rounded-full" />
+                                            <img src={user.photoURL} alt="User" className="w-6 h-6 rounded-full" />
                                         ) : (
                                             <User className="w-5 h-5" />
                                         )}
-                                        <span className="max-w-[100px] truncate">{user.user_metadata.full_name?.split(' ')[0] || "User"}</span>
+                                        <span className="max-w-[100px] truncate">{user.displayName?.split(' ')[0] || "User"}</span>
                                     </Button>
                                 </Link>
                             ) : (

@@ -1,12 +1,10 @@
 import { Hero } from "@/components/home/Hero";
-import { PetCard } from "@/components/shared/PetCard";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight, Sparkles, Heart, Users, Stethoscope } from "lucide-react";
-import { dogs } from "@/data/dogs";
+import { Sparkles, Heart, Users, Stethoscope } from "lucide-react";
+import { FeaturedDogs } from "@/components/home/FeaturedDogs";
 
 export default function Home() {
-    const featuredDogs = dogs.slice(0, 3);
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -18,30 +16,7 @@ export default function Home() {
                 <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
                 <div className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-300/20 rounded-full blur-3xl" />
 
-                <div className="container mx-auto px-4 relative z-10">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-                        <div className="space-y-4">
-                            <h2 className="text-4xl md:text-5xl font-bold text-foreground dark:text-white leading-tight">
-                                Meet Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/90">Stars</span>
-                            </h2>
-                            <p className="text-lg text-muted-foreground dark:text-muted-foreground/80 max-w-md">
-                                These adorable dogs are looking for their forever homes. Give them a chance at happiness.
-                            </p>
-                        </div>
-                        <Link href="/adopt">
-                            <Button variant="ghost" className="gap-2 text-primary hover:text-primary hover:bg-secondary/50 dark:hover:bg-secondary/500/10 text-base font-semibold rounded-full px-6">
-                                View All Dogs <ArrowRight className="w-5 h-5" />
-                            </Button>
-                        </Link>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {featuredDogs.map((dog, index) => (
-                            // @ts-ignore
-                            <PetCard key={dog.id} dog={dog} />
-                        ))}
-                    </div>
-                </div>
+                <FeaturedDogs />
             </section>
 
             {/* Mission Section with Glassmorphism Stats */}

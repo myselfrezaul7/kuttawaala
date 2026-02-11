@@ -1,28 +1,21 @@
-import { createClient } from "@/utils/supabase/client";
+import { db } from "@/utils/firebase";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { MOCK_VET_CLINICS, VetClinic } from "@/data/vets";
 
+const COLLECTION_NAME = "vets";
+
 export const VetService = {
-    async getAllVets(): Promise<VetClinic[]> {
-        const supabase = createClient();
-
-        // Check if Supabase is configured (rudimentary check)
-        const isSupabaseConfigured = process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-        if (!isSupabaseConfigured) {
-            console.warn("Supabase keys missing, using mock data for Vets.");
+    async getAllVets() {
+        try {
+            const q = query(collection(db, COLLECTION_NAME));
+            const querySnapshot = await getDocs(q);
+            if (querySnapshot.empty) {
+                return MOCK_VET_CLINICS;
+            }
+            return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as unknown as VetClinic));
+        } catch (error) {
+            console.error("Error fetching vets:", error);
             return MOCK_VET_CLINICS;
         }
-
-        const { data, error } = await supabase
-            .from('vets')
-            .select('*');
-
-        if (error || !data || data.length === 0) {
-            // Fallback to mock if table is empty or error
-            console.warn("Error fetching from Supabase or empty table, using mock data.", error);
-            return MOCK_VET_CLINICS;
-        }
-
-        return data as VetClinic[];
     }
 };

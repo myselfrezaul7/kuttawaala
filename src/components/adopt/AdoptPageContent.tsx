@@ -8,6 +8,8 @@ import { dogs, getAgeCategory, type AgeCategory, type Dog } from "@/data/dogs";
 
 import { useSearchParams } from "next/navigation";
 
+import { DogService } from "@/services/DogService";
+
 interface AdoptPageContentProps {
     initialDogs?: Dog[];
 }
@@ -15,6 +17,25 @@ interface AdoptPageContentProps {
 export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
     const searchParams = useSearchParams();
     const [searchQuery, setSearchQuery] = useState("");
+    const [dogList, setDogList] = useState<Dog[]>(initialDogs || []);
+    const [isLoading, setIsLoading] = useState(!initialDogs);
+
+    useEffect(() => {
+        const fetchDogs = async () => {
+            try {
+                const fetchedDogs = await DogService.getAllDogs();
+                setDogList(fetchedDogs);
+            } catch (error) {
+                console.error("Failed to fetch dogs", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        if (!initialDogs) {
+            fetchDogs();
+        }
+    }, [initialDogs]);
 
     useEffect(() => {
         const query = searchParams.get("query");
@@ -31,7 +52,7 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
         goodWithKids: false,
     });
 
-    const allDogs = initialDogs || dogs;
+    const allDogs = dogList;
 
     const filteredDogs = allDogs.filter(dog => {
         // Text Search

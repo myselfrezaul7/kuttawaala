@@ -25,11 +25,11 @@ export default function ProfilePage() {
             <div className="container mx-auto max-w-2xl">
                 <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm border border-border/50 dark:border-zinc-800 p-8">
                     <div className="flex items-center gap-6 mb-8">
-                        {user.user_metadata.avatar_url ? (
+                        {user.photoURL ? (
                             // eslint-disable-next-line @next/next/no-img-element
                             <img
-                                src={user.user_metadata.avatar_url}
-                                alt={user.user_metadata.full_name || "User"}
+                                src={user.photoURL}
+                                alt={user.displayName || "User"}
                                 className="w-20 h-20 rounded-full object-cover border-4 border-border/50 dark:border-zinc-800"
                             />
                         ) : (
@@ -39,7 +39,7 @@ export default function ProfilePage() {
                         )}
                         <div>
                             <h1 className="text-2xl font-bold font-heading text-foreground dark:text-white">
-                                {user.user_metadata.full_name || "Kuttawaala User"}
+                                {user.displayName || "Kuttawaala User"}
                             </h1>
                             <p className="text-muted-foreground">{user.email}</p>
                             <div className="mt-4 flex flex-col sm:flex-row gap-2">

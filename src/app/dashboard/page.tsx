@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
 import { useFavorites } from "@/contexts/FavoritesContext";
@@ -26,6 +26,19 @@ export default function DashboardPage() {
         return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
     }
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [seeding, setSeeding] = useState(false);
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+        if (user && !seeding) {
+            setSeeding(true);
+            import("@/utils/seed-data").then(({ seedData }) => {
+                seedData().catch(console.error).finally(() => setSeeding(false));
+            });
+        }
+    }, [user, seeding]);
+
     // Redirect if logic would be here, but we are mocking auth
     if (!user) {
         return (
@@ -46,12 +59,12 @@ export default function DashboardPage() {
                     <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
                         {/* Avatar */}
                         <div className="relative group cursor-pointer" onClick={() => alert("Profile editing coming soon!")}>
-                            {user.user_metadata.avatar_url ? (
+                            {user.photoURL ? (
                                 // eslint-disable-next-line @next/next/no-img-element
-                                <img src={user.user_metadata.avatar_url} alt={user.user_metadata.full_name || "User"} className="w-32 h-32 rounded-full object-cover border-4 border-white dark:border-zinc-800 shadow-lg" />
+                                <img src={user.photoURL || ""} alt={user.displayName || "User"} className="w-32 h-32 rounded-full object-cover border-4 border-white dark:border-zinc-800 shadow-lg" />
                             ) : (
                                 <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary to-indigo-500 flex items-center justify-center border-4 border-white dark:border-zinc-800 shadow-lg text-white text-4xl font-bold">
-                                    {getInitials(user.user_metadata.full_name || "User")}
+                                    {getInitials(user.displayName || "User")}
                                 </div>
                             )}
                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 rounded-full">
@@ -62,7 +75,7 @@ export default function DashboardPage() {
                         {/* User Info */}
                         <div className="flex-1 text-center md:text-left space-y-2">
                             <h1 className="text-4xl font-bold text-foreground dark:text-muted font-heading">
-                                {user.user_metadata.full_name || "User"}
+                                {user.displayName || "User"}
                             </h1>
                             <p className="text-muted-foreground dark:text-muted-foreground/80">{user.email}</p>
 

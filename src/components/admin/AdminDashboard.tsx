@@ -36,7 +36,7 @@ export function AdminDashboard({ initialDogs, initialVets }: AdminDashboardProps
                         <p className="text-muted-foreground">Manage dogs, vets, and content.</p>
                     </div>
                     <div className="flex gap-3">
-                        <Button onClick={() => alert("Supabase connnection required for adding data.")} className="bg-emerald-600 hover:bg-emerald-700 text-white gap-2">
+                        <Button onClick={() => alert("Add functionality coming soon with Firebase.")} className="bg-emerald-600 hover:bg-emerald-700 text-white gap-2">
                             <Plus className="w-4 h-4" /> Add New
                         </Button>
                     </div>

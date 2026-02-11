@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function AdoptPage() {
     return (
         <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-            <AdoptPageContent initialDogs={dogs} />
+            <AdoptPageContent />
         </Suspense>
     );
 }

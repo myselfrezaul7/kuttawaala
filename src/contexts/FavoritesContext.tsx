@@ -2,7 +2,8 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { createClient } from "@/utils/supabase/client";
+import { db } from "@/utils/firebase";
+import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
 type FavoritesContextType = {
     favoriteIds: string[];
@@ -25,21 +26,31 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     const { user } = useAuth();
     const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const supabase = createClient();
 
     // Load favorites on mount or user change
     useEffect(() => {
         const loadFavorites = async () => {
             setIsLoading(true);
             if (user) {
-                // Load from Supabase
-                const { data, error } = await supabase
-                    .from('favorites')
-                    .select('dog_id')
-                    .eq('user_id', user.id);
+                try {
+                    const docRef = doc(db, "users", user.uid);
+                    const docSnap = await getDoc(docRef);
 
-                if (data && !error) {
-                    setFavoriteIds(data.map(fav => fav.dog_id));
+                    if (docSnap.exists() && docSnap.data().favorites) {
+                        setFavoriteIds(docSnap.data().favorites || []);
+                    } else {
+                        // Check local storage for guest favorites to merge
+                        const stored = localStorage.getItem("kuttawaala_favorites");
+                        if (stored) {
+                            const localFavorites = JSON.parse(stored);
+                            // Merge and save
+                            await setDoc(docRef, { favorites: localFavorites }, { merge: true });
+                            setFavoriteIds(localFavorites);
+                            localStorage.removeItem("kuttawaala_favorites");
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error loading favorites from Firestore:", error);
                 }
             } else {
                 // Load from local storage
@@ -52,7 +63,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
         };
 
         loadFavorites();
-    }, [user, supabase]);
+    }, [user]);
 
     // Save to local storage on change (only if guest)
     useEffect(() => {
@@ -63,27 +74,19 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
 
     const toggleFavorite = async (id: string) => {
         const isCurrentlyFavorite = favoriteIds.includes(id);
+        const newFavorites = isCurrentlyFavorite
+            ? favoriteIds.filter(fid => fid !== id)
+            : [...favoriteIds, id];
 
         // Optimistic update
-        setFavoriteIds(prev =>
-            isCurrentlyFavorite
-                ? prev.filter(fid => fid !== id)
-                : [...prev, id]
-        );
+        setFavoriteIds(newFavorites);
 
         if (user) {
             try {
-                if (isCurrentlyFavorite) {
-                    await supabase
-                        .from('favorites')
-                        .delete()
-                        .eq('user_id', user.id)
-                        .eq('dog_id', id);
-                } else {
-                    await supabase
-                        .from('favorites')
-                        .insert({ user_id: user.id, dog_id: id });
-                }
+                const docRef = doc(db, "users", user.uid);
+                await setDoc(docRef, {
+                    favorites: isCurrentlyFavorite ? arrayRemove(id) : arrayUnion(id)
+                }, { merge: true });
             } catch (error) {
                 console.error("Error syncing favorite:", error);
                 // Revert optimistic update on error would go here
