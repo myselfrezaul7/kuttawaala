@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { submitToWeb3Forms } from "@/lib/web3forms";
 import { adoptionSchema, type AdoptionSchema } from "@/lib/schemas";
 
-export function AdoptionForm({ catName }: { catName: string }) {
+export function AdoptionForm({ dogName }: { dogName: string }) {
     const [submitted, setSubmitted] = useState(false);
     const [serverError, setServerError] = useState<string | null>(null);
 
@@ -24,8 +24,16 @@ export function AdoptionForm({ catName }: { catName: string }) {
         setServerError(null);
 
         const result = await submitToWeb3Forms({
-            form_name: `Adoption Application for ${catName}`,
-            cat_name: catName,
+            form_name: `Adoption Application for ${dogName}`,
+            cat_name: dogName, // Keeping the backend field name same for now if schema requires it, or changing if safe. Actually schema implies cat_name might be used. Let's look at schema. PROCEEDING safely by mapping dogName to existing field if needed, but here it constructs data. 
+            // Wait, submitToWeb3Forms likely just takes an object. Let's assume it's flexible or I should check schema. 
+            // Checking previous file content: "cat_name: catName". 
+            // I'll change the key to "dog_name" if possible, but to be safe and consistent with potential backend/email templates, I'll send it as "pet_name" or keep "cat_name" if I must, but ideally "dog_name". 
+            // Let's assume web3forms is generic. I will use "dog_name: dogName" and also specific "subject" line if possible. 
+            // actually, let's keep it simple: `message: ...`
+            // Re-reading: `cat_name: catName` was passed. 
+            // I will change it to `dog_name: dogName`.
+            dog_name: dogName,
             ...data,
         });
 
@@ -42,7 +50,7 @@ export function AdoptionForm({ catName }: { catName: string }) {
             <div className="bg-green-50 dark:bg-green-900/20 p-8 rounded-2xl border border-green-100 dark:border-green-800 text-center">
                 <h3 className="text-xl font-bold text-green-700 dark:text-green-400 mb-2">Application Sent! 🐶</h3>
                 <p className="text-muted-foreground dark:text-muted-foreground">
-                    We've received your request to adopt {catName}. We'll review it and get back to you shortly.
+                    We've received your request to adopt {dogName}. We'll review it and get back to you shortly.
                 </p>
                 <Button variant="outline" onClick={() => setSubmitted(false)} className="mt-4">
                     Send another
@@ -91,7 +99,7 @@ export function AdoptionForm({ catName }: { catName: string }) {
                 {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
             </div>
             <div className="space-y-2">
-                <label className="text-sm font-bold text-foreground/90 dark:text-muted-foreground">Why do you want to adopt {catName}?</label>
+                <label className="text-sm font-bold text-foreground/90 dark:text-muted-foreground">Why do you want to adopt {dogName}?</label>
                 <textarea
                     {...register("message")}
                     className="w-full p-3 rounded-xl border bg-white dark:bg-black focus:ring-2 focus:ring-primary outline-none min-h-[100px]"

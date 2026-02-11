@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import { AdoptPageContent } from "@/components/adopt/AdoptPageContent";
 import { dogs } from "@/data/dogs";
@@ -8,5 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function AdoptPage() {
-    return <AdoptPageContent initialDogs={dogs} />;
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+            <AdoptPageContent initialDogs={dogs} />
+        </Suspense>
+    );
 }

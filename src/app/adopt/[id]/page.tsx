@@ -109,7 +109,7 @@ export default async function DogDetailPage({ params }: Props) {
 
                     <div className="pt-6 border-t border-border dark:border-zinc-800">
                         <h3 className="text-2xl font-bold mb-6 font-heading text-foreground dark:text-white">Adopt {dog.name}</h3>
-                        <AdoptionForm catName={dog.name} />
+                        <AdoptionForm dogName={dog.name} />
                     </div>
                 </div>
             </div>
