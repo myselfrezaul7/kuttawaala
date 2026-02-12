@@ -50,3 +50,27 @@ export async function getCats(): Promise<Dog[]> {
     */
     return [...dogs];
 }
+
+export type Report = {
+    id: string;
+    type: 'Lost' | 'Found' | 'Injured';
+    description: string;
+    latitude: number;
+    longitude: number;
+    location_text: string;
+    contact_info: string;
+    image_url: string | null;
+    user_id: string | null;
+    status: 'Open' | 'Resolved';
+    created_at: string;
+};
+
+export type Memorial = {
+    id: string;
+    pet_name: string;
+    owner_name: string;
+    tribute: string;
+    image_url: string | null;
+    user_id: string | null;
+    created_at: string;
+};

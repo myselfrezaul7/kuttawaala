@@ -1,35 +1,45 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { MOCK_VET_CLINICS, VetClinic } from "@/data/vets";
+import { useState, useMemo, useEffect } from "react";
+import { VetService, VetClinic } from "@/services/VetService";
 import { Button } from "@/components/ui/button";
-import { MapPin, Phone, Clock, ExternalLink, Search, Star, Filter, X, Building2, Stethoscope } from "lucide-react";
+import { MapPin, Phone, Clock, ExternalLink, Search, Star, Filter, X, Building2, Stethoscope, Loader2 } from "lucide-react";
 
-interface VetFinderProps {
-    initialVets?: VetClinic[];
-}
-
-export function VetFinder({ initialVets }: VetFinderProps) {
+export function VetFinder() {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedDistrict, setSelectedDistrict] = useState<string>("all");
     const [selectedService, setSelectedService] = useState<string>("all");
+    const [vets, setVets] = useState<VetClinic[]>([]);
+    const [loading, setLoading] = useState(true);
 
-    const allVets = initialVets || MOCK_VET_CLINICS;
+    useEffect(() => {
+        const fetchVets = async () => {
+            try {
+                const data = await VetService.getAll();
+                setVets(data);
+            } catch (error) {
+                console.error("Failed to load vets", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchVets();
+    }, []);
 
     // Extract unique districts and services
     const districts = useMemo(() => {
-        return Array.from(new Set(allVets.map(v => v.district))).sort();
-    }, [allVets]);
+        return Array.from(new Set(vets.map(v => v.district))).sort();
+    }, [vets]);
 
     const allServices = useMemo(() => {
         const services = new Set<string>();
-        allVets.forEach(vet => vet.services.forEach(s => services.add(s)));
+        vets.forEach(vet => vet.services.forEach(s => services.add(s)));
         return Array.from(services).sort();
-    }, [allVets]);
+    }, [vets]);
 
     // Filter vets based on search, district, and service
     const filteredVets = useMemo(() => {
-        return allVets.filter(vet => {
+        return vets.filter(vet => {
             const searchLower = searchQuery.toLowerCase();
             const matchesSearch = searchQuery === "" ||
                 vet.name.toLowerCase().includes(searchLower) ||
@@ -42,14 +52,14 @@ export function VetFinder({ initialVets }: VetFinderProps) {
 
             return matchesSearch && matchesDistrict && matchesService;
         });
-    }, [allVets, searchQuery, selectedDistrict, selectedService]);
+    }, [vets, searchQuery, selectedDistrict, selectedService]);
 
     // Stats
     const stats = useMemo(() => ({
-        total: allVets.length,
+        total: vets.length,
         districts: districts.length,
-        emergency: allVets.filter(v => v.services.some(s => s.toLowerCase().includes("24") || s.toLowerCase().includes("emergency"))).length,
-    }), [allVets, districts]);
+        emergency: vets.filter(v => v.services.some(s => s.toLowerCase().includes("24") || s.toLowerCase().includes("emergency"))).length,
+    }), [vets, districts]);
 
     const resetFilters = () => {
         setSearchQuery("");
@@ -126,10 +136,10 @@ export function VetFinder({ initialVets }: VetFinderProps) {
                                 onChange={(e) => setSelectedDistrict(e.target.value)}
                                 className="w-full p-3 rounded-xl border border-border dark:border-zinc-700 bg-muted/30 dark:bg-zinc-800/50 focus:ring-2 focus:ring-emerald-500 outline-none transition-all cursor-pointer"
                             >
-                                <option value="all">All Districts ({allVets.length})</option>
+                                <option value="all">All Districts ({vets.length})</option>
                                 {districts.map(district => (
                                     <option key={district} value={district}>
-                                        {district} ({allVets.filter(v => v.district === district).length})
+                                        {district} ({vets.filter(v => v.district === district).length})
                                     </option>
                                 ))}
                             </select>
@@ -156,7 +166,7 @@ export function VetFinder({ initialVets }: VetFinderProps) {
                     {/* Active Filters & Results Count */}
                     <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-border/50">
                         <p className="text-muted-foreground">
-                            Showing <span className="font-bold text-foreground">{filteredVets.length}</span> of {allVets.length} clinics
+                            Showing <span className="font-bold text-foreground">{filteredVets.length}</span> of {vets.length} clinics
                         </p>
                         {hasActiveFilters && (
                             <Button
@@ -171,90 +181,97 @@ export function VetFinder({ initialVets }: VetFinderProps) {
                     </div>
                 </div>
 
-                {/* Results Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-                    {filteredVets.map(vet => (
-                        <div
-                            key={vet.id}
-                            className="bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-border/50 dark:border-zinc-800 hover:shadow-xl hover:border-emerald-200 dark:hover:border-emerald-800/50 transition-all duration-300 group"
-                        >
-                            <div className="p-6">
-                                {/* Header */}
-                                <div className="flex justify-between items-start mb-4">
-                                    <div className="flex-1 min-w-0">
-                                        <h3 className="text-lg font-bold text-foreground dark:text-white group-hover:text-emerald-600 transition-colors mb-2 line-clamp-2">
-                                            {vet.name}
-                                        </h3>
-                                        <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-lg">
-                                            <MapPin className="w-3 h-3" /> {vet.district}
-                                        </span>
+                {/* Loading State */}
+                {loading ? (
+                    <div className="flex justify-center py-20">
+                        <Loader2 className="w-10 h-10 animate-spin text-emerald-500" />
+                    </div>
+                ) : (
+                    /* Results Grid */
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                        {filteredVets.map(vet => (
+                            <div
+                                key={vet.id}
+                                className="bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-border/50 dark:border-zinc-800 hover:shadow-xl hover:border-emerald-200 dark:hover:border-emerald-800/50 transition-all duration-300 group"
+                            >
+                                <div className="p-6">
+                                    {/* Header */}
+                                    <div className="flex justify-between items-start mb-4">
+                                        <div className="flex-1 min-w-0">
+                                            <h3 className="text-lg font-bold text-foreground dark:text-white group-hover:text-emerald-600 transition-colors mb-2 line-clamp-2">
+                                                {vet.name}
+                                            </h3>
+                                            <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-lg">
+                                                <MapPin className="w-3 h-3" /> {vet.district}
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center gap-1 bg-yellow-50 dark:bg-yellow-900/20 px-2.5 py-1.5 rounded-lg shrink-0 ml-2">
+                                            <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                                            <span className="font-bold text-sm text-yellow-700 dark:text-yellow-400">{vet.rating}</span>
+                                            <span className="text-xs text-yellow-600/70 dark:text-yellow-500/70">({vet.reviewCount})</span>
+                                        </div>
                                     </div>
-                                    <div className="flex items-center gap-1 bg-yellow-50 dark:bg-yellow-900/20 px-2.5 py-1.5 rounded-lg shrink-0 ml-2">
-                                        <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                                        <span className="font-bold text-sm text-yellow-700 dark:text-yellow-400">{vet.rating}</span>
-                                        <span className="text-xs text-yellow-600/70 dark:text-yellow-500/70">({vet.reviewCount})</span>
-                                    </div>
-                                </div>
 
-                                {/* Info */}
-                                <div className="space-y-2.5 text-sm text-muted-foreground dark:text-muted-foreground/80 mb-4">
-                                    <div className="flex items-start gap-2.5">
-                                        <MapPin className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                                        <p className="line-clamp-2">{vet.address}</p>
+                                    {/* Info */}
+                                    <div className="space-y-2.5 text-sm text-muted-foreground dark:text-muted-foreground/80 mb-4">
+                                        <div className="flex items-start gap-2.5">
+                                            <MapPin className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                                            <p className="line-clamp-2">{vet.address}</p>
+                                        </div>
+                                        <div className="flex items-center gap-2.5">
+                                            <Phone className="w-4 h-4 text-emerald-500 shrink-0" />
+                                            <p>{vet.phone}</p>
+                                        </div>
+                                        <div className="flex items-center gap-2.5">
+                                            <Clock className="w-4 h-4 text-emerald-500 shrink-0" />
+                                            <p className={vet.hours.includes("24") ? "text-emerald-600 font-semibold" : ""}>
+                                                {vet.hours}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div className="flex items-center gap-2.5">
-                                        <Phone className="w-4 h-4 text-emerald-500 shrink-0" />
-                                        <p>{vet.phone}</p>
-                                    </div>
-                                    <div className="flex items-center gap-2.5">
-                                        <Clock className="w-4 h-4 text-emerald-500 shrink-0" />
-                                        <p className={vet.hours.includes("24") ? "text-emerald-600 font-semibold" : ""}>
-                                            {vet.hours}
-                                        </p>
-                                    </div>
-                                </div>
 
-                                {/* Service Tags */}
-                                <div className="flex flex-wrap gap-1.5 mb-5">
-                                    {vet.services.slice(0, 4).map(service => (
-                                        <span
-                                            key={service}
-                                            className="text-xs px-2 py-0.5 bg-muted dark:bg-zinc-800 text-muted-foreground rounded-md"
+                                    {/* Service Tags */}
+                                    <div className="flex flex-wrap gap-1.5 mb-5">
+                                        {vet.services.slice(0, 4).map(service => (
+                                            <span
+                                                key={service}
+                                                className="text-xs px-2 py-0.5 bg-muted dark:bg-zinc-800 text-muted-foreground rounded-md"
+                                            >
+                                                {service}
+                                            </span>
+                                        ))}
+                                        {vet.services.length > 4 && (
+                                            <span className="text-xs px-2 py-0.5 bg-muted dark:bg-zinc-800 text-muted-foreground rounded-md">
+                                                +{vet.services.length - 4} more
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    {/* Action Buttons */}
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <a
+                                            href={`tel:${vet.phone.replace(/[^0-9+]/g, '')}`}
+                                            className="flex items-center justify-center gap-2 py-2.5 rounded-xl border-2 border-emerald-200 dark:border-emerald-800/50 text-emerald-600 dark:text-emerald-400 font-semibold hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors"
                                         >
-                                            {service}
-                                        </span>
-                                    ))}
-                                    {vet.services.length > 4 && (
-                                        <span className="text-xs px-2 py-0.5 bg-muted dark:bg-zinc-800 text-muted-foreground rounded-md">
-                                            +{vet.services.length - 4} more
-                                        </span>
-                                    )}
-                                </div>
-
-                                {/* Action Buttons */}
-                                <div className="grid grid-cols-2 gap-3">
-                                    <a
-                                        href={`tel:${vet.phone.replace(/[^0-9+]/g, '')}`}
-                                        className="flex items-center justify-center gap-2 py-2.5 rounded-xl border-2 border-emerald-200 dark:border-emerald-800/50 text-emerald-600 dark:text-emerald-400 font-semibold hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors"
-                                    >
-                                        <Phone className="w-4 h-4" /> Call
-                                    </a>
-                                    <a
-                                        href={vet.mapUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-500/20"
-                                    >
-                                        Map <ExternalLink className="w-4 h-4" />
-                                    </a>
+                                            <Phone className="w-4 h-4" /> Call
+                                        </a>
+                                        <a
+                                            href={vet.mapUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-500/20"
+                                        >
+                                            Map <ExternalLink className="w-4 h-4" />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                )}
 
                 {/* Empty State */}
-                {filteredVets.length === 0 && (
+                {!loading && filteredVets.length === 0 && (
                     <div className="text-center py-20 bg-white dark:bg-zinc-900 rounded-2xl border border-border/50 dark:border-zinc-800 mt-8">
                         <Search className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
                         <h3 className="text-xl font-semibold text-foreground mb-2">No clinics found</h3>

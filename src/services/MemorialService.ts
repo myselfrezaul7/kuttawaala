@@ -1,0 +1,50 @@
+import { db, storage } from "@/utils/firebase";
+import { collection, addDoc, query, where, getDocs, orderBy } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { Memorial } from "./server-data";
+
+const COLLECTION_NAME = "memorials";
+
+export const MemorialService = {
+    async getByUserId(userId: string) {
+        try {
+            const q = query(
+                collection(db, COLLECTION_NAME),
+                where("user_id", "==", userId),
+                orderBy("created_at", "desc")
+            );
+            const querySnapshot = await getDocs(q);
+            return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as unknown as Memorial));
+        } catch (error) {
+            console.error("Error fetching user memorials:", error);
+            return [];
+        }
+    },
+
+    async create(memorial: any) {
+        try {
+            const docRef = await addDoc(collection(db, COLLECTION_NAME), {
+                ...memorial,
+                created_at: new Date().toISOString()
+            });
+            return { id: docRef.id, ...memorial };
+        } catch (error) {
+            console.error("Error creating memorial:", error);
+            throw error;
+        }
+    },
+
+    async uploadImage(file: File) {
+        try {
+            const fileExt = file.name.split(".").pop();
+            const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+            const storageRef = ref(storage, `memorial-images/${fileName}`);
+
+            await uploadBytes(storageRef, file);
+            return await getDownloadURL(storageRef);
+        } catch (error) {
+            console.error("Memorial image upload failed:", error);
+            throw error;
+        }
+    }
+};
