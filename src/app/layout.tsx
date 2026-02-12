@@ -70,6 +70,24 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={`${inter.variable} antialiased`}>
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "Organization",
+                            name: "Kuttawaala",
+                            url: "https://kuttawaala.com",
+                            logo: "https://kuttawaala.com/logo.png",
+                            sameAs: ["https://twitter.com/kuttawaala"],
+                            contactPoint: {
+                                "@type": "ContactPoint",
+                                telephone: "+880-987-654321",
+                                contactType: "customer service",
+                            },
+                        }),
+                    }}
+                />
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
