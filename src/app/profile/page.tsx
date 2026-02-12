@@ -1,3 +1,5 @@
+"use client";
+
 // Imports updated
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -116,8 +118,8 @@ export default function ProfilePage() {
                                             <div>
                                                 <div className="flex items-center gap-2 mb-1">
                                                     <span className={`px-2 py-0.5 rounded text-xs font-bold ${report.type === 'Injured' ? 'bg-red-100 text-red-700' :
-                                                            report.type === 'Lost' ? 'bg-yellow-100 text-yellow-700' :
-                                                                'bg-green-100 text-green-700'
+                                                        report.type === 'Lost' ? 'bg-yellow-100 text-yellow-700' :
+                                                            'bg-green-100 text-green-700'
                                                         }`}>
                                                         {report.type}
                                                     </span>
