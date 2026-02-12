@@ -92,7 +92,7 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
                     </p>
                     <div className="flex flex-col items-center gap-4">
                         <p className="text-sm font-bold bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 inline-block">
-                            🚫 We promotes &quot;Adopt Don&apos;t Shop&quot;. No buying/selling.
+                            🚫 We promote &quot;Adopt Don&apos;t Shop&quot;. No buying/selling.
                         </p>
                         <a
                             href="https://www.kuttawaala.com"
