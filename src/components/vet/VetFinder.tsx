@@ -9,6 +9,7 @@ export function VetFinder() {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedDistrict, setSelectedDistrict] = useState<string>("all");
     const [selectedService, setSelectedService] = useState<string>("all");
+    const [showEmergencyOnly, setShowEmergencyOnly] = useState(false);
     const [vets, setVets] = useState<VetClinic[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -49,10 +50,11 @@ export function VetFinder() {
 
             const matchesDistrict = selectedDistrict === "all" || vet.district === selectedDistrict;
             const matchesService = selectedService === "all" || vet.services.includes(selectedService);
+            const matchesEmergency = showEmergencyOnly ? (vet.services.some(s => s.toLowerCase().includes("24") || s.toLowerCase().includes("emergency"))) : true;
 
-            return matchesSearch && matchesDistrict && matchesService;
+            return matchesSearch && matchesDistrict && matchesService && matchesEmergency;
         });
-    }, [vets, searchQuery, selectedDistrict, selectedService]);
+    }, [vets, searchQuery, selectedDistrict, selectedService, showEmergencyOnly]);
 
     // Stats
     const stats = useMemo(() => ({
@@ -65,9 +67,10 @@ export function VetFinder() {
         setSearchQuery("");
         setSelectedDistrict("all");
         setSelectedService("all");
+        setShowEmergencyOnly(false);
     };
 
-    const hasActiveFilters = searchQuery || selectedDistrict !== "all" || selectedService !== "all";
+    const hasActiveFilters = searchQuery || selectedDistrict !== "all" || selectedService !== "all" || showEmergencyOnly;
 
     return (
         <div className="min-h-screen bg-muted/30 dark:bg-zinc-950 pb-20">
@@ -125,9 +128,9 @@ export function VetFinder() {
                     </div>
 
                     {/* Filter Row */}
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex flex-col sm:flex-row gap-4 items-end">
                         {/* District Dropdown */}
-                        <div className="flex-1">
+                        <div className="flex-1 w-full">
                             <label className="text-sm font-medium text-muted-foreground mb-1 block">
                                 <MapPin className="w-4 h-4 inline mr-1" /> District
                             </label>
@@ -146,7 +149,7 @@ export function VetFinder() {
                         </div>
 
                         {/* Service Dropdown */}
-                        <div className="flex-1">
+                        <div className="flex-1 w-full">
                             <label className="text-sm font-medium text-muted-foreground mb-1 block">
                                 <Filter className="w-4 h-4 inline mr-1" /> Service Type
                             </label>
@@ -160,6 +163,19 @@ export function VetFinder() {
                                     <option key={service} value={service}>{service}</option>
                                 ))}
                             </select>
+                        </div>
+
+                        {/* Emergency Toggle */}
+                        <div className="flex items-center pb-1">
+                            <label className="flex items-center gap-3 cursor-pointer bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 border border-red-200 dark:border-red-800 px-4 py-3 rounded-xl transition-all select-none">
+                                <input
+                                    type="checkbox"
+                                    checked={showEmergencyOnly}
+                                    onChange={(e) => setShowEmergencyOnly(e.target.checked)}
+                                    className="w-5 h-5 text-red-600 rounded focus:ring-red-500 border-gray-300"
+                                />
+                                <span className="font-bold text-red-700 dark:text-red-400 text-sm whitespace-nowrap">Emergency / 24h</span>
+                            </label>
                         </div>
                     </div>
 
@@ -261,7 +277,7 @@ export function VetFinder() {
                                             rel="noopener noreferrer"
                                             className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-500/20"
                                         >
-                                            Map <ExternalLink className="w-4 h-4" />
+                                            Get Directions <ExternalLink className="w-4 h-4" />
                                         </a>
                                     </div>
                                 </div>

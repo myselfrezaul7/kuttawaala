@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { db } from "@/utils/firebase";
-import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove, onSnapshot } from "firebase/firestore";
 
 type FavoritesContextType = {
     favoriteIds: string[];
@@ -27,15 +27,17 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    // Load favorites on mount or user change
+    // Real-time sync with Firestore
     useEffect(() => {
-        const loadFavorites = async () => {
+        let unsubscribe: () => void;
+
+        const setupFavorites = async () => {
             setIsLoading(true);
             if (user) {
-                try {
-                    const docRef = doc(db, "users", user.uid);
-                    const docSnap = await getDoc(docRef);
+                const docRef = doc(db, "users", user.uid);
 
+                // Real-time listener
+                unsubscribe = onSnapshot(docRef, async (docSnap) => {
                     if (docSnap.exists() && docSnap.data().favorites) {
                         setFavoriteIds(docSnap.data().favorites || []);
                     } else {
@@ -43,26 +45,31 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
                         const stored = localStorage.getItem("kuttawaala_favorites");
                         if (stored) {
                             const localFavorites = JSON.parse(stored);
-                            // Merge and save
                             await setDoc(docRef, { favorites: localFavorites }, { merge: true });
-                            setFavoriteIds(localFavorites);
                             localStorage.removeItem("kuttawaala_favorites");
                         }
                     }
-                } catch (error) {
-                    console.error("Error loading favorites from Firestore:", error);
-                }
+                    setIsLoading(false);
+                }, (error) => {
+                    console.error("Error listening to favorites:", error);
+                    setIsLoading(false);
+                });
+
             } else {
                 // Load from local storage
                 const stored = localStorage.getItem("kuttawaala_favorites");
                 if (stored) {
                     setFavoriteIds(JSON.parse(stored));
                 }
+                setIsLoading(false);
             }
-            setIsLoading(false);
         };
 
-        loadFavorites();
+        setupFavorites();
+
+        return () => {
+            if (unsubscribe) unsubscribe();
+        };
     }, [user]);
 
     // Save to local storage on change (only if guest)
@@ -89,7 +96,6 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
                 }, { merge: true });
             } catch (error) {
                 console.error("Error syncing favorite:", error);
-                // Revert optimistic update on error would go here
             }
         }
     };
