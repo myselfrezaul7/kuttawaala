@@ -1,5 +1,6 @@
+
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs, query, where, writeBatch, doc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, writeBatch, doc } from "firebase/firestore";
 import * as dotenv from "dotenv";
 import { MOCK_VET_CLINICS } from "../src/data/vets";
 
@@ -20,23 +21,33 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 async function seedVets() {
-    console.log("🚀 Starting Kuttawaala Vet Seeding...");
+    console.log("🚀 Starting Vet Seeding...");
 
     try {
         const vetsCollection = collection(db, "vets");
 
-        // check if data exists
+        // check if data exists and load existing IDs
         const snapshot = await getDocs(vetsCollection);
+        const existingLegacyIds = new Set<number>();
+
         if (!snapshot.empty) {
-            console.log(`⚠️  Collection 'vets' already has ${snapshot.size} documents. Aborting to prevent duplicates.`);
-            return;
+            console.log(`ℹ️  Collection 'vets' has ${snapshot.size} documents. Checking for new entries...`);
+            snapshot.docs.forEach(doc => {
+                const data = doc.data();
+                if (data.legacy_id) {
+                    existingLegacyIds.add(data.legacy_id);
+                }
+            });
         }
 
         const batch = writeBatch(db);
         let count = 0;
-        let batchCount = 0;
 
         for (const vet of MOCK_VET_CLINICS) {
+            if (existingLegacyIds.has(vet.id)) {
+                continue; // Skip existing
+            }
+
             const docRef = doc(vetsCollection); // Auto-ID
             batch.set(docRef, {
                 legacy_id: vet.id,
@@ -53,21 +64,14 @@ async function seedVets() {
                 created_at: new Date().toISOString()
             });
             count++;
-            batchCount++;
-
-            // Firestore batch limit is 500
-            if (batchCount >= 400) {
-                await batch.commit();
-                console.log(`Saved batch of ${batchCount} vets...`);
-                batchCount = 0;
-            }
         }
 
-        if (batchCount > 0) {
+        if (count > 0) {
             await batch.commit();
+            console.log(`✅ Successfully added ${count} NEW vets to Firestore!`);
+        } else {
+            console.log("⚡ No new vets to add.");
         }
-
-        console.log(`✅ Successfully seeded ${count} vets to Firestore!`);
 
     } catch (error) {
         console.error("❌ Error seeding vets:", error);
