@@ -42,7 +42,7 @@ export function Header() {
                 <div className="container mx-auto px-4 py-4 flex justify-between items-center">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
-                        <Dog className="w-8 h-8 text-primary dark:text-primary transition-transform group-hover:rotate-12" />
+                        <img src="/logo.png" alt="Kuttawaala Logo" className="w-8 h-8 object-contain transition-transform group-hover:scale-110" />
                         <span className="text-2xl font-bold font-sans text-foreground dark:text-white group-hover:text-primary dark:group-hover:text-primary transition-colors">
                             KUTTAWAALA
                         </span>
