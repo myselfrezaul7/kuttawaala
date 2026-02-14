@@ -57,7 +57,7 @@ export function Hero() {
                         {/* This would be a real image */}
                         <img
                             src="/hero-community.png"
-                            alt="Community caring for dogs"
+                            alt="Community caring for dogs in Bangladesh"
                             className="w-full h-full object-cover"
                         />
 
