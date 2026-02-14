@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { FavoritesProvider } from "@/contexts/FavoritesContext";
@@ -9,11 +9,11 @@ import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { Toaster } from "sonner";
 
-const inter = Inter({
-    subsets: ["latin"],
-    variable: "--font-inter",
-    display: "swap",
-});
+// Fallback to system font if Google Fonts fails
+const inter = {
+    variable: "font-sans",
+    className: "font-sans"
+};
 
 export const viewport: Viewport = {
     themeColor: "#f43f5e",
@@ -69,7 +69,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={`${inter.variable} antialiased`}>
+            <body className={`${inter.variable} antialiased font-sans`}>
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{

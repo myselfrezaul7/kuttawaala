@@ -1,4 +1,5 @@
 import { Hero } from "@/components/home/Hero";
+import { SuccessStories } from "@/components/home/SuccessStories";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Sparkles, Heart, Users, Stethoscope } from "lucide-react";
@@ -9,6 +10,11 @@ export default function Home() {
     return (
         <div className="flex flex-col min-h-screen">
             <Hero />
+
+            <Hero />
+
+            {/* Success Stories Ticker */}
+            <SuccessStories />
 
             {/* Featured Dogs Section */}
             <section className="py-24 gradient-bg relative overflow-hidden">

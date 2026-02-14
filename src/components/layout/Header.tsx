@@ -26,6 +26,7 @@ export function Header() {
     const navLinks = [
         { name: t.nav.home, href: "/" },
         { name: t.nav.adopt, href: "/adopt" },
+        { name: t.nav.community, href: "/community" },
         { name: t.nav.findVet, href: "/find-vet" },
         { name: t.nav.report, href: "/report" },
         { name: t.nav.dashboard, href: "/dashboard" },
@@ -54,14 +55,14 @@ export function Header() {
                             <Link
                                 key={link.href}
                                 href={link.href}
-                                className="text-sm font-medium text-foreground/90 dark:text-muted hover:text-primary dark:hover:text-primary transition-colors"
+                                className="text-sm font-medium text-foreground/90 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors"
                             >
                                 {link.name}
                             </Link>
                         ))}
                         <button
                             onClick={() => setIsSearchOpen(true)}
-                            className="text-sm font-medium text-foreground/90 dark:text-muted hover:text-primary dark:hover:text-primary transition-colors flex items-center gap-2"
+                            className="text-sm font-medium text-foreground/90 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors flex items-center gap-2"
                         >
                             <Search className="w-4 h-4" /> {t.nav.search}
                         </button>
@@ -80,7 +81,7 @@ export function Header() {
                         {!loading && (
                             user ? (
                                 <Link href="/profile">
-                                    <Button variant="ghost" size="sm" className="gap-2 rounded-full text-foreground/90 dark:text-muted hover:bg-muted dark:hover:bg-zinc-800">
+                                    <Button variant="ghost" size="sm" className="gap-2 rounded-full text-foreground/90 dark:text-stone-300 hover:bg-muted dark:hover:bg-zinc-800">
                                         {user.photoURL ? (
                                             // eslint-disable-next-line @next/next/no-img-element
                                             <img src={user.photoURL} alt="User" className="w-6 h-6 rounded-full" />
@@ -102,7 +103,7 @@ export function Header() {
 
                     {/* Mobile Menu Toggle */}
                     <button
-                        className="md:hidden p-2 text-foreground/90 dark:text-muted"
+                        className="md:hidden p-2 text-foreground/90 dark:text-stone-300"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
                         {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

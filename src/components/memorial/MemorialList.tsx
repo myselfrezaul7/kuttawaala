@@ -1,63 +1,129 @@
 "use client";
 
 import { useState } from "react";
-import { type Memorial, MOCK_MEMORIALS } from "@/data/memorials";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { Quote, Flame, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Heart } from "lucide-react";
-import { MemorialModal } from "@/components/memorial/MemorialModal";
+
+// Dummy data for now, ideally fetched from props or API
+const TRIBUTES = [
+    {
+        id: "1",
+        petName: "Sheru",
+        image: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?q=80&w=1000&auto=format&fit=crop", // Pug
+        message: "You were the bravest little lion. The streets of Dhanmondi miss your happy barks.",
+        author: "Rahim",
+        candles: 45
+    },
+    {
+        id: "2",
+        petName: "Bhulu",
+        image: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=1000&auto=format&fit=crop", // Beagle Mix
+        message: "Run free across the rainbow bridge, my sweet Bhulu. No more pain now.",
+        author: "Tania",
+        candles: 128
+    },
+    {
+        id: "3",
+        petName: "Lali",
+        image: "https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=1000&auto=format&fit=crop", // Golden
+        message: "Our neighborhood guard and best friend. You will never be forgotten.",
+        author: "Sector 4 Residents",
+        candles: 89
+    },
+    {
+        id: "4",
+        petName: "Tommy",
+        image: "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?q=80&w=1000&auto=format&fit=crop", // Bull terrier
+        message: "I hope you have all the biscuits in heaven.",
+        author: "Arafat",
+        candles: 32
+    },
+    {
+        id: "5",
+        petName: "Rocky",
+        image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=1000&auto=format&fit=crop", // Golden mix
+        message: "The gentlest soul I ever met.",
+        author: "Sarah",
+        candles: 67
+    }
+];
 
 export function MemorialList() {
-    const [memorials, setMemorials] = useState<Memorial[]>(MOCK_MEMORIALS);
+    const [tributes, setTributes] = useState(TRIBUTES);
+    const [litCandles, setLitCandles] = useState<string[]>([]); // Track which candles user locally lit
 
-    const handleAddTribute = (newMemorial: Memorial) => {
-        setMemorials([newMemorial, ...memorials]);
+    const lightCandle = (id: string) => {
+        if (litCandles.includes(id)) return;
+
+        setTributes(prev => prev.map(t =>
+            t.id === id ? { ...t, candles: t.candles + 1 } : t
+        ));
+        setLitCandles(prev => [...prev, id]);
     };
 
     return (
-        <div className="min-h-screen bg-zinc-950 text-white pb-24 relative overflow-hidden">
-            {/* Background Stars - simplified for now */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-zinc-950 to-zinc-950 pointer-events-none" />
-
-            {/* Header */}
-            <div className="container mx-auto text-center max-w-4xl pt-20 pb-16 px-4 relative z-10">
-                <h1 className="text-4xl md:text-6xl font-bold mb-6 font-heading bg-clip-text text-transparent bg-gradient-to-r from-secondary to-indigo-200 flex items-center justify-center gap-4">
-                    <Heart className="fill-rose-300 text-primary w-10 h-10 md:w-16 md:h-16" /> The Memorial Wall
-                </h1>
-                <p className="text-lg text-muted-foreground/80 max-w-2xl mx-auto leading-relaxed mb-8">
-                    A sanctuary to honor the beloved feline companions who have crossed the rainbow bridge. Gone but never forgotten.
-                </p>
-
-                <MemorialModal onAddTribute={handleAddTribute} />
-            </div>
-
-            <div className="container mx-auto px-4 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {memorials.map((memorial) => (
-                        <div key={memorial.id} className="group bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:bg-white/10 transition-colors">
-                            <div className="relative aspect-square">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img src={memorial.imageUrl} alt={memorial.petName} className="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition-opacity" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-                                <div className="absolute bottom-6 left-6 right-6">
-                                    <h2 className="text-3xl font-bold text-white mb-1 font-heading">{memorial.petName}</h2>
-                                    <p className="text-xs uppercase tracking-widest text-muted-foreground/80 font-bold">Remembered by {memorial.ownerName}</p>
-                                </div>
-                                <div className="absolute top-4 right-4">
-                                    <Heart className="w-6 h-6 text-primary fill-current drop-shadow-lg" />
+        <div className="py-12">
+            <ResponsiveMasonry
+                columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+            >
+                <Masonry gutter="2rem">
+                    {tributes.map((tribute) => (
+                        <motion.div
+                            key={tribute.id}
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="bg-white rounded-[2rem] overflow-hidden shadow-xl shadow-stone-200/50 hover:-translate-y-2 transition-transform duration-500 border border-stone-100"
+                        >
+                            <div className="relative h-64 bg-stone-100">
+                                <Image
+                                    src={tribute.image}
+                                    alt={tribute.petName}
+                                    fill
+                                    className="object-cover"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                                <div className="absolute bottom-4 left-4 text-white">
+                                    <h3 className="text-2xl font-bold font-heading">{tribute.petName}</h3>
                                 </div>
                             </div>
-                            <div className="p-8">
-                                <p className="text-muted-foreground italic leading-relaxed font-light border-l-2 border-primary/50 pl-4">
-                                    &quot;{memorial.tribute}&quot;
-                                </p>
-                                <p className="text-xs text-muted-foreground mt-6 text-right">
-                                    {new Date(memorial.timestamp).toLocaleDateString()}
-                                </p>
+                            <div className="p-6">
+                                <div className="mb-6">
+                                    <Quote className="w-8 h-8 text-orange-200 fill-orange-200 mb-2" />
+                                    <p className="text-stone-600 italic leading-relaxed">
+                                        "{tribute.message}"
+                                    </p>
+                                    <p className="text-right text-sm font-bold text-stone-400 mt-4">
+                                        — {tribute.author}
+                                    </p>
+                                </div>
+
+                                <div className="border-t border-stone-100 pt-4 flex justify-between items-center">
+                                    <div className="text-sm text-stone-400 font-medium">
+                                        Running Free 🌈
+                                    </div>
+                                    <Button
+                                        variant="ghost"
+                                        onClick={() => lightCandle(tribute.id)}
+                                        className={`rounded-full gap-2 transition-all ${litCandles.includes(tribute.id)
+                                                ? "bg-orange-50 text-orange-500"
+                                                : "text-stone-400 hover:text-orange-500 hover:bg-orange-50"
+                                            }`}
+                                    >
+                                        <Flame
+                                            className={`w-5 h-5 ${litCandles.includes(tribute.id) ? "fill-orange-500 animate-pulse" : ""}`}
+                                        />
+                                        <span className="font-bold">{tribute.candles}</span>
+                                    </Button>
+                                </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
-            </div>
+                </Masonry>
+            </ResponsiveMasonry>
         </div>
     );
 }

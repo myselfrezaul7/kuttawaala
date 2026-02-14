@@ -5,6 +5,7 @@ export const translations = {
         nav: {
             home: "Home",
             adopt: "Adopt",
+            community: "Community",
             findVet: "Find Vet",
             report: "Report",
             dashboard: "Dashboard",
@@ -31,6 +32,7 @@ export const translations = {
         nav: {
             home: "হোম",
             adopt: "দত্তক নিন",
+            community: "কমিউনিটি",
             findVet: "ডাক্তার খুঁজুন",
             report: "রিপোর্ট করুন",
             dashboard: "ড্যাশবোর্ড",

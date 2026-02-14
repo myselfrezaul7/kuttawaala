@@ -5,6 +5,7 @@ import { dogs } from "@/data/dogs";
 import { Button } from "@/components/ui/button";
 import { MapPin, Info, CheckCircle, ArrowLeft, Share2, Heart } from "lucide-react";
 import { AdoptionForm } from "@/components/adopt/AdoptionForm";
+import { SponsorshipModal } from "@/components/adopt/SponsorshipModal";
 
 type Props = {
     params: Promise<{ id: string }>;
@@ -108,6 +109,14 @@ export default async function DogDetailPage({ params }: Props) {
                     </div>
 
                     <div className="pt-6 border-t border-border dark:border-zinc-800">
+                        <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-zinc-900 dark:to-zinc-800 p-6 rounded-2xl mb-8">
+                            <h3 className="text-xl font-bold mb-2 font-heading text-stone-800 dark:text-white">Can't adopt right now?</h3>
+                            <p className="text-stone-500 dark:text-stone-400 mb-4 text-sm">
+                                You can still be a hero! Sponsor {dog.name}'s meals or medical care.
+                            </p>
+                            <SponsorshipModal dogName={dog.name} />
+                        </div>
+
                         <h3 className="text-2xl font-bold mb-6 font-heading text-foreground dark:text-white">Adopt {dog.name}</h3>
                         <AdoptionForm dogName={dog.name} />
                     </div>

@@ -30,7 +30,7 @@ export function Footer() {
 
                             {/* Quick Links */}
                             <div>
-                                <h4 className="font-bold mb-5 text-foreground dark:text-white text-sm uppercase tracking-wider">Quick Links</h4>
+                                <h4 className="font-bold mb-5 text-foreground dark:text-stone-100 text-sm uppercase tracking-wider">Quick Links</h4>
                                 <ul className="space-y-3">
                                     {[
                                         { href: "/adopt", label: "Adopt a Dog" },
@@ -39,7 +39,7 @@ export function Footer() {
                                         { href: "/donate", label: "Donate" },
                                     ].map((link) => (
                                         <li key={link.href}>
-                                            <Link href={link.href} className="text-sm text-muted-foreground dark:text-muted-foreground/80 hover:text-primary dark:hover:text-primary/80 transition-colors">
+                                            <Link href={link.href} className="text-sm text-muted-foreground dark:text-stone-400 hover:text-primary dark:hover:text-primary transition-colors">
                                                 {link.label}
                                             </Link>
                                         </li>
@@ -49,13 +49,13 @@ export function Footer() {
 
                             {/* Resources */}
                             <div>
-                                <h4 className="font-bold mb-5 text-foreground dark:text-white text-sm uppercase tracking-wider">Care Resources</h4>
+                                <h4 className="font-bold mb-5 text-foreground dark:text-stone-100 text-sm uppercase tracking-wider">Care Resources</h4>
                                 <ul className="space-y-3">
                                     {[
                                         { href: "/faq", label: "FAQ" },
                                     ].map((link) => (
                                         <li key={link.href}>
-                                            <Link href={link.href} className="text-sm text-muted-foreground dark:text-muted-foreground/80 hover:text-primary dark:hover:text-primary/80 transition-colors">
+                                            <Link href={link.href} className="text-sm text-muted-foreground dark:text-stone-400 hover:text-primary dark:hover:text-primary transition-colors">
                                                 {link.label}
                                             </Link>
                                         </li>

@@ -7,12 +7,14 @@ import { useFavorites } from "@/contexts/FavoritesContext";
 import { dogs } from "@/data/dogs";
 import { PetCard } from "@/components/shared/PetCard";
 import { Button } from "@/components/ui/button";
-import { Heart, Search, Gift, LogOut } from "lucide-react";
+import { Heart, Search, Gift, LogOut, Award, Trophy } from "lucide-react";
+import { Badges } from "@/components/dashboard/Badges";
 
 export default function DashboardPage() {
     const { user, signOut, loading } = useAuth();
     const { favoriteIds } = useFavorites();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [activeTab, setActiveTab] = useState("favorites");
 
     // Filter favorite dogs
     const favoriteDogs = dogs.filter(dog => favoriteIds.includes(dog.id));
@@ -104,33 +106,98 @@ export default function DashboardPage() {
                     </div>
                 </div>
 
-                {/* Favorites Section */}
-                <section className="mb-20">
-                    <h2 className="text-3xl font-bold mb-8 flex items-center gap-3 font-heading">
-                        <span className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-primary">
-                            <Heart className="w-5 h-5 fill-current" />
-                        </span>
-                        Your Favorite Dogs
-                    </h2>
+                {/* Tabs */}
+                <div className="flex gap-4 mb-8 overflow-x-auto pb-2">
+                    <Button
+                        variant={activeTab === 'favorites' ? 'default' : 'outline'}
+                        onClick={() => setActiveTab('favorites')}
+                        className="rounded-full"
+                    >
+                        Favorites
+                    </Button>
+                    <Button
+                        variant={activeTab === 'achievements' ? 'default' : 'outline'}
+                        onClick={() => setActiveTab('achievements')}
+                        className="rounded-full gap-2"
+                    >
+                        Awards 🏆
+                    </Button>
+                </div>
 
-                    {favoriteDogs.length > 0 ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {favoriteDogs.map(dog => (
-                                // @ts-ignore
-                                <PetCard key={dog.id} dog={dog} />
-                            ))}
+                {/* Favorites Tab */}
+                {activeTab === 'favorites' && (
+                    <section className="mb-20 animate-in fade-in slide-in-from-bottom-4">
+                        <h2 className="text-3xl font-bold mb-8 flex items-center gap-3 font-heading">
+                            <span className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-primary">
+                                <Heart className="w-5 h-5 fill-current" />
+                            </span>
+                            Your Favorite Dogs
+                        </h2>
+
+                        {favoriteDogs.length > 0 ? (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {favoriteDogs.map(dog => (
+                                    // @ts-ignore
+                                    <PetCard key={dog.id} dog={dog} />
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="text-center bg-white dark:bg-zinc-900 p-12 rounded-[2.5rem] border border-dashed border-border dark:border-zinc-800">
+                                <div className="text-6xl mb-4">😿</div>
+                                <h3 className="text-xl font-bold mb-2 text-foreground dark:text-muted">No favorites yet</h3>
+                                <p className="text-muted-foreground mb-6">Go find some furry friends to add to your list.</p>
+                                <Link href="/adopt">
+                                    <Button className="bg-primary/90 hover:bg-primary">Browse Dogs</Button>
+                                </Link>
+                            </div>
+                        )}
+                    </section>
+                )}
+
+                {/* Achievements Tab */}
+                {activeTab === 'achievements' && (
+                    <section className="mb-20 animate-in fade-in slide-in-from-bottom-4">
+                        <div className="grid lg:grid-cols-3 gap-8">
+                            <div className="lg:col-span-2">
+                                <div className="bg-white dark:bg-zinc-900 p-8 rounded-[2.5rem] border border-border dark:border-zinc-800 shadow-sm">
+                                    <h3 className="text-2xl font-bold mb-6 font-heading flex items-center gap-2">
+                                        <Award className="w-6 h-6 text-orange-500" /> Your Badges
+                                    </h3>
+                                    <Badges />
+                                </div>
+                            </div>
+                            <div>
+                                <div className="bg-gradient-to-b from-orange-50 to-white dark:from-zinc-900 dark:to-zinc-950 p-8 rounded-[2.5rem] border border-orange-100 dark:border-zinc-800 shadow-sm">
+                                    <h3 className="text-xl font-bold mb-6 font-heading flex items-center gap-2">
+                                        <Trophy className="w-5 h-5 text-yellow-500 fill-yellow-500" /> Leaderboard
+                                    </h3>
+                                    <div className="space-y-4">
+                                        {[
+                                            { name: 'Sarah', points: 2400, avatar: '👩' },
+                                            { name: 'Rahim', points: 1850, avatar: '👨' },
+                                            { name: 'You', points: 450, avatar: getInitials(user.displayName || 'User'), isMe: true },
+                                            { name: 'Fatima', points: 300, avatar: '🧕' },
+                                        ].map((u, i) => (
+                                            <div key={i} className={`flex items-center gap-4 p-3 rounded-2xl ${u.isMe ? 'bg-white shadow-md border border-orange-100' : ''}`}>
+                                                <div className="font-bold text-stone-400 w-4">{i + 1}</div>
+                                                <div className="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center text-lg">
+                                                    {u.avatar}
+                                                </div>
+                                                <div className="flex-1">
+                                                    <div className="font-bold text-stone-800">{u.name}</div>
+                                                    <div className="text-xs text-stone-400">{u.points} pts</div>
+                                                </div>
+                                                {i === 0 && <span className="text-2xl">🥇</span>}
+                                                {i === 1 && <span className="text-2xl">🥈</span>}
+                                                {i === 2 && <span className="text-2xl">🥉</span>}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    ) : (
-                        <div className="text-center bg-white dark:bg-zinc-900 p-12 rounded-[2.5rem] border border-dashed border-border dark:border-zinc-800">
-                            <div className="text-6xl mb-4">😿</div>
-                            <h3 className="text-xl font-bold mb-2 text-foreground dark:text-muted">No favorites yet</h3>
-                            <p className="text-muted-foreground mb-6">Go find some furry friends to add to your list.</p>
-                            <Link href="/adopt">
-                                <Button className="bg-primary/90 hover:bg-primary">Browse Dogs</Button>
-                            </Link>
-                        </div>
-                    )}
-                </section>
+                    </section>
+                )}
 
                 {/* Quick Actions */}
                 <section>
