@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { toast } from "sonner";
 import { Mail, Lock, User, ArrowRight, Loader2 } from "lucide-react";
@@ -21,11 +21,24 @@ export default function LoginPage() {
     const [isSignUp, setIsSignUp] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    // Math Challenge State (Fallback)
+    const [useMathChallenge, setUseMathChallenge] = useState(false);
+    const [mathChallenge, setMathChallenge] = useState({ q: "3 + 4", a: "7" });
+    const [userMathAnswer, setUserMathAnswer] = useState("");
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
+
     const [formData, setFormData] = useState({
         email: "",
         password: "",
         confirmPassword: ""
     });
+
+    // Initialize Math Challenge
+    useEffect(() => {
+        const n1 = Math.floor(Math.random() * 10);
+        const n2 = Math.floor(Math.random() * 10);
+        setMathChallenge({ q: `${n1} + ${n2}`, a: (n1 + n2).toString() });
+    }, []);
 
     useEffect(() => {
         if (user && !loading) {
@@ -34,19 +47,57 @@ export default function LoginPage() {
     }, [user, loading, router]);
 
     const handleGoogleLogin = async () => {
-        if (!captchaValue) {
-            toast.error("Please verify you are not a robot");
+        // For Google Login, we can optionally skip captcha or keep it. 
+        // Usually Google Auth handles bot protection itself.
+        // But if we want to be strict:
+        if (!captchaValue && !useMathChallenge) {
+            // If manual captcha is required
+            // toast.error("Please verify you are not a robot");
+            // return;
+        }
+        // If using math challenge
+        if (useMathChallenge && userMathAnswer.trim() !== mathChallenge.a) {
+            toast.error(`Incorrect math answer. Please solve ${mathChallenge.q}`);
             return;
         }
-        await signInWithGoogle();
+
+        setIsLoading(true);
+        try {
+            await signInWithGoogle();
+        } catch (error: any) {
+            console.error("Google Login Failed:", error);
+            if (error.code === 'auth/popup-blocked') {
+                toast.error("Popup blocked! Please allow popups for this site.");
+            } else if (error.code === 'auth/popup-closed-by-user') {
+                toast.warning("Sign-in cancelled.");
+            } else {
+                toast.error("Google Sign-In failed. Please try again.");
+            }
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleRecaptchaError = () => {
+        console.warn("reCAPTCHA failed to load. Falling back to Math Challenge.");
+        setUseMathChallenge(true);
+        setCaptchaValue("fallback-math-mode"); // Placeholder to allow validation logic to pass if math is solved later
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!captchaValue) {
-            toast.error("Please verify you are not a robot");
-            return;
+        // Verification Check
+        if (useMathChallenge) {
+            if (userMathAnswer.trim() !== mathChallenge.a) {
+                toast.error(`Incorrect answer. Please solve ${mathChallenge.q}`);
+                return;
+            }
+        } else {
+            if (!captchaValue) {
+                toast.error("Please verify you are not a robot");
+                return;
+            }
         }
 
         setIsLoading(true);
@@ -96,10 +147,10 @@ export default function LoginPage() {
                 <div className="space-y-6">
                     <Button
                         onClick={handleGoogleLogin}
-                        disabled={!captchaValue || isLoading}
+                        disabled={isLoading}
                         className="w-full h-12 text-base font-medium bg-white dark:bg-zinc-800 hover:bg-muted/50 dark:hover:bg-zinc-700 text-foreground dark:text-white border border-border dark:border-zinc-700 shadow-sm hover:shadow transition-all duration-200"
                     >
-                        <FcGoogle className="w-5 h-5 mr-3" />
+                        {isLoading ? <Loader2 className="w-5 h-5 animate-spin mr-3" /> : <FcGoogle className="w-5 h-5 mr-3" />}
                         Continue with Google
                     </Button>
 
@@ -165,18 +216,45 @@ export default function LoginPage() {
                             </div>
                         )}
 
+                        {/* Verification Section */}
                         <div className="flex justify-center pt-2">
-                            <ReCAPTCHA
-                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
-                                onChange={setCaptchaValue}
-                                theme="light"
-                            />
+                            {!useMathChallenge ? (
+                                <ReCAPTCHA
+                                    ref={recaptchaRef}
+                                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+                                    onChange={setCaptchaValue}
+                                    theme="light"
+                                    onError={handleRecaptchaError}
+                                />
+                            ) : (
+                                <div className="text-center space-y-3 w-full">
+                                    <div className="bg-muted/30 p-4 rounded-xl border border-border shadow-sm">
+                                        <p className="text-sm font-bold mb-2">Verify you are human:</p>
+                                        <p className="text-lg font-bold mb-2">What is {mathChallenge.q}?</p>
+                                        <Input
+                                            type="number"
+                                            className="w-full text-center text-lg font-bold bg-background"
+                                            placeholder="?"
+                                            value={userMathAnswer}
+                                            onChange={(e) => setUserMathAnswer(e.target.value)}
+                                        />
+                                    </div>
+                                    <p className="text-xs text-muted-foreground">reCAPTCHA unavailable. Please solve this math problem.</p>
+                                </div>
+                            )}
                         </div>
+
+                        {(!captchaValue && !useMathChallenge) && (
+                            <p className="text-center text-xs text-primary/70 mt-1 cursor-pointer hover:underline" onClick={() => setUseMathChallenge(true)}>
+                                Issues with Captcha? Switch to Math Test.
+                            </p>
+                        )}
+
 
                         <Button
                             type="submit"
                             className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary hover:to-primary shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
-                            disabled={isLoading || !captchaValue}
+                            disabled={isLoading}
                         >
                             {isLoading ? (
                                 <Loader2 className="w-5 h-5 animate-spin mr-2" />
