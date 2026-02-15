@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Calendar, MapPin, Clock, Star, Download, ChevronRight, Users, Heart } from "lucide-react";
+import { Calendar, MapPin, Clock, Star, Download, ChevronRight, Users, Heart, Facebook } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/layout/Header";
@@ -25,9 +25,20 @@ export default function CommunityPage() {
                         <h1 className="text-4xl md:text-6xl font-bold font-heading text-stone-800 mb-6 leading-tight">
                             Kuttawaala Community <span className="text-orange-500">Hub</span>
                         </h1>
-                        <p className="text-xl text-stone-500 max-w-2xl mx-auto leading-relaxed">
+                        <p className="text-xl text-stone-500 max-w-2xl mx-auto leading-relaxed mb-8">
                             Join our pack of dog lovers in Dhaka. From adoption drives to doggy day outs, there's always something happening! 🐕
                         </p>
+
+                        <a
+                            href="https://www.facebook.com/groups/kuttawaala"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 bg-[#1877F2] hover:bg-[#166fe5] text-white font-bold py-4 px-8 rounded-full shadow-xl shadow-blue-500/20 hover:scale-105 transition-all duration-300 group"
+                        >
+                            <Facebook className="w-5 h-5 fill-current" />
+                            <span>Visit Facebook Community</span>
+                            <ChevronRight className="w-4 h-4 opacity-50 group-hover:translate-x-1 transition-transform" />
+                        </a>
                     </div>
                 </section>
 
