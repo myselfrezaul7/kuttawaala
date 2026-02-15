@@ -30,7 +30,7 @@ export default function CommunityPage() {
                         </p>
 
                         <a
-                            href="https://www.facebook.com/groups/kuttawaala"
+                            href="https://www.facebook.com/groups/721498465956239"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 bg-[#1877F2] hover:bg-[#166fe5] text-white font-bold py-4 px-8 rounded-full shadow-xl shadow-blue-500/20 hover:scale-105 transition-all duration-300 group"
