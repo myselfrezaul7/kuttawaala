@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Sparkles, Heart, Users, Stethoscope, ArrowRight, Cat } from "lucide-react";
 import { FeaturedDogs } from "@/components/home/FeaturedDogs";
+import { BeforeAfterSlider } from "@/components/shared/BeforeAfterSlider";
+
 
 export default function Home() {
 
@@ -24,6 +26,62 @@ export default function Home() {
                     <FeaturedDogs />
                 </div>
             </section>
+
+            {/* Transformations Section */}
+            <section className="py-24 relative overflow-hidden">
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-16">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 font-bold text-sm mb-6">
+                            <Sparkles className="w-4 h-4" />
+                            <span>Real Life Miracles</span>
+                        </div>
+                        <h2 className="text-4xl md:text-6xl font-bold mb-6 font-heading">
+                            Incredible <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">Transformations</span>
+                        </h2>
+                        <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                            See the difference love, care, and a warm home can make. Slide to see how we change lives, one dog at a time.
+                        </p>
+                    </div>
+
+                    <div className="max-w-4xl mx-auto">
+                        <div className="grid md:grid-cols-2 gap-12 items-center">
+                            <div className="order-2 md:order-1 space-y-8">
+                                <div className="space-y-4">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-2xl">🏚️</div>
+                                        <div>
+                                            <h3 className="text-xl font-bold">The Rescue</h3>
+                                            <p className="text-muted-foreground">Found abandoned with severe skin issues.</p>
+                                        </div>
+                                    </div>
+                                    <div className="w-0.5 h-12 bg-border ml-6"></div>
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-2xl">🏡</div>
+                                        <div>
+                                            <h3 className="text-xl font-bold">The Recovery</h3>
+                                            <p className="text-muted-foreground">After 3 months of medical care and love.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="bg-orange-50 dark:bg-orange-900/10 p-6 rounded-2xl border border-orange-100 dark:border-orange-900/30">
+                                    <p className="italic text-muted-foreground">"Max was scared of his own shadow. Now he's the king of our sofa!"</p>
+                                    <p className="font-bold mt-2 text-right">- Sarah, Adopter</p>
+                                </div>
+                            </div>
+
+                            <div className="order-1 md:order-2 h-[400px] md:h-[500px] rounded-[3rem] overflow-hidden shadow-2xl shadow-orange-500/10 border-4 border-white dark:border-zinc-800">
+                                <BeforeAfterSlider
+                                    beforeImage="https://images.unsplash.com/photo-1529429617124-95b109e86bb8?q=80&w=600&auto=format&fit=crop"
+                                    afterImage="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=600&auto=format&fit=crop"
+                                    beforeLabel="Rescued"
+                                    afterLabel="Adopted"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
 
             {/* Visit Catwaala Section */}
             <section className="py-20 relative overflow-hidden">
