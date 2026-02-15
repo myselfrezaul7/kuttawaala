@@ -4,48 +4,45 @@
 
 @layer base {
     :root {
-        /* Portfolio Light Theme */
-        --background: 0 0% 91%;
-        /* #e8e8e8 */
-        --foreground: 0 0% 10%;
-        /* #1a1a1a */
+        /* Portfolio Light Theme - Updated for Kuttawaala */
+        --background: 45 20% 96%;
+        /* Warm off-white */
+        --foreground: 20 14.3% 4.1%;
+        /* Deep Stone/Black */
 
-        --card: 0 0% 94%;
-        /* #f0f0f0 */
-        --card-foreground: 0 0% 10%;
+        --card: 0 0% 100%;
+        --card-foreground: 20 14.3% 4.1%;
 
-        --popover: 0 0% 94%;
-        --popover-foreground: 0 0% 10%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 20 14.3% 4.1%;
 
-        --primary: 0 0% 10%;
-        /* #1a1a1a */
-        --primary-foreground: 0 0% 98%;
+        --primary: 32 95% 44%;
+        /* Amber 600 - Brand Color */
+        --primary-foreground: 60 9.1% 97.8%;
 
-        --secondary: 0 0% 88%;
-        /* #e0e0e0 */
-        --secondary-foreground: 0 0% 10%;
+        --secondary: 30 20% 92%;
+        --secondary-foreground: 24 9.8% 10%;
 
-        --muted: 0 0% 88%;
-        --muted-foreground: 0 0% 42%;
+        --muted: 30 10% 94%;
+        --muted-foreground: 25 5.3% 44.7%;
 
-        --accent: 0 0% 10%;
-        --accent-foreground: 0 0% 98%;
+        --accent: 30 20% 92%;
+        --accent-foreground: 24 9.8% 10%;
 
         --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 0 0% 98%;
+        --destructive-foreground: 60 9.1% 97.8%;
 
-        --border: 0 0% 75%;
-        /* #c0c0c0 */
-        --input: 0 0% 75%;
-        --ring: 0 0% 10%;
+        --border: 30 10% 88%;
+        --input: 30 10% 88%;
+        --ring: 32 95% 44%;
 
-        --radius: 0.5rem;
+        --radius: 0.75rem;
 
         /* Glassmorphism - Light */
-        --glass-background: rgba(255, 255, 255, 0.4);
-        --glass-border: rgba(255, 255, 255, 0.2);
+        --glass-background: rgba(255, 255, 255, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.5);
         --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-        --glass-blur: 12px;
+        --glass-blur: 16px;
     }
 
     .dark {

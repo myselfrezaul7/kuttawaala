@@ -2,101 +2,123 @@ import { Hero } from "@/components/home/Hero";
 import { SuccessStories } from "@/components/home/SuccessStories";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Sparkles, Heart, Users, Stethoscope } from "lucide-react";
+import { Sparkles, Heart, Users, Stethoscope, ArrowRight, Cat } from "lucide-react";
 import { FeaturedDogs } from "@/components/home/FeaturedDogs";
 
 export default function Home() {
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <Hero />
-
+        <div className="flex flex-col min-h-screen bg-background">
             <Hero />
 
             {/* Success Stories Ticker */}
             <SuccessStories />
 
             {/* Featured Dogs Section */}
-            <section className="py-24 gradient-bg relative overflow-hidden">
+            <section className="py-24 relative overflow-hidden bg-secondary/30">
                 {/* Decorative elements */}
-                <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
-                <div className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-300/20 rounded-full blur-3xl" />
+                <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
+                <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
 
-                <FeaturedDogs />
+                <div className="container mx-auto px-4 relative z-10">
+                    <FeaturedDogs />
+                </div>
             </section>
 
-            {/* Mission Section with Glassmorphism Stats */}
-            <section className="py-28 relative overflow-hidden">
-                {/* Animated gradient background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-secondary via-white to-indigo-100 dark:from-zinc-900 dark:via-zinc-950 dark:to-zinc-900" />
-                <div className="absolute inset-0">
-                    <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float" />
-                    <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-indigo-400/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
-                </div>
+            {/* Visit Catwaala Section */}
+            <section className="py-20 relative overflow-hidden">
+                <div className="container mx-auto px-4 relative z-10">
+                    <div className="bg-gradient-to-r from-orange-500 to-amber-600 rounded-[3rem] p-10 md:p-16 text-white shadow-2xl shadow-orange-500/20 relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
+                        <div className="absolute bottom-0 left-0 w-80 h-80 bg-black/10 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3" />
 
-                <div className="container mx-auto px-4 relative z-10 text-center max-w-4xl">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-secondary dark:bg-secondary/500/20 mb-8">
-                        <Sparkles className="w-8 h-8 text-primary" />
+                        <div className="flex flex-col md:flex-row items-center gap-10 relative z-10">
+                            <div className="flex-1 text-center md:text-left space-y-6">
+                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/20 text-sm font-bold">
+                                    <Cat className="w-4 h-4" />
+                                    <span>Team Catwaala</span>
+                                </div>
+                                <h2 className="text-4xl md:text-5xl font-bold font-heading">
+                                    More of a Cat Person?
+                                </h2>
+                                <p className="text-lg text-orange-50 max-w-xl leading-relaxed">
+                                    Visit our sister organization, <span className="font-bold text-white">Catwaala</span>, to find your purrfect feline companion. Same mission, different paws.
+                                </p>
+                                <a
+                                    href="https://catwaala.com"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-block"
+                                >
+                                    <Button className="h-14 px-8 rounded-2xl bg-white text-orange-600 hover:bg-orange-50 font-bold text-lg shadow-lg transition-transform hover:scale-105">
+                                        Visit Catwaala.com <ArrowRight className="ml-2 w-5 h-5" />
+                                    </Button>
+                                </a>
+                            </div>
+
+                            {/* Decorative Cat Icon/Graphic */}
+                            <div className="w-full md:w-auto flex justify-center">
+                                <div className="w-64 h-64 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30 shadow-inner">
+                                    <Cat className="w-32 h-32 text-white drop-shadow-lg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Mission Section */}
+            <section className="py-24 relative overflow-hidden">
+                <div className="container mx-auto px-4 relative z-10 text-center max-w-5xl">
+                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-primary/10 mb-10 rotate-3">
+                        <Sparkles className="w-10 h-10 text-primary" />
                     </div>
 
-                    <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground dark:text-white leading-tight">
+                    <h2 className="text-4xl md:text-6xl font-bold mb-8 text-foreground font-heading tracking-tight">
                         Our Mission
                     </h2>
-                    <p className="text-xl text-muted-foreground dark:text-muted-foreground mb-16 leading-relaxed max-w-2xl mx-auto">
+                    <p className="text-xl md:text-2xl text-muted-foreground mb-20 leading-relaxed max-w-3xl mx-auto">
                         We are dedicated to improving the lives of street dogs in Bangladesh through rescue, rehabilitation, and adoption programs.
                     </p>
 
-                    {/* Stats Cards with iOS 26 Glassmorphism */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                        <div className="glass-card rounded-3xl p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl group">
-                            <div className="w-14 h-14 rounded-2xl bg-secondary dark:bg-secondary/500/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                                <Heart className="w-7 h-7 text-primary" />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {[
+                            { icon: Heart, count: "500+", label: "Dogs Rescued", color: "text-rose-500", bg: "bg-rose-500/10" },
+                            { icon: Users, count: "200+", label: "Adoptions", color: "text-blue-500", bg: "bg-blue-500/10" },
+                            { icon: Stethoscope, count: "50+", label: "Vet Camps", color: "text-emerald-500", bg: "bg-emerald-500/10" }
+                        ].map((stat, index) => (
+                            <div key={index} className="glass-card rounded-[2.5rem] p-10 hover:translate-y-[-5px] transition-transform duration-300 border border-border mt-4">
+                                <div className={`w-16 h-16 rounded-2xl ${stat.bg} flex items-center justify-center mx-auto mb-6`}>
+                                    <stat.icon className={`w-8 h-8 ${stat.color}`} />
+                                </div>
+                                <span className="block text-5xl font-bold text-foreground mb-3 tracking-tight">{stat.count}</span>
+                                <span className="text-sm font-bold text-muted-foreground uppercase tracking-widest">{stat.label}</span>
                             </div>
-                            <span className="block text-4xl font-bold text-primary dark:text-primary/80 mb-2">500+</span>
-                            <span className="text-sm font-semibold text-muted-foreground dark:text-muted-foreground/80 uppercase tracking-wider">Dogs TNR&apos;d</span>
-                        </div>
-
-                        <div className="glass-card rounded-3xl p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl group">
-                            <div className="w-14 h-14 rounded-2xl bg-indigo-100 dark:bg-indigo-500/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                                <Users className="w-7 h-7 text-indigo-500" />
-                            </div>
-                            <span className="block text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">200+</span>
-                            <span className="text-sm font-semibold text-muted-foreground dark:text-muted-foreground/80 uppercase tracking-wider">Adoptions</span>
-                        </div>
-
-                        <div className="glass-card rounded-3xl p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl group">
-                            <div className="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-500/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                                <Stethoscope className="w-7 h-7 text-emerald-500" />
-                            </div>
-                            <span className="block text-4xl font-bold text-emerald-600 dark:text-emerald-400 mb-2">50+</span>
-                            <span className="text-sm font-semibold text-muted-foreground dark:text-muted-foreground/80 uppercase tracking-wider">Volunteers</span>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
             {/* CTA Section */}
-            <section className="py-20 gradient-bg relative overflow-hidden">
-                <div className="absolute inset-0">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/30 dark:bg-secondary/500/10 rounded-full blur-3xl" />
-                </div>
+            <section className="py-24 relative overflow-hidden">
+                <div className="absolute inset-0 bg-primary/5" />
 
                 <div className="container mx-auto px-4 relative z-10">
-                    <div className="glass-card rounded-[32px] p-12 md:p-16 text-center max-w-3xl mx-auto">
-                        <h2 className="text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-6">
+                    <div className="glass-card rounded-[3rem] p-12 md:p-24 text-center max-w-5xl mx-auto border border-border/50 bg-background/50 backdrop-blur-xl">
+                        <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-8 font-heading">
                             Ready to Make a Difference?
                         </h2>
-                        <p className="text-lg text-muted-foreground dark:text-muted-foreground mb-10 max-w-xl mx-auto">
+                        <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
                             Join our community of dog lovers and help us create a better world for stray dogs in Bangladesh.
                         </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <div className="flex flex-col sm:flex-row gap-6 justify-center">
                             <Link href="/adopt">
-                                <Button size="lg" className="h-14 px-8 rounded-2xl bg-gradient-to-r from-primary to-primary/90 hover:from-primary hover:to-primary text-white font-semibold shadow-lg shadow-secondary0/25 hover:shadow-xl hover:shadow-secondary0/40 transition-all duration-300">
+                                <Button size="lg" className="h-16 px-10 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xl shadow-xl shadow-primary/20 hover:scale-105 transition-all">
                                     Adopt a Dog
                                 </Button>
                             </Link>
                             <Link href="/volunteer">
-                                <Button size="lg" variant="outline" className="h-14 px-8 rounded-2xl border-2 border-border dark:border-muted-foreground hover:border-primary dark:hover:border-primary font-semibold transition-all duration-300">
+                                <Button size="lg" variant="outline" className="h-16 px-10 rounded-2xl border-2 border-border hover:bg-secondary text-foreground font-bold text-xl hover:scale-105 transition-all">
                                     Become a Volunteer
                                 </Button>
                             </Link>
