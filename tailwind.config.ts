@@ -19,8 +19,8 @@ const config = {
         },
         extend: {
             fontFamily: {
-                sans: ["var(--font-inter)", "sans-serif"],
-                heading: ["var(--font-inter)", "sans-serif"],
+                sans: ["var(--font-ibm-plex-sans)", "sans-serif"],
+                heading: ["var(--font-ibm-plex-sans)", "sans-serif"],
             },
             colors: {
                 border: "hsl(var(--border) / <alpha-value>)",

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-// import { Inter } from "next/font/google";
+import { IBM_Plex_Sans } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { FavoritesProvider } from "@/contexts/FavoritesContext";
@@ -10,11 +10,12 @@ import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { Toaster } from "sonner";
 
-// Fallback to system font if Google Fonts fails
-const inter = {
-    variable: "font-sans",
-    className: "font-sans"
-};
+// Switch to IBM Plex Sans
+const ibmPlexSans = IBM_Plex_Sans({
+    variable: "--font-ibm-plex-sans",
+    subsets: ["latin"],
+    weight: ["300", "400", "500", "600", "700"],
+});
 
 export const viewport: Viewport = {
     themeColor: "#f43f5e",
@@ -70,7 +71,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={`${inter.variable} antialiased font-sans`}>
+            <body className={`${ibmPlexSans.variable} antialiased font-sans`}>
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
