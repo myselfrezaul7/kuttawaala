@@ -60,31 +60,31 @@ export function PetCard({ dog }: { dog: DogProps }) {
                 )}
 
                 {/* Dog info overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 className="text-3xl font-bold mb-2 tracking-tight">
+                <div className="absolute bottom-0 left-0 right-0 p-3 md:p-6 text-white bg-gradient-to-t from-black/80 to-transparent">
+                    <h3 className="text-lg md:text-3xl font-bold mb-1 md:mb-2 tracking-tight truncate">
                         {dog.name}
                     </h3>
-                    <div className="flex items-center gap-2 text-white/90 text-sm font-medium">
-                        <MapPin className="w-4 h-4 text-primary" />
-                        <span>{dog.location}</span>
+                    <div className="flex items-center gap-1 md:gap-2 text-white/90 text-xs md:text-sm font-medium">
+                        <MapPin className="w-3 h-3 md:w-4 md:h-4 text-primary" />
+                        <span className="truncate">{dog.location}</span>
                     </div>
                 </div>
             </div>
 
             {/* Card content */}
-            <div className="p-5 bg-card space-y-4">
-                <div className="flex justify-between items-center">
-                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground/80 bg-secondary/50 px-4 py-2 rounded-xl">
-                        <Dog className="w-4 h-4 text-primary" />
-                        {dog.breed}
+            <div className="p-3 md:p-5 bg-card space-y-2 md:space-y-4">
+                <div className="flex justify-between items-center gap-2">
+                    <span className="inline-flex items-center gap-1 md:gap-1.5 text-xs md:text-sm font-semibold text-foreground/80 bg-secondary/50 px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl truncate max-w-[60%]">
+                        <Dog className="w-3 h-3 md:w-4 md:h-4 text-primary shrink-0" />
+                        <span className="truncate">{dog.breed}</span>
                     </span>
-                    <span className="text-sm text-muted-foreground font-medium bg-muted/30 px-3 py-2 rounded-xl">
+                    <span className="text-xs md:text-sm text-muted-foreground font-medium bg-muted/30 px-2 md:px-3 py-1 md:py-2 rounded-lg md:rounded-xl whitespace-nowrap">
                         {dog.age}
                     </span>
                 </div>
 
                 <Link href={`/adopt/${dog.id}`} className="block">
-                    <Button className="w-full h-12 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base shadow-lg shadow-primary/20 transition-all duration-300 group-hover:translate-y-[-2px]">
+                    <Button className="w-full h-10 md:h-12 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs md:text-base shadow-lg shadow-primary/20 transition-all duration-300 group-hover:translate-y-[-2px]">
                         Meet {dog.name}
                     </Button>
                 </Link>

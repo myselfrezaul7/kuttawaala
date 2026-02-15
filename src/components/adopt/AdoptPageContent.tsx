@@ -111,15 +111,23 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
                             <Filter className="w-5 h-5" />
                             <h2 className="text-lg font-bold">Filter Dogs</h2>
                         </div>
-                        <div className="relative w-full md:w-96">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5" />
-                            <input
-                                type="text"
-                                placeholder="Search by name, breed, or location..."
-                                className="w-full pl-11 pr-4 py-3 rounded-xl border border-border bg-muted/30 focus:bg-background focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
+                        <div className="flex gap-4 w-full md:w-auto">
+                            <a href="/adoption-form" target="_blank">
+                                <Button variant="outline" className="gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>
+                                    Download Form
+                                </Button>
+                            </a>
+                            <div className="relative w-full md:w-64">
+                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                                <input
+                                    type="text"
+                                    placeholder="Search..."
+                                    className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-border bg-muted/30 focus:bg-background focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                            </div>
                         </div>
                     </div>
 
@@ -205,7 +213,7 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
                     )}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-12">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 pb-12">
                     {filteredDogs.length > 0 ? (
                         filteredDogs.map(dog => (
                             // @ts-ignore

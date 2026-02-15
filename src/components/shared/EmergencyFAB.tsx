@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Plus, AlertTriangle, MapPin, Heart, X, Phone } from "lucide-react";
+import { Plus, AlertTriangle, MapPin, Heart, X, Phone, Dog } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
@@ -16,7 +16,7 @@ export function EmergencyFAB() {
             label: "Report Rescue",
             icon: AlertTriangle,
             href: "/report",
-            color: "bg-red-500 text-white",
+            color: "bg-red-600 text-white",
             delay: 0.1
         },
         {
@@ -77,16 +77,20 @@ export function EmergencyFAB() {
             {/* Main Toggle Button */}
             <motion.button
                 onClick={toggleOpen}
-                className={`relative z-50 w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-colors duration-300 ${isOpen ? "bg-zinc-800 text-white rotate-45" : "bg-red-600 text-white animate-pulse-slow hover:bg-red-700"
+                className={`relative z-50 w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-colors duration-300 ${isOpen ? "bg-zinc-800 text-white rotate-45" : "bg-primary text-primary-foreground animate-pulse-slow hover:bg-primary/90"
                     }`}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
             >
-                <Plus className={`w-8 h-8 transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`} />
+                {isOpen ? (
+                    <Plus className="w-8 h-8" />
+                ) : (
+                    <Dog className="w-8 h-8" />
+                )}
 
                 {/* Ping effect when closed */}
                 {!isOpen && (
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75 animate-ping -z-10"></span>
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 animate-ping -z-10"></span>
                 )}
             </motion.button>
         </div>
