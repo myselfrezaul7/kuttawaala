@@ -17,7 +17,7 @@ export default function Home() {
             <SuccessStories />
 
             {/* Featured Dogs Section */}
-            <section className="py-24 relative overflow-hidden bg-secondary/30">
+            <section className="py-24 relative overflow-hidden bg-secondary/30 dark:bg-secondary/5">
                 {/* Decorative elements */}
                 <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
                 <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
@@ -69,7 +69,7 @@ export default function Home() {
                                 </div>
                             </div>
 
-                            <div className="order-1 md:order-2 h-[400px] md:h-[500px] rounded-[3rem] overflow-hidden shadow-2xl shadow-orange-500/10 border-4 border-white dark:border-zinc-800">
+                            <div className="order-1 md:order-2 h-[400px] md:h-[500px] rounded-[3rem] overflow-hidden shadow-2xl shadow-orange-500/10 border-4 border-white dark:border-stone-800">
                                 <BeforeAfterSlider
                                     beforeImage="https://images.unsplash.com/photo-1529429617124-95b109e86bb8?q=80&w=600&auto=format&fit=crop"
                                     afterImage="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=600&auto=format&fit=crop"

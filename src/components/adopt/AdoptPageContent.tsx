@@ -82,7 +82,7 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
     };
 
     return (
-        <div className="min-h-screen bg-background pb-24">
+        <div className="min-h-screen bg-background pb-24 border-t-0">
             {/* Header */}
             <div className="bg-primary text-primary-foreground py-20 text-center px-4 relative overflow-hidden">
                 <div className="relative z-10">
@@ -104,7 +104,7 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
             </div>
 
             <div className="container mx-auto px-4 -mt-10 relative z-20">
-                <div className="bg-card p-6 md:p-8 rounded-[2rem] shadow-xl border border-border space-y-8">
+                <div className="bg-card p-6 md:p-8 rounded-[2rem] shadow-xl border border-border space-y-8 glass-card dark:border-white/10 dark:bg-stone-900/60 transition-colors">
                     {/* Search & Filter Header */}
                     <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
                         <div className="flex items-center gap-2 text-foreground/80">
@@ -113,7 +113,7 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
                         </div>
                         <div className="flex gap-4 w-full md:w-auto">
                             <a href="/adoption-form" target="_blank">
-                                <Button variant="outline" className="gap-2">
+                                <Button variant="outline" className="gap-2 border-primary/20 hover:bg-primary/5 hover:text-primary dark:border-primary/50 dark:hover:bg-primary/20">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>
                                     Download Form
                                 </Button>
@@ -123,7 +123,7 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
                                 <input
                                     type="text"
                                     placeholder="Search..."
-                                    className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-border bg-muted/30 focus:bg-background focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                                    className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-border bg-muted/30 focus:bg-background focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all dark:bg-stone-800/50 dark:focus:bg-stone-800"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                 />
@@ -139,7 +139,7 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
                         <div className="space-y-2">
                             <label className="text-sm font-semibold text-foreground/70 ml-1">Gender</label>
                             <select
-                                className="w-full p-3 rounded-xl border border-border bg-muted/30 focus:bg-background outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer appearance-none"
+                                className="w-full p-3 rounded-xl border border-border bg-muted/30 focus:bg-background outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer appearance-none dark:bg-stone-800/50 dark:focus:bg-stone-800 text-foreground"
                                 value={selectedGender}
                                 onChange={(e) => setSelectedGender(e.target.value)}
                             >
@@ -153,7 +153,7 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
                         <div className="space-y-2">
                             <label className="text-sm font-semibold text-foreground/70 ml-1">Age</label>
                             <select
-                                className="w-full p-3 rounded-xl border border-border bg-muted/30 focus:bg-background outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer appearance-none"
+                                className="w-full p-3 rounded-xl border border-border bg-muted/30 focus:bg-background outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer appearance-none dark:bg-stone-800/50 dark:focus:bg-stone-800 text-foreground"
                                 value={selectedAge}
                                 onChange={(e) => setSelectedAge(e.target.value as AgeCategory | "All")}
                             >
@@ -168,7 +168,7 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
                         <div className="col-span-1 md:col-span-2 space-y-2">
                             <label className="text-sm font-semibold text-foreground/70 ml-1">Attributes</label>
                             <div className="flex flex-wrap gap-3">
-                                <label className={`flex items-center gap-2 cursor-pointer px-4 py-3 rounded-xl border transition-all select-none ${attributes.goodWithKids ? 'bg-primary/10 border-primary text-primary font-bold' : 'bg-muted/30 border-border hover:border-primary/50 text-foreground'}`}>
+                                <label className={`flex items-center gap-2 cursor-pointer px-4 py-3 rounded-xl border transition-all select-none ${attributes.goodWithKids ? 'bg-primary/10 border-primary text-primary font-bold dark:bg-primary/20' : 'bg-muted/30 border-border hover:border-primary/50 text-foreground dark:bg-stone-800/50'}`}>
                                     <input
                                         type="checkbox"
                                         checked={attributes.goodWithKids}
@@ -177,7 +177,7 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
                                     />
                                     Good with Kids
                                 </label>
-                                <label className={`flex items-center gap-2 cursor-pointer px-4 py-3 rounded-xl border transition-all select-none ${attributes.vaccinated ? 'bg-primary/10 border-primary text-primary font-bold' : 'bg-muted/30 border-border hover:border-primary/50 text-foreground'}`}>
+                                <label className={`flex items-center gap-2 cursor-pointer px-4 py-3 rounded-xl border transition-all select-none ${attributes.vaccinated ? 'bg-primary/10 border-primary text-primary font-bold dark:bg-primary/20' : 'bg-muted/30 border-border hover:border-primary/50 text-foreground dark:bg-stone-800/50'}`}>
                                     <input
                                         type="checkbox"
                                         checked={attributes.vaccinated}
@@ -186,7 +186,7 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
                                     />
                                     Vaccinated
                                 </label>
-                                <label className={`flex items-center gap-2 cursor-pointer px-4 py-3 rounded-xl border transition-all select-none ${attributes.neutered ? 'bg-primary/10 border-primary text-primary font-bold' : 'bg-muted/30 border-border hover:border-primary/50 text-foreground'}`}>
+                                <label className={`flex items-center gap-2 cursor-pointer px-4 py-3 rounded-xl border transition-all select-none ${attributes.neutered ? 'bg-primary/10 border-primary text-primary font-bold dark:bg-primary/20' : 'bg-muted/30 border-border hover:border-primary/50 text-foreground dark:bg-stone-800/50'}`}>
                                     <input
                                         type="checkbox"
                                         checked={attributes.neutered}

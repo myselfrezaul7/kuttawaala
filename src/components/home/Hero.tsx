@@ -19,10 +19,10 @@ export function Hero() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <h1 className="text-5xl md:text-7xl font-bold text-foreground dark:text-muted leading-[1.1] mb-6 font-heading">
+                        <h1 className="text-5xl md:text-7xl font-bold text-foreground dark:text-white leading-[1.1] mb-6 font-heading">
                             Every Dog Deserves a <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-500">Loving Home</span>
                         </h1>
-                        <p className="text-xl text-muted-foreground dark:text-muted-foreground/80 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                        <p className="text-xl text-muted-foreground dark:text-stone-300 max-w-lg mx-auto lg:mx-0 leading-relaxed">
                             Join us in transforming the lives of street dogs in Bangladesh through rescue, care, and adoption.
                         </p>
                     </motion.div>

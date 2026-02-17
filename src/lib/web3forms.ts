@@ -1,6 +1,6 @@
 export async function submitToWeb3Forms(data: any) {
     // Use env var or the key provided by user directly
-    const access_key = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "d7824851-58ee-4709-ae0e-d9eb2e7e8135";
+    const access_key = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "aea1b172-9662-4481-9dc0-ca1705fe1a5c";
 
     if (!access_key) {
         console.error("Web3Forms Access Key is missing!");

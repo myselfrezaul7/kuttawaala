@@ -44,7 +44,7 @@ export function FeaturedDogs() {
                     </p>
                 </div>
                 <Link href="/adopt">
-                    <Button variant="ghost" className="gap-2 text-primary hover:text-primary hover:bg-secondary/50 dark:hover:bg-secondary/500/10 text-base font-semibold rounded-full px-6">
+                    <Button variant="ghost" className="gap-2 text-primary hover:text-primary hover:bg-secondary/50 dark:hover:bg-secondary/10 text-base font-semibold rounded-full px-6">
                         View All Dogs <ArrowRight className="w-5 h-5" />
                     </Button>
                 </Link>
