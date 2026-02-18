@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     openGraph: {
         type: "website",
         locale: "en_US",
-        url: "https://kuttawaala.com",
+        url: "https://www.kuttawaala.com",
         title: "Kuttawaala | Save a Stray, Gain a Friend",
         description: "Connect with rescued dogs, find vets, and report strays in Bangladesh.",
         siteName: "Kuttawaala",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
         description: "Helping street dogs in Bangladesh find loving homes.",
         creator: "@kuttawaala",
     },
-    metadataBase: new URL("https://kuttawaala.com"),
+    metadataBase: new URL("https://www.kuttawaala.com"),
 };
 
 export default function RootLayout({
@@ -79,8 +79,8 @@ export default function RootLayout({
                             "@context": "https://schema.org",
                             "@type": "Organization",
                             name: "Kuttawaala",
-                            url: "https://kuttawaala.com",
-                            logo: "https://kuttawaala.com/logo.png",
+                            url: "https://www.kuttawaala.com",
+                            logo: "https://www.kuttawaala.com/logo.png",
                             sameAs: ["https://twitter.com/kuttawaala"],
                             contactPoint: {
                                 "@type": "ContactPoint",
