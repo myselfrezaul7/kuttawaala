@@ -338,7 +338,7 @@ export function ReportForm() {
                                         {!useMathChallenge ? (
                                             <ReCAPTCHA
                                                 ref={recaptchaRef}
-                                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+                                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LchaGgsAAAAAE-tlzeD1ApfHA2C6C-nM9Os41bf"}
                                                 onChange={(val) => setCaptchaValue(val)}
                                                 onError={handleRecaptchaError} // Trigger fallback on error
                                                 onExpired={() => setCaptchaValue(null)}

@@ -14,7 +14,7 @@ export function Captcha({ onChange }: CaptchaProps) {
         <div className="flex justify-center my-4">
             <ReCAPTCHA
                 ref={recaptchaRef}
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"} // Test key for dev
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LchaGgsAAAAAE-tlzeD1ApfHA2C6C-nM9Os41bf"}
                 onChange={onChange}
                 theme="light"
             />
