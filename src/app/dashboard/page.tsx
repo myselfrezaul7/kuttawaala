@@ -57,15 +57,15 @@ export default function DashboardPage() {
             <div className="container mx-auto px-4 py-12">
 
                 {/* Profile Card */}
-                <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border border-border dark:border-zinc-800 rounded-[2.5rem] p-8 md:p-12 mb-12 shadow-xl shadow-secondary/50 dark:shadow-none">
+                <div className="bg-card border border-border rounded-[2.5rem] p-8 md:p-12 mb-12 shadow-sm">
                     <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
                         {/* Avatar */}
                         <div className="relative group cursor-pointer" onClick={() => alert("Profile editing coming soon!")}>
                             {user.photoURL ? (
                                 // eslint-disable-next-line @next/next/no-img-element
-                                <img src={user.photoURL || ""} alt={user.displayName || "User"} className="w-32 h-32 rounded-full object-cover border-4 border-white dark:border-zinc-800 shadow-lg" />
+                                <img src={user.photoURL || ""} alt={user.displayName || "User"} className="w-32 h-32 rounded-full object-cover border-4 border-background shadow-sm" />
                             ) : (
-                                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary to-indigo-500 flex items-center justify-center border-4 border-white dark:border-zinc-800 shadow-lg text-white text-4xl font-bold">
+                                <div className="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center border-4 border-background shadow-sm text-primary text-4xl font-bold">
                                     {getInitials(user.displayName || "User")}
                                 </div>
                             )}
@@ -82,9 +82,9 @@ export default function DashboardPage() {
                             <p className="text-muted-foreground dark:text-muted-foreground/80">{user.email}</p>
 
                             <div className="flex flex-wrap gap-4 justify-center md:justify-start pt-4">
-                                <div className="bg-white dark:bg-zinc-950 px-6 py-3 rounded-2xl border border-border dark:border-zinc-800 flex items-center gap-3">
+                                <div className="bg-secondary px-6 py-3 rounded-2xl border border-border flex items-center gap-3">
                                     <Heart className="w-5 h-5 text-primary" />
-                                    <span className="font-bold text-foreground dark:text-muted">{favoriteIds.length}</span>
+                                    <span className="font-bold text-foreground">{favoriteIds.length}</span>
                                     <span className="text-muted-foreground text-sm">Favorites</span>
                                 </div>
                             </div>
@@ -142,9 +142,9 @@ export default function DashboardPage() {
                                 ))}
                             </div>
                         ) : (
-                            <div className="text-center bg-white dark:bg-zinc-900 p-12 rounded-[2.5rem] border border-dashed border-border dark:border-zinc-800">
+                            <div className="text-center bg-card p-12 rounded-[2.5rem] border border-dashed border-border">
                                 <div className="text-6xl mb-4">😿</div>
-                                <h3 className="text-xl font-bold mb-2 text-foreground dark:text-muted">No favorites yet</h3>
+                                <h3 className="text-xl font-bold mb-2 text-foreground">No favorites yet</h3>
                                 <p className="text-muted-foreground mb-6">Go find some furry friends to add to your list.</p>
                                 <Link href="/adopt">
                                     <Button className="bg-primary/90 hover:bg-primary">Browse Dogs</Button>
@@ -159,7 +159,7 @@ export default function DashboardPage() {
                     <section className="mb-20 animate-in fade-in slide-in-from-bottom-4">
                         <div className="grid lg:grid-cols-3 gap-8">
                             <div className="lg:col-span-2">
-                                <div className="bg-white dark:bg-zinc-900 p-8 rounded-[2.5rem] border border-border dark:border-zinc-800 shadow-sm">
+                                <div className="bg-card p-8 rounded-[2.5rem] border border-border shadow-sm">
                                     <h3 className="text-2xl font-bold mb-6 font-heading flex items-center gap-2">
                                         <Award className="w-6 h-6 text-orange-500" /> Your Badges
                                     </h3>
@@ -167,7 +167,7 @@ export default function DashboardPage() {
                                 </div>
                             </div>
                             <div>
-                                <div className="bg-gradient-to-b from-orange-50 to-white dark:from-zinc-900 dark:to-zinc-950 p-8 rounded-[2.5rem] border border-orange-100 dark:border-zinc-800 shadow-sm">
+                                <div className="bg-card p-8 rounded-[2.5rem] border border-border shadow-sm">
                                     <h3 className="text-xl font-bold mb-6 font-heading flex items-center gap-2">
                                         <Trophy className="w-5 h-5 text-yellow-500 fill-yellow-500" /> Leaderboard
                                     </h3>
@@ -178,14 +178,14 @@ export default function DashboardPage() {
                                             { name: 'You', points: 450, avatar: getInitials(user.displayName || 'User'), isMe: true },
                                             { name: 'Fatima', points: 300, avatar: '🧕' },
                                         ].map((u, i) => (
-                                            <div key={i} className={`flex items-center gap-4 p-3 rounded-2xl ${u.isMe ? 'bg-white shadow-md border border-orange-100' : ''}`}>
-                                                <div className="font-bold text-stone-400 w-4">{i + 1}</div>
-                                                <div className="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center text-lg">
+                                            <div key={i} className={`flex items-center gap-4 p-3 rounded-2xl ${u.isMe ? 'bg-secondary border border-border' : ''}`}>
+                                                <div className="font-bold text-muted-foreground w-4">{i + 1}</div>
+                                                <div className="w-10 h-10 bg-background rounded-full flex items-center justify-center text-lg border border-border">
                                                     {u.avatar}
                                                 </div>
                                                 <div className="flex-1">
-                                                    <div className="font-bold text-stone-800">{u.name}</div>
-                                                    <div className="text-xs text-stone-400">{u.points} pts</div>
+                                                    <div className="font-bold text-foreground">{u.name}</div>
+                                                    <div className="text-xs text-muted-foreground">{u.points} pts</div>
                                                 </div>
                                                 {i === 0 && <span className="text-2xl">🥇</span>}
                                                 {i === 1 && <span className="text-2xl">🥈</span>}
@@ -205,58 +205,58 @@ export default function DashboardPage() {
                         Explore More
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <Link href="/find-vet" className="group bg-white dark:bg-zinc-900 p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all border border-border dark:border-zinc-800 flex items-start gap-6">
-                            <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center text-blue-500 text-3xl group-hover:scale-110 transition-transform">
+                        <Link href="/find-vet" className="group bg-card p-8 rounded-[2rem] transition-all border border-border hover:border-primary/50 flex items-start gap-6">
+                            <div className="w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center text-primary text-3xl group-hover:scale-110 transition-transform">
                                 🏥
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">Find a Vet</h3>
+                                <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Find a Vet</h3>
                                 <p className="text-muted-foreground text-sm leading-relaxed">Locate trusted veterinary clinics near you.</p>
                             </div>
                         </Link>
 
-                        <Link href="/community" className="group bg-white dark:bg-zinc-900 p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all border border-border dark:border-zinc-800 flex items-start gap-6">
-                            <div className="w-16 h-16 bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl flex items-center justify-center text-indigo-500 text-3xl group-hover:scale-110 transition-transform">
+                        <Link href="/community" className="group bg-card p-8 rounded-[2rem] transition-all border border-border hover:border-primary/50 flex items-start gap-6">
+                            <div className="w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center text-primary text-3xl group-hover:scale-110 transition-transform">
                                 💬
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold mb-2 group-hover:text-indigo-600 transition-colors">Community</h3>
+                                <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Community</h3>
                                 <p className="text-muted-foreground text-sm leading-relaxed">Join discussions and share your dog stories.</p>
                             </div>
                         </Link>
 
-                        <Link href="/memorial" className="group bg-white dark:bg-zinc-900 p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all border border-border dark:border-zinc-800 flex items-start gap-6">
-                            <div className="w-16 h-16 bg-purple-50 dark:bg-purple-900/20 rounded-2xl flex items-center justify-center text-purple-500 text-3xl group-hover:scale-110 transition-transform">
+                        <Link href="/memorial" className="group bg-card p-8 rounded-[2rem] transition-all border border-border hover:border-primary/50 flex items-start gap-6">
+                            <div className="w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center text-primary text-3xl group-hover:scale-110 transition-transform">
                                 🕊️
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold mb-2 group-hover:text-purple-600 transition-colors">Memorial Wall</h3>
+                                <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Memorial Wall</h3>
                                 <p className="text-muted-foreground text-sm leading-relaxed">Honor the memory of beloved pets.</p>
                             </div>
                         </Link>
 
-                        <Link href="/quiz" className="group bg-white dark:bg-zinc-900 p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all border border-border dark:border-zinc-800 flex items-start gap-6">
-                            <div className="w-16 h-16 bg-amber-50 dark:bg-amber-900/20 rounded-2xl flex items-center justify-center text-amber-500 text-3xl group-hover:scale-110 transition-transform">
+                        <Link href="/quiz" className="group bg-card p-8 rounded-[2rem] transition-all border border-border hover:border-primary/50 flex items-start gap-6">
+                            <div className="w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center text-primary text-3xl group-hover:scale-110 transition-transform">
                                 🧩
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold mb-2 group-hover:text-amber-600 transition-colors">Dog Personality Quiz</h3>
+                                <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Dog Personality Quiz</h3>
                                 <p className="text-muted-foreground text-sm leading-relaxed">Find out which dog matches your lifestyle.</p>
                             </div>
                         </Link>
 
-                        <Link href="/volunteer" className="group bg-white dark:bg-zinc-900 p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all border border-border dark:border-zinc-800 flex items-start gap-6">
-                            <div className="w-16 h-16 bg-green-50 dark:bg-green-900/20 rounded-2xl flex items-center justify-center text-green-500 text-3xl group-hover:scale-110 transition-transform">
+                        <Link href="/volunteer" className="group bg-card p-8 rounded-[2rem] transition-all border border-border hover:border-primary/50 flex items-start gap-6">
+                            <div className="w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center text-primary text-3xl group-hover:scale-110 transition-transform">
                                 🤝
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold mb-2 group-hover:text-green-600 transition-colors">Volunteer</h3>
+                                <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Volunteer</h3>
                                 <p className="text-muted-foreground text-sm leading-relaxed">Help us make a difference in the streets.</p>
                             </div>
                         </Link>
 
-                        <div onClick={() => alert("Donation feature coming soon!")} className="cursor-pointer group bg-white dark:bg-zinc-900 p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all border border-border dark:border-zinc-800 flex items-start gap-6">
-                            <div className="w-16 h-16 bg-secondary/50 dark:bg-primary/20 rounded-2xl flex items-center justify-center text-primary text-3xl group-hover:scale-110 transition-transform">
+                        <div onClick={() => alert("Donation feature coming soon!")} className="cursor-pointer group bg-card p-8 rounded-[2rem] transition-all border border-border hover:border-primary/50 flex items-start gap-6">
+                            <div className="w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center text-primary text-3xl group-hover:scale-110 transition-transform">
                                 <Gift className="w-8 h-8" />
                             </div>
                             <div>
