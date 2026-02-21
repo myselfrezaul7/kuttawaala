@@ -32,6 +32,11 @@ export function Header() {
         { name: t.nav.dashboard, href: "/dashboard" },
     ];
 
+    // Conditionally add Admin link
+    if (user?.email === "kuttawaala@gmail.com") {
+        navLinks.push({ name: "Admin", href: "/admin" });
+    }
+
     const handleSearch = () => {
         setIsSearchOpen(false);
         router.push(`/adopt?query=${encodeURIComponent(searchQuery)}`);

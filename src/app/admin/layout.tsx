@@ -10,17 +10,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const router = useRouter();
 
     useEffect(() => {
-        if (!loading && !user) {
-            router.push("/login");
+        if (!loading) {
+            if (!user) {
+                router.push("/login");
+            } else if (user.email !== "kuttawaala@gmail.com") {
+                router.push("/");
+            }
         }
-        // In a real app, check user.role === 'admin' here
     }, [user, loading, router]);
 
     if (loading) {
         return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
     }
 
-    if (!user) return null;
+    if (!user || user.email !== "kuttawaala@gmail.com") return null;
 
     return (
         <div className="min-h-screen bg-secondary/30 dark:bg-zinc-950">
