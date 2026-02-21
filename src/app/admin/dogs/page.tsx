@@ -7,11 +7,15 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2, Plus, Edit, Trash, Dog as DogIcon } from "lucide-react";
 import { toast } from "sonner";
-import { Dog } from "@/data/dogs"; // We'll use the type
+import { Dog } from "@/data/dogs";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { DogForm } from "@/components/admin/DogForm";
 
 export default function AdminDogsPage() {
     const [dogs, setDogs] = useState<Dog[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isFormOpen, setIsFormOpen] = useState(false);
+    const [editingDog, setEditingDog] = useState<Dog | null>(null);
 
     const fetchDogs = async () => {
         setLoading(true);
@@ -89,7 +93,7 @@ export default function AdminDogsPage() {
                     {dogs.length === 0 && (
                         <Button variant="outline" onClick={handleMockSeed}>Seed Test Data</Button>
                     )}
-                    <Button onClick={() => alert("Add Dog Form coming soon!")} className="gap-2">
+                    <Button onClick={() => { setEditingDog(null); setIsFormOpen(true); }} className="gap-2">
                         <Plus className="w-4 h-4" /> Add New Dog
                     </Button>
                 </div>
@@ -132,15 +136,15 @@ export default function AdminDogsPage() {
                                             <td className="px-6 py-4 text-muted-foreground">{dog.age} • {dog.gender}</td>
                                             <td className="px-6 py-4">
                                                 <span className={`px-2.5 py-1 rounded-lg text-xs font-bold ${dog.tag === 'Urgent' ? 'bg-red-100 text-red-700' :
-                                                        dog.tag === 'Adopted' ? 'bg-green-100 text-green-700' :
-                                                            'bg-secondary text-secondary-foreground'
+                                                    dog.tag === 'Adopted' ? 'bg-green-100 text-green-700' :
+                                                        'bg-secondary text-secondary-foreground'
                                                     }`}>
                                                     {dog.tag || 'Available'}
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4 text-right">
                                                 <div className="flex justify-end gap-2">
-                                                    <Button size="icon" variant="ghost" className="h-9 w-9 text-blue-500 hover:text-blue-600 hover:bg-blue-50">
+                                                    <Button size="icon" variant="ghost" onClick={() => { setEditingDog(dog); setIsFormOpen(true); }} className="h-9 w-9 text-blue-500 hover:text-blue-600 hover:bg-blue-50">
                                                         <Edit className="w-4 h-4" />
                                                     </Button>
                                                     <Button size="icon" variant="ghost" onClick={() => handleDelete(dog.id)} className="h-9 w-9 text-red-500 hover:text-red-600 hover:bg-red-50">
@@ -162,6 +166,19 @@ export default function AdminDogsPage() {
                     )}
                 </CardContent>
             </Card>
+
+            <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                    <DialogHeader>
+                        <DialogTitle>{editingDog ? "Edit Dog Profile" : "Add New Dog Profile"}</DialogTitle>
+                    </DialogHeader>
+                    <DogForm
+                        initialData={editingDog}
+                        onSuccess={() => { setIsFormOpen(false); fetchDogs(); }}
+                        onCancel={() => setIsFormOpen(false)}
+                    />
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }

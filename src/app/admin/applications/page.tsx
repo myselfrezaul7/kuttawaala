@@ -5,7 +5,7 @@ import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firesto
 import { db } from "@/utils/firebase";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, FileText, CheckCircle, XCircle, Trash } from "lucide-react";
+import { Loader2, FileText, CheckCircle, XCircle, Trash, Mail } from "lucide-react";
 import { toast } from "sonner";
 import { formatDistanceToNow } from "date-fns";
 
@@ -47,9 +47,19 @@ export default function AdminApplicationsPage() {
         fetchApplications();
     }, []);
 
-    const handleUpdateStatus = async (id: string, newStatus: string) => {
+    const handleUpdateStatus = async (id: string, newStatus: string, dogId: string) => {
         try {
             await updateDoc(doc(db, "adoptions", id), { status: newStatus });
+
+            if (newStatus === 'Approved' && dogId) {
+                // Automatically mark the dog as adopted if approved
+                try {
+                    await updateDoc(doc(db, "dogs", dogId), { tag: 'Adopted' });
+                } catch (e) {
+                    console.error("Failed to update dog status", e);
+                }
+            }
+
             toast.success(`Application marked as ${newStatus}`);
             fetchApplications();
         } catch (error) {
@@ -96,8 +106,8 @@ export default function AdminApplicationsPage() {
                                         <div className="flex items-center gap-2">
                                             <h3 className="font-bold text-lg">{app.applicantName}</h3>
                                             <span className={`text-xs px-2 py-1 rounded-md font-bold ${app.status === 'Approved' ? 'bg-green-100 text-green-700' :
-                                                    app.status === 'Rejected' ? 'bg-red-100 text-red-700' :
-                                                        'bg-yellow-100 text-yellow-700'
+                                                app.status === 'Rejected' ? 'bg-red-100 text-red-700' :
+                                                    'bg-yellow-100 text-yellow-700'
                                                 }`}>
                                                 {app.status || 'Pending'}
                                             </span>
@@ -114,14 +124,19 @@ export default function AdminApplicationsPage() {
                                         <p className="text-xs text-muted-foreground font-medium bg-background px-2 py-1 rounded-md border border-border shadow-sm">
                                             {app.created_at ? formatDistanceToNow(new Date(app.created_at), { addSuffix: true }) : 'Recently'}
                                         </p>
-                                        <div className="flex gap-2">
+                                        <div className="flex gap-2 mt-1 md:mt-0 flex-wrap justify-end">
+                                            <a href={`mailto:${app.applicantEmail}?subject=Regarding your adoption application for ${app.dogName}`}>
+                                                <Button size="sm" variant="outline" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50">
+                                                    <Mail className="w-4 h-4 mr-1" /> Email
+                                                </Button>
+                                            </a>
                                             {app.status !== 'Approved' && (
-                                                <Button size="sm" variant="outline" className="text-green-600 hover:text-green-700 hover:bg-green-50" onClick={() => handleUpdateStatus(app.id, 'Approved')}>
+                                                <Button size="sm" variant="outline" className="text-green-600 hover:text-green-700 hover:bg-green-50" onClick={() => handleUpdateStatus(app.id, 'Approved', app.dogId)}>
                                                     <CheckCircle className="w-4 h-4 mr-1" /> Approve
                                                 </Button>
                                             )}
                                             {app.status !== 'Rejected' && (
-                                                <Button size="sm" variant="outline" className="text-orange-600 hover:text-orange-700 hover:bg-orange-50" onClick={() => handleUpdateStatus(app.id, 'Rejected')}>
+                                                <Button size="sm" variant="outline" className="text-orange-600 hover:text-orange-700 hover:bg-orange-50" onClick={() => handleUpdateStatus(app.id, 'Rejected', app.dogId)}>
                                                     <XCircle className="w-4 h-4 mr-1" /> Reject
                                                 </Button>
                                             )}

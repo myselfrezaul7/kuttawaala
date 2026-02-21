@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, Users as UsersIcon, Trash, Info } from "lucide-react";
+import { Loader2, Users as UsersIcon, Trash, Info, Shield, ShieldOff } from "lucide-react";
 import { toast } from "sonner";
 import { formatDistanceToNow } from "date-fns";
 
@@ -42,6 +42,17 @@ export default function AdminUsersPage() {
     useEffect(() => {
         fetchUsers();
     }, []);
+
+    const handleRoleChange = async (id: string, newRole: string) => {
+        try {
+            await updateDoc(doc(db, "users", id), { role: newRole });
+            toast.success(`User role updated to ${newRole}`);
+            fetchUsers();
+        } catch (error) {
+            console.error("Error updating role:", error);
+            toast.error("Failed to update user role");
+        }
+    };
 
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure? This deletes their profile data (Auth must be managed via Firebase Console).")) return;
@@ -95,15 +106,26 @@ export default function AdminUsersPage() {
                                             <td className="px-6 py-4 text-muted-foreground">{u.email}</td>
                                             <td className="px-6 py-4">
                                                 <span className={`px-2.5 py-1 rounded-lg text-xs font-bold ${u.role === 'admin' ? 'bg-primary/20 text-primary' :
-                                                        'bg-secondary text-secondary-foreground'
+                                                    'bg-secondary text-secondary-foreground'
                                                     }`}>
                                                     {u.role || 'Member'}
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4 text-right">
-                                                <Button size="icon" variant="ghost" onClick={() => handleDelete(u.id)} className="h-9 w-9 text-red-500 hover:text-red-600 hover:bg-red-50">
-                                                    <Trash className="w-4 h-4" />
-                                                </Button>
+                                                <div className="flex justify-end gap-2">
+                                                    {u.role === 'admin' ? (
+                                                        <Button size="sm" variant="outline" onClick={() => handleRoleChange(u.id, 'user')} className="text-orange-600 hover:text-orange-700 hover:bg-orange-50 gap-1">
+                                                            <ShieldOff className="w-4 h-4" /> Revoke Admin
+                                                        </Button>
+                                                    ) : (
+                                                        <Button size="sm" variant="outline" onClick={() => handleRoleChange(u.id, 'admin')} className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 gap-1">
+                                                            <Shield className="w-4 h-4" /> Make Admin
+                                                        </Button>
+                                                    )}
+                                                    <Button size="icon" variant="ghost" onClick={() => handleDelete(u.id)} className="h-9 w-9 text-red-500 hover:text-red-600 hover:bg-red-50">
+                                                        <Trash className="w-4 h-4" />
+                                                    </Button>
+                                                </div>
                                             </td>
                                         </tr>
                                     ))}

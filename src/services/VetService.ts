@@ -21,8 +21,19 @@ const COLLECTION_NAME = "vets";
 
 export const VetService = {
     async getAll() {
-        // Return mock data directly for now to ensure the page is populated
-        // In the future, we can merge this with Firestore data if needed
+        try {
+            const snapshot = await getDocs(collection(db, COLLECTION_NAME));
+            if (!snapshot.empty) {
+                return snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                })) as VetClinic[];
+            }
+        } catch (error) {
+            console.error("Firebase fetch failed, using fallback mock vets.", error);
+        }
+
+        // Fallback to mock data if Firestore is empty or fails
         return MOCK_VET_CLINICS.map(vet => ({
             ...vet,
             id: vet.id.toString(),
@@ -31,6 +42,19 @@ export const VetService = {
     },
 
     async getByDistrict(district: string) {
+        try {
+            const q = query(collection(db, COLLECTION_NAME), where("district", "==", district));
+            const snapshot = await getDocs(q);
+            if (!snapshot.empty) {
+                return snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                })) as VetClinic[];
+            }
+        } catch (error) {
+            console.error("Firebase fetch failed, using fallback mock vets.", error);
+        }
+
         return MOCK_VET_CLINICS
             .filter(vet => vet.district === district)
             .map(vet => ({

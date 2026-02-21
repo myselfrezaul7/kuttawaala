@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, Heart, FileText, Settings, LogOut, Dog } from "lucide-react";
+import { LayoutDashboard, Users, Heart, FileText, Settings, LogOut, Dog, AlertTriangle, Activity } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
 export function AdminSidebar() {
@@ -12,8 +12,10 @@ export function AdminSidebar() {
     const links = [
         { href: "/admin", label: "Overview", icon: LayoutDashboard },
         { href: "/admin/applications", label: "Adoptions", icon: FileText },
+        { href: "/admin/reports", label: "Rescue Reports", icon: AlertTriangle },
         { href: "/admin/users", label: "Users", icon: Users },
         { href: "/admin/dogs", label: "Manage Dogs", icon: Dog },
+        { href: "/admin/vets", label: "Veterinarians", icon: Activity },
         { href: "/admin/settings", label: "Settings", icon: Settings },
     ];
 

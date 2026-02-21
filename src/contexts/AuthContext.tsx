@@ -2,12 +2,14 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { User, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut as firebaseSignOut, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithCredential } from "firebase/auth";
-import { auth } from "@/utils/firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { auth, db } from "@/utils/firebase";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 type AuthContextType = {
     user: User | null;
+    userData: any | null;
     loading: boolean;
     signInWithGoogle: () => Promise<void>;
     signInWithEmail: (email: string, password: string) => Promise<void>;
@@ -17,6 +19,7 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType>({
     user: null,
+    userData: null,
     loading: true,
     signInWithGoogle: async () => { },
     signInWithEmail: async () => { },
@@ -30,12 +33,36 @@ export function useAuth() {
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
+    const [userData, setUserData] = useState<any | null>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             setUser(user);
+            if (user) {
+                try {
+                    const userDoc = await getDoc(doc(db, "users", user.uid));
+                    if (userDoc.exists()) {
+                        setUserData({ id: userDoc.id, ...userDoc.data() });
+                    } else {
+                        // Create user doc if it doesn't exist
+                        const newUser = {
+                            name: user.displayName || "User",
+                            email: user.email,
+                            role: "user",
+                            createdAt: Date.now()
+                        };
+                        await setDoc(doc(db, "users", user.uid), newUser);
+                        setUserData({ id: user.uid, ...newUser });
+                    }
+                } catch (error) {
+                    console.error("Error fetching user data", error);
+                    setUserData(null);
+                }
+            } else {
+                setUserData(null);
+            }
             setLoading(false);
         });
 
@@ -91,6 +118,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const value = {
         user,
+        userData,
         loading,
         signInWithGoogle,
         signInWithEmail,

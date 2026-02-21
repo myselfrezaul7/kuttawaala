@@ -6,24 +6,24 @@ import { useEffect } from "react";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-    const { user, loading } = useAuth();
+    const { user, userData, loading } = useAuth();
     const router = useRouter();
 
     useEffect(() => {
         if (!loading) {
             if (!user) {
                 router.push("/login");
-            } else if (user.email !== "kuttawaala@gmail.com") {
+            } else if (userData?.role !== "admin" && user.email !== "kuttawaala@gmail.com") {
                 router.push("/");
             }
         }
-    }, [user, loading, router]);
+    }, [user, userData, loading, router]);
 
     if (loading) {
         return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
     }
 
-    if (!user || user.email !== "kuttawaala@gmail.com") return null;
+    if (!user || (userData?.role !== "admin" && user.email !== "kuttawaala@gmail.com")) return null;
 
     return (
         <div className="min-h-screen bg-secondary/30 dark:bg-zinc-950">

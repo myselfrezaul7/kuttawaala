@@ -4,19 +4,11 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Dog, FileText, TrendingUp, AlertTriangle, Shield, MapPin, Loader2 } from "lucide-react";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
-import { collection, getDocs, query, limit, orderBy } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { formatDistanceToNow } from "date-fns";
 
-// Placeholder chart data until we build full analytics pipelines
-const chartData = [
-    { name: "Jan", reports: 4 },
-    { name: "Feb", reports: 7 },
-    { name: "Mar", reports: 5 },
-    { name: "Apr", reports: 12 },
-    { name: "May", reports: 9 },
-    { name: "Jun", reports: 15 },
-];
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 type Report = {
     id: string;
@@ -30,6 +22,7 @@ type Report = {
 export default function AdminDashboardPage() {
     const [stats, setStats] = useState({ dogs: 0, reports: 0, users: 0 });
     const [recentReports, setRecentReports] = useState<Report[]>([]);
+    const [chartDataState, setChartDataState] = useState<{ name: string, reports: number }[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -38,17 +31,34 @@ export default function AdminDashboardPage() {
                 // Fetch basic counts (In a massive production app, you'd use aggregation queries, but for now this is fine)
                 // We'll mock dogs and users for now if there are no collections, but fetch real reports
 
-                // Fetch Recent Reports
+                // Fetch All Reports to build graph and list
                 const reportsRef = collection(db, "reports");
-                const q = query(reportsRef, orderBy("created_at", "desc"), limit(5));
-                const snapshot = await getDocs(q);
+                const snapshot = await getDocs(reportsRef);
 
                 const reports = snapshot.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data()
                 })) as Report[];
 
-                setRecentReports(reports);
+                const sortedReports = [...reports].sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
+                setRecentReports(sortedReports.slice(0, 5));
+
+                // Process chart data (last 6 months)
+                const now = new Date();
+                const last6Months = Array.from({ length: 6 }).map((_, i) => {
+                    const d = new Date(now.getFullYear(), now.getMonth() - 5 + i, 1);
+                    return { monthIndex: d.getMonth(), year: d.getFullYear(), name: monthNames[d.getMonth()], reports: 0 };
+                });
+
+                reports.forEach(r => {
+                    if (r.created_at) {
+                        const d = new Date(r.created_at);
+                        const match = last6Months.find(m => m.monthIndex === d.getMonth() && m.year === d.getFullYear());
+                        if (match) match.reports++;
+                    }
+                });
+
+                setChartDataState(last6Months.map(m => ({ name: m.name, reports: m.reports })));
 
                 // Set stats
                 setStats({
@@ -132,7 +142,7 @@ export default function AdminDashboardPage() {
                     </CardHeader>
                     <CardContent className="h-[300px]">
                         <ResponsiveContainer width="100%" height="100%">
-                            <BarChart data={chartData}>
+                            <BarChart data={chartDataState}>
                                 <CartesianGrid strokeDasharray="3 3" className="stroke-muted/30" vertical={false} />
                                 <XAxis dataKey="name" className="text-xs text-muted-foreground" axisLine={false} tickLine={false} />
                                 <YAxis className="text-xs text-muted-foreground" axisLine={false} tickLine={false} />
@@ -158,7 +168,7 @@ export default function AdminDashboardPage() {
                                     <div key={report.id} className="flex items-start justify-between p-4 bg-secondary/30 rounded-xl border border-secondary transition-colors hover:bg-secondary/50">
                                         <div className="flex items-start gap-4">
                                             <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold flex-shrink-0 ${report.type === 'Injured' ? 'bg-red-100 text-red-600' :
-                                                    report.type === 'Lost' ? 'bg-orange-100 text-orange-600' : 'bg-green-100 text-green-600'
+                                                report.type === 'Lost' ? 'bg-orange-100 text-orange-600' : 'bg-green-100 text-green-600'
                                                 }`}>
                                                 <AlertTriangle className="w-5 h-5" />
                                             </div>
