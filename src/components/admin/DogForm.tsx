@@ -85,7 +85,7 @@ export function DogForm({ initialData, onSuccess, onCancel }: DogFormProps) {
                 location: formData.location,
                 description: formData.description,
                 imageUrl: finalImageUrl,
-                tag: formData.tag === "Available" ? null : formData.tag,
+                tag: formData.tag === "Available" ? "" : formData.tag, // Firebase doesn't like strict nulls sometimes without proper rules, use empty string
                 temperamentTags: formData.temperamentTags.split(",").map(t => t.trim()).filter(Boolean),
                 vaccinated: formData.vaccinated,
                 neutered: formData.neutered,

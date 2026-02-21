@@ -17,7 +17,7 @@ export default function Home() {
             <SuccessStories />
 
             {/* Featured Dogs Section */}
-            <section className="py-24 relative overflow-hidden bg-secondary/30 dark:bg-secondary/5">
+            <section className="py-12 md:py-24 relative overflow-hidden bg-secondary/30 dark:bg-secondary/5">
                 {/* Decorative elements */}
                 <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
                 <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
@@ -28,9 +28,9 @@ export default function Home() {
             </section>
 
             {/* Transformations Section */}
-            <section className="py-24 relative overflow-hidden">
+            <section className="py-12 md:py-24 relative overflow-hidden">
                 <div className="container mx-auto px-4">
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-10 md:mb-16">
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 font-bold text-sm mb-6">
                             <Sparkles className="w-4 h-4" />
                             <span>Real Life Miracles</span>
@@ -69,7 +69,7 @@ export default function Home() {
                                 </div>
                             </div>
 
-                            <div className="order-1 md:order-2 h-[400px] md:h-[500px] rounded-[3rem] overflow-hidden shadow-2xl shadow-orange-500/10 border-4 border-white dark:border-stone-800">
+                            <div className="order-1 md:order-2 h-[300px] md:h-[500px] rounded-[3rem] overflow-hidden shadow-2xl shadow-orange-500/10 border-4 border-white dark:border-stone-800">
                                 <BeforeAfterSlider
                                     beforeImage="https://images.unsplash.com/photo-1529429617124-95b109e86bb8?q=80&w=600&auto=format&fit=crop"
                                     afterImage="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=600&auto=format&fit=crop"
@@ -84,9 +84,9 @@ export default function Home() {
 
 
             {/* Visit Catwaala Section */}
-            <section className="py-20 relative overflow-hidden">
+            <section className="py-12 md:py-20 relative overflow-hidden">
                 <div className="container mx-auto px-4 relative z-10">
-                    <div className="bg-gradient-to-r from-orange-500 to-amber-600 rounded-[3rem] p-10 md:p-16 text-white shadow-2xl shadow-orange-500/20 relative overflow-hidden group">
+                    <div className="bg-gradient-to-r from-orange-500 to-amber-600 rounded-[3rem] p-8 md:p-16 text-white shadow-2xl shadow-orange-500/20 relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
                         <div className="absolute bottom-0 left-0 w-80 h-80 bg-black/10 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3" />
 
@@ -126,7 +126,7 @@ export default function Home() {
             </section>
 
             {/* Mission Section */}
-            <section className="py-24 relative overflow-hidden">
+            <section className="py-12 md:py-24 relative overflow-hidden">
                 <div className="container mx-auto px-4 relative z-10 text-center max-w-5xl">
                     <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-primary/10 mb-10 rotate-3">
                         <Sparkles className="w-10 h-10 text-primary" />
@@ -145,7 +145,7 @@ export default function Home() {
                             { icon: Users, count: "200+", label: "Adoptions", color: "text-blue-500", bg: "bg-blue-500/10" },
                             { icon: Stethoscope, count: "50+", label: "Vet Camps", color: "text-emerald-500", bg: "bg-emerald-500/10" }
                         ].map((stat, index) => (
-                            <div key={index} className="glass-card rounded-[2.5rem] p-10 hover:translate-y-[-5px] transition-transform duration-300 border border-border mt-4">
+                            <div key={index} className="glass-card rounded-[2.5rem] p-6 md:p-10 hover:translate-y-[-5px] transition-transform duration-300 border border-border mt-4">
                                 <div className={`w-16 h-16 rounded-2xl ${stat.bg} flex items-center justify-center mx-auto mb-6`}>
                                     <stat.icon className={`w-8 h-8 ${stat.color}`} />
                                 </div>
@@ -158,11 +158,11 @@ export default function Home() {
             </section>
 
             {/* CTA Section */}
-            <section className="py-24 relative overflow-hidden">
+            <section className="py-12 md:py-24 relative overflow-hidden">
                 <div className="absolute inset-0 bg-primary/5" />
 
                 <div className="container mx-auto px-4 relative z-10">
-                    <div className="glass-card rounded-[3rem] p-12 md:p-24 text-center max-w-5xl mx-auto border border-border/50 bg-background/50 backdrop-blur-xl">
+                    <div className="glass-card rounded-[3rem] p-8 md:p-24 text-center max-w-5xl mx-auto border border-border/50 bg-background/50 backdrop-blur-xl">
                         <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-8 font-heading">
                             Ready to Make a Difference?
                         </h2>

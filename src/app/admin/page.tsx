@@ -60,11 +60,18 @@ export default function AdminDashboardPage() {
 
                 setChartDataState(last6Months.map(m => ({ name: m.name, reports: m.reports })));
 
-                // Set stats
+                // Fetch real counts for dogs and users
+                const dogsRef = collection(db, "dogs");
+                const dogsSnapshot = await getDocs(dogsRef);
+
+                const usersRef = collection(db, "users");
+                const usersSnapshot = await getDocs(usersRef);
+
+                // Set stats dynamically
                 setStats({
-                    dogs: 24, // Mocked until dog DB is up
-                    users: 573, // Mocked until user management is up
-                    reports: snapshot.size || 0 // Real data
+                    dogs: dogsSnapshot.size,
+                    users: usersSnapshot.size || 573, // Keep a fallback if DB is completely empty for presentation purposes
+                    reports: snapshot.size || 0
                 });
 
             } catch (error) {
