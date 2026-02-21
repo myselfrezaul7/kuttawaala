@@ -5,13 +5,15 @@ export function middleware(request: NextRequest) {
     const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
     const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://va.vercel-scripts.com;
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://va.vercel-scripts.com https://apis.google.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-    img-src 'self' blob: data: https://images.unsplash.com https://*.firebaseapp.com https://*.googleapis.com https://lh3.googleusercontent.com;
+    img-src 'self' blob: data: https://images.unsplash.com https://*.firebaseapp.com https://*.googleapis.com https://lh3.googleusercontent.com https://www.google.com;
     font-src 'self' https://fonts.gstatic.com;
+    connect-src 'self' https://firestore.googleapis.com https://*.firebaseio.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firebaseinstallations.googleapis.com;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
+    frame-src 'self' https://www.google.com https://www.recaptcha.net https://kuttawaala-animal-welfare.firebaseapp.com;
     frame-ancestors 'none';
     block-all-mixed-content;
     upgrade-insecure-requests;
