@@ -6,8 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { submitToWeb3Forms } from "@/lib/web3forms";
 import { adoptionSchema, type AdoptionSchema } from "@/lib/schemas";
+import { useAuth } from "@/contexts/AuthContext";
+import { db } from "@/utils/firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 export function AdoptionForm({ dogName }: { dogName: string }) {
+    const { user } = useAuth();
     const [submitted, setSubmitted] = useState(false);
     const [serverError, setServerError] = useState<string | null>(null);
 
@@ -25,19 +29,28 @@ export function AdoptionForm({ dogName }: { dogName: string }) {
 
         const result = await submitToWeb3Forms({
             form_name: `Adoption Application for ${dogName}`,
-            cat_name: dogName, // Keeping the backend field name same for now if schema requires it, or changing if safe. Actually schema implies cat_name might be used. Let's look at schema. PROCEEDING safely by mapping dogName to existing field if needed, but here it constructs data. 
-            // Wait, submitToWeb3Forms likely just takes an object. Let's assume it's flexible or I should check schema. 
-            // Checking previous file content: "cat_name: catName". 
-            // I'll change the key to "dog_name" if possible, but to be safe and consistent with potential backend/email templates, I'll send it as "pet_name" or keep "cat_name" if I must, but ideally "dog_name". 
-            // Let's assume web3forms is generic. I will use "dog_name: dogName" and also specific "subject" line if possible. 
-            // actually, let's keep it simple: `message: ...`
-            // Re-reading: `cat_name: catName` was passed. 
-            // I will change it to `dog_name: dogName`.
             dog_name: dogName,
             ...data,
         });
 
         if (result.success) {
+            // Save to Firebase for tracking
+            try {
+                await addDoc(collection(db, "adoptions"), {
+                    dogName: dogName,
+                    applicantName: data.name,
+                    applicantEmail: data.email || "",
+                    applicantPhone: data.phone,
+                    status: "Pending",
+                    created_at: Date.now(),
+                    experience: data.message,
+                    userId: user?.uid || null,
+                });
+            } catch (e) {
+                console.error("Failed to save adoption to firestore:", e);
+                // Still considering it a success if email sent, but might fail admin tracking
+            }
+
             setSubmitted(true);
             reset();
         } else {

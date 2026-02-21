@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { resources } from "@/data/resources";
 
 export default function CommunityPage() {
     return (
@@ -101,19 +102,15 @@ export default function CommunityPage() {
                     <section>
                         <h2 className="text-3xl font-bold text-stone-800 dark:text-stone-100 font-heading mb-10 text-center">Canine Resources 📚</h2>
                         <div className="grid md:grid-cols-3 gap-6">
-                            {[
-                                { title: "New Dog Checklist", desc: "Essentials for your new best friend." },
-                                { title: "Emergency Vet List", desc: "24/7 clinics in Dhaka." },
-                                { title: "Desi Dog Diet Guide", desc: "Healthy food for local breeds." },
-                            ].map((resource, i) => (
-                                <Link href="#" key={i} className="group glass-card dark:bg-stone-900/60 dark:border-stone-800 p-8 rounded-[2rem] hover:bg-orange-50 dark:hover:bg-stone-800 transition-colors border-2 border-transparent hover:border-orange-100 dark:hover:border-stone-700">
+                            {resources.map((resource) => (
+                                <Link href={`/resources/${resource.slug}`} key={resource.slug} className="group glass-card dark:bg-stone-900/60 dark:border-stone-800 p-8 rounded-[2rem] hover:bg-orange-50 dark:hover:bg-stone-800 transition-colors border-2 border-transparent hover:border-orange-100 dark:hover:border-stone-700">
                                     <div className="w-14 h-14 bg-orange-100 dark:bg-orange-900/20 rounded-2xl flex items-center justify-center mb-6 text-orange-500 group-hover:scale-110 transition-transform">
                                         <Download className="w-7 h-7" />
                                     </div>
                                     <h3 className="text-xl font-bold text-stone-800 dark:text-stone-100 mb-2">{resource.title}</h3>
-                                    <p className="text-stone-500 dark:text-stone-400 mb-4">{resource.desc}</p>
+                                    <p className="text-stone-500 dark:text-stone-400 mb-4">{resource.description}</p>
                                     <span className="text-orange-500 font-bold text-sm flex items-center gap-1 group-hover:translate-x-2 transition-transform">
-                                        Download PDF <ChevronRight className="w-4 h-4" />
+                                        Read Article <ChevronRight className="w-4 h-4" />
                                     </span>
                                 </Link>
                             ))}

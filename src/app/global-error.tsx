@@ -1,9 +1,8 @@
-'use client';
+"use client";
 
-import { Inter } from "next/font/google"; // Import font to keep styling consistent even in error state
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-
-const inter = Inter({ subsets: ["latin"] });
+import { AlertCircle, RefreshCcw } from "lucide-react";
 
 export default function GlobalError({
     error,
@@ -12,27 +11,33 @@ export default function GlobalError({
     error: Error & { digest?: string };
     reset: () => void;
 }) {
+    useEffect(() => {
+        // Log the error to an error reporting service
+        console.error(error);
+    }, [error]);
+
     return (
-        <html lang="en">
-            <body className={inter.className}>
-                <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground p-4 text-center">
-                    <div className="space-y-4">
-                        <h2 className="text-4xl font-bold text-destructive">Critical Error</h2>
-                        <p className="text-muted-foreground max-w-md mx-auto">
-                            Something went wrong in the main layout. We apologize for the inconvenience.
-                        </p>
-                        {/* Digest is useful for debugging in production logs */}
-                        {error.digest && (
-                            <p className="text-xs text-muted-foreground/50 font-mono">
-                                Error ID: {error.digest}
-                            </p>
-                        )}
+        <html>
+            <body>
+                <div className="min-h-screen bg-white dark:bg-zinc-950 flex flex-col items-center justify-center p-4 text-center pb-20">
+                    <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-full mb-6">
+                        <AlertCircle className="w-12 h-12 text-red-500" />
+                    </div>
+                    <h2 className="text-3xl font-bold font-heading mb-4 text-foreground dark:text-white">
+                        System Failure
+                    </h2>
+                    <p className="text-muted-foreground dark:text-muted-foreground/80 max-w-md mb-8">
+                        A critical error occurred. Please refresh the page to try again.
+                    </p>
+                    <div className="flex gap-4 justify-center">
                         <Button
                             onClick={() => reset()}
-                            variant="default"
-                            className="mt-4"
+                            className="gap-2 bg-card dark:bg-muted text-white dark:text-foreground hover:bg-card dark:hover:bg-muted"
                         >
-                            Try again
+                            <RefreshCcw className="w-4 h-4" /> Hard Refresh
+                        </Button>
+                        <Button variant="outline" onClick={() => window.location.href = '/'}>
+                            Go Home
                         </Button>
                     </div>
                 </div>
