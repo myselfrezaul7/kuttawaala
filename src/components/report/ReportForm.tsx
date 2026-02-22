@@ -195,7 +195,7 @@ export function ReportForm() {
                 {/* Facebook Community Banner */}
                 <div className="mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
                     <a
-                        href="https://facebook.com/groups/kuttawaala"
+                        href="https://www.facebook.com/groups/721498465956239/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group block relative overflow-hidden rounded-[2rem] bg-gradient-to-r from-blue-600 to-blue-500 p-1 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all cursor-pointer"
@@ -208,7 +208,7 @@ export function ReportForm() {
                                 </div>
                                 <div className="text-white text-center sm:text-left">
                                     <h3 className="text-xl font-bold mb-1 flex items-center justify-center sm:justify-start gap-2">
-                                        Join 450K+ Rescuers
+                                        Join 17K+ Rescuers
                                         <span className="relative flex h-3 w-3">
                                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
                                             <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
