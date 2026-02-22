@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button";
 
 export function Hero() {
     return (
-        <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-secondary/50/50 dark:bg-zinc-900/50">
+        <section className="relative py-20 lg:py-32 flex items-center overflow-hidden bg-secondary/50/50 dark:bg-zinc-900/50">
             {/* Decorative blobs */}
-            <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-secondary/30 mix-blend-multiply filter blur-3xl opacity-60 animate-float" />
-            <div className="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] rounded-full bg-indigo-200/30 mix-blend-multiply filter blur-3xl opacity-60 animate-float delay-1000" />
+            <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-primary/20 mix-blend-multiply filter blur-3xl opacity-60 animate-float" />
+            <div className="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] rounded-full bg-amber-500/20 mix-blend-multiply filter blur-3xl opacity-60 animate-float delay-1000" />
 
             <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center relative z-10">
                 <div className="space-y-8 text-center lg:text-left order-2 lg:order-1">
@@ -20,7 +20,7 @@ export function Hero() {
                         transition={{ duration: 0.6 }}
                     >
                         <h1 className="text-5xl md:text-7xl font-bold text-foreground dark:text-white leading-[1.1] mb-6 font-heading">
-                            Every Dog Deserves a <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-500">Loving Home</span>
+                            Every Dog Deserves a <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-500">Loving Home</span>
                         </h1>
                         <p className="text-xl text-muted-foreground dark:text-stone-300 max-w-lg mx-auto lg:mx-0 leading-relaxed">
                             Join us in transforming the lives of street dogs in Bangladesh through rescue, care, and adoption.
@@ -31,15 +31,15 @@ export function Hero() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                        className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4"
                     >
                         <Link href="/adopt">
-                            <Button size="lg" className="w-full sm:w-auto text-lg h-14 rounded-full shadow-xl shadow-secondary0/20 bg-primary/90 hover:bg-primary">
+                            <Button size="lg" className="w-full sm:w-auto text-lg h-14 rounded-2xl shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 transition-transform hover:-translate-y-1">
                                 Adopt a Dog
                             </Button>
                         </Link>
                         <Link href="/volunteer">
-                            <Button size="lg" variant="outline" className="w-full sm:w-auto text-lg h-14 rounded-full border-2">
+                            <Button size="lg" variant="outline" className="w-full sm:w-auto text-lg h-14 rounded-2xl border-2 border-primary/20 hover:bg-primary/5 text-primary hover:text-primary transition-transform hover:-translate-y-1">
                                 Become a Volunteer
                             </Button>
                         </Link>

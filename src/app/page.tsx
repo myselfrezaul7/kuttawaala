@@ -22,7 +22,7 @@ export default function Home() {
                 <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
                 <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
 
-                <div className="container mx-auto px-4 relative z-10">
+                <div className="relative z-10 w-full">
                     <FeaturedDogs />
                 </div>
             </section>
@@ -86,29 +86,29 @@ export default function Home() {
             {/* Visit Catwaala Section */}
             <section className="py-12 md:py-20 relative overflow-hidden">
                 <div className="container mx-auto px-4 relative z-10">
-                    <div className="bg-gradient-to-r from-orange-500 to-amber-600 rounded-[3rem] p-8 md:p-16 text-white shadow-2xl shadow-orange-500/20 relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
-                        <div className="absolute bottom-0 left-0 w-80 h-80 bg-black/10 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3" />
+                    <div className="bg-orange-50 dark:bg-orange-950/30 rounded-[3rem] p-8 md:p-16 text-foreground border border-orange-100 dark:border-orange-900/30 shadow-xl relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-400/10 dark:bg-orange-500/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3 transition-transform duration-700 group-hover:scale-110" />
+                        <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-400/10 dark:bg-amber-500/10 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3 transition-transform duration-700 group-hover:scale-110" />
 
                         <div className="flex flex-col md:flex-row items-center gap-10 relative z-10">
                             <div className="flex-1 text-center md:text-left space-y-6">
-                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/20 text-sm font-bold">
+                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 dark:bg-white/5 backdrop-blur-md border border-orange-200 dark:border-orange-900/50 text-orange-600 dark:text-orange-400 text-sm font-bold shadow-sm">
                                     <Cat className="w-4 h-4" />
                                     <span>Team Catwaala</span>
                                 </div>
-                                <h2 className="text-4xl md:text-5xl font-bold font-heading">
+                                <h2 className="text-4xl md:text-5xl font-bold font-heading text-stone-800 dark:text-stone-100">
                                     More of a Cat Person?
                                 </h2>
-                                <p className="text-lg text-orange-50 max-w-xl leading-relaxed">
-                                    Visit our sister organization, <span className="font-bold text-white">Catwaala</span>, to find your purrfect feline companion. Same mission, different paws.
+                                <p className="text-lg text-muted-foreground dark:text-stone-400 max-w-xl leading-relaxed">
+                                    Visit our sister organization, <span className="font-bold text-orange-600 dark:text-orange-400">Catwaala</span>, to find your purrfect feline companion. Same mission, different paws.
                                 </p>
                                 <a
                                     href="https://catwaala.com"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-block"
+                                    className="inline-block pt-2"
                                 >
-                                    <Button className="h-14 px-8 rounded-2xl bg-white text-orange-600 hover:bg-orange-50 font-bold text-lg shadow-lg transition-transform hover:scale-105">
+                                    <Button className="h-14 px-8 rounded-2xl bg-orange-600 hover:bg-orange-700 text-white font-bold text-lg shadow-lg shadow-orange-500/20 transition-transform hover:-translate-y-1">
                                         Visit Catwaala.com <ArrowRight className="ml-2 w-5 h-5" />
                                     </Button>
                                 </a>
@@ -116,8 +116,8 @@ export default function Home() {
 
                             {/* Decorative Cat Icon/Graphic */}
                             <div className="w-full md:w-auto flex justify-center">
-                                <div className="w-64 h-64 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30 shadow-inner">
-                                    <Cat className="w-32 h-32 text-white drop-shadow-lg" />
+                                <div className="w-64 h-64 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md rounded-[3rem] rotate-3 group-hover:rotate-6 transition-transform duration-500 flex items-center justify-center border border-orange-100 dark:border-orange-900/30 shadow-xl">
+                                    <Cat className="w-32 h-32 text-orange-400 dark:text-orange-500/80 drop-shadow-md" />
                                 </div>
                             </div>
                         </div>
@@ -159,24 +159,24 @@ export default function Home() {
 
             {/* CTA Section */}
             <section className="py-12 md:py-24 relative overflow-hidden">
-                <div className="absolute inset-0 bg-primary/5" />
+                <div className="absolute inset-0 bg-primary/5 dark:bg-primary/5" />
 
                 <div className="container mx-auto px-4 relative z-10">
-                    <div className="glass-card rounded-[3rem] p-8 md:p-24 text-center max-w-5xl mx-auto border border-border/50 bg-background/50 backdrop-blur-xl">
-                        <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-8 font-heading">
+                    <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl rounded-[3rem] p-8 md:p-24 text-center max-w-5xl mx-auto border border-white/50 dark:border-zinc-800 shadow-2xl">
+                        <h2 className="text-4xl md:text-6xl font-bold text-stone-800 dark:text-stone-100 mb-8 font-heading">
                             Ready to Make a Difference?
                         </h2>
-                        <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
+                        <p className="text-xl text-muted-foreground dark:text-stone-400 mb-12 max-w-2xl mx-auto leading-relaxed">
                             Join our community of dog lovers and help us create a better world for stray dogs in Bangladesh.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-6 justify-center">
                             <Link href="/adopt">
-                                <Button size="lg" className="h-16 px-10 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xl shadow-xl shadow-primary/20 hover:scale-105 transition-all">
+                                <Button size="lg" className="h-16 px-10 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xl shadow-xl shadow-primary/20 hover:-translate-y-1 transition-all duration-300">
                                     Adopt a Dog
                                 </Button>
                             </Link>
                             <Link href="/volunteer">
-                                <Button size="lg" variant="outline" className="h-16 px-10 rounded-2xl border-2 border-border hover:bg-secondary text-foreground font-bold text-xl hover:scale-105 transition-all">
+                                <Button size="lg" variant="outline" className="h-16 px-10 rounded-2xl border-2 border-stone-200 dark:border-stone-800 hover:bg-stone-50 dark:hover:bg-zinc-800 text-stone-700 dark:text-stone-200 font-bold text-xl hover:-translate-y-1 transition-all duration-300">
                                     Become a Volunteer
                                 </Button>
                             </Link>

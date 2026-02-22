@@ -38,7 +38,7 @@ const SUCCESS_STORIES = [
 
 export function SuccessStories() {
     return (
-        <section className="py-24 bg-[#FFFDF8] dark:bg-stone-950 overflow-hidden transition-colors duration-300">
+        <section className="py-24 bg-stone-50/50 dark:bg-zinc-900/50 overflow-hidden transition-colors duration-300">
             <div className="container mx-auto px-4 mb-16 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
