@@ -1,13 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { collection, getDocs, deleteDoc, doc, addDoc } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc, addDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2, Plus, Edit, Trash, Activity } from "lucide-react";
 import { toast } from "sonner";
-import { MOCK_VET_CLINICS as vets, VetClinic } from "@/data/vets";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { MOCK_VET_CLINICS as vets } from "@/data/vets";
+import { VetClinic } from "@/services/VetService";
+import { VetForm } from "@/components/admin/VetForm";
 
 export default function AdminVetsPage() {
     const [clinics, setClinics] = useState<VetClinic[]>([]);
@@ -50,13 +53,45 @@ export default function AdminVetsPage() {
     const handleMockSeed = async () => {
         // Seed the hardcoded initial data to firebase
         try {
-            const promises = vets.map((v: VetClinic) => addDoc(collection(db, "vets"), { ...v }));
+            const promises = vets.map((v: any) => addDoc(collection(db, "vets"), { ...v }));
             await Promise.all(promises);
             toast.success("Migrated Test Vets to Firebase!");
             fetchVets();
         } catch (error) {
             console.error(error);
             toast.error("Failed to seed database.");
+        }
+    };
+
+    const [isFormOpen, setIsFormOpen] = useState(false);
+    const [editingVet, setEditingVet] = useState<VetClinic | null>(null);
+
+    const handleOpenForm = (vet: VetClinic | null = null) => {
+        setEditingVet(vet);
+        setIsFormOpen(true);
+    };
+
+    const handleCloseForm = () => {
+        setIsFormOpen(false);
+        setEditingVet(null);
+    };
+
+    const handleFormSubmit = async (data: Omit<VetClinic, "id">) => {
+        try {
+            if (editingVet) {
+                // Update existing
+                await updateDoc(doc(db, "vets", editingVet.id.toString()), data);
+                toast.success("Clinic updated successfully!");
+            } else {
+                // Create new
+                await addDoc(collection(db, "vets"), data);
+                toast.success("Clinic added successfully!");
+            }
+            handleCloseForm();
+            fetchVets();
+        } catch (error) {
+            console.error("Error saving vet clinic:", error);
+            toast.error("Failed to save clinic. Check your connection.");
         }
     };
 
@@ -71,7 +106,7 @@ export default function AdminVetsPage() {
                     {clinics.length === 0 && (
                         <Button variant="outline" onClick={handleMockSeed}>Seed Initial Vets</Button>
                     )}
-                    <Button onClick={() => alert("Add Vet Form coming soon!")} className="gap-2">
+                    <Button onClick={() => handleOpenForm(null)} className="gap-2 bg-primary hover:bg-primary/90">
                         <Plus className="w-4 h-4" /> Add Clinic
                     </Button>
                 </div>
@@ -116,10 +151,10 @@ export default function AdminVetsPage() {
                                             </td>
                                             <td className="px-6 py-4 text-right">
                                                 <div className="flex justify-end gap-2">
-                                                    <Button size="icon" variant="ghost" className="h-9 w-9 text-blue-500 hover:text-blue-600 hover:bg-blue-50">
+                                                    <Button size="icon" variant="ghost" onClick={() => handleOpenForm(vet)} className="h-9 w-9 text-blue-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20">
                                                         <Edit className="w-4 h-4" />
                                                     </Button>
-                                                    <Button size="icon" variant="ghost" onClick={() => handleDelete(vet.id.toString())} className="h-9 w-9 text-red-500 hover:text-red-600 hover:bg-red-50">
+                                                    <Button size="icon" variant="ghost" onClick={() => handleDelete(vet.id.toString())} className="h-9 w-9 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20">
                                                         <Trash className="w-4 h-4" />
                                                     </Button>
                                                 </div>
@@ -138,6 +173,22 @@ export default function AdminVetsPage() {
                     )}
                 </CardContent>
             </Card>
+
+            {/* Dialog Wrapper for Form */}
+            <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
+                <DialogContent className="max-w-3xl maxHeight">
+                    <DialogHeader>
+                        <DialogTitle>{editingVet ? 'Edit Clinic Profile' : 'Register New Clinic'}</DialogTitle>
+                    </DialogHeader>
+                    {isFormOpen && (
+                        <VetForm
+                            initialData={editingVet || undefined}
+                            onSubmit={handleFormSubmit}
+                            onCancel={handleCloseForm}
+                        />
+                    )}
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }

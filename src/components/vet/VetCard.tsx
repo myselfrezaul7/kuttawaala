@@ -20,14 +20,14 @@ export function VetCard({ vet, index = 0 }: VetCardProps) {
             className="group relative bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md rounded-2xl p-6 border border-white/20 dark:border-white/5 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
         >
             {/* Hover Glow Effect */}
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/5 to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
             <div className="relative z-10 flex flex-col h-full">
                 {/* Header */}
                 <div className="flex justify-between items-start mb-4">
                     <div className="flex-1 min-w-0 pr-2">
                         <div className="flex items-center gap-2 mb-1">
-                            <span className="inline-flex items-center gap-1 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 rounded-full">
+                            <span className="inline-flex items-center gap-1 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary rounded-full">
                                 <MapPin className="w-3 h-3" /> {vet.district}
                             </span>
                             {isEmergency && (
@@ -36,7 +36,7 @@ export function VetCard({ vet, index = 0 }: VetCardProps) {
                                 </span>
                             )}
                         </div>
-                        <h3 className="text-lg font-bold text-foreground dark:text-white leading-tight group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                        <h3 className="text-lg font-bold text-foreground dark:text-white leading-tight group-hover:text-primary dark:group-hover:text-primary transition-colors">
                             {vet.name}
                         </h3>
                     </div>
@@ -52,16 +52,16 @@ export function VetCard({ vet, index = 0 }: VetCardProps) {
                 {/* Info */}
                 <div className="space-y-3 text-sm text-muted-foreground dark:text-muted-foreground/90 mb-6 flex-grow">
                     <div className="flex items-start gap-3">
-                        <MapPin className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                        <MapPin className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                         <p className="line-clamp-2 leading-snug">{vet.address}</p>
                     </div>
                     <div className="flex items-center gap-3">
-                        <Phone className="w-4 h-4 text-emerald-500 shrink-0" />
+                        <Phone className="w-4 h-4 text-primary shrink-0" />
                         <p className="font-medium">{vet.phone}</p>
                     </div>
                     <div className="flex items-center gap-3">
-                        <Clock className="w-4 h-4 text-emerald-500 shrink-0" />
-                        <p className={isEmergency ? "text-emerald-600 dark:text-emerald-400 font-bold" : ""}>
+                        <Clock className="w-4 h-4 text-primary shrink-0" />
+                        <p className={isEmergency ? "text-primary dark:text-primary font-bold" : ""}>
                             {vet.hours}
                         </p>
                     </div>
@@ -88,7 +88,7 @@ export function VetCard({ vet, index = 0 }: VetCardProps) {
                 <div className="grid grid-cols-2 gap-3 mt-auto">
                     <a
                         href={`tel:${vet.phone.replace(/[^0-9+]/g, '')}`}
-                        className="flex items-center justify-center gap-2 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-800/50 bg-emerald-50/50 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-400 font-semibold hover:bg-emerald-100 dark:hover:bg-emerald-900/30 hover:border-emerald-300 transition-all"
+                        className="flex items-center justify-center gap-2 py-2.5 rounded-xl border border-primary/20 dark:border-primary/20 bg-primary/5 dark:bg-primary/10 text-primary dark:text-primary font-semibold hover:bg-primary/10 dark:hover:bg-primary/20 hover:border-primary/30 transition-all"
                     >
                         <Phone className="w-4 h-4" /> Call
                     </a>
@@ -96,7 +96,7 @@ export function VetCard({ vet, index = 0 }: VetCardProps) {
                         href={vet.mapUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold hover:from-emerald-500 hover:to-teal-500 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 transition-all transform hover:-translate-y-0.5"
+                        className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-primary to-orange-500 text-white font-semibold hover:from-primary/90 hover:to-orange-500/90 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all transform hover:-translate-y-0.5"
                     >
                         Directions <ExternalLink className="w-3.5 h-3.5" />
                     </a>
