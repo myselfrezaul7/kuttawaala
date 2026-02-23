@@ -85,7 +85,7 @@ export function VolunteerForm() {
 
                 <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
                     {/* Info Card */}
-                    <div className="bg-white dark:bg-zinc-900 p-10 rounded-[2.5rem] shadow-xl border border-border dark:border-zinc-800 sticky top-24">
+                    <div className="bg-white dark:bg-zinc-900 p-10 rounded-[2.5rem] shadow-xl border border-border dark:border-zinc-800 lg:sticky lg:top-24">
                         <h3 className="text-2xl font-bold mb-8 flex items-center gap-3 text-foreground">
                             <div className="p-2 bg-rose-100 dark:bg-rose-900/30 rounded-lg text-rose-500">
                                 <Heart className="w-6 h-6 fill-rose-500" />
@@ -108,7 +108,7 @@ export function VolunteerForm() {
                     </div>
 
                     {/* Form Card */}
-                    <div className="bg-white dark:bg-zinc-900 p-10 rounded-[2.5rem] shadow-xl border border-border dark:border-zinc-800">
+                    <div className="bg-white dark:bg-zinc-900 p-10 rounded-[2.5rem] shadow-xl border border-border dark:border-zinc-800 relative z-10">
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                             {serverError && (
                                 <div className="p-4 bg-destructive/10 text-destructive text-sm rounded-2xl flex items-center gap-3 border border-destructive/20 animate-in slide-in-from-top-2">
