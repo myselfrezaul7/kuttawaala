@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function FAQPage() {
     return (
-        <div className="min-h-screen bg-[#FFFDF8] dark:bg-zinc-950 pb-24">
+        <div className="min-h-screen bg-stone-50/50 dark:bg-zinc-950 pb-24">
             {/* Header */}
             <div className="bg-secondary/30 dark:bg-zinc-900/50 py-20 text-center px-4 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
@@ -66,6 +66,24 @@ export default function FAQPage() {
                                     </ol>
                                 </AccordionContent>
                             </AccordionItem>
+
+                            <AccordionItem value="adoption-fee" className="border border-border rounded-xl px-2 data-[state=open]:bg-secondary/30 transition-colors">
+                                <AccordionTrigger className="hover:no-underline font-bold text-left px-4 text-lg py-4">
+                                    Is there an adoption fee?
+                                </AccordionTrigger>
+                                <AccordionContent className="text-muted-foreground leading-relaxed px-4 pb-4 text-base">
+                                    Kuttawaala does <strong>not charge adoption fees</strong>. However, we ask adopters to cover vaccination and neutering/spaying costs if the dog hasn&apos;t been treated yet. This ensures every pup goes home healthy and protected.
+                                </AccordionContent>
+                            </AccordionItem>
+
+                            <AccordionItem value="return-policy" className="border border-border rounded-xl px-2 data-[state=open]:bg-secondary/30 transition-colors">
+                                <AccordionTrigger className="hover:no-underline font-bold text-left px-4 text-lg py-4">
+                                    What if the adoption doesn&apos;t work out?
+                                </AccordionTrigger>
+                                <AccordionContent className="text-muted-foreground leading-relaxed px-4 pb-4 text-base">
+                                    We have a <strong>no-questions-asked return policy</strong>. If for any reason you cannot keep the dog, please contact us and we will take them back. We never want a dog to end up on the streets again.
+                                </AccordionContent>
+                            </AccordionItem>
                         </Accordion>
                     </div>
                 </div>
@@ -99,6 +117,15 @@ export default function FAQPage() {
                                     You can find dry food (Pedigree, SmartHeart, Drools) at Katabon pet market, Gulshan stick markets, or online via Daraz and Chaldal. Homemade food is often healthier and cheaper!
                                 </AccordionContent>
                             </AccordionItem>
+
+                            <AccordionItem value="toxic-foods" className="border border-border rounded-xl px-2 data-[state=open]:bg-secondary/30 transition-colors">
+                                <AccordionTrigger className="hover:no-underline font-bold text-left px-4 text-lg py-4">
+                                    What foods are dangerous for dogs?
+                                </AccordionTrigger>
+                                <AccordionContent className="text-muted-foreground leading-relaxed px-4 pb-4 text-base">
+                                    <strong>Chocolate, onions, garlic, grapes, raisins, and xylitol (found in sugar-free gum)</strong> are all highly toxic to dogs. Cooked bones can splinter and cause internal injuries. When in doubt, stick to quality dog food or plain boiled chicken with rice.
+                                </AccordionContent>
+                            </AccordionItem>
                         </Accordion>
                     </div>
                 </div>
@@ -119,6 +146,24 @@ export default function FAQPage() {
                                 </AccordionTrigger>
                                 <AccordionContent className="text-muted-foreground leading-relaxed px-4 pb-4 text-base">
                                     Consistency is key. Take them out at the same times daily (e.g., 7 AM, 7 PM). For indoors, use newspaper or a pee pad in a bathroom. Praise them heavily ("Good boy!") and give a treat immediately when they go in the right spot.
+                                </AccordionContent>
+                            </AccordionItem>
+
+                            <AccordionItem value="vaccines" className="border border-border rounded-xl px-2 data-[state=open]:bg-secondary/30 transition-colors">
+                                <AccordionTrigger className="hover:no-underline font-bold text-left px-4 text-lg py-4">
+                                    What vaccines does my dog need?
+                                </AccordionTrigger>
+                                <AccordionContent className="text-muted-foreground leading-relaxed px-4 pb-4 text-base">
+                                    All dogs should receive a <strong>DHPP vaccine</strong> (protects against distemper, hepatitis, parvovirus, and parainfluenza) and a <strong>Rabies vaccine</strong>. Puppies need a series of shots starting at 6-8 weeks. Annual boosters are required. Ask your vet about deworming schedules too.
+                                </AccordionContent>
+                            </AccordionItem>
+
+                            <AccordionItem value="exercise" className="border border-border rounded-xl px-2 data-[state=open]:bg-secondary/30 transition-colors">
+                                <AccordionTrigger className="hover:no-underline font-bold text-left px-4 text-lg py-4">
+                                    How much exercise does my dog need in a flat?
+                                </AccordionTrigger>
+                                <AccordionContent className="text-muted-foreground leading-relaxed px-4 pb-4 text-base">
+                                    Most dogs need at least <strong>30 minutes to 1 hour of exercise daily</strong>. For apartment dogs, two walks per day (morning and evening) is ideal. Indoor play with toys and training sessions can supplement walks. Rooftop visits in the cooler hours work great in Dhaka.
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>

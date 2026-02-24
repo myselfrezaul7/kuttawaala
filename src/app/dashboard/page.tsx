@@ -133,18 +133,18 @@ export default function DashboardPage() {
                 </div>
 
                 {/* Tabs */}
-                <div className="flex gap-4 mb-8 overflow-x-auto pb-2 scrollbar-hide">
-                    <Button variant={activeTab === 'favorites' ? 'default' : 'outline'} onClick={() => setActiveTab('favorites')} className="rounded-full shrink-0">
+                <div className="flex gap-2 mb-8 overflow-x-auto pb-2 bg-white/50 dark:bg-stone-800/80 backdrop-blur-md p-1.5 rounded-2xl border border-white/60 dark:border-stone-700 shadow-sm" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                    <Button variant={activeTab === 'favorites' ? 'default' : 'ghost'} onClick={() => setActiveTab('favorites')} className="rounded-xl shrink-0 whitespace-nowrap text-sm">
                         Favorites
                     </Button>
-                    <Button variant={activeTab === 'applications' ? 'default' : 'outline'} onClick={() => setActiveTab('applications')} className="rounded-full gap-2 shrink-0">
-                        My Applications
+                    <Button variant={activeTab === 'applications' ? 'default' : 'ghost'} onClick={() => setActiveTab('applications')} className="rounded-xl gap-2 shrink-0 whitespace-nowrap text-sm">
+                        Applications
                     </Button>
-                    <Button variant={activeTab === 'reports' ? 'default' : 'outline'} onClick={() => setActiveTab('reports')} className="rounded-full gap-2 shrink-0">
-                        My Reports
+                    <Button variant={activeTab === 'reports' ? 'default' : 'ghost'} onClick={() => setActiveTab('reports')} className="rounded-xl gap-2 shrink-0 whitespace-nowrap text-sm">
+                        Reports
                     </Button>
-                    <Button variant={activeTab === 'achievements' ? 'default' : 'outline'} onClick={() => setActiveTab('achievements')} className="rounded-full gap-2 shrink-0">
-                        Leaderboard 🏆
+                    <Button variant={activeTab === 'achievements' ? 'default' : 'ghost'} onClick={() => setActiveTab('achievements')} className="rounded-xl gap-2 shrink-0 whitespace-nowrap text-sm">
+                        Awards 🏆
                     </Button>
                 </div>
 

@@ -11,7 +11,7 @@ import { resources } from "@/data/resources";
 
 export default function CommunityPage() {
     return (
-        <div className="flex flex-col min-h-screen bg-[#FFFDF8] dark:bg-stone-950 transition-colors duration-300">
+        <div className="flex flex-col min-h-screen bg-stone-50/50 dark:bg-stone-950 transition-colors duration-300">
             {/* Header */}
             {/* Ideally Header is in layout, but putting here if needed or assuming layout wraps it */}
 
@@ -54,15 +54,16 @@ export default function CommunityPage() {
                             </div>
                         </div>
 
-                        <div className="bg-stone-100 dark:bg-stone-900/50 rounded-[2rem] p-12 text-center border-2 border-dashed border-stone-200 dark:border-stone-800">
-                            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange-100 dark:bg-orange-900/20 text-orange-500 mb-6">
+                        <div className="glass-card dark:bg-stone-900/60 rounded-[2.5rem] p-12 text-center border border-orange-100/50 dark:border-stone-800 shadow-xl relative overflow-hidden">
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 via-amber-400 to-orange-400 animate-shimmer" />
+                            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-orange-100/80 dark:bg-orange-900/30 text-orange-500 mb-6 animate-pulse">
                                 <Calendar className="w-8 h-8" />
                             </div>
-                            <h3 className="text-2xl font-bold text-stone-800 dark:text-stone-100 mb-3"> exciting events coming soon!</h3>
+                            <h3 className="text-2xl font-bold text-stone-800 dark:text-stone-100 mb-3">Exciting Events Coming Soon!</h3>
                             <p className="text-stone-500 dark:text-stone-400 max-w-md mx-auto mb-8">
                                 We are planning some amazing dog walks, vaccination drives, and workshops. Stay tuned for updates!
                             </p>
-                            <Button disabled className="opacity-50 cursor-not-allowed rounded-full bg-stone-800 dark:bg-stone-700 text-white font-bold px-8 py-6">
+                            <Button disabled className="opacity-60 cursor-not-allowed rounded-full bg-stone-800 dark:bg-stone-700 text-white font-bold px-8 py-5 shadow-lg">
                                 Coming Soon
                             </Button>
                         </div>
