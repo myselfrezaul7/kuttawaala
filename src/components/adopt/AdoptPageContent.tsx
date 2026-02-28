@@ -213,26 +213,29 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
                     )}
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 pb-12">
-                    {filteredDogs.length > 0 ? (
-                        filteredDogs.map(dog => (
-                            // @ts-ignore
-                            <PetCard key={dog.id} dog={dog} />
-                        ))
-                    ) : (
-                        <div className="col-span-full text-center py-24 bg-muted/20 rounded-[3rem] border-2 border-dashed border-border">
-                            <div className="w-24 h-24 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
-                                <Bone className="w-10 h-10 text-muted-foreground" />
-                            </div>
-                            <h3 className="text-2xl font-bold text-foreground mb-3">No dogs matched your filters</h3>
-                            <p className="text-muted-foreground max-w-md mx-auto mb-8">
-                                Maybe try broadening your search? Our dogs are picky, but you shouldn't have to be!
-                            </p>
-                            <Button onClick={resetFilters} size="lg" className="rounded-xl px-8 font-bold shadow-lg shadow-primary/20">
-                                Clear all filters
-                            </Button>
+                <div className="relative mt-8 mb-12 rounded-[3rem] overflow-hidden border border-border bg-card/60 p-8 md:p-16 text-center backdrop-blur-md shadow-xl">
+                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-10 mix-blend-luminosity" />
+                    <div className="relative z-10 max-w-2xl mx-auto py-8">
+                        <div className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl shadow-primary/10">
+                            <span className="text-5xl animate-bounce">🦴</span>
                         </div>
-                    )}
+                        <h2 className="text-4xl md:text-5xl font-bold font-heading text-foreground mb-6 tracking-tight">Real Adoptions Coming Soon!</h2>
+                        <p className="text-lg text-muted-foreground mb-10 leading-relaxed font-medium">
+                            We are currently building our network of verified rescue shelters and foster homes across Bangladesh. Very soon, you will be able to browse and adopt real rescued dogs directly from this page!
+                        </p>
+                        <div className="flex flex-col md:flex-row gap-4 justify-center">
+                            <a href="/volunteer" className="w-full md:w-auto">
+                                <Button size="lg" className="w-full md:w-auto bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-lg shadow-primary/20 px-8 h-14 text-base font-bold">
+                                    Become a Foster Home
+                                </Button>
+                            </a>
+                            <a href="/donate" className="w-full md:w-auto">
+                                <Button size="lg" variant="outline" className="w-full md:w-auto border-border text-foreground hover:bg-secondary/50 rounded-xl px-8 h-14 text-base font-bold">
+                                    Support Rescues Now
+                                </Button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

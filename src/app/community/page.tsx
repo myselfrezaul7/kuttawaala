@@ -104,7 +104,7 @@ export default function CommunityPage() {
                         <h2 className="text-3xl font-bold text-stone-800 dark:text-stone-100 font-heading mb-10 text-center">Canine Resources 📚</h2>
                         <div className="grid md:grid-cols-3 gap-6">
                             {resources.map((resource) => (
-                                <Link href={`/resources/${resource.slug}`} key={resource.slug} className="group glass-card dark:bg-stone-900/60 dark:border-stone-800 p-8 rounded-[2rem] hover:bg-orange-50 dark:hover:bg-stone-800 transition-colors border-2 border-transparent hover:border-orange-100 dark:hover:border-stone-700">
+                                <Link href={resource.slug === "emergency-vet-list" ? "/vets" : `/resources/${resource.slug}`} key={resource.slug} className="group glass-card dark:bg-stone-900/60 dark:border-stone-800 p-8 rounded-[2rem] hover:bg-orange-50 dark:hover:bg-stone-800 transition-colors border-2 border-transparent hover:border-orange-100 dark:hover:border-stone-700">
                                     <div className="w-14 h-14 bg-orange-100 dark:bg-orange-900/20 rounded-2xl flex items-center justify-center mb-6 text-orange-500 group-hover:scale-110 transition-transform">
                                         <Download className="w-7 h-7" />
                                     </div>

@@ -9,6 +9,7 @@ import { Loader2, Plus, Edit, Trash, Activity } from "lucide-react";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { MOCK_VET_CLINICS as vets } from "@/data/vets";
+import { REAL_BD_VETS } from "@/data/bd-vets";
 import { VetClinic } from "@/services/VetService";
 import { VetForm } from "@/components/admin/VetForm";
 
@@ -51,7 +52,6 @@ export default function AdminVetsPage() {
     };
 
     const handleMockSeed = async () => {
-        // Seed the hardcoded initial data to firebase
         try {
             const promises = vets.map((v: any) => addDoc(collection(db, "vets"), { ...v }));
             await Promise.all(promises);
@@ -60,6 +60,19 @@ export default function AdminVetsPage() {
         } catch (error) {
             console.error(error);
             toast.error("Failed to seed database.");
+        }
+    };
+
+    const handleImportRealVets = async () => {
+        if (!confirm(`Are you sure you want to import ${REAL_BD_VETS.length} real locations? This will add them to the live database.`)) return;
+        try {
+            const promises = REAL_BD_VETS.map((v) => addDoc(collection(db, "vets"), { ...v }));
+            await Promise.all(promises);
+            toast.success(`Successfully mapped ${REAL_BD_VETS.length} real locations!`);
+            fetchVets();
+        } catch (error) {
+            console.error("Error importing real vets:", error);
+            toast.error("Failed to pull real map data.");
         }
     };
 
@@ -103,10 +116,13 @@ export default function AdminVetsPage() {
                     <p className="text-muted-foreground">Manage the public database of verified Vet Clinics.</p>
                 </div>
                 <div className="flex gap-4">
+                    <Button variant="outline" className="border-stone-200 dark:border-stone-800 text-primary hover:bg-orange-50 dark:hover:bg-orange-950/30 rounded-xl" onClick={handleImportRealVets}>
+                        Import Real BD Vets ({REAL_BD_VETS.length})
+                    </Button>
                     {clinics.length === 0 && (
-                        <Button variant="outline" onClick={handleMockSeed}>Seed Initial Vets</Button>
+                        <Button variant="outline" className="border-stone-200 dark:border-stone-800 text-stone-600 dark:text-stone-400 rounded-xl" onClick={handleMockSeed}>Seed Initial Vets</Button>
                     )}
-                    <Button onClick={() => handleOpenForm(null)} className="gap-2 bg-primary hover:bg-primary/90">
+                    <Button onClick={() => handleOpenForm(null)} className="bg-primary hover:bg-primary/90 text-white gap-2 rounded-xl shadow-lg shadow-primary/20">
                         <Plus className="w-4 h-4" /> Add Clinic
                     </Button>
                 </div>
