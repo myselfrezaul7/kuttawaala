@@ -59,8 +59,8 @@ export default function Home() {
 
                             <div className="order-1 md:order-2 h-[300px] md:h-[500px] rounded-[3rem] overflow-hidden shadow-2xl shadow-orange-500/10 border-4 border-white dark:border-stone-800">
                                 <BeforeAfterSlider
-                                    beforeImage="https://images.unsplash.com/photo-1529429617124-95b109e86bb8?q=80&w=600&auto=format&fit=crop"
-                                    afterImage="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=600&auto=format&fit=crop"
+                                    beforeImage="/images/resi-before.png"
+                                    afterImage="/images/resi-after.png"
                                     beforeLabel="Rescued"
                                     afterLabel="Adopted"
                                 />
