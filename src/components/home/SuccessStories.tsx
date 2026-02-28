@@ -72,7 +72,7 @@ export function SuccessStories() {
                     {[...SUCCESS_STORIES, ...SUCCESS_STORIES].map((story, index) => (
                         <div
                             key={`${story.id}-${index}`}
-                            className="relative w-[350px] md:w-[450px] flex-shrink-0 bg-white dark:bg-stone-900 rounded-[2rem] p-6 shadow-lg border border-stone-100/50 dark:border-stone-800 hover:shadow-xl transition-all"
+                            className="relative w-[300px] md:w-[450px] flex-shrink-0 bg-white dark:bg-stone-900 rounded-2xl md:rounded-[2rem] p-4 md:p-6 shadow-lg border border-stone-100/50 dark:border-stone-800 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500"
                         >
                             <div className="flex items-start gap-4">
                                 <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-orange-100 dark:border-orange-900/30 shrink-0">
