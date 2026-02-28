@@ -16,11 +16,11 @@ export function PetCard({ dog }: { dog: DogProps }) {
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            className="group relative bg-card rounded-[2rem] overflow-hidden border border-border shadow-lg hover:shadow-xl transition-all duration-500"
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ y: -4, scale: 1.01 }}
+            className="group relative bg-card rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border border-border shadow-md hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500"
         >
             <div className="relative aspect-[4/5] overflow-hidden">
                 <Image
@@ -72,7 +72,7 @@ export function PetCard({ dog }: { dog: DogProps }) {
             </div>
 
             {/* Card content */}
-            <div className="p-3 md:p-5 bg-card space-y-2 md:space-y-4">
+            <div className="p-4 md:p-5 bg-card space-y-3 md:space-y-4">
                 <div className="flex justify-between items-center gap-2">
                     <span className="inline-flex items-center gap-1 md:gap-1.5 text-xs md:text-sm font-semibold text-foreground/80 bg-secondary/50 px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl truncate max-w-[60%]">
                         <Dog className="w-3 h-3 md:w-4 md:h-4 text-primary shrink-0" />
