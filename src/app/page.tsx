@@ -3,7 +3,6 @@ import { SuccessStories } from "@/components/home/SuccessStories";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Sparkles, Heart, Users, Stethoscope, ArrowRight, Cat } from "lucide-react";
-import { FeaturedDogs } from "@/components/home/FeaturedDogs";
 import { BeforeAfterSlider } from "@/components/shared/BeforeAfterSlider";
 
 
@@ -15,17 +14,6 @@ export default function Home() {
 
             {/* Success Stories Ticker */}
             <SuccessStories />
-
-            {/* Featured Dogs Section */}
-            <section className="py-12 md:py-24 relative overflow-hidden bg-secondary/30 dark:bg-secondary/5">
-                {/* Decorative elements */}
-                <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
-                <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
-
-                <div className="relative z-10 w-full">
-                    <FeaturedDogs />
-                </div>
-            </section>
 
             {/* Transformations Section */}
             <section className="py-12 md:py-24 relative overflow-hidden">
