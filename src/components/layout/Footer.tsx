@@ -116,7 +116,7 @@ export function Footer() {
 
                     {/* Copyright */}
                     <div className="text-center text-sm text-muted-foreground dark:text-muted-foreground">
-                        <p>&copy; {new Date().getFullYear()} Kuttawaala. All rights reserved.</p>
+                        <p>&copy; 2020–{new Date().getFullYear()} Kuttawaala. All rights reserved.</p>
                     </div>
                 </div>
             </div>
