@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Calendar, MapPin, Clock, Star, Download, ChevronRight, Users, Heart, Facebook } from "lucide-react";
+import { Calendar, MapPin, Clock, Star, Download, ChevronRight, Users, Heart, Facebook, FileText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/layout/Header";
@@ -103,18 +103,57 @@ export default function CommunityPage() {
                     <section>
                         <h2 className="text-3xl font-bold text-stone-800 dark:text-stone-100 font-heading mb-10 text-center">Canine Resources 📚</h2>
                         <div className="grid md:grid-cols-3 gap-6">
-                            {resources.map((resource) => (
-                                <Link href={resource.slug === "emergency-vet-list" ? "/vets" : `/resources/${resource.slug}`} key={resource.slug} className="group glass-card dark:bg-stone-900/60 dark:border-stone-800 p-8 rounded-[2rem] hover:bg-orange-50 dark:hover:bg-stone-800 transition-colors border-2 border-transparent hover:border-orange-100 dark:hover:border-stone-700">
-                                    <div className="w-14 h-14 bg-orange-100 dark:bg-orange-900/20 rounded-2xl flex items-center justify-center mb-6 text-orange-500 group-hover:scale-110 transition-transform">
-                                        <Download className="w-7 h-7" />
-                                    </div>
-                                    <h3 className="text-xl font-bold text-stone-800 dark:text-stone-100 mb-2">{resource.title}</h3>
-                                    <p className="text-stone-500 dark:text-stone-400 mb-4">{resource.description}</p>
-                                    <span className="text-orange-500 font-bold text-sm flex items-center gap-1 group-hover:translate-x-2 transition-transform">
-                                        Read Article <ChevronRight className="w-4 h-4" />
-                                    </span>
-                                </Link>
-                            ))}
+                            {resources.map((resource) => {
+                                const badgeColor = {
+                                    "blue": "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 border-blue-200 dark:border-blue-900",
+                                    "amber": "bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400 border-amber-200 dark:border-amber-900",
+                                    "teal": "bg-teal-100 text-teal-600 dark:bg-teal-900/30 dark:text-teal-400 border-teal-200 dark:border-teal-900",
+                                }[resource.color] || "bg-stone-100 text-stone-600 dark:bg-zinc-800 dark:text-stone-400 border-stone-200";
+
+                                const iconBgColor = {
+                                    "blue": "bg-blue-100 text-blue-500 dark:bg-blue-900/40 dark:text-blue-400",
+                                    "amber": "bg-amber-100 text-amber-500 dark:bg-amber-900/40 dark:text-amber-400",
+                                    "teal": "bg-teal-100 text-teal-500 dark:bg-teal-900/40 dark:text-teal-400",
+                                }[resource.color] || "bg-stone-100 text-stone-500";
+
+                                const highlightColor = {
+                                    "blue": "bg-blue-500",
+                                    "amber": "bg-amber-500",
+                                    "teal": "bg-teal-500",
+                                }[resource.color] || "bg-stone-500";
+
+                                return (
+                                    <Link
+                                        href={resource.slug === "emergency-vet-list" ? "/find-vet" : `/resources/${resource.slug}`}
+                                        key={resource.slug}
+                                        className="group relative bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md rounded-[2rem] p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-100 dark:border-zinc-800 overflow-hidden flex flex-col h-full hover:-translate-y-1"
+                                    >
+                                        {/* Accent Top Bar */}
+                                        <div className={`absolute top-0 left-0 right-0 h-1.5 opacity-0 group-hover:opacity-100 transition-opacity ${highlightColor}`} />
+
+                                        <div className="flex justify-between items-start mb-8">
+                                            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner ${iconBgColor}`}>
+                                                <FileText className="w-7 h-7" />
+                                            </div>
+                                            <div className={`text-xs font-bold px-3 py-1 pb-1.5 rounded-full border shadow-sm ${badgeColor}`}>
+                                                {resource.badge}
+                                            </div>
+                                        </div>
+
+                                        <h3 className="text-xl font-bold text-stone-800 dark:text-stone-100 mb-3">{resource.title}</h3>
+                                        <p className="text-stone-500 dark:text-stone-400 mb-8 text-sm leading-relaxed flex-1">{resource.description}</p>
+
+                                        <div className="flex items-center justify-between mt-auto pt-6 border-t border-stone-100 dark:border-zinc-800/50">
+                                            <span className="text-xs font-medium text-stone-400 dark:text-stone-500">
+                                                {resource.readTime}
+                                            </span>
+                                            <span className="text-stone-600 dark:text-stone-400 font-bold text-sm flex items-center gap-1 group-hover:translate-x-2 transition-transform group-hover:text-stone-900 dark:group-hover:text-stone-200">
+                                                Read <ChevronRight className="w-4 h-4" />
+                                            </span>
+                                        </div>
+                                    </Link>
+                                );
+                            })}
                         </div>
                     </section>
 

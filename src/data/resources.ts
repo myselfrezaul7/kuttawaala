@@ -7,6 +7,9 @@ export type Resource = {
     coverImage: string;
     date: string;
     author: string;
+    badge: string;
+    readTime: string;
+    color: "blue" | "amber" | "teal";
 };
 
 export const resources: Resource[] = [
@@ -17,28 +20,31 @@ export const resources: Resource[] = [
         iconName: "FileText",
         date: "Feb 15, 2026",
         author: "Kuttawaala Team",
-        coverImage: "https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&q=80&w=2000",
+        badge: "Guide",
+        readTime: "6 min",
+        color: "blue",
+        coverImage: "/assets/puppy-guide.png",
         content: `
 # Welcome to the Pack!
 
-Bringing a new dog home is a life-changing experience! Here is everything you need to get your home ready for your new best friend.
+Bringing a new dog home in Bangladesh is a life-changing experience! Here is everything you need to get your home ready for your new best friend.
 
 ## Essentials
-1.  **High-Quality Dog Food**: Choose wet or dry food tailored to their age, size, and breed (or mix!).
-2.  **Water & Food Bowls**: Weighted stainless steel bowls are best because they are durable and easy to clean.
-3.  **Collar, Leash, and ID Tag**: Crucial for their safety when exploring the outside world.
-4.  **Bedding**: A cozy and supportive bed where they can retreat and rest.
-5.  **Poop Bags & Dispensers**: For responsible walks around the neighborhood!
+1.  **High-Quality Dog Food**: Choose wet or dry food tailored to their age. *Pedigree* and *SmartHeart* are widely available on Chaldal/Daraz.
+2.  **Water & Food Bowls**: Weighted stainless steel bowls are best because they are durable and easy to clean in humid weather.
+3.  **Collar, Leash, and ID Tag**: Crucial for their safety in Dhaka traffic. A sturdy harness is recommended for walks.
+4.  **Bedding**: A cozy and supportive bed, or a clean, cooling mat for summer months.
+5.  **Poop Bags & Dispensers**: For responsible walks around your neighborhood or society!
 
 ## Grooming & Health
 -   **Brush/Comb**: Depending on their coat type, daily or weekly brushing is needed.
--   **Dog-safe Shampoo**: Don't use human shampoo!
--   **Chew Toys**: Perfect for teething puppies or dogs that just love a good chew.
--   **Flea & Tick Prevention**: Especially important in tropical climates.
+-   **Flea & Tick Prevention**: Essential in our tropical climate. Tick fever is very common in Bangladesh.
+-   **Heatstroke Prevention**: During the 40°C Dhaka summers, walk your dogs only early morning or late evening. Ensure constant access to cool water.
 
-## Safety First
--   **Puppy-proof your home**: Hide toxic plants, secure trash cans, and cover loose electrical cords.
--   **Vet Visit**: Schedule a check-up within the first week of adoption to establish a health baseline.
+## Safety First (BD Context)
+-   **Rooftop Safety**: If you allow your dog on the roof (common in Dhaka), ensure the boundary walls are sufficiently high and secure to prevent jumping or falling.
+-   **Rabies Vaccination**: This is legally and medically crucial in Bangladesh. You can get cheap, verified vaccines from Govt. Livestock offices or local vet clinics (usually ৳200-৳500).
+-   **Street Dog Etiquette**: When walking your pet, avoid aggressive street packs. Carry umberllas or sticks purely as a deterrent barrier if approached by territorial street dogs.
 
 Enjoy every moment with your new furry companion!
         `
@@ -50,26 +56,11 @@ Enjoy every moment with your new furry companion!
         iconName: "MapPin",
         date: "Jan 10, 2026",
         author: "Community",
+        badge: "Directory",
+        readTime: "Always updated",
+        color: "teal",
         coverImage: "https://images.unsplash.com/photo-1517423738875-5ce310aca30b?auto=format&fit=crop&q=80&w=2000",
-        content: `
-# Trusted Veterinarians & Clinics in Dhaka
-
-When an emergency strikes, every second counts. Finding a good vet is crucial for your dog's long-term health. Keep these verified spots handy!
-
-## Gulshan & Banani
-*   **Pet Care Hospital**: Road 11, Banani. Known for 24/7 service and emergency surgery capabilities.
-*   **Gulshan Pet Clinic**: Road 34, Gulshan 1. Excellent diagnostic tools and general check-up.
-
-## Dhanmondi & Lalmatia
-*   **Paws & Claws**: Satmasjid Road. Great for general checkups, vaccinations, and grooming.
-*   **Lalmatia Vet Care**: Block D. Highly experienced surgeons on standby.
-
-## Uttara
-*   **Uttara Animal Hospital**: Sector 7. Affordable, reliable, and equipped with a full pharmacy.
-*   **Care for Paws**: Sector 13. Excellent post-op care facilities.
-
-> **Note**: Always call ahead for emergencies. Keep your vet's number saved on your fridge and in your phone contacts!
-        `
+        content: `Redirecting to the verified directory...`
     },
     {
         slug: "desi-dog-diet-guide",
@@ -78,26 +69,31 @@ When an emergency strikes, every second counts. Finding a good vet is crucial fo
         iconName: "BriefcaseMedical",
         date: "Dec 05, 2025",
         author: "Dr. Bark",
+        badge: "Article",
+        readTime: "7 min",
+        color: "amber",
         coverImage: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=2000",
         content: `
 # Feeding Your Desi Dog Right
 
-Local breeds (Desi dogs) are incredibly resilient, but they still thrive when fed a balanced, nutritious diet! Let's talk about what keeps them running strong.
+Local breeds (Desi dogs) are incredibly resilient, but they still thrive when fed a balanced, nutritious diet! Let's talk about what keeps them running strong in Bangladesh.
 
-## The Good Stuff
--   **Proteins**: Boiled chicken, lean beef, and occasionally fish (de-boned).
--   **Fiber & Carbs**: Brown rice, sweet potatoes, and pumpkin are excellent for their digestion.
--   **Hydration**: Always ensure they have access to fresh, clean drinking water. Avoid giving them tap water if you wouldn't drink it yourself.
+## Local & Budget-Friendly Proteins
+-   **Chicken Bones/Carcass (*Murgi-r har*)**: A massive staple for desi dogs. You can buy chicken frames/necks from local butchers for very cheap (৳60-90/kg). *Warning:* Only feed raw or properly pressure-cooked so they crumble. Never feed boiled bones as they splinter!
+-   **Egg & Rice Combos**: Combining boiled rice, a bit of dal, and boiled eggs makes a highly nutritious, budget-friendly meal (≈৳30/meal).
+-   **Pumpkin & Sweet Potato**: Excellent, cheap fiber sources available at any local *kachabazar*.
+
+## Commercial Food Availability
+*Pedigree*, *Drools*, and *Meat Up* are the most commonly found mid-tier kibbles in supershops. Premium diets like *Royal Canin* or *Taste of the Wild* are restricted to specialized pet stores.
 
 ## Foods to Avoid (Highly Toxic!)
--   🚫 **Onions & Garlic**: Can cause severe anemia.
--   🚫 **Chocolate**: Contains theobromine, which is poisonous.
--   🚫 **Grapes & Raisins**: Can cause sudden kidney failure.
--   🚫 **Cooked Bones**: Bones can splinter and puncture their digestive tract. Only offer safe raw bones or chew toys.
--   🚫 **Spicy Food**: A lot of leftover human food is too spicy/oily and can cause severe pancreatitis.
+-   🚫 **Onions & Garlic**: Very common in local cooking, these cause severe anemia in dogs.
+-   🚫 **Hilsha Fish Bones**: Desi dogs love fish, but sharp local fish bones (like Ilish or Rui) can puncture their intestines. 
+-   🚫 **Spicy Leftovers (*Bhuna*)**: Do not feed dogs spicy, oily party leftovers. This triggers severe, sometimes fatal, pancreatitis.
+-   🚫 **Chocolate & Grapes**: Extremely poisonous.
 
-## Homemade vs. Commercial
-If you are cooking at home, a general rule of thumb is 50% meat, 25% vegetables (like carrots and beans), and 25% grains (like rice). Commercial dog foods (like Pedigree or Royal Canin) are fine, but many Desis do beautifully on fresh, dog-safe home-cooked meals if properly balanced.
+## Homemade Guidelines
+A fast local recipe is boiling rice with chicken liver, a pinch of turmeric (good for joints), and local seasonal vegetables like carrots or papaya. 
         `
     }
 ];
