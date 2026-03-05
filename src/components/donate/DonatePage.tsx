@@ -66,7 +66,7 @@ export function DonatePage() {
     return (
         <div className="min-h-screen bg-stone-50/50 dark:bg-zinc-950 pb-20">
             {/* Hero Section */}
-            <div className="relative pt-32 pb-20 px-4 overflow-hidden bg-secondary/30 dark:bg-zinc-900/50">
+            <div className="relative pt-24 md:pt-32 pb-12 md:pb-20 px-4 overflow-hidden bg-secondary/30 dark:bg-zinc-900/50">
                 <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
                 <div className="container mx-auto text-center relative z-10 max-w-3xl">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-zinc-800 shadow-sm border border-border mb-6">
@@ -92,7 +92,7 @@ export function DonatePage() {
                                 key={option.id}
                                 onClick={() => setSelectedOption(option.id)}
                                 className={`
-                                    cursor-pointer rounded-[2rem] p-6 border-2 transition-all duration-300 relative overflow-hidden group
+                                    cursor-pointer rounded-[2rem] p-4 sm:p-6 border-2 transition-all duration-300 relative overflow-hidden group
                                     ${isSelected
                                         ? "bg-white dark:bg-zinc-900 border-primary shadow-xl scale-105 z-10"
                                         : "bg-white/80 dark:bg-zinc-900/80 border-transparent hover:border-border hover:shadow-lg backdrop-blur-md"}
@@ -120,7 +120,7 @@ export function DonatePage() {
                 {/* Donation Contact Hub (Revealed on Selection) */}
                 {selectedOption && (
                     <div className="mt-12 animate-in slide-in-from-bottom-8 fade-in duration-500 max-w-4xl mx-auto">
-                        <div className="bg-white dark:bg-zinc-900 rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-primary/20 dark:border-zinc-800 relative overflow-hidden">
+                        <div className="bg-white dark:bg-zinc-900 rounded-[2.5rem] p-6 md:p-12 shadow-2xl border border-primary/20 dark:border-zinc-800 relative overflow-hidden">
                             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-orange-400" />
 
                             <div className="text-center mb-10">
@@ -141,7 +141,7 @@ export function DonatePage() {
                                 {/* Email Card */}
                                 <a
                                     href="mailto:kuttawaala@gmail.com"
-                                    className="group relative bg-zinc-50 dark:bg-zinc-900/50 rounded-3xl p-6 md:p-8 border border-zinc-200 dark:border-zinc-800 hover:border-primary/50 dark:hover:border-primary/30 transition-all duration-300 flex flex-col items-center text-center overflow-hidden hover:shadow-xl hover:shadow-primary/5"
+                                    className="group relative bg-zinc-50 dark:bg-zinc-900/50 rounded-3xl p-5 md:p-8 border border-zinc-200 dark:border-zinc-800 hover:border-primary/50 dark:hover:border-primary/30 transition-all duration-300 flex flex-col items-center text-center overflow-hidden hover:shadow-xl hover:shadow-primary/5"
                                 >
                                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                     <div className="w-16 h-16 rounded-2xl bg-white dark:bg-zinc-800 shadow-sm border border-zinc-100 dark:border-zinc-700 flex items-center justify-center mb-6 relative z-10 group-hover:scale-110 transition-transform duration-500">
@@ -158,7 +158,7 @@ export function DonatePage() {
                                     href="https://www.facebook.com/kuttawaalaa/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group relative bg-zinc-50 dark:bg-zinc-900/50 rounded-3xl p-6 md:p-8 border border-zinc-200 dark:border-zinc-800 hover:border-[#1877F2]/30 transition-all duration-300 flex flex-col items-center text-center overflow-hidden hover:shadow-xl hover:shadow-[#1877F2]/5"
+                                    className="group relative bg-zinc-50 dark:bg-zinc-900/50 rounded-3xl p-5 md:p-8 border border-zinc-200 dark:border-zinc-800 hover:border-[#1877F2]/30 transition-all duration-300 flex flex-col items-center text-center overflow-hidden hover:shadow-xl hover:shadow-[#1877F2]/5"
                                 >
                                     <div className="absolute inset-0 bg-gradient-to-br from-[#1877F2]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                     <div className="w-16 h-16 rounded-2xl bg-white dark:bg-zinc-800 shadow-sm border border-zinc-100 dark:border-zinc-700 flex items-center justify-center mb-6 relative z-10 group-hover:-translate-y-2 transition-transform duration-500">

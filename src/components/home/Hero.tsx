@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button";
 
 export function Hero() {
     return (
-        <section className="relative py-20 lg:py-32 flex items-center overflow-hidden bg-secondary/50/50 dark:bg-zinc-900/50">
+        <section className="relative py-12 lg:py-32 flex items-center overflow-hidden bg-secondary/50/50 dark:bg-zinc-900/50">
             {/* Decorative blobs */}
-            <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-primary/20 mix-blend-multiply filter blur-3xl opacity-60 animate-float" />
-            <div className="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] rounded-full bg-amber-500/20 mix-blend-multiply filter blur-3xl opacity-60 animate-float delay-1000" />
+            <div className="hidden md:block absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-primary/20 mix-blend-multiply filter blur-3xl opacity-60 animate-float" />
+            <div className="hidden md:block absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] rounded-full bg-amber-500/20 mix-blend-multiply filter blur-3xl opacity-60 animate-float delay-1000" />
 
             <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center relative z-10">
                 <div className="space-y-8 text-center lg:text-left order-2 lg:order-1">
@@ -19,7 +19,7 @@ export function Hero() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <h1 className="text-5xl md:text-7xl font-bold text-foreground dark:text-white leading-[1.1] mb-6 font-heading">
+                        <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-foreground dark:text-white leading-[1.1] mb-6 font-heading">
                             Every Dog Deserves a <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-500">Loving Home</span>
                         </h1>
                         <p className="text-xl text-muted-foreground dark:text-stone-300 max-w-lg mx-auto lg:mx-0 leading-relaxed">
@@ -65,7 +65,7 @@ export function Hero() {
                         <motion.div
                             animate={{ y: [0, -15, 0] }}
                             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute bottom-20 -left-6 bg-white dark:bg-zinc-800 p-4 rounded-2xl shadow-xl flex items-center gap-3 z-20 max-w-[200px]"
+                            className="absolute bottom-10 sm:bottom-20 left-2 md:-left-6 bg-white dark:bg-zinc-800 p-3 sm:p-4 rounded-2xl shadow-xl flex items-center gap-2 sm:gap-3 z-20 max-w-[180px] sm:max-w-[200px]"
                         >
                             <div className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-primary shrink-0">
                                 <Heart className="w-5 h-5 fill-current" />

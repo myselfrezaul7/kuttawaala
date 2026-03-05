@@ -129,7 +129,7 @@ export default function QuizPage() {
 
     if (showResults) {
         return (
-            <div className="min-h-screen bg-[#FFFDF8] py-20 px-4">
+            <div className="min-h-screen bg-[#FFFDF8] py-12 md:py-20 px-4">
                 <div className="container mx-auto max-w-6xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -187,7 +187,7 @@ export default function QuizPage() {
     return (
         <div className="min-h-screen bg-[#FFFDF8] flex flex-col">
             {/* Header / Nav */}
-            <div className="p-6 flex justify-between items-center">
+            <div className="p-4 md:p-6 flex justify-between items-center">
                 <Link href="/">
                     <Button variant="ghost" className="rounded-full hover:bg-stone-100">
                         <ArrowLeft className="w-5 h-5 mr-2" /> Exit
@@ -210,7 +210,7 @@ export default function QuizPage() {
             </div>
 
             {/* Question Card */}
-            <div className="flex-1 container mx-auto px-4 max-w-3xl flex flex-col justify-center pb-20">
+            <div className="flex-1 container mx-auto px-4 max-w-3xl flex flex-col justify-center pb-12 md:pb-20">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={currentQuestion}
@@ -231,7 +231,7 @@ export default function QuizPage() {
                                     onClick={() => handleAnswer(option.tags)}
                                     whileHover={{ scale: 1.02, backgroundColor: "rgba(255, 255, 255, 0.8)" }}
                                     whileTap={{ scale: 0.98 }}
-                                    className="relative group w-full bg-white p-6 rounded-2xl border-2 border-stone-100 hover:border-orange-200 hover:shadow-xl hover:shadow-orange-100/50 transition-all text-left flex items-center justify-between"
+                                    className="relative group w-full bg-white p-4 sm:p-6 rounded-2xl border-2 border-stone-100 hover:border-orange-200 hover:shadow-xl hover:shadow-orange-100/50 transition-all text-left flex items-center justify-between"
                                 >
                                     <div className="flex items-center gap-4">
                                         <span className="text-3xl bg-stone-50 w-14 h-14 rounded-xl flex items-center justify-center group-hover:bg-orange-50 transition-colors">

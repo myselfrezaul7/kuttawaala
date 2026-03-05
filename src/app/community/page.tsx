@@ -17,7 +17,7 @@ export default function CommunityPage() {
 
             <main className="flex-1 pb-24">
                 {/* Hero Section */}
-                <section className="relative pt-32 pb-20 px-4 overflow-hidden">
+                <section className="relative pt-24 md:pt-32 pb-12 md:pb-20 px-4 overflow-hidden">
                     <div className="absolute top-0 inset-x-0 h-96 bg-gradient-to-b from-orange-100/50 to-transparent dark:from-orange-900/20 pointer-events-none" />
                     <div className="container mx-auto text-center relative z-10">
                         <div className="inline-block p-3 rounded-full bg-white dark:bg-stone-800 shadow-lg shadow-orange-100/50 dark:shadow-orange-900/20 mb-6 border border-orange-100 dark:border-orange-900/30 animate-bounce-slow">
@@ -43,7 +43,7 @@ export default function CommunityPage() {
                     </div>
                 </section>
 
-                <div className="container mx-auto px-4 max-w-6xl space-y-24">
+                <div className="container mx-auto px-4 max-w-6xl space-y-16 md:space-y-24">
 
                     {/* Upcoming Events */}
                     <section>
@@ -54,7 +54,7 @@ export default function CommunityPage() {
                             </div>
                         </div>
 
-                        <div className="glass-card dark:bg-stone-900/60 rounded-[2.5rem] p-12 text-center border border-orange-100/50 dark:border-stone-800 shadow-xl relative overflow-hidden">
+                        <div className="glass-card dark:bg-stone-900/60 rounded-[2.5rem] p-6 md:p-12 text-center border border-orange-100/50 dark:border-stone-800 shadow-xl relative overflow-hidden">
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 via-amber-400 to-orange-400 animate-shimmer" />
                             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-orange-100/80 dark:bg-orange-900/30 text-orange-500 mb-6 animate-pulse">
                                 <Calendar className="w-8 h-8" />
@@ -70,7 +70,7 @@ export default function CommunityPage() {
                     </section>
 
                     {/* Volunteer Spotlight */}
-                    <section className="bg-gradient-to-br from-orange-500 to-amber-500 dark:from-orange-600 dark:to-amber-600 rounded-[3rem] p-8 md:p-12 text-white relative overflow-hidden shadow-2xl shadow-orange-200 dark:shadow-none text-center">
+                    <section className="bg-gradient-to-br from-orange-500 to-amber-500 dark:from-orange-600 dark:to-amber-600 rounded-[3rem] p-6 md:p-12 text-white relative overflow-hidden shadow-2xl shadow-orange-200 dark:shadow-none text-center">
                         <div className="absolute top-0 right-0 p-12 opacity-10 pointer-events-none">
                             <Star className="w-64 h-64 rotate-12" />
                         </div>
@@ -102,7 +102,7 @@ export default function CommunityPage() {
                     {/* Resources */}
                     <section>
                         <h2 className="text-3xl font-bold text-stone-800 dark:text-stone-100 font-heading mb-10 text-center">Canine Resources 📚</h2>
-                        <div className="grid md:grid-cols-3 gap-6">
+                        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
                             {resources.map((resource) => {
                                 const badgeColor = {
                                     "blue": "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 border-blue-200 dark:border-blue-900",
@@ -126,7 +126,7 @@ export default function CommunityPage() {
                                     <Link
                                         href={resource.slug === "emergency-vet-list" ? "/find-vet" : `/resources/${resource.slug}`}
                                         key={resource.slug}
-                                        className="group relative bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md rounded-[2rem] p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-100 dark:border-zinc-800 overflow-hidden flex flex-col h-full hover:-translate-y-1"
+                                        className="group relative bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md rounded-[2rem] p-6 md:p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-stone-100 dark:border-zinc-800 overflow-hidden flex flex-col h-full hover:-translate-y-1"
                                     >
                                         {/* Accent Top Bar */}
                                         <div className={`absolute top-0 left-0 right-0 h-1.5 opacity-0 group-hover:opacity-100 transition-opacity ${highlightColor}`} />

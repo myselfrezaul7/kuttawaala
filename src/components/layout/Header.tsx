@@ -147,9 +147,21 @@ export function Header() {
                                 </button>
                             </div>
                         </div>
-                        <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-                            <Button className="w-full mt-2">Login</Button>
-                        </Link>
+                        {!loading && (
+                            user ? (
+                                <Link href="/profile" onClick={() => setIsMenuOpen(false)}>
+                                    <Button className="w-full mt-2 gap-2 text-primary border-primary" variant="outline">
+                                        <User className="w-4 h-4" /> Profile
+                                    </Button>
+                                </Link>
+                            ) : (
+                                <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+                                    <Button className="w-full mt-2 gap-2">
+                                        <LogIn className="w-4 h-4" /> Login
+                                    </Button>
+                                </Link>
+                            )
+                        )}
                     </div>
                 )}
             </header>
