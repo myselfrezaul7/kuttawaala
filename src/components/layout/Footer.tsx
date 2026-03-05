@@ -9,13 +9,13 @@ export function Footer() {
             {/* Background gradient */}
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-rose-50/50 to-secondary/50 dark:from-transparent dark:via-zinc-900 dark:to-zinc-950" />
 
-            <div className="relative z-10 pt-16 pb-8">
+            <div className="relative z-10 pt-10 md:pt-16 pb-6 md:pb-8">
                 <div className="container mx-auto px-4">
                     {/* Main footer content with glassmorphism */}
-                    <div className="glass-card rounded-3xl p-8 md:p-12 mb-8">
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+                    <div className="glass-card rounded-3xl p-6 md:p-12 mb-8">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10">
                             {/* Brand */}
-                            <div className="space-y-4">
+                            <div className="col-span-2 md:col-span-1 space-y-4">
                                 <div className="flex items-center gap-2">
                                     <Dog className="w-8 h-8 text-primary" />
                                     <h3 className="text-2xl font-bold text-foreground dark:text-white">KUTTAWAALA</h3>
@@ -64,7 +64,7 @@ export function Footer() {
                             </div>
 
                             {/* Connect */}
-                            <div>
+                            <div className="col-span-2 md:col-span-1 mt-4 md:mt-0">
                                 <h4 className="font-bold mb-5 text-foreground dark:text-white text-sm uppercase tracking-wider">Connect</h4>
                                 <div className="flex gap-3 mb-5">
                                     <a
@@ -116,7 +116,7 @@ export function Footer() {
 
                     {/* Copyright */}
                     <div className="text-center text-sm text-muted-foreground dark:text-muted-foreground">
-                        <p>&copy; 2025 Kuttawaala. All rights reserved. Made with ❤️ and lots of treats.</p>
+                        <p>&copy; {new Date().getFullYear()} Kuttawaala. All rights reserved.</p>
                     </div>
                 </div>
             </div>
