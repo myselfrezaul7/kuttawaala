@@ -214,7 +214,7 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
                 </div>
 
                 <div className="relative mt-8 mb-12 rounded-[3rem] overflow-hidden border border-border bg-card/60 p-8 md:p-16 text-center backdrop-blur-md shadow-xl">
-                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-10 mix-blend-luminosity" />
+                    <div className="absolute inset-0 bg-[url('/assets/dog_adopt_bg.png')] bg-cover bg-center opacity-10 mix-blend-luminosity" />
                     <div className="relative z-10 max-w-2xl mx-auto py-8">
                         <div className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl shadow-primary/10">
                             <span className="text-5xl animate-bounce">🦴</span>

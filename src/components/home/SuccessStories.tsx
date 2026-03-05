@@ -9,28 +9,28 @@ const SUCCESS_STORIES = [
     {
         id: 1,
         name: "Lalu",
-        image: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=1000&auto=format&fit=crop", // Beagle/Desi Mix
+        image: "/assets/dog_success_1.png", // Desi Dog
         quote: "Lalu was shy at first, but now he rules the sofa! He's the best hiking buddy we could ask for.",
         adopter: "Rahim & Family"
     },
     {
         id: 2,
         name: "Rocky",
-        image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=1000&auto=format&fit=crop", // Golden Retriever Mix
+        image: "/assets/dog_success_2.png", // Desi Dog
         quote: "We adopted Rocky from Dhanmondi. He's so gentle with our kids. Best decision ever!",
         adopter: "The Ahmeds"
     },
     {
         id: 3,
         name: "Sheru",
-        image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=1000&auto=format&fit=crop", // Detailed Desi Dog
+        image: "/assets/dog_success_3.png", // Desi Dog
         quote: "Sheru protects our home and our hearts. He's a true neighborhood legend.",
         adopter: "Bashir Bhai"
     },
     {
         id: 4,
         name: "Daisy",
-        image: "https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=1000&auto=format&fit=crop", // Bulldog/Mix
+        image: "/assets/dog_success_4.png", // Desi Dog
         quote: "Daisy brings so much joy to our office. She's our official Chief Morale Officer!",
         adopter: "TechStart Dhaka"
     },

@@ -59,7 +59,7 @@ Enjoy every moment with your new furry companion!
         badge: "Directory",
         readTime: "Always updated",
         color: "teal",
-        coverImage: "https://images.unsplash.com/photo-1517423738875-5ce310aca30b?auto=format&fit=crop&q=80&w=2000",
+        coverImage: "/assets/dog_success_2.png",
         content: `Redirecting to the verified directory...`
     },
     {
@@ -72,7 +72,7 @@ Enjoy every moment with your new furry companion!
         badge: "Article",
         readTime: "7 min",
         color: "amber",
-        coverImage: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=2000",
+        coverImage: "/assets/dog_success_4.png",
         content: `
 # Feeding Your Desi Dog Right
 

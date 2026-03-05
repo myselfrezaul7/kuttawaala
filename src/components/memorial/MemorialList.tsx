@@ -12,7 +12,7 @@ const TRIBUTES = [
     {
         id: "1",
         petName: "Sheru",
-        image: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?q=80&w=1000&auto=format&fit=crop", // Pug
+        image: "/assets/dog_memorial_1.png", // Desi Dog
         message: "You were the bravest little lion. The streets of Dhanmondi miss your happy barks.",
         author: "Rahim",
         candles: 45
@@ -20,7 +20,7 @@ const TRIBUTES = [
     {
         id: "2",
         petName: "Bhulu",
-        image: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=1000&auto=format&fit=crop", // Beagle Mix
+        image: "/assets/dog_memorial_2.png", // Desi Dog
         message: "Run free across the rainbow bridge, my sweet Bhulu. No more pain now.",
         author: "Tania",
         candles: 128
@@ -28,7 +28,7 @@ const TRIBUTES = [
     {
         id: "3",
         petName: "Lali",
-        image: "https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=1000&auto=format&fit=crop", // Golden
+        image: "/assets/dog_memorial_3.png", // Desi Dog
         message: "Our neighborhood guard and best friend. You will never be forgotten.",
         author: "Sector 4 Residents",
         candles: 89
@@ -36,7 +36,7 @@ const TRIBUTES = [
     {
         id: "4",
         petName: "Tommy",
-        image: "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?q=80&w=1000&auto=format&fit=crop", // Bull terrier
+        image: "/assets/dog_success_1.png", // Desi Dog
         message: "I hope you have all the biscuits in heaven.",
         author: "Arafat",
         candles: 32
@@ -44,7 +44,7 @@ const TRIBUTES = [
     {
         id: "5",
         petName: "Rocky",
-        image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=1000&auto=format&fit=crop", // Golden mix
+        image: "/assets/dog_success_2.png", // Desi Dog
         message: "The gentlest soul I ever met.",
         author: "Sarah",
         candles: 67
@@ -109,8 +109,8 @@ export function MemorialList() {
                                         variant="ghost"
                                         onClick={() => lightCandle(tribute.id)}
                                         className={`rounded-full gap-2 transition-all ${litCandles.includes(tribute.id)
-                                                ? "bg-orange-50 text-orange-500"
-                                                : "text-stone-400 hover:text-orange-500 hover:bg-orange-50"
+                                            ? "bg-orange-50 text-orange-500"
+                                            : "text-stone-400 hover:text-orange-500 hover:bg-orange-50"
                                             }`}
                                     >
                                         <Flame
