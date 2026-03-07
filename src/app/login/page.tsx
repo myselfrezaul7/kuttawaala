@@ -122,8 +122,11 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen bg-muted/30 dark:bg-zinc-950 flex flex-col justify-center items-center px-4 py-12">
-            <Link href="/" className="mb-8 group">
+        <div className="min-h-screen bg-muted/30 dark:bg-zinc-950 flex flex-col justify-center items-center px-4 py-12 relative overflow-hidden transition-colors duration-300">
+            {/* Animated Background gradients */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent dark:from-primary/5" />
+
+            <Link href="/" className="mb-8 group relative z-10">
                 <div className="flex flex-col items-center gap-2">
                     <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                         <Dog className="w-10 h-10 text-primary" />
@@ -132,7 +135,23 @@ export default function LoginPage() {
                 </div>
             </Link>
 
-            <div className="max-w-md w-full bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl p-8 border border-border/50 dark:border-zinc-800">
+            {/* Social Proof Badge */}
+            <div className="flex justify-center mb-6 relative z-20">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-zinc-900/80 border border-border/50 dark:border-zinc-800 backdrop-blur-md shadow-sm">
+                    <div className="flex -space-x-2">
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className="w-6 h-6 rounded-full border-2 border-white dark:border-zinc-900 bg-primary/20 dark:bg-primary/20 flex items-center justify-center overflow-hidden">
+                                <Dog className="w-3 h-3 text-primary" />
+                            </div>
+                        ))}
+                    </div>
+                    <span className="text-xs font-semibold text-foreground dark:text-stone-300 ml-1">
+                        Join <span className="text-primary dark:text-primary">12,000+</span> dog lovers
+                    </span>
+                </div>
+            </div>
+
+            <div className="max-w-md w-full bg-white dark:bg-zinc-900/60 rounded-3xl shadow-2xl p-8 border border-border/50 dark:border-zinc-800 relative z-10 backdrop-blur-xl">
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold mb-2 font-heading text-foreground dark:text-white">
                         {isSignUp ? "Join the Pack" : "Welcome Back"}
@@ -216,7 +235,7 @@ export default function LoginPage() {
                             </div>
                         )}
 
-                        <div className="flex justify-center pt-2">
+                        <div className="flex justify-center pt-2 overflow-hidden max-w-full">
                             {!useMathChallenge ? (
                                 <ReCAPTCHA
                                     ref={recaptchaRef}

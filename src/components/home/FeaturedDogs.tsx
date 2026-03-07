@@ -7,6 +7,7 @@ import { Dog, dogs as mockDogs } from "@/data/dogs";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function FeaturedDogs() {
     const [featuredDogs, setFeaturedDogs] = useState<Dog[]>([]);
@@ -50,10 +51,20 @@ export function FeaturedDogs() {
                 </Link>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-                {featuredDogs.map((dog) => (
-                    // @ts-ignore
-                    <PetCard key={dog.id} dog={dog} />
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 sm:gap-6 pb-6 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
+                {featuredDogs.map((dog, index) => (
+                    <div key={dog.id} className="min-w-[85%] sm:min-w-0 snap-center flex-shrink-0">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.1 }}
+                            className="h-full"
+                        >
+                            {/* @ts-ignore */}
+                            <PetCard dog={dog} />
+                        </motion.div>
+                    </div>
                 ))}
             </div>
         </div>
