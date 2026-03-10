@@ -44,8 +44,8 @@ export function Header() {
 
     return (
         <>
-            <header className="fixed top-0 left-0 w-full z-50 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border-b border-border dark:border-zinc-800 transition-all duration-300">
-                <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+            <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-[800px] w-[calc(100%-2rem)] transition-all duration-500 ease-out bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-[100px]`}>
+                <div className="px-5 py-2.5 flex justify-between items-center">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
                         <img src="/logo.png" alt="Kuttawaala Logo" className="w-8 h-8 object-contain transition-transform group-hover:scale-110" />
@@ -74,11 +74,19 @@ export function Header() {
                     </nav>
 
                     {/* Actions */}
-                    <div className="hidden md:flex items-center gap-4">
+                    <div className="hidden md:flex items-center gap-2 ml-auto">
+                        <Link href="https://www.catwaala.com" target="_blank" rel="noopener noreferrer">
+                            <Button variant="ghost" size="sm" className="hidden lg:flex text-muted-foreground hover:text-primary rounded-full font-medium h-9 text-xs uppercase tracking-wider">
+                                Visit Catwaala
+                            </Button>
+                        </Link>
+
+                        <div className="w-px h-4 bg-border mx-1"></div>
+
                         <LanguageToggle />
                         <button
                             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                            className="p-2 text-muted-foreground dark:text-muted-foreground hover:text-primary transition-colors"
+                            className="p-2 text-muted-foreground dark:text-muted-foreground hover:text-primary transition-colors rounded-full"
                         >
                             {mounted && theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                         </button>
@@ -108,16 +116,28 @@ export function Header() {
 
                     {/* Mobile Menu Toggle */}
                     <button
-                        className="md:hidden p-2 text-foreground/90 dark:text-stone-300"
+                        className="md:hidden p-2 text-foreground/90 dark:text-stone-300 rounded-full hover:bg-muted dark:hover:bg-zinc-800 transition-colors ml-auto"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
-                        {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                        {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                     </button>
                 </div>
 
                 {/* Mobile Menu */}
                 {isMenuOpen && (
-                    <div className="md:hidden absolute top-full left-0 w-full bg-white dark:bg-zinc-900 border-b border-border shadow-lg p-4 flex flex-col gap-4 animate-in slide-in-from-top-5">
+                    <div className="md:hidden absolute top-[calc(100%+12px)] left-0 w-full bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl border border-border/50 shadow-2xl rounded-3xl p-5 flex flex-col gap-2 animate-in slide-in-from-top-4 fade-in duration-300 overflow-hidden">
+                        {/* Stray Image Banner */}
+                        <div className="relative w-full h-32 rounded-2xl overflow-hidden mb-2">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                src="/assets/dog_adopt_bg.png"
+                                alt="Featured Stray Dog"
+                                className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                                <span className="text-white/90 font-medium text-sm">Every stray deserves a home 🐾</span>
+                            </div>
+                        </div>
                         {navLinks.map((link) => (
                             <Link
                                 key={link.name}
@@ -150,18 +170,24 @@ export function Header() {
                         {!loading && (
                             user ? (
                                 <Link href="/profile" onClick={() => setIsMenuOpen(false)}>
-                                    <Button className="w-full mt-2 gap-2 text-primary border-primary" variant="outline">
+                                    <Button className="w-full mt-1 gap-2 text-primary border-primary rounded-xl h-12" variant="outline">
                                         <User className="w-4 h-4" /> Profile
                                     </Button>
                                 </Link>
                             ) : (
                                 <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-                                    <Button className="w-full mt-2 gap-2">
+                                    <Button className="w-full mt-1 gap-2 rounded-xl h-12 shadow-sm font-semibold">
                                         <LogIn className="w-4 h-4" /> Login
                                     </Button>
                                 </Link>
                             )
                         )}
+
+                        <Link href="https://www.catwaala.com" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
+                            <Button variant="secondary" className="w-full mt-1 rounded-xl h-12 font-medium bg-muted dark:bg-zinc-800 text-foreground">
+                                Visit Catwaala 🐈
+                            </Button>
+                        </Link>
                     </div>
                 )}
             </header>
