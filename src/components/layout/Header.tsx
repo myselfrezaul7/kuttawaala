@@ -75,13 +75,7 @@ export function Header() {
 
                     {/* Actions */}
                     <div className="hidden md:flex items-center gap-2 ml-auto">
-                        <Link href="https://www.catwaala.com" target="_blank" rel="noopener noreferrer">
-                            <Button variant="ghost" size="sm" className="hidden lg:flex text-muted-foreground hover:text-primary rounded-full font-medium h-9 text-xs uppercase tracking-wider">
-                                Visit Catwaala
-                            </Button>
-                        </Link>
 
-                        <div className="w-px h-4 bg-border mx-1"></div>
 
                         <LanguageToggle />
                         <button
@@ -181,14 +175,7 @@ export function Header() {
                                     </Button>
                                 </Link>
                             )
-                        )}
-
-                        <Link href="https://www.catwaala.com" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
-                            <Button variant="secondary" className="w-full mt-1 rounded-xl h-12 font-medium bg-muted dark:bg-zinc-800 text-foreground">
-                                Visit Catwaala 🐈
-                            </Button>
-                        </Link>
-                    </div>
+                        )}                    </div>
                 )}
             </header>
 
