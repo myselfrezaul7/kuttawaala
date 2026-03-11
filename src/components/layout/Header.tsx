@@ -44,7 +44,7 @@ export function Header() {
 
     return (
         <>
-            <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-[800px] w-[calc(100%-2rem)] transition-all duration-500 ease-out bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-[100px]`}>
+            <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-6xl w-[calc(100%-2rem)] transition-all duration-500 ease-out bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-[100px]`}>
                 <div className="px-5 py-2.5 flex justify-between items-center">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
@@ -208,11 +208,49 @@ export function Header() {
                             />
                         </div>
 
-                        <div className="flex flex-wrap justify-center gap-3 text-sm text-muted-foreground">
-                            <span>Try searching for:</span>
-                            <button className="text-primary hover:underline">Urgent Adoptions</button>
-                            <button className="text-primary hover:underline">Vet in Dhaka</button>
-                            <button className="text-primary hover:underline">Volunteer</button>
+                        <div className="flex flex-wrap justify-center gap-3 text-sm text-muted-foreground w-full">
+                            {searchQuery ? (
+                                <div className="flex flex-col sm:flex-row gap-4 w-full">
+                                    <button
+                                        onClick={() => {
+                                            setIsSearchOpen(false);
+                                            router.push(`/adopt?query=${encodeURIComponent(searchQuery)}`);
+                                        }}
+                                        className="flex-1 p-6 rounded-2xl bg-primary/10 hover:bg-primary/20 border border-primary/20 transition-all text-left flex items-start gap-4 group"
+                                    >
+                                        <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                            🐕
+                                        </div>
+                                        <div>
+                                            <h3 className="font-bold text-foreground text-lg mb-1">Search Adoptions</h3>
+                                            <p className="text-muted-foreground line-clamp-1">Find dogs matching "{searchQuery}"</p>
+                                        </div>
+                                    </button>
+
+                                    <button
+                                        onClick={() => {
+                                            setIsSearchOpen(false);
+                                            router.push(`/find-vet?query=${encodeURIComponent(searchQuery)}`);
+                                        }}
+                                        className="flex-1 p-6 rounded-2xl bg-secondary hover:bg-secondary/80 border border-border transition-all text-left flex items-start gap-4 group dark:bg-zinc-800 dark:hover:bg-zinc-700"
+                                    >
+                                        <div className="w-12 h-12 rounded-full bg-background flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform dark:bg-zinc-900">
+                                            🏥
+                                        </div>
+                                        <div>
+                                            <h3 className="font-bold text-foreground text-lg mb-1">Search Vets</h3>
+                                            <p className="text-muted-foreground line-clamp-1">Find clinics matching "{searchQuery}"</p>
+                                        </div>
+                                    </button>
+                                </div>
+                            ) : (
+                                <>
+                                    <span>Try searching for:</span>
+                                    <button className="text-primary hover:underline" onClick={() => setSearchQuery("Urgent Adoptions")}>Urgent Adoptions</button>
+                                    <button className="text-primary hover:underline" onClick={() => setSearchQuery("Vet in Dhaka")}>Vet in Dhaka</button>
+                                    <button className="text-primary hover:underline" onClick={() => setSearchQuery("Volunteer")}>Volunteer</button>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
