@@ -44,7 +44,7 @@ export function Header() {
 
     return (
         <>
-            <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-6xl w-[calc(100%-2rem)] transition-all duration-500 ease-out bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-[100px] print:hidden`}>
+            <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-6xl w-[calc(100%-2rem)] transition-all duration-500 ease-out bg-white/50 dark:bg-zinc-900/50 backdrop-blur-2xl border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-[100px] print:hidden`}>
                 <div className="px-5 py-2.5 flex justify-between items-center">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
@@ -108,13 +108,27 @@ export function Header() {
                         )}
                     </div>
 
-                    {/* Mobile Menu Toggle */}
-                    <button
-                        className="md:hidden p-2 text-foreground/90 dark:text-stone-300 rounded-full hover:bg-muted dark:hover:bg-zinc-800 transition-colors ml-auto"
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    >
-                        {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                    </button>
+                    {/* Mobile Menu & Icons */}
+                    <div className="md:hidden flex items-center gap-1 ml-auto">
+                        <button
+                            onClick={() => setIsSearchOpen(true)}
+                            className="p-2 text-foreground/90 dark:text-stone-300 hover:bg-muted dark:hover:bg-zinc-800 rounded-full transition-colors"
+                        >
+                            <Search className="w-5 h-5" />
+                        </button>
+                        <button
+                            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                            className="p-2 text-foreground/90 dark:text-stone-300 hover:bg-muted dark:hover:bg-zinc-800 rounded-full transition-colors"
+                        >
+                            {mounted && theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                        </button>
+                        <button
+                            className="p-2 text-foreground/90 dark:text-stone-300 rounded-full hover:bg-muted dark:hover:bg-zinc-800 transition-colors"
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        >
+                            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                        </button>
+                    </div>
                 </div>
 
                 {/* Mobile Menu */}

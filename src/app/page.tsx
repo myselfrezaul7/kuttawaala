@@ -74,7 +74,7 @@ export default function Home() {
             {/* Visit Catwaala Section */}
             <section className="py-12 md:py-20 relative overflow-hidden">
                 <div className="container mx-auto px-4 relative z-10">
-                    <div className="bg-orange-50 dark:bg-orange-950/30 rounded-[3rem] p-8 md:p-16 text-foreground border border-orange-100 dark:border-orange-900/30 shadow-xl relative overflow-hidden group">
+                    <div className="bg-orange-50 dark:bg-orange-950/30 rounded-[3rem] p-5 md:p-12 text-foreground border border-orange-100 dark:border-orange-900/30 shadow-xl relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-400/10 dark:bg-orange-500/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3 transition-transform duration-700 group-hover:scale-110" />
                         <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-400/10 dark:bg-amber-500/10 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3 transition-transform duration-700 group-hover:scale-110" />
 
@@ -84,7 +84,7 @@ export default function Home() {
                                     <Cat className="w-4 h-4" />
                                     <span>Team Catwaala</span>
                                 </div>
-                                <h2 className="text-4xl md:text-5xl font-bold font-heading text-stone-800 dark:text-stone-100">
+                                <h2 className="text-2xl md:text-5xl font-bold font-heading text-stone-800 dark:text-stone-100">
                                     More of a Cat Person?
                                 </h2>
                                 <p className="text-lg text-muted-foreground dark:text-stone-400 max-w-xl leading-relaxed">
@@ -104,8 +104,8 @@ export default function Home() {
 
                             {/* Decorative Cat Icon/Graphic */}
                             <div className="w-full md:w-auto flex justify-center">
-                                <div className="w-64 h-64 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md rounded-[3rem] rotate-3 group-hover:rotate-6 transition-transform duration-500 flex items-center justify-center border border-orange-100 dark:border-orange-900/30 shadow-xl">
-                                    <Cat className="w-32 h-32 text-orange-400 dark:text-orange-500/80 drop-shadow-md" />
+                                <div className="w-40 h-40 md:w-56 md:h-56 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md rounded-[3rem] rotate-3 group-hover:rotate-6 transition-transform duration-500 flex items-center justify-center border border-orange-100 dark:border-orange-900/30 shadow-xl">
+                                    <Cat className="w-20 h-20 md:w-28 md:h-28 text-orange-400 dark:text-orange-500/80 drop-shadow-md" />
                                 </div>
                             </div>
                         </div>
@@ -127,18 +127,18 @@ export default function Home() {
                         We are dedicated to improving the lives of street dogs in Bangladesh through rescue, rehabilitation, and adoption programs.
                     </p>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-3 gap-3 md:gap-8">
                         {[
                             { icon: Heart, count: "500+", label: "Dogs Rescued", color: "text-rose-500", bg: "bg-rose-500/10" },
                             { icon: Users, count: "200+", label: "Adoptions", color: "text-blue-500", bg: "bg-blue-500/10" },
                             { icon: Stethoscope, count: "50+", label: "Vet Camps", color: "text-emerald-500", bg: "bg-emerald-500/10" }
                         ].map((stat, index) => (
-                            <div key={index} className="glass-card rounded-[2.5rem] p-6 md:p-10 hover:translate-y-[-5px] transition-transform duration-300 border border-border mt-4">
-                                <div className={`w-16 h-16 rounded-2xl ${stat.bg} flex items-center justify-center mx-auto mb-6`}>
-                                    <stat.icon className={`w-8 h-8 ${stat.color}`} />
+                            <div key={index} className="glass-card rounded-[1.5rem] md:rounded-[2.5rem] p-4 md:p-10 hover:translate-y-[-5px] transition-transform duration-300 border border-border mt-4">
+                                <div className={`w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl ${stat.bg} flex items-center justify-center mx-auto mb-3 md:mb-6`}>
+                                    <stat.icon className={`w-6 h-6 md:w-8 md:h-8 ${stat.color}`} />
                                 </div>
-                                <span className="block text-5xl font-bold text-foreground mb-3 tracking-tight">{stat.count}</span>
-                                <span className="text-sm font-bold text-muted-foreground uppercase tracking-widest">{stat.label}</span>
+                                <span className="block text-2xl md:text-5xl font-bold text-foreground mb-1 md:mb-3 tracking-tight">{stat.count}</span>
+                                <span className="text-[10px] md:text-sm font-bold text-muted-foreground uppercase tracking-wider md:tracking-widest">{stat.label}</span>
                             </div>
                         ))}
                     </div>
