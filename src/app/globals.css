@@ -112,4 +112,29 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
+
+    /* Print Media Queries */
+    @media print {
+        header,
+        footer,
+        nav,
+        .print-hidden,
+        .no-print {
+            display: none !important;
+        }
+
+        body {
+            background: white !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .print-p-0 {
+            padding: 0 !important;
+        }
+
+        section {
+            page-break-inside: avoid;
+        }
+    }
 }

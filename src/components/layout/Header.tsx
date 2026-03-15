@@ -44,7 +44,7 @@ export function Header() {
 
     return (
         <>
-            <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-6xl w-[calc(100%-2rem)] transition-all duration-500 ease-out bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-[100px]`}>
+            <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-6xl w-[calc(100%-2rem)] transition-all duration-500 ease-out bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-[100px] print:hidden`}>
                 <div className="px-5 py-2.5 flex justify-between items-center">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
