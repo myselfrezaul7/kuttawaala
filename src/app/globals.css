@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+@layer utilities {
+    .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+}@layer base {
     :root {
         /* Portfolio Light Theme - Updated for Kuttawaala */
         --background: 45 20% 96%;

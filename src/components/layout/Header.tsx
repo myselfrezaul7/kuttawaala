@@ -10,6 +10,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { LanguageToggle } from "@/components/shared/LanguageToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { MobileBottomNav } from "./MobileBottomNav";
 
 export function Header() {
     const router = useRouter();
@@ -122,18 +123,12 @@ export function Header() {
                         >
                             {mounted && theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                         </button>
-                        <button
-                            className="p-2 text-foreground/90 dark:text-stone-300 rounded-full hover:bg-muted dark:hover:bg-zinc-800 transition-colors"
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        >
-                            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                        </button>
                     </div>
                 </div>
 
                 {/* Mobile Menu */}
                 {isMenuOpen && (
-                    <div className="md:hidden absolute top-[calc(100%+12px)] left-0 w-full bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl border border-border/50 shadow-2xl rounded-3xl p-5 flex flex-col gap-2 animate-in slide-in-from-top-4 fade-in duration-300 overflow-hidden">
+                    <div className="md:hidden absolute bottom-[calc(100%+12px)] left-0 w-full bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl border border-border/50 shadow-2xl rounded-3xl p-5 flex flex-col gap-2 animate-in slide-in-from-bottom-4 fade-in duration-300 overflow-hidden origin-bottom">
                         {/* Stray Image Banner */}
                         <div className="relative w-full h-32 rounded-2xl overflow-hidden mb-2">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -192,6 +187,11 @@ export function Header() {
                         )}                    </div>
                 )}
             </header>
+
+            <MobileBottomNav 
+                isMenuOpen={isMenuOpen} 
+                onMoreTap={() => setIsMenuOpen(!isMenuOpen)} 
+            />
 
             {/* Full Screen Search Overlay */}
             {isSearchOpen && (
