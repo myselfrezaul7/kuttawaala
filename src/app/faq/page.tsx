@@ -8,6 +8,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import { HelpCircle, Dog, Syringe, Home, Utensils, Search, Heart } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function FAQPage() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -182,7 +183,14 @@ export default function FAQPage() {
                         }[category.color] || "bg-secondary text-foreground";
 
                         return (
-                            <div key={category.category} className="mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                            <motion.div
+                                key={category.category}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                transition={{ duration: 0.5 }}
+                                className="mb-8"
+                            >
                                 <div className="bg-white dark:bg-zinc-900 rounded-[2rem] p-6 md:p-8 shadow-xl border border-border/50">
                                     <h2 className="text-2xl font-bold mb-6 flex items-center gap-3 text-foreground pb-4 border-b border-border/50">
                                         <div className={`p-2 rounded-xl ${badgeClasses}`}>
@@ -203,7 +211,7 @@ export default function FAQPage() {
                                         ))}
                                     </Accordion>
                                 </div>
-                            </div>
+                            </motion.div>
                         );
                     })
                 ) : (
@@ -223,14 +231,20 @@ export default function FAQPage() {
                 )}
 
                 {/* Contact CTA */}
-                <div className="text-center bg-zinc-900 dark:bg-zinc-800 rounded-[2rem] p-12 relative overflow-hidden text-white mt-8">
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.5 }}
+                    className="text-center bg-zinc-900 dark:bg-zinc-800 rounded-[2rem] p-12 relative overflow-hidden text-white mt-8"
+                >
                     <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
                     <h3 className="text-2xl font-bold mb-4 relative z-10">Still have questions?</h3>
                     <p className="text-zinc-400 mb-8 relative z-10">Our community admins are happy to help you out.</p>
                     <a href="https://www.facebook.com/groups/721498465956239" target="_blank" rel="noopener noreferrer" className="relative z-10 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition-all">
                         Ask in Facebook Group
                     </a>
-                </div>
+                </motion.div>
 
             </div>
         </div>

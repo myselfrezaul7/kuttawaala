@@ -135,8 +135,8 @@ export default function LoginPage() {
                 </div>
             </Link>
 
-            {/* Social Proof Badge */}
-            <div className="flex justify-center mb-6 relative z-20">
+            {/* Social Proof Badge (Desktop) */}
+            <div className="hidden md:flex justify-center mb-6 relative z-20">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-zinc-900/80 border border-border/50 dark:border-zinc-800 backdrop-blur-md shadow-sm">
                     <div className="flex -space-x-2">
                         {[1, 2, 3].map((i) => (
@@ -292,6 +292,22 @@ export default function LoginPage() {
                             <ArrowRight className="w-4 h-4" />
                         </button>
                     </div>
+                </div>
+            </div>
+
+            {/* Social Proof Badge (Mobile) */}
+            <div className="flex md:hidden justify-center mt-6 relative z-20">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-zinc-900/80 border border-border/50 dark:border-zinc-800 backdrop-blur-md shadow-sm">
+                    <div className="flex -space-x-2">
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className="w-5 h-5 rounded-full border-2 border-white dark:border-zinc-900 bg-primary/20 flex items-center justify-center overflow-hidden">
+                                <Dog className="w-2.5 h-2.5 text-primary" />
+                            </div>
+                        ))}
+                    </div>
+                    <span className="text-[10px] sm:text-xs font-semibold text-foreground dark:text-stone-300 ml-1">
+                        Join <span className="text-primary dark:text-primary">12,000+</span> dog lovers
+                    </span>
                 </div>
             </div>
         </div>

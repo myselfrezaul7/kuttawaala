@@ -1,8 +1,11 @@
+"use client";
+
 import { Hero } from "@/components/home/Hero";
 import { SuccessStories } from "@/components/home/SuccessStories";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Sparkles, Heart, Users, Stethoscope, ArrowRight, Cat } from "lucide-react";
+import { motion } from "framer-motion";
 import { BeforeAfterSlider } from "@/components/shared/BeforeAfterSlider";
 
 
@@ -150,7 +153,13 @@ export default function Home() {
                 <div className="absolute inset-0 bg-primary/5 dark:bg-primary/5" />
 
                 <div className="container mx-auto px-4 relative z-10">
-                    <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl rounded-[3rem] p-8 md:p-24 text-center max-w-5xl mx-auto border border-white/50 dark:border-zinc-800 shadow-2xl">
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl rounded-[3rem] p-8 md:p-24 text-center max-w-5xl mx-auto border border-white/50 dark:border-zinc-800 shadow-2xl"
+                    >
                         <h2 className="text-4xl md:text-6xl font-bold text-stone-800 dark:text-stone-100 mb-8 font-heading">
                             Ready to Make a Difference?
                         </h2>
@@ -169,7 +178,7 @@ export default function Home() {
                                 </Button>
                             </Link>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
         </div>

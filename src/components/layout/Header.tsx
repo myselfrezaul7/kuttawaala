@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { Menu, X, Sun, Moon, Heart, User, LogIn, Dog, Search } from "lucide-react";
+import { Menu, X, Sun, Moon, Heart, User, LogIn, Dog, Search, MapPin, Users, HelpCircle, LayoutDashboard, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -19,7 +19,7 @@ export function Header() {
     const [searchQuery, setSearchQuery] = useState("");
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
-    const { user, loading } = useAuth();
+    const { user, userData, loading } = useAuth();
     const { t } = useLanguage();
 
     useEffect(() => setMounted(true), []);
@@ -128,63 +128,85 @@ export function Header() {
 
                 {/* Mobile Menu */}
                 {isMenuOpen && (
-                    <div className="md:hidden absolute bottom-[calc(100%+12px)] left-0 w-full bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl border border-border/50 shadow-2xl rounded-3xl p-5 flex flex-col gap-2 animate-in slide-in-from-bottom-4 fade-in duration-300 overflow-hidden origin-bottom">
-                        {/* Stray Image Banner */}
-                        <div className="relative w-full h-32 rounded-2xl overflow-hidden mb-2">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                                src="/assets/dog_adopt_bg.png"
-                                alt="Featured Stray Dog"
-                                className="w-full h-full object-cover"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-                                <span className="text-white/90 font-medium text-sm">Every stray deserves a home 🐾</span>
-                            </div>
-                        </div>
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.name}
-                                href={link.href}
-                                className="text-lg font-medium p-2 hover:bg-secondary/50 dark:hover:bg-zinc-800 rounded-lg"
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
+                    <div className="md:hidden absolute bottom-[calc(100%+12px)] left-0 w-full bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl border border-border/50 shadow-2xl rounded-3xl p-5 flex flex-col gap-4 animate-in slide-in-from-bottom-4 fade-in duration-300 overflow-hidden origin-bottom">
+                        
+                        {/* Search Bar Trigger */}
                         <button
                             onClick={() => { setIsSearchOpen(true); setIsMenuOpen(false); }}
-                            className="text-lg font-medium p-2 hover:bg-secondary/50 dark:hover:bg-zinc-800 rounded-lg text-left flex items-center gap-2"
+                            className="w-full bg-muted dark:bg-zinc-800 hover:bg-muted/80 text-foreground/80 dark:text-stone-300 p-3 rounded-xl flex items-center justify-between transition-colors border border-border/50"
                         >
-                            <Search className="w-5 h-5" /> Search
+                            <span className="font-medium">Search anything...</span>
+                            <Search className="w-5 h-5 text-muted-foreground" />
                         </button>
-                        <div className="h-px bg-border my-2" />
-                        <div className="flex justify-between items-center px-2">
-                            <span className="text-sm font-medium">{t.nav.theme}</span>
+
+                        <div className="space-y-4 overflow-y-auto max-h-[60vh] pb-2">
+                            {/* Explore Group */}
+                            <div>
+                                <h4 className="text-xs font-bold text-muted-foreground dark:text-stone-400 uppercase tracking-wider mb-2 px-2">Explore</h4>
+                                <div className="space-y-1">
+                                    <Link href="/find-vet" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
+                                        <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center"><MapPin className="w-4 h-4" /></div>
+                                        Find a Vet
+                                    </Link>
+                                    <Link href="/community" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
+                                        <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center"><Users className="w-4 h-4" /></div>
+                                        Community
+                                    </Link>
+                                    <Link href="/faq" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
+                                        <div className="w-8 h-8 rounded-lg bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center"><HelpCircle className="w-4 h-4" /></div>
+                                        FAQ & Guides
+                                    </Link>
+                                </div>
+                            </div>
+
+                            <div className="h-px bg-border/50 w-full" />
+
+                            {/* Account Group */}
+                            <div>
+                                <h4 className="text-xs font-bold text-muted-foreground dark:text-stone-400 uppercase tracking-wider mb-2 px-2">Account</h4>
+                                <div className="space-y-1">
+                                    {!loading && user && (
+                                        <>
+                                            <Link href="/dashboard" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
+                                                <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center"><LayoutDashboard className="w-4 h-4" /></div>
+                                                Dashboard
+                                            </Link>
+                                            <Link href="/profile" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
+                                                <div className="w-8 h-8 rounded-lg bg-zinc-500/10 text-zinc-600 dark:text-zinc-400 flex items-center justify-center"><User className="w-4 h-4" /></div>
+                                                My Profile
+                                            </Link>
+                                            {(user?.email === "kuttawaala@gmail.com" || userData?.role === "admin") && (
+                                                <Link href="/admin" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
+                                                    <div className="w-8 h-8 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center"><Settings className="w-4 h-4" /></div>
+                                                    Admin Panel
+                                                </Link>
+                                            )}
+                                        </>
+                                    )}
+                                    {!loading && !user && (
+                                        <Link href="/login" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
+                                            <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center"><LogIn className="w-4 h-4" /></div>
+                                            Login / Register
+                                        </Link>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Settings Bar */}
+                        <div className="flex items-center justify-between px-3 pt-4 border-t border-border/50">
+                            <span className="text-muted-foreground dark:text-stone-400 font-bold text-xs uppercase tracking-wider">{t.nav.theme}</span>
                             <div className="flex items-center gap-2">
                                 <LanguageToggle />
                                 <button
                                     onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                                    className="p-2 bg-muted dark:bg-zinc-800 rounded-full"
+                                    className="p-2 bg-muted dark:bg-zinc-800 rounded-full hover:bg-muted/80 transition-colors"
                                 >
-                                    {mounted && theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                                    {mounted && theme === 'dark' ? <Sun className="w-4 h-4 text-stone-300" /> : <Moon className="w-4 h-4 text-foreground/80" />}
                                 </button>
                             </div>
                         </div>
-                        {!loading && (
-                            user ? (
-                                <Link href="/profile" onClick={() => setIsMenuOpen(false)}>
-                                    <Button className="w-full mt-1 gap-2 text-primary border-primary rounded-xl h-12" variant="outline">
-                                        <User className="w-4 h-4" /> Profile
-                                    </Button>
-                                </Link>
-                            ) : (
-                                <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-                                    <Button className="w-full mt-1 gap-2 rounded-xl h-12 shadow-sm font-semibold">
-                                        <LogIn className="w-4 h-4" /> Login
-                                    </Button>
-                                </Link>
-                            )
-                        )}                    </div>
+                    </div>
                 )}
             </header>
 
