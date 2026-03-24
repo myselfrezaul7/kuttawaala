@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { LanguageToggle } from "@/components/shared/LanguageToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MobileBottomNav } from "./MobileBottomNav";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Header() {
     const router = useRouter();
@@ -126,94 +127,108 @@ export function Header() {
                     </div>
                 </div>
 
-                {/* Mobile Menu */}
-                {isMenuOpen && (
-                    <div className="md:hidden absolute bottom-[calc(100%+12px)] left-0 w-full bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl border border-border/50 shadow-2xl rounded-3xl p-5 flex flex-col gap-4 animate-in slide-in-from-bottom-4 fade-in duration-300 overflow-hidden origin-bottom">
-                        
-                        {/* Search Bar Trigger */}
-                        <button
-                            onClick={() => { setIsSearchOpen(true); setIsMenuOpen(false); }}
-                            className="w-full bg-muted dark:bg-zinc-800 hover:bg-muted/80 text-foreground/80 dark:text-stone-300 p-3 rounded-xl flex items-center justify-between transition-colors border border-border/50"
-                        >
-                            <span className="font-medium">Search anything...</span>
-                            <Search className="w-5 h-5 text-muted-foreground" />
-                        </button>
-
-                        <div className="space-y-4 overflow-y-auto max-h-[60vh] pb-2">
-                            {/* Explore Group */}
-                            <div>
-                                <h4 className="text-xs font-bold text-muted-foreground dark:text-stone-400 uppercase tracking-wider mb-2 px-2">Explore</h4>
-                                <div className="space-y-1">
-                                    <Link href="/find-vet" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
-                                        <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center"><MapPin className="w-4 h-4" /></div>
-                                        Find a Vet
-                                    </Link>
-                                    <Link href="/community" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
-                                        <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center"><Users className="w-4 h-4" /></div>
-                                        Community
-                                    </Link>
-                                    <Link href="/faq" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
-                                        <div className="w-8 h-8 rounded-lg bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center"><HelpCircle className="w-4 h-4" /></div>
-                                        FAQ & Guides
-                                    </Link>
-                                </div>
-                            </div>
-
-                            <div className="h-px bg-border/50 w-full" />
-
-                            {/* Account Group */}
-                            <div>
-                                <h4 className="text-xs font-bold text-muted-foreground dark:text-stone-400 uppercase tracking-wider mb-2 px-2">Account</h4>
-                                <div className="space-y-1">
-                                    {!loading && user && (
-                                        <>
-                                            <Link href="/dashboard" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
-                                                <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center"><LayoutDashboard className="w-4 h-4" /></div>
-                                                Dashboard
-                                            </Link>
-                                            <Link href="/profile" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
-                                                <div className="w-8 h-8 rounded-lg bg-zinc-500/10 text-zinc-600 dark:text-zinc-400 flex items-center justify-center"><User className="w-4 h-4" /></div>
-                                                My Profile
-                                            </Link>
-                                            {(user?.email === "kuttawaala@gmail.com" || userData?.role === "admin") && (
-                                                <Link href="/admin" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
-                                                    <div className="w-8 h-8 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center"><Settings className="w-4 h-4" /></div>
-                                                    Admin Panel
-                                                </Link>
-                                            )}
-                                        </>
-                                    )}
-                                    {!loading && !user && (
-                                        <Link href="/login" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
-                                            <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center"><LogIn className="w-4 h-4" /></div>
-                                            Login / Register
-                                        </Link>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Settings Bar */}
-                        <div className="flex items-center justify-between px-3 pt-4 border-t border-border/50">
-                            <span className="text-muted-foreground dark:text-stone-400 font-bold text-xs uppercase tracking-wider">{t.nav.theme}</span>
-                            <div className="flex items-center gap-2">
-                                <LanguageToggle />
-                                <button
-                                    onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                                    className="p-2 bg-muted dark:bg-zinc-800 rounded-full hover:bg-muted/80 transition-colors"
-                                >
-                                    {mounted && theme === 'dark' ? <Sun className="w-4 h-4 text-stone-300" /> : <Moon className="w-4 h-4 text-foreground/80" />}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                )}
             </header>
 
             <MobileBottomNav 
                 isMenuOpen={isMenuOpen} 
                 onMoreTap={() => setIsMenuOpen(!isMenuOpen)} 
             />
+
+            {/* Mobile Menu Panel */}
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            onClick={() => setIsMenuOpen(false)}
+                            className="md:hidden fixed inset-0 z-[55] bg-black/20 dark:bg-black/40 backdrop-blur-sm"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 50, scale: 0.95 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                            className="md:hidden fixed bottom-24 pb-4 left-4 right-4 z-[60] bg-white/95 dark:bg-zinc-900/95 backdrop-blur-3xl border border-border/50 shadow-[0_0_40px_rgba(0,0,0,0.2)] rounded-[2rem] p-5 flex flex-col gap-4 overflow-hidden"
+                        >
+                            <button
+                                onClick={() => { setIsSearchOpen(true); setIsMenuOpen(false); }}
+                                className="w-full bg-muted dark:bg-zinc-800 hover:bg-muted/80 text-foreground/80 dark:text-stone-300 p-4 rounded-2xl flex items-center justify-between transition-colors border border-border/50"
+                            >
+                                <span className="font-medium">Search anything...</span>
+                                <Search className="w-5 h-5 text-muted-foreground" />
+                            </button>
+
+                            <div className="space-y-4 overflow-y-auto max-h-[60vh] pb-2">
+                                <div>
+                                    <h4 className="text-[10px] font-bold text-muted-foreground dark:text-stone-400 uppercase tracking-widest mb-2 px-2">Explore</h4>
+                                    <div className="space-y-1">
+                                        <Link href="/find-vet" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-2xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
+                                            <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center"><MapPin className="w-4 h-4" /></div>
+                                            Find a Vet
+                                        </Link>
+                                        <Link href="/community" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-2xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
+                                            <div className="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center"><Users className="w-4 h-4" /></div>
+                                            Community
+                                        </Link>
+                                        <Link href="/faq" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-2xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
+                                            <div className="w-8 h-8 rounded-xl bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center"><HelpCircle className="w-4 h-4" /></div>
+                                            FAQ & Guides
+                                        </Link>
+                                    </div>
+                                </div>
+
+                                <div className="h-px bg-border/50 w-full" />
+
+                                <div>
+                                    <h4 className="text-[10px] font-bold text-muted-foreground dark:text-stone-400 uppercase tracking-widest mb-2 px-2">Account</h4>
+                                    <div className="space-y-1">
+                                        {!loading && user && (
+                                            <>
+                                                <Link href="/dashboard" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-2xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
+                                                    <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center"><LayoutDashboard className="w-4 h-4" /></div>
+                                                    Dashboard
+                                                </Link>
+                                                <Link href="/profile" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-2xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
+                                                    <div className="w-8 h-8 rounded-xl bg-zinc-500/10 text-zinc-600 dark:text-zinc-400 flex items-center justify-center"><User className="w-4 h-4" /></div>
+                                                    My Profile
+                                                </Link>
+                                                {(user?.email === "kuttawaala@gmail.com" || userData?.role === "admin") && (
+                                                    <Link href="/admin" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-2xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
+                                                        <div className="w-8 h-8 rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center"><Settings className="w-4 h-4" /></div>
+                                                        Admin Panel
+                                                    </Link>
+                                                )}
+                                            </>
+                                        )}
+                                        {!loading && !user && (
+                                            <Link href="/login" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-2xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
+                                                <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center"><LogIn className="w-4 h-4" /></div>
+                                                Login / Register
+                                            </Link>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center justify-between px-3 pt-4 border-t border-border/50">
+                                <span className="text-muted-foreground dark:text-stone-400 font-bold text-[10px] uppercase tracking-widest">{t.nav.theme}</span>
+                                <div className="flex items-center gap-2">
+                                    <LanguageToggle />
+                                    <button
+                                        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                                        className="p-2 bg-muted dark:bg-zinc-800 rounded-full hover:bg-muted/80 transition-colors"
+                                    >
+                                        {mounted && theme === 'dark' ? <Sun className="w-4 h-4 text-stone-300" /> : <Moon className="w-4 h-4 text-foreground/80" />}
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </>
+                )}
+            </AnimatePresence>
 
             {/* Full Screen Search Overlay */}
             {isSearchOpen && (
