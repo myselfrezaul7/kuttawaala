@@ -133,19 +133,27 @@ export default function DashboardPage() {
                 </div>
 
                 {/* Tabs */}
-                <div className="flex gap-2 mb-8 overflow-x-auto pb-2 bg-white/50 dark:bg-stone-800/80 backdrop-blur-md p-1.5 rounded-2xl border border-white/60 dark:border-stone-700 shadow-sm" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                    <Button variant={activeTab === 'favorites' ? 'default' : 'ghost'} onClick={() => setActiveTab('favorites')} className="rounded-xl shrink-0 whitespace-nowrap text-sm">
-                        Favorites
-                    </Button>
-                    <Button variant={activeTab === 'applications' ? 'default' : 'ghost'} onClick={() => setActiveTab('applications')} className="rounded-xl gap-2 shrink-0 whitespace-nowrap text-sm">
-                        Applications
-                    </Button>
-                    <Button variant={activeTab === 'reports' ? 'default' : 'ghost'} onClick={() => setActiveTab('reports')} className="rounded-xl gap-2 shrink-0 whitespace-nowrap text-sm">
-                        Reports
-                    </Button>
-                    <Button variant={activeTab === 'achievements' ? 'default' : 'ghost'} onClick={() => setActiveTab('achievements')} className="rounded-xl gap-2 shrink-0 whitespace-nowrap text-sm">
-                        Awards 🏆
-                    </Button>
+                <div className="relative w-full -mx-4 px-4 md:mx-0 md:px-0 mb-8">
+                    {/* Fade Gradients for Mobile Hinting */}
+                    <div className="absolute top-0 bottom-0 left-0 w-6 bg-gradient-to-r from-[var(--background)] to-transparent z-10 pointer-events-none md:hidden block h-[60px]" />
+                    <div className="absolute top-0 bottom-0 right-0 w-8 bg-gradient-to-l from-[var(--background)] to-transparent z-10 pointer-events-none md:hidden block h-[60px]" />
+                    
+                    <div className="overflow-x-auto pb-2 -mb-2 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                        <div className="flex gap-2 bg-white/80 dark:bg-stone-800/80 backdrop-blur-md p-1.5 rounded-2xl border border-white dark:border-stone-700 shadow-sm w-max min-w-full sm:min-w-0">
+                            <Button variant={activeTab === 'favorites' ? 'default' : 'ghost'} onClick={() => setActiveTab('favorites')} className={`rounded-xl shrink-0 whitespace-nowrap text-sm font-semibold h-11 px-6 ${activeTab !== 'favorites' ? 'text-stone-600 dark:text-stone-400' : ''}`}>
+                                Favorites
+                            </Button>
+                            <Button variant={activeTab === 'applications' ? 'default' : 'ghost'} onClick={() => setActiveTab('applications')} className={`rounded-xl shrink-0 whitespace-nowrap text-sm font-semibold h-11 px-6 ${activeTab !== 'applications' ? 'text-stone-600 dark:text-stone-400' : ''}`}>
+                                Applications
+                            </Button>
+                            <Button variant={activeTab === 'reports' ? 'default' : 'ghost'} onClick={() => setActiveTab('reports')} className={`rounded-xl shrink-0 whitespace-nowrap text-sm font-semibold h-11 px-6 ${activeTab !== 'reports' ? 'text-stone-600 dark:text-stone-400' : ''}`}>
+                                Reports
+                            </Button>
+                            <Button variant={activeTab === 'achievements' ? 'default' : 'ghost'} onClick={() => setActiveTab('achievements')} className={`rounded-xl shrink-0 whitespace-nowrap text-sm font-semibold h-11 px-6 ${activeTab !== 'achievements' ? 'text-stone-600 dark:text-stone-400' : ''}`}>
+                                Awards 🏆
+                            </Button>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Favorites Tab */}

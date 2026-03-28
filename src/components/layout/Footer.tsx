@@ -13,9 +13,9 @@ export function Footer() {
                 <div className="container mx-auto px-4">
                     {/* Main footer content with glassmorphism */}
                     <div className="glass-card rounded-3xl p-6 md:p-12 mb-8">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 text-center sm:text-left">
                             {/* Brand */}
-                            <div className="col-span-2 md:col-span-1 space-y-4">
+                            <div className="col-span-1 sm:col-span-2 md:col-span-1 space-y-4 flex flex-col items-center sm:items-start">
                                 <div className="flex items-center gap-2">
                                     <Dog className="w-8 h-8 text-primary" />
                                     <h3 className="text-2xl font-bold text-foreground dark:text-white">KUTTAWAALA</h3>
@@ -64,9 +64,9 @@ export function Footer() {
                             </div>
 
                             {/* Connect */}
-                            <div className="col-span-2 md:col-span-1 mt-4 md:mt-0">
-                                <h4 className="font-bold mb-5 text-foreground dark:text-white text-sm uppercase tracking-wider">Connect</h4>
-                                <div className="flex gap-3 mb-5">
+                            <div className="col-span-1 sm:col-span-2 md:col-span-1 mt-4 md:mt-0 flex flex-col items-center sm:items-start">
+                                <h4 className="font-bold mb-4 md:mb-5 text-foreground dark:text-white text-sm uppercase tracking-wider">Connect</h4>
+                                <div className="flex flex-wrap justify-center sm:justify-start gap-3 mb-5">
                                     <a
                                         href="https://www.facebook.com/kuttawaalaa/"
                                         target="_blank"
@@ -100,7 +100,7 @@ export function Footer() {
                                         <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" /></svg>
                                     </a>
                                 </div>
-                                <div className="space-y-3 text-sm text-muted-foreground dark:text-muted-foreground/80">
+                                <div className="space-y-3 text-sm text-muted-foreground dark:text-muted-foreground/80 w-full flex flex-col items-center sm:items-start">
                                     <a href="https://www.facebook.com/groups/721498465956239/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-primary transition-colors font-medium">
                                         <Facebook className="w-4 h-4 text-primary" />
                                         Join our Community

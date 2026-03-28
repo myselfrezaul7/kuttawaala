@@ -27,23 +27,22 @@ export function Hero() {
                         </p>
                     </motion.div>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                        className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4"
-                    >
-                        <Link href="/adopt">
-                            <Button size="lg" className="w-full sm:w-auto text-lg h-14 rounded-2xl shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 transition-transform hover:-translate-y-1">
-                                Adopt a Dog
-                            </Button>
-                        </Link>
-                        <Link href="/volunteer">
-                            <Button size="lg" variant="outline" className="w-full sm:w-auto text-lg h-14 rounded-2xl border-2 border-primary/20 hover:bg-primary/5 text-primary hover:text-primary transition-transform hover:-translate-y-1">
-                                Become a Volunteer
-                            </Button>
-                        </Link>
-                    </motion.div>
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start pt-2 sm:pt-4 w-full sm:w-auto">
+                            <Link href="/adopt" className="w-full sm:w-auto">
+                                <motion.div whileTap={{ scale: 0.96 }} className="w-full">
+                                    <Button size="lg" className="w-full text-lg h-16 sm:h-14 rounded-2xl shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 transition-transform hover:-translate-y-1">
+                                        Adopt a Dog
+                                    </Button>
+                                </motion.div>
+                            </Link>
+                            <Link href="/volunteer" className="w-full sm:w-auto text-center">
+                                <motion.div whileTap={{ scale: 0.96 }} className="w-full">
+                                    <Button size="lg" variant="outline" className="w-full sm:w-auto text-muted-foreground sm:text-primary text-base sm:text-lg h-12 sm:h-14 rounded-2xl border-none sm:border-2 border-border/50 hover:bg-secondary/50 transition-transform sm:hover:-translate-y-1 bg-transparent hover:text-primary underline sm:no-underline">
+                                        Become a Volunteer
+                                    </Button>
+                                </motion.div>
+                            </Link>
+                        </div>
                 </div>
 
                 {/* Hero Illustration/Image Placeholder */}
@@ -65,14 +64,14 @@ export function Hero() {
                         <motion.div
                             animate={{ y: [0, -15, 0] }}
                             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute bottom-10 sm:bottom-20 left-2 md:-left-6 bg-white dark:bg-zinc-800 p-3 sm:p-4 rounded-2xl shadow-xl flex items-center gap-2 sm:gap-3 z-20 max-w-[180px] sm:max-w-[200px]"
+                            className="absolute bottom-6 sm:bottom-20 left-4 sm:-left-6 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-md p-2.5 sm:p-4 rounded-full sm:rounded-2xl shadow-xl flex items-center gap-2 sm:gap-3 z-20"
                         >
-                            <div className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-primary shrink-0">
-                                <Heart className="w-5 h-5 fill-current" />
+                            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-secondary rounded-full flex items-center justify-center text-primary shrink-0">
+                                <Heart className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
                             </div>
-                            <div>
+                            <div className="pr-2 sm:pr-0 flex items-center gap-2 sm:block">
                                 <p className="font-bold text-sm">500+ Rescued</p>
-                                <p className="text-xs text-muted-foreground">Since 2020</p>
+                                <p className="text-xs text-muted-foreground hidden sm:block">Since 2020</p>
                             </div>
                         </motion.div>
                     </div>

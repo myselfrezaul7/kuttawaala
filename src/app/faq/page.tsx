@@ -133,38 +133,44 @@ export default function FAQPage() {
 
             <div className="container mx-auto px-4 -mt-10 relative z-20 max-w-4xl">
                 {/* Search & Tabs Controls - Sticky */}
-                <div className="sticky top-[64px] z-30 bg-stone-50/90 dark:bg-zinc-950/90 backdrop-blur-md pt-4 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 mb-8 border-b border-border/50">
+                <div className="sticky top-[64px] md:top-[80px] z-30 bg-stone-50/90 dark:bg-zinc-950/90 backdrop-blur-md pt-3 pb-3 md:pt-4 md:pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 mb-8 border-b border-border/50 shadow-sm md:shadow-none">
                     <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
                         {/* Tabs */}
-                        <div className="flex bg-secondary/50 p-1.5 rounded-2xl w-full md:w-auto overflow-x-auto hide-scrollbar">
-                            {[
-                                { id: 'all', label: 'All FAQs' },
-                                { id: 'adoption', label: 'Adoption' },
-                                { id: 'diet', label: 'Diet & Food' },
-                                { id: 'apartment', label: 'Apartment Life' },
-                            ].map((tab) => (
-                                <button
-                                    key={tab.id}
-                                    onClick={() => { setActiveTab(tab.id); setSearchQuery(""); }}
-                                    className={`px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition-all duration-300 ${activeTab === tab.id && searchQuery === ""
-                                        ? "bg-white dark:bg-zinc-700 text-primary shadow-sm"
-                                        : "text-muted-foreground hover:text-foreground hover:bg-white/50 dark:hover:bg-zinc-700/50"
-                                        }`}
-                                >
-                                    {tab.label}
-                                </button>
-                            ))}
+                        <div className="relative w-full md:w-auto -mx-2 px-2 md:mx-0 md:px-0">
+                            {/* Fade Gradients for Mobile Hinting */}
+                            <div className="absolute top-0 bottom-0 left-0 w-6 bg-gradient-to-r from-stone-50/90 dark:from-zinc-950/90 to-transparent z-10 pointer-events-none md:hidden block h-full" />
+                            <div className="absolute top-0 bottom-0 right-0 w-8 bg-gradient-to-l from-stone-50/90 dark:from-zinc-950/90 to-transparent z-10 pointer-events-none md:hidden block h-full" />
+                            
+                            <div className="flex bg-secondary/50 p-1.5 rounded-2xl w-full md:w-auto overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                                {[
+                                    { id: 'all', label: 'All FAQs' },
+                                    { id: 'adoption', label: 'Adoption' },
+                                    { id: 'diet', label: 'Diet & Food' },
+                                    { id: 'apartment', label: 'Apartment Life' },
+                                ].map((tab) => (
+                                    <button
+                                        key={tab.id}
+                                        onClick={() => { setActiveTab(tab.id); setSearchQuery(""); }}
+                                        className={`px-5 py-2.5 rounded-xl h-11 text-sm font-bold whitespace-nowrap shrink-0 transition-all duration-300 ${activeTab === tab.id && searchQuery === ""
+                                            ? "bg-white dark:bg-zinc-700 text-primary shadow-sm"
+                                            : "text-muted-foreground hover:text-foreground hover:bg-white/50 dark:hover:bg-zinc-700/50"
+                                            }`}
+                                    >
+                                        {tab.label}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
 
                         {/* Search */}
                         <div className="relative w-full md:w-72">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                            <Search className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-muted-foreground" />
                             <input
                                 type="text"
                                 placeholder="Search questions..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-12 pr-4 py-3 rounded-xl bg-white dark:bg-zinc-900 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm font-medium placeholder:text-muted-foreground shadow-sm"
+                                className="w-full pl-10 md:pl-12 pr-4 h-11 rounded-xl bg-white dark:bg-zinc-900 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm font-medium placeholder:text-muted-foreground shadow-sm"
                             />
                         </div>
                     </div>

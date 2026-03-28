@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { MapPin, Camera, AlertTriangle, CheckCircle, PawPrint, Shield, ChevronRight, ChevronLeft, X, Facebook, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import ReCAPTCHA from "react-google-recaptcha";
 import dynamic from "next/dynamic";
 import { ReportService } from "@/services/ReportService";
@@ -183,10 +184,10 @@ export function ReportForm() {
                         const isCurrent = currentStep === step.id;
                         return (
                             <div key={step.id} className="flex flex-col items-center gap-2">
-                                <div className={`w-10 h-10 rounded-full flex items-center justify-center border-4 transition-all duration-300 ${isActive ? 'bg-primary border-primary/20 text-white shadow-lg shadow-primary/30' : 'bg-background border-secondary text-muted-foreground'}`}>
-                                    <Icon className="w-5 h-5" />
+                                <div className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center border-4 transition-all duration-300 ${isActive ? 'bg-primary border-primary/20 text-white shadow-lg shadow-primary/30' : 'bg-background border-secondary text-muted-foreground'}`}>
+                                    <Icon className="w-5 h-5 md:w-6 md:h-6" />
                                 </div>
-                                <span className={`text-xs font-bold transition-colors ${isCurrent ? 'text-primary' : 'text-muted-foreground'}`}>{step.title}</span>
+                                <span className={`text-xs md:text-sm font-semibold transition-colors ${isCurrent ? 'text-primary' : 'text-muted-foreground'}`}>{step.title}</span>
                             </div>
                         )
                     })}
@@ -224,7 +225,7 @@ export function ReportForm() {
                     </a>
                 </div>
 
-                <div className="bg-white dark:bg-zinc-900 border border-border dark:border-zinc-800 p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden transition-all duration-500 shadow-xl">
+                <div className="bg-white dark:bg-zinc-900 border border-border dark:border-zinc-800 p-5 sm:p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden transition-all duration-500 shadow-xl">
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
 
                         {/* STEP 1: SITUATION */}
@@ -234,7 +235,7 @@ export function ReportForm() {
                                     <h2 className="text-2xl font-bold font-heading">What's the situation?</h2>
                                     <p className="text-muted-foreground">Choose the option that best describes the emergency.</p>
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="grid grid-cols-3 gap-2 md:gap-4">
                                     {["Lost", "Found", "Injured"].map((type) => (
                                         <label key={type} className="cursor-pointer group">
                                             <input
@@ -243,12 +244,12 @@ export function ReportForm() {
                                                 {...register("type", { required: true })}
                                                 className="peer sr-only"
                                             />
-                                            <div className="h-32 flex flex-col items-center justify-center p-4 rounded-3xl border-2 border-border dark:border-zinc-700 bg-secondary/10 dark:bg-zinc-800/50 peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:shadow-xl peer-checked:shadow-primary/10 transition-all group-hover:border-primary/50">
-                                                <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-3 ${type === 'Injured' ? 'bg-red-100 text-red-500 dark:bg-red-900/40' : type === 'Lost' ? 'bg-orange-100 text-orange-500 dark:bg-orange-900/40' : 'bg-green-100 text-green-500 dark:bg-green-900/40'}`}>
-                                                    {type === 'Injured' ? <AlertTriangle className="w-6 h-6" /> : type === 'Lost' ? <Shield className="w-6 h-6" /> : <PawPrint className="w-6 h-6" />}
+                                            <motion.div whileTap={{ scale: 0.96 }} className="h-28 md:h-32 flex flex-col items-center justify-center p-2 md:p-4 rounded-3xl border-2 border-border dark:border-zinc-700 bg-secondary/10 dark:bg-zinc-800/50 peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:shadow-xl peer-checked:shadow-primary/10 transition-all group-hover:border-primary/50">
+                                                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mb-2 md:mb-3 ${type === 'Injured' ? 'bg-red-100 text-red-500 dark:bg-red-900/40' : type === 'Lost' ? 'bg-orange-100 text-orange-500 dark:bg-orange-900/40' : 'bg-green-100 text-green-500 dark:bg-green-900/40'}`}>
+                                                    {type === 'Injured' ? <AlertTriangle className="w-5 h-5 md:w-6 md:h-6" /> : type === 'Lost' ? <Shield className="w-5 h-5 md:w-6 md:h-6" /> : <PawPrint className="w-5 h-5 md:w-6 md:h-6" />}
                                                 </div>
-                                                <span className="font-bold text-muted-foreground peer-checked:text-primary text-lg">{type}</span>
-                                            </div>
+                                                <span className="font-bold text-muted-foreground peer-checked:text-primary text-sm md:text-lg">{type}</span>
+                                            </motion.div>
                                         </label>
                                     ))}
                                 </div>

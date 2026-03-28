@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { PetCard } from "@/components/shared/PetCard";
 import { Button } from "@/components/ui/button";
 import { Search, Filter, X, Grid, Heart, Bone } from "lucide-react";
@@ -225,14 +226,18 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
                         </p>
                         <div className="flex flex-col md:flex-row gap-4 justify-center">
                             <a href="/volunteer" className="w-full md:w-auto">
-                                <Button size="lg" className="w-full md:w-auto bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-lg shadow-primary/20 px-8 h-14 text-base font-bold">
-                                    Become a Foster Home
-                                </Button>
+                                <motion.div whileTap={{ scale: 0.96 }}>
+                                    <Button size="lg" className="w-full md:w-auto bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-lg shadow-primary/20 px-8 h-14 text-base font-bold">
+                                        Become a Foster Home
+                                    </Button>
+                                </motion.div>
                             </a>
                             <a href="/donate" className="w-full md:w-auto">
-                                <Button size="lg" variant="outline" className="w-full md:w-auto border-border text-foreground hover:bg-secondary/50 rounded-xl px-8 h-14 text-base font-bold">
-                                    Support Rescues Now
-                                </Button>
+                                <motion.div whileTap={{ scale: 0.96 }}>
+                                    <Button size="lg" variant="outline" className="w-full md:w-auto border-border text-foreground hover:bg-secondary/50 rounded-xl px-8 h-14 text-base font-bold">
+                                        Support Rescues Now
+                                    </Button>
+                                </motion.div>
                             </a>
                         </div>
                     </div>
