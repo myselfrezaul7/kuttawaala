@@ -10,6 +10,7 @@ import { dogs, getAgeCategory, type AgeCategory, type Dog } from "@/data/dogs";
 import { useSearchParams } from "next/navigation";
 
 import { DogService } from "@/services/DogService";
+import { DataErrorState } from "@/components/shared/DataErrorState";
 
 interface AdoptPageContentProps {
     initialDogs?: Dog[];
@@ -20,14 +21,18 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
     const [searchQuery, setSearchQuery] = useState("");
     const [dogList, setDogList] = useState<Dog[]>(initialDogs || []);
     const [isLoading, setIsLoading] = useState(!initialDogs);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchDogs = async () => {
+            setIsLoading(true);
+            setError(null);
             try {
                 const fetchedDogs = await DogService.getAllDogs();
                 setDogList(fetchedDogs);
             } catch (error) {
                 console.error("Failed to fetch dogs", error);
+                setError("We're having trouble connecting to the shelter database. Please try again.");
             } finally {
                 setIsLoading(false);
             }
@@ -216,10 +221,15 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
 
                 <div className="relative mt-8 mb-12 rounded-[3rem] overflow-hidden border border-border bg-card/60 p-8 md:p-16 text-center backdrop-blur-md shadow-xl">
                     <div className="absolute inset-0 bg-[url('/assets/dog_adopt_bg.png')] bg-cover bg-center opacity-10 mix-blend-luminosity" />
-                    <div className="relative z-10 max-w-2xl mx-auto py-8">
-                        <div className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl shadow-primary/10">
-                            <span className="text-5xl animate-bounce">🦴</span>
+                    {error ? (
+                        <div className="relative z-10 py-8">
+                            <DataErrorState message={error} />
                         </div>
+                    ) : (
+                        <div className="relative z-10 max-w-2xl mx-auto py-8">
+                            <div className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl shadow-primary/10">
+                                <span className="text-5xl animate-bounce">🦴</span>
+                            </div>
                         <h2 className="text-4xl md:text-5xl font-bold font-heading text-foreground mb-6 tracking-tight">Real Adoptions Coming Soon!</h2>
                         <p className="text-lg text-muted-foreground mb-10 leading-relaxed font-medium">
                             We are currently building our network of verified rescue shelters and foster homes across Bangladesh. Very soon, you will be able to browse and adopt real rescued dogs directly from this page!
@@ -241,6 +251,7 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
                             </a>
                         </div>
                     </div>
+                    )}
                 </div>
             </div>
         </div>

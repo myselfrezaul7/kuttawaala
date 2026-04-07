@@ -6,6 +6,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db } from "@/utils/firebase";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { friendlyAuthMessage } from "@/utils/friendlyErrors";
 
 type AuthContextType = {
     user: User | null;
@@ -77,7 +78,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             router.push("/dashboard");
         } catch (error: any) {
             console.error("Error signing in with Google", error);
-            toast.error(error.message || "Failed to sign in with Google");
+            toast.error(friendlyAuthMessage(error.code));
         }
     };
 
@@ -88,7 +89,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             router.push("/dashboard");
         } catch (error: any) {
             console.error("Login error", error);
-            toast.error(error.message || "Failed to login");
+            toast.error(friendlyAuthMessage(error.code));
             throw error;
         }
     };
@@ -100,7 +101,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             router.push("/dashboard");
         } catch (error: any) {
             console.error("Signup error", error);
-            toast.error(error.message || "Failed to create account");
+            toast.error(friendlyAuthMessage(error.code));
             throw error;
         }
     };

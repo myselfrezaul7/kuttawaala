@@ -12,7 +12,7 @@ import { Badges } from "@/components/dashboard/Badges";
 import { ProfileModal } from "@/components/dashboard/ProfileModal";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/utils/firebase";
-import { formatDistanceToNow } from "date-fns";
+import { safeTimeAgo } from "@/utils/safeDateFormat";
 import { toast } from "sonner";
 
 export default function DashboardPage() {
@@ -203,7 +203,7 @@ export default function DashboardPage() {
                                     <div key={app.id} className="bg-card p-6 rounded-3xl border border-border shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                         <div>
                                             <h3 className="text-lg font-bold">Application for <span className="text-primary">{app.dogName}</span></h3>
-                                            <p className="text-sm text-muted-foreground">Submitted {app.created_at ? formatDistanceToNow(new Date(app.created_at), { addSuffix: true }) : 'recently'}</p>
+                                            <p className="text-sm text-muted-foreground">Submitted {safeTimeAgo(app.created_at)}</p>
                                         </div>
                                         <div className={`px-4 py-2 rounded-xl font-bold flex items-center gap-2 ${app.status === 'Approved' ? 'bg-green-100/50 text-green-700' : app.status === 'Rejected' ? 'bg-red-100/50 text-red-700' : 'bg-amber-100/50 text-amber-700'}`}>
                                             {app.status === 'Approved' ? <FileCheck className="w-5 h-5" /> : app.status === 'Rejected' ? <FileX className="w-5 h-5" /> : <Loader2 className="w-5 h-5 animate-spin" />}
@@ -244,7 +244,7 @@ export default function DashboardPage() {
                                                     {report.type} Dog
                                                 </span>
                                                 <span className="text-xs text-muted-foreground font-medium">
-                                                    {report.created_at ? formatDistanceToNow(new Date(report.created_at), { addSuffix: true }) : 'Recently'}
+                                                    {safeTimeAgo(report.created_at)}
                                                 </span>
                                             </div>
                                             <p className="text-sm font-medium mb-1 line-clamp-2 leading-relaxed">{report.description}</p>
