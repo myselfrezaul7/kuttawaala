@@ -75,43 +75,23 @@ export default function Home() {
 
 
             {/* Visit Catwaala Section */}
-            <section className="py-12 md:py-20 relative overflow-hidden">
+            <section className="py-4 relative overflow-hidden">
                 <div className="container mx-auto px-4 relative z-10">
-                    <div className="bg-orange-50 dark:bg-orange-950/30 rounded-[3rem] p-5 md:p-12 text-foreground border border-orange-100 dark:border-orange-900/30 shadow-xl relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-400/10 dark:bg-orange-500/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3 transition-transform duration-700 group-hover:scale-110" />
-                        <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-400/10 dark:bg-amber-500/10 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3 transition-transform duration-700 group-hover:scale-110" />
-
-                        <div className="flex flex-col md:flex-row items-center gap-10 relative z-10">
-                            <div className="flex-1 text-center md:text-left space-y-6">
-                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 dark:bg-white/5 backdrop-blur-md border border-orange-200 dark:border-orange-900/50 text-orange-600 dark:text-orange-400 text-sm font-bold shadow-sm">
-                                    <Cat className="w-4 h-4" />
-                                    <span>Team Catwaala</span>
-                                </div>
-                                <h2 className="text-2xl md:text-5xl font-bold font-heading text-stone-800 dark:text-stone-100">
-                                    More of a Cat Person?
-                                </h2>
-                                <p className="text-lg text-muted-foreground dark:text-stone-400 max-w-xl leading-relaxed">
-                                    Visit our sister organization, <span className="font-bold text-orange-600 dark:text-orange-400">Catwaala</span>, to find your purrfect feline companion. Same mission, different paws.
-                                </p>
-                                <a
-                                    href="https://catwaala.com"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-block pt-2"
-                                >
-                                    <Button className="h-14 px-8 rounded-2xl bg-orange-600 hover:bg-orange-700 text-white font-bold text-lg shadow-lg shadow-orange-500/20 transition-transform hover:-translate-y-1">
-                                        Visit Catwaala.com <ArrowRight className="ml-2 w-5 h-5" />
-                                    </Button>
-                                </a>
+                    {/* Companion Chip */}
+                    <div className="flex justify-center -mt-4 mb-4">
+                        <a href="https://catwaala.com" target="_blank" rel="noopener noreferrer"
+                           className="group flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-teal-50/60 dark:bg-teal-950/20 border border-teal-200/50 dark:border-teal-800/30 hover:border-teal-300 dark:hover:border-teal-700 transition-all shadow-sm hover:shadow-md">
+                            <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-teal-100 dark:bg-teal-900/40 flex items-center justify-center shrink-0 border border-teal-200/50 dark:border-teal-800/50 text-xl sm:text-2xl group-hover:scale-105 transition-transform">
+                                🐈
                             </div>
-
-                            {/* Decorative Cat Icon/Graphic */}
-                            <div className="w-full md:w-auto flex justify-center">
-                                <div className="w-40 h-40 md:w-56 md:h-56 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md rounded-[3rem] rotate-3 group-hover:rotate-6 transition-transform duration-500 flex items-center justify-center border border-orange-100 dark:border-orange-900/30 shadow-xl">
-                                    <Cat className="w-20 h-20 md:w-28 md:h-28 text-orange-400 dark:text-orange-500/80 drop-shadow-md" />
-                                </div>
+                            <div className="flex-1 min-w-0 pr-4">
+                                <span className="block text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-wider mb-0.5">Also love cats?</span>
+                                <span className="block text-sm sm:text-base font-bold text-foreground group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors flex items-center gap-1">
+                                    Visit Catwaala 
+                                    <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-teal-500" />
+                                </span>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </section>

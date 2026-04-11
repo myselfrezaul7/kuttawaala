@@ -117,6 +117,17 @@
         background-clip: text;
     }
 
+    /* Glassmorphic Button Surface */
+    .glass-btn {
+        backdrop-filter: blur(16px) saturate(1.6);
+        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+    }
+
+    button:active:not(:disabled) {
+        transform: scale(0.97);
+        transition: transform 0.1s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
     /* Print Media Queries */
     @media print {
         header,
