@@ -133,7 +133,7 @@ export default function FAQPage() {
 
             <div className="container mx-auto px-4 -mt-10 relative z-20 max-w-4xl">
                 {/* Search & Tabs Controls - Sticky */}
-                <div className="sticky top-[64px] md:top-[80px] z-30 bg-stone-50/90 dark:bg-zinc-950/90 backdrop-blur-md pt-3 pb-3 md:pt-4 md:pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 mb-8 border-b border-border/50 shadow-sm md:shadow-none">
+                <div className="sticky top-[16px] transition-[top] duration-300 z-30 bg-stone-50/90 dark:bg-zinc-950/90 backdrop-blur-md pt-3 pb-3 md:pt-4 md:pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 mb-8 border-b border-border/50 shadow-sm md:shadow-none">
                     <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
                         {/* Tabs */}
                         <div className="relative w-full md:w-auto -mx-2 px-2 md:mx-0 md:px-0">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Menu, X, Sun, Moon, Heart, User, LogIn, Dog, Search, MapPin, Users, HelpCircle, LayoutDashboard, Settings } from "lucide-react";
@@ -20,10 +20,37 @@ export function Header() {
     const [searchQuery, setSearchQuery] = useState("");
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
+    const [navVisible, setNavVisible] = useState(true);
+    const lastScrollY = useRef(0);
+    const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
     const { user, userData, loading } = useAuth();
     const { t } = useLanguage();
 
-    useEffect(() => setMounted(true), []);
+    useEffect(() => {
+        setMounted(true);
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY <= 20) {
+                setNavVisible(true);
+            } else if (currentScrollY > lastScrollY.current && currentScrollY > 60) {
+                setNavVisible(false); // scrolling down
+            } else if (currentScrollY < lastScrollY.current) {
+                setNavVisible(true); // scrolling up
+            }
+            lastScrollY.current = currentScrollY;
+
+            if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+            scrollTimeout.current = setTimeout(() => {
+                setNavVisible(true);
+            }, 150);
+        };
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+        };
+    }, []);
 
     const navLinks = [
         { name: t.nav.home, href: "/" },
@@ -46,7 +73,7 @@ export function Header() {
 
     return (
         <>
-            <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-6xl w-[calc(100%-2rem)] transition-all duration-500 ease-out bg-white/50 dark:bg-zinc-900/50 backdrop-blur-2xl border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-[100px] print:hidden`}>
+            <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-6xl w-[calc(100%-2rem)] transition-all duration-300 ease-out bg-white/50 dark:bg-zinc-900/50 backdrop-blur-2xl border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-[100px] print:hidden ${navVisible ? "translate-y-0 opacity-100" : "-translate-y-[120%] opacity-0"}`}>
                 <div className="px-5 py-2.5 flex justify-between items-center">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">

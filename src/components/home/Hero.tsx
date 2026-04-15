@@ -7,10 +7,9 @@ import { Button } from "@/components/ui/button";
 
 export function Hero() {
     return (
-        <section className="relative py-12 lg:py-32 flex items-center overflow-hidden bg-secondary/50/50 dark:bg-zinc-900/50">
-            {/* Decorative blobs */}
-            <div className="hidden md:block absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-primary/20 mix-blend-multiply filter blur-3xl opacity-60 animate-float" />
-            <div className="hidden md:block absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] rounded-full bg-amber-500/20 mix-blend-multiply filter blur-3xl opacity-60 animate-float delay-1000" />
+        <section className="relative py-12 lg:py-32 flex items-center overflow-hidden bg-background">
+            {/* Subtle premium gradient background instead of muddy blobs */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-background to-background opacity-70" />
 
             <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center relative z-10">
                 <div className="space-y-8 text-center lg:text-left order-2 lg:order-1">
@@ -19,6 +18,10 @@ export function Hero() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                     >
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-sm font-semibold text-primary mb-6 border border-border">
+                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                            Bangladesh&apos;s largest dog rescue community
+                        </div>
                         <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-foreground dark:text-white leading-[1.1] mb-6 font-heading">
                             Every Dog Deserves a <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-500">Loving Home</span>
                         </h1>
