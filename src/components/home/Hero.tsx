@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Heart } from "lucide-react";
+import { Heart, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Hero() {
@@ -46,6 +46,34 @@ export function Hero() {
                                 </motion.div>
                             </Link>
                         </div>
+                        
+                        {/* Floating Companion Badge Redirect */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+                            className="mt-8 md:mt-12 flex justify-start"
+                        >
+                            <a
+                                href="https://www.catwaala.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group relative inline-flex items-center gap-2 sm:gap-4 bg-white/70 dark:bg-zinc-900/60 backdrop-blur-md border border-border/50 dark:border-zinc-800 px-2 py-2 pr-4 sm:pr-6 rounded-full shadow-lg shadow-zinc-200/20 dark:shadow-none hover:bg-white dark:hover:bg-zinc-900 transition-all duration-300 overflow-hidden"
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-teal-500/5 to-teal-500/10 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700 ease-out" />
+                                <div className="relative w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-900/40 flex items-center justify-center shrink-0 border border-teal-200/50 dark:border-teal-800/50 text-xl group-hover:scale-105 transition-transform">
+                                    🐈
+                                </div>
+                                <div className="relative z-10 flex flex-col justify-center">
+                                    <span className="hidden sm:block text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-wider leading-none mb-1">Also love cats?</span>
+                                    <span className="text-sm font-bold text-foreground leading-none group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors flex items-center gap-1">
+                                        Visit Catwaala
+                                        <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-teal-500" />
+                                    </span>
+                                </div>
+                            </a>
+                        </motion.div>
+                        
                 </div>
 
                 {/* Hero Illustration/Image Placeholder */}

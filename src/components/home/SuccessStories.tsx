@@ -80,16 +80,17 @@ export function SuccessStories() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="inline-block p-3 rounded-full bg-orange-100 dark:bg-orange-900/20 mb-4"
                 >
-                    <Quote className="w-8 h-8 text-orange-500 fill-orange-500" />
+                    <div className="inline-block p-3 rounded-full bg-orange-100 dark:bg-orange-900/20 mb-4">
+                        <Quote className="w-8 h-8 text-orange-500 fill-orange-500" />
+                    </div>
+                    <h2 className="text-4xl md:text-5xl font-bold text-stone-800 dark:text-stone-100 font-heading mb-4">
+                        Happy Tails 🐾
+                    </h2>
+                    <p className="text-xl text-stone-500 dark:text-stone-400 max-w-2xl mx-auto">
+                        From street survivors to beloved family members. Here are some of our favorite success stories.
+                    </p>
                 </motion.div>
-                <h2 className="text-4xl md:text-5xl font-bold text-stone-800 dark:text-stone-100 font-heading mb-4">
-                    Happy Tails 🐾
-                </h2>
-                <p className="text-xl text-stone-500 dark:text-stone-400 max-w-2xl mx-auto">
-                    From street survivors to beloved family members. Here are some of our favorite success stories.
-                </p>
             </div>
 
             {/* Carousel Viewport */}
