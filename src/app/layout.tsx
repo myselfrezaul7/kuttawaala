@@ -9,12 +9,14 @@ import { EmergencyFAB } from "@/components/shared/EmergencyFAB";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { Toaster } from "sonner";
+import { PageTransition } from "@/components/layout/PageTransition";
 
 // Switch to IBM Plex Sans
 const ibmPlexSans = IBM_Plex_Sans({
     variable: "--font-ibm-plex-sans",
     subsets: ["latin"],
-    weight: ["300", "400", "500", "600", "700"],
+    weight: ["400", "500", "600", "700"],
+    display: "swap",
 });
 
 export const viewport: Viewport = {
@@ -102,7 +104,9 @@ export default function RootLayout({
                                 <div className="flex flex-col min-h-screen">
                                     <Header />
                                     <main className="flex-grow pt-24 pb-24 md:pb-0">
-                                        {children}
+                                        <PageTransition>
+                                            {children}
+                                        </PageTransition>
                                     </main>
                                     <Footer />
                                 </div>

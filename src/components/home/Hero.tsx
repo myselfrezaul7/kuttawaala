@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Heart, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -84,17 +85,23 @@ export function Hero() {
                     className="relative order-1 lg:order-2 flex justify-center"
                 >
                     <div className="relative w-full max-w-md aspect-[3/4] rounded-t-full rounded-b-[200px] overflow-hidden border-8 border-white/50 dark:border-white/10 shadow-2xl bg-secondary flex items-center justify-center">
-                        {/* This would be a real image */}
-                        <img
-                            src="/hero-community.png"
-                            alt="Community caring for dogs in Bangladesh"
-                            className="w-full h-full object-cover"
+                        <Image
+                            src="/hero-dogs.png"
+                            alt="Community caring for dogs"
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            priority
+                            placeholder="blur"
+                            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY0Ii8+PC9zdmc+"
                         />
 
                         {/* Floating badge */}
                         <motion.div
-                            animate={{ y: [0, -15, 0] }}
-                            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.5 }}
+                            viewport={{ once: true }}
                             className="absolute bottom-6 sm:bottom-20 left-4 sm:-left-6 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-md p-2.5 sm:p-4 rounded-full sm:rounded-2xl shadow-xl flex items-center gap-2 sm:gap-3 z-20"
                         >
                             <div className="w-8 h-8 sm:w-10 sm:h-10 bg-secondary rounded-full flex items-center justify-center text-primary shrink-0">
