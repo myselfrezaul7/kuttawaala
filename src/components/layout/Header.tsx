@@ -199,18 +199,23 @@ export function Header() {
                                 <div>
                                     <h4 className="text-[10px] font-bold text-muted-foreground dark:text-stone-400 uppercase tracking-widest mb-2 px-2">Explore</h4>
                                     <div className="space-y-1">
-                                        <Link href="/find-vet" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-2xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
-                                            <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center"><MapPin className="w-4 h-4" /></div>
-                                            Find a Vet
-                                        </Link>
-                                        <Link href="/community" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-2xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
-                                            <div className="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center"><Users className="w-4 h-4" /></div>
-                                            Community
-                                        </Link>
-                                        <Link href="/faq" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-2xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
-                                            <div className="w-8 h-8 rounded-xl bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center"><HelpCircle className="w-4 h-4" /></div>
-                                            FAQ & Guides
-                                        </Link>
+                                        {[
+                                            { href: "/find-vet", icon: MapPin, label: "Find a Vet", color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" },
+                                            { href: "/community", icon: Users, label: "Community", color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400" },
+                                            { href: "/faq", icon: HelpCircle, label: "FAQ & Guides", color: "bg-orange-500/10 text-orange-600 dark:text-orange-400" },
+                                        ].map((item, idx) => (
+                                            <motion.div
+                                                key={item.href}
+                                                initial={{ opacity: 0, x: -12 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 0.05 + idx * 0.05 }}
+                                            >
+                                                <Link href={item.href} onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-2xl hover:bg-muted/50 dark:hover:bg-zinc-800/50 transition-colors text-foreground font-medium">
+                                                    <div className={`w-8 h-8 rounded-xl ${item.color} flex items-center justify-center`}><item.icon className="w-4 h-4" /></div>
+                                                    {item.label}
+                                                </Link>
+                                            </motion.div>
+                                        ))}
                                     </div>
                                 </div>
 

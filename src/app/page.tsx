@@ -111,7 +111,13 @@ export default function Home() {
             <section className="py-4 relative overflow-hidden">
                 <div className="container mx-auto px-4 relative z-10">
                     {/* Companion Chip */}
-                    <div className="flex justify-center -mt-4 mb-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        viewport={{ once: true }}
+                        className="flex justify-center -mt-4 mb-4"
+                    >
                         <a href="https://catwaala.com" target="_blank" rel="noopener noreferrer"
                            className="group flex items-center gap-3 p-3 sm:p-4 rounded-2xl bg-teal-50/60 dark:bg-teal-950/20 border border-teal-200/50 dark:border-teal-800/30 hover:border-teal-300 dark:hover:border-teal-700 transition-all shadow-sm hover:shadow-md">
                             <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-teal-100 dark:bg-teal-900/40 flex items-center justify-center shrink-0 border border-teal-200/50 dark:border-teal-800/50 text-xl sm:text-2xl group-hover:scale-105 transition-transform">
@@ -125,7 +131,7 @@ export default function Home() {
                                 </span>
                             </div>
                         </a>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
 
@@ -160,6 +166,7 @@ export default function Home() {
                                 key={index} 
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
+                                whileTap={{ scale: 0.97 }}
                                 transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.1 }}
                                 viewport={{ once: true, margin: "-50px" }}
                                 className="min-w-[75%] sm:min-w-0 snap-center flex-shrink-0 glass-card rounded-[1.5rem] md:rounded-[2.5rem] p-4 md:p-10 hover:translate-y-[-5px] transition-transform duration-300 border border-border mt-4"
@@ -197,7 +204,7 @@ export default function Home() {
                         {/* Live Proof Counter */}
                         <div className="inline-block px-4 py-2 bg-primary/10 rounded-full border border-primary/20 text-primary text-sm font-semibold mb-10">
                             <span className="relative flex h-2 w-2 inline-flex mr-2 -translate-y-0.5">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/60 opacity-75"></span>
+                                <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-primary/60 opacity-60"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                             </span>
                             Over 500+ dogs rescued and counting

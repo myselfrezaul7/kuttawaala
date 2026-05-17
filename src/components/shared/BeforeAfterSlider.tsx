@@ -56,7 +56,7 @@ export function BeforeAfterSlider({
     return (
         <div
             ref={containerRef}
-            className={`relative w-full h-full overflow-hidden select-none cursor-ew-resize group ${className}`}
+            className={`relative w-full h-full overflow-hidden select-none cursor-ew-resize group touch-none ${className}`}
             onMouseDown={handleMouseDown}
             onTouchStart={handleMouseDown}
         >
@@ -69,7 +69,7 @@ export function BeforeAfterSlider({
                     className="object-cover"
                     priority
                 />
-                <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider">
                     {afterLabel}
                 </div>
             </div>
@@ -86,7 +86,7 @@ export function BeforeAfterSlider({
                     className="object-cover"
                     priority
                 />
-                <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider">
                     {beforeLabel}
                 </div>
             </div>

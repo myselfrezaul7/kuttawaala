@@ -13,24 +13,29 @@ export function Hero() {
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-background to-background opacity-70" />
 
             <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center relative z-10">
-                <div className="space-y-8 text-center lg:text-left order-2 lg:order-1">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                    >
+                <motion.div 
+                    className="space-y-8 text-center lg:text-left order-2 lg:order-1"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } }}
+                >
+                    <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}>
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-sm font-semibold text-primary mb-6 border border-border">
                             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                             Bangladesh&apos;s largest dog rescue community
                         </div>
+                    </motion.div>
+                    <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}>
                         <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-foreground dark:text-white leading-[1.1] mb-6 font-heading">
                             Every Dog Deserves a <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-500">Loving Home</span>
                         </h1>
+                    </motion.div>
+                    <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}>
                         <p className="text-xl text-muted-foreground dark:text-stone-300 max-w-lg mx-auto lg:mx-0 leading-relaxed">
                             Join us in transforming the lives of street dogs in Bangladesh through rescue, care, and adoption.
                         </p>
                     </motion.div>
-
+                    <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}>
                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start pt-2 sm:pt-4 w-full sm:w-auto">
                             <Link href="/adopt" className="w-full sm:w-auto">
                                 <motion.div whileTap={{ scale: 0.96 }} className="w-full">
@@ -47,6 +52,8 @@ export function Hero() {
                                 </motion.div>
                             </Link>
                         </div>
+                    </motion.div>
+                </motion.div>
                         
                         {/* Floating Companion Badge Redirect */}
                         <motion.div
@@ -74,8 +81,6 @@ export function Hero() {
                                 </div>
                             </a>
                         </motion.div>
-                        
-                </div>
 
                 {/* Hero Illustration/Image Placeholder */}
                 <motion.div
@@ -86,7 +91,7 @@ export function Hero() {
                 >
                     <div className="relative w-full max-w-md aspect-[3/4] rounded-t-full rounded-b-[200px] overflow-hidden border-8 border-white/50 dark:border-white/10 shadow-2xl bg-secondary flex items-center justify-center">
                         <Image
-                            src="/hero-dogs.png"
+                            src="/hero-community.png"
                             alt="Community caring for dogs"
                             fill
                             className="object-cover"

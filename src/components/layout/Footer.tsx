@@ -12,7 +12,7 @@ export function Footer() {
             <div className="relative z-10 pt-8 md:pt-16 pb-4 md:pb-8">
                 <div className="container mx-auto px-4">
                     {/* Compact Donate Pill */}
-                    <div className="flex justify-center sm:justify-start mb-8 md:mb-12">
+                    <div className="hidden sm:flex justify-center sm:justify-start mb-8 md:mb-12">
                         <Link href="/donate" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-bold shadow-sm transition-all hover:-translate-y-0.5">
                             <span>🐾</span> Support the Pack <ArrowRight className="w-4 h-4 ml-1" />
                         </Link>
