@@ -10,6 +10,7 @@ import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { Toaster } from "sonner";
 import { PageTransition } from "@/components/layout/PageTransition";
+import { RemoteConfigProvider } from "@/contexts/RemoteConfigContext";
 
 // Switch to IBM Plex Sans
 const ibmPlexSans = IBM_Plex_Sans({
@@ -101,17 +102,19 @@ export default function RootLayout({
                     <AuthProvider>
                         <FavoritesProvider>
                             <LanguageProvider>
-                                <div className="flex flex-col min-h-screen">
-                                    <Header />
-                                    <main className="flex-grow pt-24 pb-24 md:pb-0">
-                                        <PageTransition>
-                                            {children}
-                                        </PageTransition>
-                                    </main>
-                                    <Footer />
-                                </div>
-                                <EmergencyFAB />
-                                <Toaster position="top-center" richColors />
+                                <RemoteConfigProvider>
+                                    <div className="flex flex-col min-h-screen">
+                                        <Header />
+                                        <main className="flex-grow pt-24 pb-24 md:pb-0">
+                                            <PageTransition>
+                                                {children}
+                                            </PageTransition>
+                                        </main>
+                                        <Footer />
+                                    </div>
+                                    <EmergencyFAB />
+                                    <Toaster position="top-center" richColors />
+                                </RemoteConfigProvider>
                             </LanguageProvider>
                         </FavoritesProvider>
                     </AuthProvider>
