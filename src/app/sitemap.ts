@@ -5,7 +5,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = "https://www.kuttawaala.com"; // Replace with actual domain
 
     // Fetch all available dogs for dynamic routes
-    const dogs = await DogService.getAllDogs();
+    const dogs = await DogService.getAll();
     const dogUrls: MetadataRoute.Sitemap = dogs.map((dog: any) => ({
         url: `${baseUrl}/adopt/${dog.id}`,
         lastModified: new Date(dog.created_at || new Date()),

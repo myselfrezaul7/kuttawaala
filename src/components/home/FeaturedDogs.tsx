@@ -16,7 +16,7 @@ export function FeaturedDogs() {
     useEffect(() => {
         const fetchDogs = async () => {
             try {
-                const allDogs = await DogService.getAllDogs();
+                const allDogs = await DogService.getAll();
                 setFeaturedDogs(allDogs.slice(0, 3));
             } catch (error) {
                 console.error("Failed to fetch featured dogs", error);
@@ -51,22 +51,27 @@ export function FeaturedDogs() {
                 </Link>
             </div>
 
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 sm:gap-6 pb-6 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
-                {featuredDogs.map((dog, index) => (
-                    <div key={dog.id} className="min-w-[85%] sm:min-w-0 snap-center flex-shrink-0">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className="h-full"
-                        >
-                            {/* @ts-ignore */}
-                            <PetCard dog={dog} />
-                        </motion.div>
+            <motion.div 
+                variants={{
+                    hidden: {},
+                    show: {
+                        transition: {
+                            staggerChildren: 0.1
+                        }
+                    }
+                }}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "10%" }}
+                className="flex overflow-x-auto snap-x snap-mandatory gap-4 sm:gap-6 pb-6 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0"
+            >
+                {featuredDogs.map((dog) => (
+                    <div key={dog.id} className="min-w-[85%] sm:min-w-0 snap-center flex-shrink-0 h-full">
+                        {/* @ts-ignore */}
+                        <PetCard dog={dog} />
                     </div>
                 ))}
-            </div>
+            </motion.div>
         </div>
     );
 }

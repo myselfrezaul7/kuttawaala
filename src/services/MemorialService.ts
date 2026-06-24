@@ -21,13 +21,15 @@ export const MemorialService = {
         }
     },
 
-    async create(memorial: any) {
+    async create(memorial: Omit<Memorial, 'id' | 'created_at' | 'status'>) {
         try {
+            const created_at = new Date().toISOString();
             const docRef = await addDoc(collection(db, COLLECTION_NAME), {
                 ...memorial,
-                created_at: new Date().toISOString()
+                created_at,
+                status: 'Pending'
             });
-            return { id: docRef.id, ...memorial };
+            return { id: docRef.id, ...memorial, created_at, status: 'Pending' } as Memorial;
         } catch (error) {
             console.error("Error creating memorial:", error);
             throw error;

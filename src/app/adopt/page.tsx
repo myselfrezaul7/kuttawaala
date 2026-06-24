@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
 import { AdoptPageContent } from "@/components/adopt/AdoptPageContent";
+
+export const revalidate = 60;
 import { dogs } from "@/data/dogs";
 
 export const metadata: Metadata = {

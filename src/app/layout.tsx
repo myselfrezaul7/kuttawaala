@@ -57,12 +57,21 @@ export const metadata: Metadata = {
         title: "Kuttawaala | Save a Stray, Gain a Friend",
         description: "Connect with rescued dogs, find vets, and report strays in Bangladesh.",
         siteName: "Kuttawaala",
+        images: [
+            {
+                url: "/hero-community.png",
+                width: 1200,
+                height: 630,
+                alt: "Kuttawaala Community",
+            },
+        ],
     },
     twitter: {
         card: "summary_large_image",
         title: "Kuttawaala | Save a Stray, Gain a Friend",
         description: "Helping street dogs in Bangladesh find loving homes.",
         creator: "@kuttawaala",
+        images: ["/hero-community.png"],
     },
     metadataBase: new URL("https://www.kuttawaala.com"),
 };

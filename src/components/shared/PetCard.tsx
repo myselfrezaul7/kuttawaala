@@ -16,11 +16,12 @@ export function PetCard({ dog }: { dog: DogProps }) {
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ y: -4, scale: 1.01 }}
-            className="group relative bg-card rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border border-border shadow-md hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500"
+            variants={{
+                hidden: { opacity: 0, y: 15 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+            }}
+            whileHover={{ y: -6, scale: 1.02 }}
+            className="group relative bg-card rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border border-border shadow-md hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500"
         >
             <div className="relative aspect-[4/5] overflow-hidden">
                 <Image

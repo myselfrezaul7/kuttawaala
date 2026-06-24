@@ -11,6 +11,9 @@ type Props = {
     params: Promise<{ id: string }>;
 };
 
+// Revalidate page data every 60 seconds (ISR)
+export const revalidate = 60;
+
 export default async function DogDetailPage({ params }: Props) {
     const { id } = await params;
     const dog = dogs.find(c => c.id === id);
@@ -34,7 +37,7 @@ export default async function DogDetailPage({ params }: Props) {
                 {/* Image Gallery */}
                 <div className="space-y-4">
                     <div className="relative aspect-[4/5] md:aspect-square rounded-3xl overflow-hidden border border-border dark:border-zinc-800 shadow-xl shadow-secondary/50 dark:shadow-none">
-                        <Image src={dog.imageUrl} alt={dog.name} fill className="object-cover" priority />
+                        <Image src={dog.imageUrl} alt={dog.name} fill className="object-cover" priority sizes="(max-width: 768px) 100vw, 50vw" />
                         <div className="absolute top-4 right-4 flex gap-2">
                             <button className="p-3 bg-white/90 rounded-full shadow-md text-muted-foreground/80 hover:text-primary transition-colors">
                                 <Heart className="w-5 h-5" />
