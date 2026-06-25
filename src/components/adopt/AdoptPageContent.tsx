@@ -9,6 +9,8 @@ import { dogs, getAgeCategory, type AgeCategory, type Dog } from "@/data/dogs";
 
 import { useSearchParams } from "next/navigation";
 
+import { Dog as DbDog } from "@/services/server-data";
+import { Skeleton } from "@/components/ui/skeleton";
 import { DogService } from "@/services/DogService";
 import { DataErrorState } from "@/components/shared/DataErrorState";
 
@@ -220,26 +222,41 @@ export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
                 </div>
 
                 {/* Staggered Grid of Pets */}
-                <motion.div 
-                    variants={{
-                        hidden: { opacity: 0 },
-                        show: {
-                            opacity: 1,
-                            transition: {
-                                staggerChildren: 0.05
+                {isLoading ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12 mt-8">
+                        {[...Array(8)].map((_, i) => (
+                            <div key={i} className="flex flex-col space-y-4">
+                                <Skeleton className="aspect-[4/5] w-full rounded-[1.5rem] md:rounded-[2rem]" />
+                                <div className="space-y-3 px-2">
+                                    <Skeleton className="h-6 w-3/4" />
+                                    <Skeleton className="h-4 w-1/2" />
+                                    <Skeleton className="h-10 w-full rounded-xl" />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <motion.div 
+                        variants={{
+                            hidden: { opacity: 0 },
+                            show: {
+                                opacity: 1,
+                                transition: {
+                                    staggerChildren: 0.05
+                                }
                             }
-                        }
-                    }}
-                    initial="hidden"
-                    animate="show"
-                    className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12 mt-8"
-                >
-                    {filteredDogs.map(dog => (
-                        <PetCard key={dog.id} dog={dog} />
-                    ))}
-                </motion.div>
+                        }}
+                        initial="hidden"
+                        animate="show"
+                        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12 mt-8"
+                    >
+                        {filteredDogs.map(dog => (
+                            <PetCard key={dog.id} dog={dog} />
+                        ))}
+                    </motion.div>
+                )}
 
-                {filteredDogs.length === 0 && (
+                {!isLoading && filteredDogs.length === 0 && (
                     <div className="relative mt-8 mb-12 rounded-[3rem] overflow-hidden border border-border bg-card/60 p-8 md:p-16 text-center backdrop-blur-md shadow-xl">
                     <div className="absolute inset-0 bg-[url('/assets/dog_adopt_bg.png')] bg-cover bg-center opacity-10 mix-blend-luminosity" />
                     {error ? (

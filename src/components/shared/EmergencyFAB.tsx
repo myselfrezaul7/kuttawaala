@@ -77,10 +77,10 @@ export function EmergencyFAB() {
             {/* Main Toggle Button */}
             <motion.button
                 onClick={toggleOpen}
-                className={`relative z-50 w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-colors duration-300 ${isOpen ? "bg-zinc-800 text-white rotate-45" : "bg-primary text-primary-foreground hover:bg-primary/90"
+                className={`relative z-50 w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-colors duration-300 ${isOpen ? "bg-zinc-800 text-white" : "bg-primary text-primary-foreground hover:bg-primary/90"
                     }`}
                 initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
+                animate={{ scale: 1, rotate: isOpen ? 45 : 0 }}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
             >

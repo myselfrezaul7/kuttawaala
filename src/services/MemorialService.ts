@@ -6,6 +6,30 @@ import { Memorial } from "./server-data";
 const COLLECTION_NAME = "memorials";
 
 export const MemorialService = {
+    async getAll() {
+        try {
+            const q = query(
+                collection(db, COLLECTION_NAME),
+                where("status", "==", "Approved")
+            );
+            const querySnapshot = await getDocs(q);
+            const docs = querySnapshot.docs.map(doc => {
+                const data = doc.data();
+                return { id: doc.id, ...data } as Memorial;
+            });
+            return docs.sort((a, b) => {
+                const aTime = a.created_at as any;
+                const bTime = b.created_at as any;
+                const tA = aTime?.toMillis ? aTime.toMillis() : new Date(aTime || 0).getTime();
+                const tB = bTime?.toMillis ? bTime.toMillis() : new Date(bTime || 0).getTime();
+                return (isNaN(tB) ? 0 : tB) - (isNaN(tA) ? 0 : tA);
+            });
+        } catch (error) {
+            console.error("Error fetching memorials:", error);
+            return [];
+        }
+    },
+
     async getByUserId(userId: string) {
         try {
             const q = query(
@@ -13,8 +37,17 @@ export const MemorialService = {
                 where("user_id", "==", userId)
             );
             const querySnapshot = await getDocs(q);
-            const docs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as unknown as Memorial));
-            return docs.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
+            const docs = querySnapshot.docs.map(doc => {
+                const data = doc.data();
+                return { id: doc.id, ...data } as Memorial;
+            });
+            return docs.sort((a, b) => {
+                const aTime = a.created_at as any;
+                const bTime = b.created_at as any;
+                const tA = aTime?.toMillis ? aTime.toMillis() : new Date(aTime || 0).getTime();
+                const tB = bTime?.toMillis ? bTime.toMillis() : new Date(bTime || 0).getTime();
+                return (isNaN(tB) ? 0 : tB) - (isNaN(tA) ? 0 : tA);
+            });
         } catch (error) {
             console.error("Error fetching user memorials:", error);
             return [];

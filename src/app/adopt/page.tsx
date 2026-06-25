@@ -1,13 +1,13 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
 import { AdoptPageContent } from "@/components/adopt/AdoptPageContent";
-
-export const revalidate = 60;
 import { dogs } from "@/data/dogs";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
-    title: "Adopt a Rescued Dog",
-    description: "Browse verified rescued dogs in Bangladesh waiting for a loving home. Kittens, adults, and seniors available for adoption.",
+    title: "Adopt a Dog",
+    description: "Find your perfect companion. Puppies, adults, and seniors available for adoption.",
 };
 
 export default function AdoptPage() {
