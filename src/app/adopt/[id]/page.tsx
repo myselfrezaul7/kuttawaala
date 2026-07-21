@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { dogs } from "@/data/dogs";
+import { DogService } from "@/services/DogService";
 import { Button } from "@/components/ui/button";
 import { MapPin, Info, CheckCircle, ArrowLeft, Share2, Heart } from "lucide-react";
 import { AdoptionForm } from "@/components/adopt/AdoptionForm";
@@ -16,7 +17,7 @@ export const revalidate = 60;
 
 export default async function DogDetailPage({ params }: Props) {
     const { id } = await params;
-    const dog = dogs.find(c => c.id === id);
+    const dog = (await DogService.getById(id)) || dogs.find(c => c.id === id);
 
     if (!dog) {
         return notFound();

@@ -6,6 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Heart, Hand, CheckCircle, AlertTriangle, User, Mail, Phone, MessageSquare } from "lucide-react";
 import { submitToWeb3Forms } from "@/lib/web3forms";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "@/utils/firebase";
 import { volunteerSchema, type VolunteerSchema } from "@/lib/schemas";
 import confetti from "canvas-confetti";
 
@@ -32,6 +34,16 @@ export function VolunteerForm() {
             form_name: "Volunteer Application",
             ...data,
         });
+
+        try {
+            await addDoc(collection(db, "volunteers"), {
+                ...data,
+                status: "Pending",
+                created_at: new Date().toISOString()
+            });
+        } catch (e) {
+            console.error("Failed to save volunteer app to Firestore", e);
+        }
 
         if (result.success) {
             setSubmitted(true);

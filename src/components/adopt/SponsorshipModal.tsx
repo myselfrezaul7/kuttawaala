@@ -43,11 +43,12 @@ const TIERS = [
         icon: '👼',
         color: 'bg-indigo-100 text-indigo-600',
         desc: 'Sponsors full medical checkup & sterilization.',
-        perks: ['"Guardian Angel" Badge', 'Personal video call with ' + 'dogName', 'Name on kennel']
+        perks: ['"Guardian Angel" Badge', 'Personal video call with your pet', 'Name on kennel']
     }
 ];
 
 export function SponsorshipModal({ dogName }: SponsorshipModalProps) {
+    const [isOpen, setIsOpen] = useState(false);
     const [selectedTier, setSelectedTier] = useState<string | null>(null);
     const [step, setStep] = useState<'select' | 'payment' | 'success'>('select');
 
@@ -163,7 +164,7 @@ export function SponsorshipModal({ dogName }: SponsorshipModalProps) {
                                 </div>
                             </div>
 
-                            <Button onClick={() => setStep('select')} variant="outline" className="h-12 rounded-xl px-8">
+                            <Button onClick={() => { setIsOpen(false); setStep('select'); }} variant="outline" className="h-12 rounded-xl px-8">
                                 Close
                             </Button>
                         </div>
