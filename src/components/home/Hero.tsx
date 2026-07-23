@@ -99,8 +99,8 @@ export function Hero() {
                 >
                     <div className="relative w-full max-w-md aspect-[3/4] rounded-t-full rounded-b-[200px] overflow-hidden border-8 border-white/50 dark:border-white/10 shadow-2xl bg-secondary flex items-center justify-center">
                         <Image
-                            src="/assets/hero-puppies.png"
-                            alt="Small native Bangladeshi Desi stray puppies"
+                            src="/assets/hero-dog.jpg"
+                            alt="Small native Bangladeshi Desi stray dog"
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
