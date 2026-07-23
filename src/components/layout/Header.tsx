@@ -84,29 +84,29 @@ export function Header() {
             <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-6xl w-[calc(100%-2rem)] transition-all duration-300 ease-out bg-white/50 dark:bg-zinc-900/50 backdrop-blur-2xl border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-[100px] print:hidden ${navVisible ? "translate-y-0 opacity-100" : "-translate-y-[120%] opacity-0"}`}>
                 <div className="px-5 py-2.5 flex justify-between items-center">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2 group">
+                    <Link href="/" className="flex items-center gap-2 group shrink-0">
                         <img src="/logo.png" alt="Kuttawaala Logo" className="w-8 h-8 object-contain transition-transform group-hover:scale-110" />
-                        <span className="text-2xl font-bold font-sans text-foreground dark:text-white group-hover:text-primary dark:group-hover:text-primary transition-colors">
+                        <span className="text-lg lg:text-2xl font-bold font-sans text-foreground dark:text-white group-hover:text-primary dark:group-hover:text-primary transition-colors">
                             KUTTAWAALA
                         </span>
                     </Link>
 
                     {/* Desktop Nav */}
-                    <nav className="hidden md:flex items-center gap-8">
+                    <nav className="hidden md:flex items-center gap-1 lg:gap-4 xl:gap-6">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.href}
                                 href={link.href}
                                 {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                                className="text-sm font-medium text-foreground/90 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors flex items-center gap-1.5"
+                                className="text-xs lg:text-sm font-medium text-foreground/90 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors flex items-center gap-1 px-1.5 lg:px-2 py-1 rounded-md"
                             >
                                 {link.name}
-                                {link.external && <span className="px-1.5 py-0.5 rounded-md bg-purple-100 text-purple-700 text-[10px] font-bold">NEW</span>}
+                                {link.external && <span className="px-1 py-0.5 rounded-md bg-purple-100 text-purple-700 text-[9px] lg:text-[10px] font-bold">NEW</span>}
                             </Link>
                         ))}
                         <button
                             onClick={() => setIsSearchOpen(true)}
-                            className="text-sm font-medium text-foreground/90 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors flex items-center gap-2"
+                            className="text-xs lg:text-sm font-medium text-foreground/90 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors flex items-center gap-1.5 px-1.5 lg:px-2 py-1"
                         >
                             <Search className="w-4 h-4" /> {t.nav.search}
                         </button>
