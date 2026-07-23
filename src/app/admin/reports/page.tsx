@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { collection, onSnapshot, deleteDoc, doc, updateDoc, query, orderBy } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -22,33 +22,28 @@ export default function AdminReportsPage() {
     const [reports, setReports] = useState<Report[]>([]);
     const [loading, setLoading] = useState(true);
 
-    const fetchReports = async () => {
-        setLoading(true);
-        try {
-            const reportsRef = collection(db, "reports");
-            const snapshot = await getDocs(reportsRef);
+    useEffect(() => {
+        const q = query(collection(db, "reports"), orderBy("created_at", "desc"));
+        const unsubscribe = onSnapshot(q, (snapshot) => {
             const data = snapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
             })) as Report[];
-            setReports(data.sort((a, b) => (b.created_at || 0) - (a.created_at || 0)));
-        } catch (error) {
+            setReports(data);
+            setLoading(false);
+        }, (error) => {
             console.error("Error fetching reports:", error);
             toast.error("Failed to load reports");
-        } finally {
             setLoading(false);
-        }
-    };
+        });
 
-    useEffect(() => {
-        fetchReports();
+        return () => unsubscribe();
     }, []);
 
     const handleUpdateStatus = async (id: string, newStatus: string) => {
         try {
             await updateDoc(doc(db, "reports", id), { status: newStatus });
             toast.success(`Report marked as ${newStatus}`);
-            fetchReports();
         } catch (error) {
             console.error("Error updating status:", error);
             toast.error("Failed to update status");
@@ -60,7 +55,6 @@ export default function AdminReportsPage() {
         try {
             await deleteDoc(doc(db, "reports", id));
             toast.success("Report deleted");
-            fetchReports();
         } catch (error) {
             console.error("Error deleting:", error);
             toast.error("Failed to delete report");
@@ -74,7 +68,7 @@ export default function AdminReportsPage() {
                 <p className="text-muted-foreground">Monitor and manage incoming emergency reports from the community.</p>
             </div>
 
-            <Card className="border-border shadow-sm">
+            <Card className="bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl border-white/50 dark:border-zinc-800/50 shadow-xl shadow-black/5">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <AlertTriangle className="w-5 h-5" /> Active Reports ({reports.length})
@@ -88,10 +82,10 @@ export default function AdminReportsPage() {
                     ) : reports.length > 0 ? (
                         <div className="space-y-4">
                             {reports.map((report) => (
-                                <div key={report.id} className={`p-5 rounded-xl border flex flex-col md:flex-row gap-4 justify-between items-start md:items-center ${report.status === 'Resolved' ? 'bg-secondary/10 border-border/50 opacity-80' : 'bg-secondary/20 border-border'}`}>
+                                <div key={report.id} className={`p-5 rounded-2xl border flex flex-col md:flex-row gap-4 justify-between items-start md:items-center transition-transform hover:scale-[1.01] ${report.status === 'Resolved' ? 'bg-white/20 dark:bg-zinc-800/20 border-white/30 dark:border-zinc-700/30 opacity-70' : 'bg-white/40 dark:bg-zinc-800/40 border-white/50 dark:border-zinc-700/50 shadow-sm'}`}>
                                     <div className="space-y-2">
                                         <div className="flex items-center gap-3">
-                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold flex-shrink-0 ${report.type === 'Injured' ? 'bg-red-100 text-red-600' :
+                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold flex-shrink-0 shadow-inner ${report.type === 'Injured' ? 'bg-red-100 text-red-600' :
                                                     report.type === 'Lost' ? 'bg-yellow-100 text-yellow-600' : 'bg-green-100 text-green-600'
                                                 }`}>
                                                 <AlertTriangle className="w-5 h-5" />
