@@ -1,298 +1,234 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { PetCard } from "@/components/shared/PetCard";
 import { Button } from "@/components/ui/button";
-import { Search, Filter, X, Grid, Heart, Bone } from "lucide-react";
-import { dogs, getAgeCategory, type AgeCategory, type Dog } from "@/data/dogs";
+import { ExternalLink, Heart, Printer, PawPrint, MessageCircle } from "lucide-react";
 
-import { useSearchParams } from "next/navigation";
+const FACEBOOK_GROUP_URL = "https://www.facebook.com/groups/721498465956239/";
 
-import { Dog as DbDog } from "@/services/server-data";
-import { Skeleton } from "@/components/ui/skeleton";
-import { DogService } from "@/services/DogService";
-import { DataErrorState } from "@/components/shared/DataErrorState";
+const fadeUp = {
+  hidden: { opacity: 0, y: 32 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] as any },
+  }),
+};
 
-interface AdoptPageContentProps {
-    initialDogs?: Dog[];
-}
+const infoCards = [
+  {
+    emoji: "🐾",
+    title: "Real-Time Updates",
+    description:
+      "See new rescues the moment they're posted. Every dog has a story, and you'll find it on our community page.",
+  },
+  {
+    emoji: "💬",
+    title: "Direct Communication",
+    description:
+      "Chat directly with our rescue volunteers. Ask questions, schedule visits, and get to know your future companion.",
+  },
+  {
+    emoji: "❤️",
+    title: "Hundreds of Lives",
+    description:
+      "Over 500 dogs rescued and counting. From tiny puppies to wise seniors, there's a perfect match waiting for you.",
+  },
+];
 
-export function AdoptPageContent({ initialDogs }: AdoptPageContentProps) {
-    const searchParams = useSearchParams();
-    const [searchQuery, setSearchQuery] = useState("");
-    const [dogList, setDogList] = useState<Dog[]>(initialDogs || []);
-    const [isLoading, setIsLoading] = useState(!initialDogs);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        const fetchDogs = async () => {
-            setIsLoading(true);
-            setError(null);
-            try {
-                const fetchedDogs = await DogService.getAll();
-                setDogList(fetchedDogs);
-            } catch (error) {
-                console.error("Failed to fetch dogs", error);
-                setError("We're having trouble connecting to the shelter database. Please try again.");
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        if (!initialDogs) {
-            fetchDogs();
-        }
-    }, [initialDogs]);
-
-    useEffect(() => {
-        const query = searchParams.get("query");
-        if (query) {
-            setSearchQuery(query);
-        }
-    }, [searchParams]);
-
-    const [selectedGender, setSelectedGender] = useState<string>("All");
-    const [selectedAge, setSelectedAge] = useState<AgeCategory | "All">("All");
-    const [attributes, setAttributes] = useState({
-        vaccinated: false,
-        neutered: false,
-        goodWithKids: false,
-    });
-
-    const allDogs = dogList;
-
-    const filteredDogs = allDogs.filter(dog => {
-        // Text Search
-        const matchesSearch = searchQuery === "" ||
-            dog.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            dog.breed.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            dog.location.toLowerCase().includes(searchQuery.toLowerCase());
-
-        // Category Filters
-        const matchesGender = selectedGender === "All" || dog.gender === selectedGender;
-        const matchesAge = selectedAge === "All" || getAgeCategory(dog.age) === selectedAge;
-
-        // Attribute Filters (AND logic)
-        const matchesAttributes =
-            (!attributes.vaccinated || dog.vaccinated) &&
-            (!attributes.neutered || dog.neutered) &&
-            (!attributes.goodWithKids || dog.goodWithKids);
-
-        return matchesSearch && matchesGender && matchesAge && matchesAttributes;
-    });
-
-    const resetFilters = () => {
-        setSearchQuery("");
-        setSelectedGender("All");
-        setSelectedAge("All");
-        setAttributes({ vaccinated: false, neutered: false, goodWithKids: false });
-    };
-
-    return (
-        <div className="min-h-screen bg-background pb-24 border-t-0">
-            {/* Header */}
-            <div className="bg-primary text-primary-foreground py-20 text-center px-4 relative overflow-hidden">
-                <div className="relative z-10">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4 font-heading tracking-tight">Find Your Canine Companion</h1>
-                    <p className="text-primary-foreground/80 max-w-xl mx-auto mb-8 text-lg font-medium">
-                        Browse through our list of rescued dogs. From playful puppies to snoozy seniors, they are all waiting for love.
-                    </p>
-                    <div className="flex flex-col items-center gap-4">
-                        <p className="text-sm font-bold bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20 inline-block shadow-lg">
-                            We promote "Adopt Don't Shop". No buying/selling.
-                        </p>
-                    </div>
-                </div>
-                {/* Abstract Pattern Background */}
-                <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                    <div className="absolute top-[-10%] right-[-5%] w-96 h-96 rounded-full bg-white blur-3xl" />
-                    <div className="absolute bottom-[-10%] left-[-5%] w-96 h-96 rounded-full bg-white blur-3xl" />
-                </div>
-            </div>
-
-            <div className="container mx-auto px-4 -mt-10 relative z-20">
-                <div className="bg-card p-6 md:p-8 rounded-[2rem] shadow-xl border border-border space-y-8 glass-card dark:border-white/10 dark:bg-stone-900/60 transition-colors">
-                    {/* Search & Filter Header */}
-                    <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-                        <div className="flex items-center gap-2 text-foreground/80">
-                            <Filter className="w-5 h-5" />
-                            <h2 className="text-lg font-bold">Filter Dogs</h2>
-                        </div>
-                        <div className="flex gap-4 w-full md:w-auto">
-                            <a href="/adoption-form" target="_blank">
-                                <Button variant="outline" className="gap-2 border-primary/20 hover:bg-primary/5 hover:text-primary dark:border-primary/50 dark:hover:bg-primary/20">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>
-                                    Print Form
-                                </Button>
-                            </a>
-                            <div className="relative w-full md:w-64">
-                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5" />
-                                <input
-                                    type="text"
-                                    placeholder="Search..."
-                                    className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-border bg-muted/30 focus:bg-background focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all dark:bg-stone-800/50 dark:focus:bg-stone-800"
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="h-px bg-border/60 w-full" />
-
-                    {/* Filter Controls */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {/* Gender */}
-                        <div className="space-y-2">
-                            <label className="text-sm font-semibold text-foreground/70 ml-1">Gender</label>
-                            <select
-                                className="w-full p-3 rounded-xl border border-border bg-muted/30 focus:bg-background outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer appearance-none dark:bg-stone-800/50 dark:focus:bg-stone-800 text-foreground"
-                                value={selectedGender}
-                                onChange={(e) => setSelectedGender(e.target.value)}
-                            >
-                                <option value="All">Any Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                        </div>
-
-                        {/* Age */}
-                        <div className="space-y-2">
-                            <label className="text-sm font-semibold text-foreground/70 ml-1">Age</label>
-                            <select
-                                className="w-full p-3 rounded-xl border border-border bg-muted/30 focus:bg-background outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer appearance-none dark:bg-stone-800/50 dark:focus:bg-stone-800 text-foreground"
-                                value={selectedAge}
-                                onChange={(e) => setSelectedAge(e.target.value as AgeCategory | "All")}
-                            >
-                                <option value="All">Any Age</option>
-                                <option value="Puppy">Puppy (&lt; 1 year)</option>
-                                <option value="Adult">Adult (1-7 years)</option>
-                                <option value="Senior">Senior (7+ years)</option>
-                            </select>
-                        </div>
-
-                        {/* Attributes Checklist */}
-                        <div className="col-span-1 md:col-span-2 space-y-2">
-                            <label className="text-sm font-semibold text-foreground/70 ml-1">Attributes</label>
-                            <div className="flex flex-wrap gap-3">
-                                <label className={`flex items-center gap-2 cursor-pointer px-4 py-3 rounded-xl border transition-all select-none ${attributes.goodWithKids ? 'bg-primary/10 border-primary text-primary font-bold dark:bg-primary/20' : 'bg-muted/30 border-border hover:border-primary/50 text-foreground dark:bg-stone-800/50'}`}>
-                                    <input
-                                        type="checkbox"
-                                        checked={attributes.goodWithKids}
-                                        onChange={(e) => setAttributes(prev => ({ ...prev, goodWithKids: e.target.checked }))}
-                                        className="hidden"
-                                    />
-                                    Good with Kids
-                                </label>
-                                <label className={`flex items-center gap-2 cursor-pointer px-4 py-3 rounded-xl border transition-all select-none ${attributes.vaccinated ? 'bg-primary/10 border-primary text-primary font-bold dark:bg-primary/20' : 'bg-muted/30 border-border hover:border-primary/50 text-foreground dark:bg-stone-800/50'}`}>
-                                    <input
-                                        type="checkbox"
-                                        checked={attributes.vaccinated}
-                                        onChange={(e) => setAttributes(prev => ({ ...prev, vaccinated: e.target.checked }))}
-                                        className="hidden"
-                                    />
-                                    Vaccinated
-                                </label>
-                                <label className={`flex items-center gap-2 cursor-pointer px-4 py-3 rounded-xl border transition-all select-none ${attributes.neutered ? 'bg-primary/10 border-primary text-primary font-bold dark:bg-primary/20' : 'bg-muted/30 border-border hover:border-primary/50 text-foreground dark:bg-stone-800/50'}`}>
-                                    <input
-                                        type="checkbox"
-                                        checked={attributes.neutered}
-                                        onChange={(e) => setAttributes(prev => ({ ...prev, neutered: e.target.checked }))}
-                                        className="hidden"
-                                    />
-                                    Neutered
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Results & Stats */}
-                <div className="mt-10 flex justify-between items-center text-muted-foreground mb-6 px-2">
-                    <p className="font-semibold flex items-center gap-2">
-                        <Grid className="w-5 h-5 opacity-70" />
-                        Showing {filteredDogs.length} dogs
-                    </p>
-                    {(searchQuery || selectedGender !== "All" || selectedAge !== "All" || Object.values(attributes).some(Boolean)) && (
-                        <Button variant="ghost" onClick={resetFilters} className="text-destructive hover:text-destructive hover:bg-destructive/10 h-auto py-1 px-3 rounded-lg text-sm font-bold transition-all">
-                            <X className="w-4 h-4 mr-1.5" /> Clear Filters
-                        </Button>
-                    )}
-                </div>
-
-                {/* Staggered Grid of Pets */}
-                {isLoading ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12 mt-8">
-                        {[...Array(8)].map((_, i) => (
-                            <div key={i} className="flex flex-col space-y-4">
-                                <Skeleton className="aspect-[4/5] w-full rounded-[1.5rem] md:rounded-[2rem]" />
-                                <div className="space-y-3 px-2">
-                                    <Skeleton className="h-6 w-3/4" />
-                                    <Skeleton className="h-4 w-1/2" />
-                                    <Skeleton className="h-10 w-full rounded-xl" />
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                ) : (
-                    <motion.div 
-                        variants={{
-                            hidden: { opacity: 0 },
-                            show: {
-                                opacity: 1,
-                                transition: {
-                                    staggerChildren: 0.05
-                                }
-                            }
-                        }}
-                        initial="hidden"
-                        animate="show"
-                        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12 mt-8"
-                    >
-                        {filteredDogs.map(dog => (
-                            <PetCard key={dog.id} dog={dog} />
-                        ))}
-                    </motion.div>
-                )}
-
-                {!isLoading && filteredDogs.length === 0 && (
-                    <div className="relative mt-8 mb-12 rounded-[3rem] overflow-hidden border border-border bg-card/60 p-8 md:p-16 text-center backdrop-blur-md shadow-xl">
-                    <div className="absolute inset-0 bg-[url('/assets/dog_adopt_bg.png')] bg-cover bg-center opacity-10 mix-blend-luminosity" />
-                    {error ? (
-                        <div className="relative z-10 py-8">
-                            <DataErrorState message={error} />
-                        </div>
-                    ) : (
-                        <div className="relative z-10 max-w-2xl mx-auto py-8">
-                            <div className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl shadow-primary/10">
-                                <span className="text-5xl animate-bounce">🦴</span>
-                            </div>
-                        <h2 className="text-4xl md:text-5xl font-bold font-heading text-foreground mb-6 tracking-tight">Real Adoptions Coming Soon!</h2>
-                        <p className="text-lg text-muted-foreground mb-10 leading-relaxed font-medium">
-                            We are currently building our network of verified rescue shelters and foster homes across Bangladesh. Very soon, you will be able to browse and adopt real rescued dogs directly from this page!
-                        </p>
-                        <div className="flex flex-col md:flex-row gap-4 justify-center">
-                            <a href="/volunteer" className="w-full md:w-auto">
-                                <motion.div whileTap={{ scale: 0.96 }}>
-                                    <Button size="lg" className="w-full md:w-auto bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-lg shadow-primary/20 px-8 h-14 text-base font-bold">
-                                        Become a Foster Home
-                                    </Button>
-                                </motion.div>
-                            </a>
-                            <a href="/donate" className="w-full md:w-auto">
-                                <motion.div whileTap={{ scale: 0.96 }}>
-                                    <Button size="lg" variant="outline" className="w-full md:w-auto border-border text-foreground hover:bg-secondary/50 rounded-xl px-8 h-14 text-base font-bold">
-                                        Support Rescues Now
-                                    </Button>
-                                </motion.div>
-                            </a>
-                        </div>
-                    </div>
-                    )}
-                </div>
-                )}
-            </div>
+export function AdoptPageContent() {
+  return (
+    <div className="min-h-screen bg-background pb-24 border-t-0">
+      {/* ───────────── HERO BANNER ───────────── */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-amber-500 to-amber-600 text-white py-24 md:py-32 text-center px-4">
+        {/* decorative blobs */}
+        <div className="absolute inset-0 pointer-events-none opacity-15">
+          <div className="absolute -top-24 -right-16 w-[28rem] h-[28rem] rounded-full bg-teal-300 blur-[120px]" />
+          <div className="absolute -bottom-24 -left-16 w-[28rem] h-[28rem] rounded-full bg-amber-200 blur-[120px]" />
         </div>
-    );
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as any }}
+          className="relative z-10 max-w-3xl mx-auto"
+        >
+          <h1 className="text-4xl md:text-6xl font-bold mb-5 font-heading tracking-tight drop-shadow-lg">
+            Find Your Canine Soulmate
+          </h1>
+          <p className="text-white/85 max-w-xl mx-auto mb-8 text-lg md:text-xl font-medium leading-relaxed">
+            Every dog deserves a loving home. Browse, connect, and adopt — all
+            through our vibrant Facebook community.
+          </p>
+
+          {/* Badges row */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+            <span className="text-sm font-bold bg-white/15 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/25 shadow-lg select-none">
+              🐕 Adopt Don&apos;t Shop
+            </span>
+
+            <a
+              href="https://www.catwaala.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-bold bg-white/15 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/25 shadow-lg hover:bg-white/25 transition-colors"
+            >
+              🐱 Looking for cats? Visit Catwaala →
+            </a>
+          </div>
+
+          {/* Print Adoption Form */}
+          <a href="/adoption-form" target="_blank">
+            <motion.div whileTap={{ scale: 0.96 }}>
+              <Button
+                variant="outline"
+                className="gap-2 bg-white/10 border-white/30 text-white hover:bg-white/20 hover:text-white rounded-xl shadow-lg px-6 h-12 text-sm font-bold backdrop-blur-sm"
+              >
+                <Printer className="w-4 h-4" />
+                Print Adoption Form
+              </Button>
+            </motion.div>
+          </a>
+        </motion.div>
+      </div>
+
+      {/* ───────────── MAIN CONTENT ───────────── */}
+      <div className="container mx-auto px-4 -mt-14 relative z-20">
+        {/* Facebook Community CTA Card */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={fadeUp}
+          custom={0}
+          className="bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl border border-white/40 dark:border-zinc-800 shadow-xl rounded-[2.5rem] p-8 md:p-14 text-center glass-card"
+        >
+          {/* Facebook icon area */}
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="w-24 h-24 md:w-28 md:h-28 bg-gradient-to-br from-teal-400 to-amber-400 rounded-[1.75rem] flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-amber-500/20"
+          >
+            <span className="text-5xl md:text-6xl select-none">📘</span>
+          </motion.div>
+
+          <h2 className="text-3xl md:text-4xl font-bold font-heading tracking-tight text-foreground mb-4">
+            Adopt Through Our Facebook Community
+          </h2>
+          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
+            We have hundreds of rescued dogs waiting for their forever homes.
+            Our Facebook community is where all adoptions happen — you can see
+            real-time posts, photos, and connect directly with our rescue team.
+          </p>
+
+          {/* CTA Button */}
+          <a
+            href={FACEBOOK_GROUP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <motion.div
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="inline-block"
+            >
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-amber-500 to-teal-500 hover:from-amber-600 hover:to-teal-600 text-white rounded-2xl shadow-xl shadow-amber-500/25 px-10 h-16 text-lg font-bold gap-3 transition-shadow hover:shadow-2xl hover:shadow-amber-500/30"
+              >
+                <ExternalLink className="w-5 h-5" />
+                Visit Our Facebook Group
+              </Button>
+            </motion.div>
+          </a>
+        </motion.div>
+
+        {/* ───────────── THREE INFO CARDS ───────────── */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+          {infoCards.map((card, i) => (
+            <motion.div
+              key={card.title}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              variants={fadeUp}
+              custom={i}
+              className="bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl border border-white/40 dark:border-zinc-800 shadow-xl rounded-[2.5rem] p-8 text-center glass-card group hover:shadow-2xl transition-shadow duration-500"
+            >
+              <div className="w-16 h-16 bg-gradient-to-br from-amber-100 to-teal-100 dark:from-amber-900/40 dark:to-teal-900/40 rounded-2xl flex items-center justify-center mx-auto mb-5 text-3xl shadow-md group-hover:scale-110 transition-transform duration-500">
+                {card.emoji}
+              </div>
+              <h3 className="text-xl font-bold font-heading text-foreground mb-3 tracking-tight">
+                {card.title}
+              </h3>
+              <p className="text-muted-foreground text-sm md:text-base leading-relaxed font-medium">
+                {card.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* ───────────── BOTTOM CTA BANNER ───────────── */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={fadeUp}
+          custom={0}
+          className="mt-16 relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-amber-500 via-amber-400 to-teal-500 p-10 md:p-16 text-center text-white shadow-2xl"
+        >
+          {/* decorative blur */}
+          <div className="absolute inset-0 pointer-events-none opacity-20">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-white rounded-full blur-[100px]" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-teal-200 rounded-full blur-[100px]" />
+          </div>
+
+          <div className="relative z-10 max-w-2xl mx-auto">
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl border border-white/30"
+            >
+              <Heart className="w-9 h-9 text-white fill-white/80" />
+            </motion.div>
+
+            <h2 className="text-3xl md:text-5xl font-bold font-heading tracking-tight mb-4 drop-shadow-md">
+              Ready to Meet Your New Best Friend?
+            </h2>
+            <p className="text-white/85 text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed font-medium">
+              Your perfect companion is just a click away. Join thousands of
+              animal lovers in our community and give a rescued dog the life
+              they deserve.
+            </p>
+
+            <a
+              href={FACEBOOK_GROUP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <motion.div
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className="inline-block"
+              >
+                <Button
+                  size="lg"
+                  className="bg-white text-amber-700 hover:bg-white/90 rounded-2xl shadow-xl shadow-black/10 px-10 h-16 text-lg font-bold gap-3 transition-all"
+                >
+                  <ExternalLink className="w-5 h-5" />
+                  Join the Facebook Group
+                </Button>
+              </motion.div>
+            </a>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
 }

@@ -13,7 +13,7 @@ export type AdoptionSchema = z.infer<typeof adoptionSchema>;
 export const volunteerSchema = z.object({
     name: z.string().min(2, { message: "Name must be at least 2 characters." }),
     email: z.string().email({ message: "Please enter a valid email." }),
-    phone: z.string().optional(),
+    phone: z.string().min(11, { message: "Phone number is required (min 11 digits)." }),
     interest: z.string(),
     message: z.string().optional(),
     botcheck: z.boolean().optional(),

@@ -30,11 +30,7 @@ export function VolunteerForm() {
     const onSubmit = async (data: VolunteerSchema) => {
         setServerError(null);
 
-        const result = await submitToWeb3Forms({
-            form_name: "Volunteer Application",
-            ...data,
-        });
-
+        // 1. Save to Firestore (primary)
         try {
             await addDoc(collection(db, "volunteers"), {
                 ...data,
@@ -43,19 +39,28 @@ export function VolunteerForm() {
             });
         } catch (e) {
             console.error("Failed to save volunteer app to Firestore", e);
+            setServerError("Something went wrong. Please try again.");
+            return;
         }
 
-        if (result.success) {
-            setSubmitted(true);
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 },
-                colors: ['#F59E0B', '#10B981', '#ffffff'] // Amber, Emerald, White
+        // 2. Success! Show confirmation
+        setSubmitted(true);
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#F59E0B', '#10B981', '#ffffff']
+        });
+        reset();
+
+        // 3. Send email notification via Web3Forms (secondary, non-blocking)
+        try {
+            await submitToWeb3Forms({
+                form_name: "Volunteer Application",
+                ...data,
             });
-            reset();
-        } else {
-            setServerError(result.message || "Failed to submit application. Please try again.");
+        } catch (e) {
+            console.error("Web3Forms notification failed (non-critical)", e);
         }
     };
 
@@ -156,7 +161,7 @@ export function VolunteerForm() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="block text-sm font-bold text-foreground/80 ml-1">Phone Number <span className="text-muted-foreground/60 font-normal">(Optional)</span></label>
+                                <label className="block text-sm font-bold text-foreground/80 ml-1">Phone Number <span className="text-destructive font-normal">*</span></label>
                                 <div className="relative">
                                     <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/60 w-5 h-5" />
                                     <input
@@ -166,6 +171,7 @@ export function VolunteerForm() {
                                         placeholder="+880 1XXX XXXXXX"
                                     />
                                 </div>
+                                {errors.phone && <p className="text-destructive text-sm ml-1">{errors.phone.message}</p>}
                             </div>
 
                             <div className="space-y-2">
@@ -176,6 +182,7 @@ export function VolunteerForm() {
                                         className="w-full pl-4 pr-10 py-4 rounded-2xl border bg-muted/30 dark:bg-zinc-800 border-border dark:border-zinc-700 focus:ring-4 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all text-foreground font-medium appearance-none cursor-pointer hover:bg-muted/50 dark:hover:bg-zinc-800/80"
                                     >
                                         <option value="General">General Help</option>
+                                        <option value="RescueTreatment">Rescue or Treatment</option>
                                         <option value="Fostering">Fostering (Short-term home)</option>
                                         <option value="Transport">Transport (Driving dogs to vet)</option>
                                         <option value="SocialMedia">Social Media / Photography</option>
