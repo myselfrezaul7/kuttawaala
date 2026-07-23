@@ -4,7 +4,7 @@ import Link from "next/link";
 import { dogs } from "@/data/dogs";
 import { DogService } from "@/services/DogService";
 import { Button } from "@/components/ui/button";
-import { MapPin, Info, CheckCircle, ArrowLeft, Share2, Heart } from "lucide-react";
+import { MapPin, Info, CheckCircle, ArrowLeft, Share2, Heart, ShoppingBag } from "lucide-react";
 import { AdoptionForm } from "@/components/adopt/AdoptionForm";
 import { SponsorshipModal } from "@/components/adopt/SponsorshipModal";
 
@@ -113,6 +113,26 @@ export default async function DogDetailPage({ params }: Props) {
                     </div>
 
                     <div className="pt-6 border-t border-border dark:border-zinc-800">
+                        {/* PetBhai Contextual Upsell */}
+                        <div className="bg-gradient-to-r from-purple-50 to-fuchsia-50 dark:from-purple-900/20 dark:to-fuchsia-900/20 border border-purple-100 dark:border-purple-800/50 p-6 rounded-2xl mb-6 flex items-center justify-between gap-4">
+                            <div>
+                                <h3 className="text-lg font-bold mb-1 text-purple-900 dark:text-purple-300 flex items-center gap-2">
+                                    <ShoppingBag className="w-5 h-5" /> Get Ready for {dog.name}
+                                </h3>
+                                <p className="text-purple-700/80 dark:text-purple-300/80 text-sm">
+                                    Grab their starter kit, food, and toys at our new store!
+                                </p>
+                            </div>
+                            <a
+                                href="https://www.petbhai.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="shrink-0 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm"
+                            >
+                                Shop Now
+                            </a>
+                        </div>
+
                         <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-zinc-900 dark:to-zinc-800 p-6 rounded-2xl mb-8">
                             <h3 className="text-xl font-bold mb-2 font-heading text-stone-800 dark:text-white">Can't adopt right now?</h3>
                             <p className="text-stone-500 dark:text-stone-400 mb-4 text-sm">

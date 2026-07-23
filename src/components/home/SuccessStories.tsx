@@ -12,28 +12,28 @@ const SUCCESS_STORIES = [
         id: 1,
         name: "Lalu",
         image: "/assets/dog_success_1.png", // Desi Dog
-        quote: "Lalu was shy at first, but now he rules the sofa! He's the best hiking buddy we could ask for.",
+        quote: "Lalu was a tiny 3-week-old puppy when we brought him home. Now he wiggles his tail with so much joy every morning!",
         adopter: "Rahim & Family"
     },
     {
         id: 2,
-        name: "Rocky",
+        name: "Tomi",
         image: "/assets/dog_success_2.png", // Desi Dog
-        quote: "We adopted Rocky from Dhanmondi. He's so gentle with our kids. Best decision ever!",
+        quote: "We adopted tiny Tomi from Dhanmondi. He's a sweet 4-week-old baby and so gentle with our kids. Best decision ever!",
         adopter: "The Ahmeds"
     },
     {
         id: 3,
         name: "Sheru",
         image: "/assets/dog_success_3.png", // Desi Dog
-        quote: "Sheru protects our home and our hearts. He's a true neighborhood legend.",
+        quote: "Sheru was a tiny 2-week-old orphan. Watching him grow into a healthy puppy warms our hearts every day.",
         adopter: "Bashir Bhai"
     },
     {
         id: 4,
-        name: "Daisy",
+        name: "Chintu",
         image: "/assets/dog_success_4.png", // Desi Dog
-        quote: "Daisy brings so much joy to our office. She's our official Chief Morale Officer!",
+        quote: "Chintu brings so much joy to our office as a 1-month-old rescue puppy. He's our official Chief Morale Officer!",
         adopter: "TechStart Dhaka"
     },
 ];

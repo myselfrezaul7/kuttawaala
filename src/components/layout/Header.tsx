@@ -59,12 +59,13 @@ export function Header() {
         };
     }, []);
 
-    const navLinks = [
+    const navLinks: { name: string, href: string, external?: boolean }[] = [
         { name: t.nav.home, href: "/" },
         { name: t.nav.adopt, href: "/adopt" },
         { name: t.nav.community, href: "/community" },
         { name: t.nav.findVet, href: "/find-vet" },
         { name: t.nav.report, href: "/report" },
+        { name: "PetBhai Shop", href: "https://www.petbhai.com", external: true },
         { name: t.nav.dashboard, href: "/dashboard" },
     ];
 
@@ -96,9 +97,11 @@ export function Header() {
                             <Link
                                 key={link.href}
                                 href={link.href}
-                                className="text-sm font-medium text-foreground/90 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors"
+                                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                className="text-sm font-medium text-foreground/90 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors flex items-center gap-1.5"
                             >
                                 {link.name}
+                                {link.external && <span className="px-1.5 py-0.5 rounded-md bg-purple-100 text-purple-700 text-[10px] font-bold">NEW</span>}
                             </Link>
                         ))}
                         <button

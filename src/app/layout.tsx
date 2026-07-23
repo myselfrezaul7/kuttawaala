@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { FavoritesProvider } from "@/contexts/FavoritesContext";
 import { Header } from "@/components/layout/Header";
+import { PetBhaiBanner } from "@/components/layout/PetBhaiBanner";
 import { Footer } from "@/components/layout/Footer";
 import { EmergencyFAB } from "@/components/shared/EmergencyFAB";
 import "./globals.css";
@@ -113,6 +114,7 @@ export default function RootLayout({
                             <LanguageProvider>
                                 <RemoteConfigProvider>
                                     <div className="flex flex-col min-h-screen">
+                                        <PetBhaiBanner />
                                         <Header />
                                         <main className="flex-grow pt-24 pb-24 md:pb-0">
                                             <PageTransition>

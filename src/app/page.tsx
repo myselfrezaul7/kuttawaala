@@ -1,6 +1,7 @@
 "use client";
 
 import { Hero } from "@/components/home/Hero";
+import { PromoPetBhai } from "@/components/home/PromoPetBhai";
 import { SuccessStories } from "@/components/home/SuccessStories";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -14,6 +15,9 @@ export default function Home() {
     return (
         <div className="flex flex-col min-h-screen bg-background">
             <Hero />
+
+            {/* PetBhai Integration Promo */}
+            <PromoPetBhai />
 
             {/* Success Stories Ticker */}
             <SuccessStories />
