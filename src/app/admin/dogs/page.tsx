@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { collection, getDocs, deleteDoc, doc, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc, addDoc, serverTimestamp, writeBatch } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -72,8 +72,12 @@ export default function AdminDogsPage() {
         ];
 
         try {
-            const promises = mockDogs.map(d => addDoc(collection(db, "dogs"), { ...d, created_at: serverTimestamp() }));
-            await Promise.all(promises);
+            const batch = writeBatch(db);
+            mockDogs.forEach(d => {
+                const newDocRef = doc(collection(db, "dogs"));
+                batch.set(newDocRef, { ...d, created_at: serverTimestamp() });
+            });
+            await batch.commit();
             toast.success("Test Dogs added to Firebase!");
             fetchDogs();
         } catch (error) {

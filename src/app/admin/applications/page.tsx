@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc, updateDoc, writeBatch } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -49,16 +49,17 @@ export default function AdminApplicationsPage() {
 
     const handleUpdateStatus = async (id: string, newStatus: string, dogId: string) => {
         try {
-            await updateDoc(doc(db, "adoptions", id), { status: newStatus });
+            const batch = writeBatch(db);
+            const adoptionRef = doc(db, "adoptions", id);
+            batch.update(adoptionRef, { status: newStatus });
 
             if (newStatus === 'Approved' && dogId) {
                 // Automatically mark the dog as adopted if approved
-                try {
-                    await updateDoc(doc(db, "dogs", dogId), { tag: 'Adopted' });
-                } catch (e) {
-                    console.error("Failed to update dog status", e);
-                }
+                const dogRef = doc(db, "dogs", dogId);
+                batch.update(dogRef, { tag: 'Adopted' });
             }
+
+            await batch.commit();
 
             toast.success(`Application marked as ${newStatus}`);
             fetchApplications();
