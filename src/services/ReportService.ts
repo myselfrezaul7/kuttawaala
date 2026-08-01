@@ -36,8 +36,25 @@ export const ReportService = {
     },
 
     async uploadImage(file: File) {
+        // Validate file type
+        if (!file.type.startsWith("image/")) {
+            throw new Error("Invalid file type. Only images are allowed.");
+        }
+
+        // Validate file size (e.g., max 5MB)
+        const MAX_SIZE_MB = 5;
+        if (file.size > MAX_SIZE_MB * 1024 * 1024) {
+            throw new Error(`File size exceeds ${MAX_SIZE_MB}MB limit.`);
+        }
+
+        // Validate extension
+        const fileExt = file.name.split(".").pop()?.toLowerCase();
+        const allowedExtensions = ["jpg", "jpeg", "png", "webp", "gif"];
+        if (!fileExt || !allowedExtensions.includes(fileExt)) {
+            throw new Error("Invalid file extension.");
+        }
+
         try {
-            const fileExt = file.name.split(".").pop();
             const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
             const storageRef = ref(storage, `report-images/${fileName}`);
 

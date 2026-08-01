@@ -13,7 +13,7 @@ import { ReportService } from "@/services/ReportService";
 import { Memorial, Report } from "@/services/server-data";
 
 export default function ProfilePage() {
-    const { user, loading, signOut } = useAuth();
+    const { user, userData, loading, signOut } = useAuth();
     const router = useRouter();
     const [tributes, setTributes] = useState<Memorial[]>([]);
     const [reports, setReports] = useState<Report[]>([]);
@@ -54,11 +54,13 @@ export default function ProfilePage() {
                             </h1>
                             <p className="text-muted-foreground">{user.email}</p>
                             <div className="mt-4 flex flex-wrap gap-2">
-                                <Link href="/admin">
-                                    <Button variant="outline" className="rounded-xl border-emerald-200 text-emerald-600 hover:bg-emerald-50">
-                                        Admin Dashboard
-                                    </Button>
-                                </Link>
+                                {(userData?.role === "admin" || user.email === "kuttawaala@gmail.com") && (
+                                    <Link href="/admin">
+                                        <Button variant="outline" className="rounded-xl border-emerald-200 text-emerald-600 hover:bg-emerald-50">
+                                            Admin Dashboard
+                                        </Button>
+                                    </Link>
+                                )}
                                 <Button
                                     variant="destructive"
                                     onClick={signOut}

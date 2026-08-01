@@ -6,14 +6,19 @@ import { getStorage } from "firebase/storage";
 import { getRemoteConfig, isSupported as isRcSupported } from "firebase/remote-config";
 
 const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyCILBkjWFI5aCjdBMDigkDpcUMcvrDbYCk",
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "kuttawaala-animal-welfare.firebaseapp.com",
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "kuttawaala-animal-welfare",
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "kuttawaala-animal-welfare.firebasestorage.app",
-    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "138825337254",
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "1:138825337254:web:90167f7e0f2fab0bbb2767",
-    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || "G-TQN9X6BM6R"
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY as string,
+    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN as string,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID as string,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET as string,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID as string,
+    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID as string,
+    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID as string,
 };
+
+// Check for missing config in development
+if (process.env.NODE_ENV === "development" && !firebaseConfig.apiKey) {
+    console.error("Missing Firebase configuration. Please check your .env.local file.");
+}
 
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();

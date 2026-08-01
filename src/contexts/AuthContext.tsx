@@ -8,9 +8,20 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { friendlyAuthMessage } from "@/utils/friendlyErrors";
 
+export type UserData = {
+    email: string;
+    displayName: string | null;
+    photoURL: string | null;
+    role: string;
+    createdAt: string;
+    points?: number;
+    phone?: string;
+    id?: string;
+};
+
 type AuthContextType = {
     user: User | null;
-    userData: any | null;
+    userData: UserData | null;
     loading: boolean;
     signInWithGoogle: () => Promise<void>;
     signInWithEmail: (email: string, password: string) => Promise<void>;

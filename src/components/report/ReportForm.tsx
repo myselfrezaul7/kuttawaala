@@ -126,16 +126,29 @@ export function ReportForm() {
                 user_id: user?.uid || null, // Link report to user
             });
 
+            const escapeHtml = (unsafe: string) => {
+                return (unsafe || "").replace(/[&<"'>]/g, (m) => {
+                    switch (m) {
+                        case '&': return '&amp;';
+                        case '<': return '&lt;';
+                        case '>': return '&gt;';
+                        case '"': return '&quot;';
+                        case "'": return '&#039;';
+                        default: return m;
+                    }
+                });
+            };
+
             // Send Email Notification via Web3Forms
             await submitToWeb3Forms({
                 form_name: "New Rescue Report",
                 subject: `🚨 New ${data.type} Dog Report!`,
                 message: `
                     <strong>Type:</strong> ${data.type} <br/>
-                    <strong>Location:</strong> ${data.locationDetails} <br/>
+                    <strong>Location:</strong> ${escapeHtml(data.locationDetails)} <br/>
                     <strong>Coordinates:</strong> <a href="https://www.google.com/maps?q=${data.latitude},${data.longitude}">${data.latitude}, ${data.longitude}</a> <br/>
-                    <strong>Description:</strong> ${data.description} <br/>
-                    <strong>Contact:</strong> ${data.contact} <br/>
+                    <strong>Description:</strong> ${escapeHtml(data.description)} <br/>
+                    <strong>Contact:</strong> ${escapeHtml(data.contact)} <br/>
                     <strong>Image:</strong> ${imageUrl ? `<a href="${imageUrl}">View Image</a>` : "No image uploaded"}
                 `,
                 // Web3Forms specific fields to make the email look better

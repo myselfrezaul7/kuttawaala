@@ -78,7 +78,7 @@ export function AdoptPageContent() {
           </div>
 
           {/* Print Adoption Form */}
-          <a href="/adoption-form" target="_blank">
+          <a href="/adoption-form" target="_blank" rel="noopener noreferrer">
             <motion.div whileTap={{ scale: 0.96 }}>
               <Button
                 variant="outline"
