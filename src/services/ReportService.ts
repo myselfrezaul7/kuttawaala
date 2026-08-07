@@ -1,7 +1,10 @@
 import { db, storage } from "@/utils/firebase";
-import { collection, addDoc, query, where, getDocs, orderBy } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Report } from "./server-data";
+import { rateLimiter } from "@/lib/rate-limit";
+import { ReportSchema, sanitizeInput } from "@/lib/validation";
+import { ValidationError, RateLimitError, handleServiceError } from "@/lib/errors";
 
 const COLLECTION_NAME = "reports";
 
@@ -22,16 +25,40 @@ export const ReportService = {
     },
 
     async create(report: Omit<Report, 'id' | 'created_at' | 'status'>) {
+        // Rate limiting check (max 3 reports per 10 minutes)
+        const limitKey = `report_create_${report.user_id || 'anonymous'}`;
+        const rateCheck = rateLimiter.check(limitKey, 3, 10 * 60 * 1000);
+        if (!rateCheck.success) {
+            throw new RateLimitError("Too many reports created. Please wait before submitting another.");
+        }
+
+        // Sanitize string inputs
+        const sanitized = {
+            ...report,
+            description: sanitizeInput(report.description || ""),
+            location_text: sanitizeInput(report.location_text || ""),
+            contact_info: sanitizeInput(report.contact_info || ""),
+        };
+
+        // Zod validation
+        const parseResult = ReportSchema.safeParse(sanitized);
+        if (!parseResult.success) {
+            const firstError = parseResult.error.issues[0]?.message || "Invalid report data.";
+            throw new ValidationError(firstError);
+        }
+
         try {
-            const docRef = await addDoc(collection(db, COLLECTION_NAME), {
-                ...report,
+            const payload = {
+                ...parseResult.data,
+                user_id: report.user_id,
                 created_at: new Date().toISOString(),
                 status: 'Open'
-            });
-            return { id: docRef.id, ...report, created_at: new Date().toISOString(), status: 'Open' } as Report;
+            };
+            const docRef = await addDoc(collection(db, COLLECTION_NAME), payload);
+            return { id: docRef.id, ...payload } as unknown as Report;
         } catch (error) {
             console.error("Error creating report:", error);
-            throw error;
+            throw new Error(handleServiceError(error));
         }
     },
 

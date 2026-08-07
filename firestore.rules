@@ -57,12 +57,13 @@ service cloud.firestore {
     }
 
     function isValidProfileUpdate() {
-      // Must not change role to admin
-      return hasOnlyAllowedFields(['full_name', 'avatar_url', 'phone', 'role', 'created_at', 'favorites']) &&
+      // Must not change role or points
+      return hasOnlyAllowedFields(['full_name', 'avatar_url', 'phone', 'role', 'created_at', 'favorites', 'points']) &&
              isValidOptionalString('full_name', 1, 100) &&
              isValidOptionalString('avatar_url', 0, 500) &&
              isValidOptionalString('phone', 0, 20) &&
              (request.resource.data.role == resource.data.role) && // Prevent role escalation
+             (!('points' in request.resource.data) || !('points' in resource.data) || request.resource.data.points == resource.data.points) && // Prevent self points modification
              request.resource.data.created_at == resource.data.created_at; // Immutable
     }
 
@@ -139,6 +140,11 @@ service cloud.firestore {
     match /site_config/{docId} {
       allow read: if true;
       allow create, update, delete: if isAdmin();
+    }
+
+    // Admin Audit Logs Collection (Admin Only)
+    match /admin_audit_logs/{logId} {
+      allow read, write: if isAdmin();
     }
 
     // Default deny
