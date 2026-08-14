@@ -70,7 +70,7 @@ export function Header() {
     ];
 
     // Conditionally add Admin link
-    if (user?.email === "kuttawaala@gmail.com") {
+    if (user?.email === "kuttawaala@gmail.com" || userData?.role === "admin") {
         navLinks.push({ name: "Admin", href: "/admin" });
     }
 

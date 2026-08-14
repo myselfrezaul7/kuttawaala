@@ -13,8 +13,10 @@ type UserData = {
     id: string;
     email: string;
     displayName?: string;
+    name?: string;
+    full_name?: string;
     role?: string;
-    created_at?: number;
+    created_at?: any;
 };
 
 export default function AdminUsersPage() {
@@ -101,7 +103,7 @@ export default function AdminUsersPage() {
                                     {users.map((u) => (
                                         <tr key={u.id} className="hover:bg-secondary/20 transition-colors">
                                             <td className="px-6 py-4 font-bold text-foreground">
-                                                {u.displayName || "Anonymous User"}
+                                                {u.displayName || u.name || u.full_name || "Community Member"}
                                             </td>
                                             <td className="px-6 py-4 text-muted-foreground">{u.email}</td>
                                             <td className="px-6 py-4">

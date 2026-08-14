@@ -1,6 +1,6 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import { VetFinder } from "@/components/vet/VetFinder";
-import { MOCK_VET_CLINICS } from "@/data/vets";
 
 export const metadata: Metadata = {
     title: "Find Verified Vets in Dhaka",
@@ -8,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function FindVetPage() {
-    return <VetFinder />;
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading vets...</div>}>
+            <VetFinder />
+        </Suspense>
+    );
 }

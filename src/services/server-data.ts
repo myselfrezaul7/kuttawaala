@@ -30,7 +30,7 @@ export type Memorial = {
     owner_name: string;
     tribute: string;
     image_url: string | null;
-    user_id: string | null;
+    user_id?: string | null;
     status?: 'Pending' | 'Approved' | 'Rejected';
     created_at: string;
 };

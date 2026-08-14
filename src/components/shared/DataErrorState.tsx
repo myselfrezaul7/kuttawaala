@@ -3,12 +3,14 @@ import { AlertTriangle, RefreshCcw } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface DataErrorStateProps {
+    title?: string;
     message?: string;
     onRetry?: () => void;
     compact?: boolean;
 }
 
 export function DataErrorState({ 
+    title = "Oops, something went wrong",
     message = "Couldn't load data. Please try again.", 
     onRetry,
     compact = false
@@ -24,7 +26,7 @@ export function DataErrorState({
             </div>
             
             <h3 className={`font-bold text-stone-800 dark:text-stone-200 mb-2 ${compact ? 'text-lg' : 'text-xl'}`}>
-                Oops, something went wrong
+                {title}
             </h3>
             
             <p className="text-stone-500 dark:text-stone-400 mb-6 max-w-sm text-sm">

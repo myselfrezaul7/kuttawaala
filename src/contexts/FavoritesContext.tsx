@@ -42,11 +42,17 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
                         setFavoriteIds(docSnap.data().favorites || []);
                     } else {
                         // Check local storage for guest favorites to merge
-                        const stored = localStorage.getItem("kuttawaala_favorites");
-                        if (stored) {
-                            const localFavorites = JSON.parse(stored);
-                            await setDoc(docRef, { favorites: localFavorites }, { merge: true });
-                            localStorage.removeItem("kuttawaala_favorites");
+                        try {
+                            const stored = localStorage.getItem("kuttawaala_favorites");
+                            if (stored) {
+                                const localFavorites = JSON.parse(stored);
+                                if (Array.isArray(localFavorites) && localFavorites.length > 0) {
+                                    await setDoc(docRef, { favorites: localFavorites }, { merge: true });
+                                    localStorage.removeItem("kuttawaala_favorites");
+                                }
+                            }
+                        } catch (e) {
+                            console.warn("Failed to parse local favorites:", e);
                         }
                     }
                     setIsLoading(false);
@@ -56,10 +62,18 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
                 });
 
             } else {
-                // Load from local storage
-                const stored = localStorage.getItem("kuttawaala_favorites");
-                if (stored) {
-                    setFavoriteIds(JSON.parse(stored));
+                // Clear any leftover state on logout, then load from local storage
+                try {
+                    const stored = localStorage.getItem("kuttawaala_favorites");
+                    if (stored) {
+                        const parsed = JSON.parse(stored);
+                        setFavoriteIds(Array.isArray(parsed) ? parsed : []);
+                    } else {
+                        setFavoriteIds([]);
+                    }
+                } catch (e) {
+                    console.warn("Failed to parse local favorites:", e);
+                    setFavoriteIds([]);
                 }
                 setIsLoading(false);
             }
@@ -74,8 +88,12 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
 
     // Save to local storage on change (only if guest)
     useEffect(() => {
-        if (!user) {
-            localStorage.setItem("kuttawaala_favorites", JSON.stringify(favoriteIds));
+        if (!user && typeof window !== "undefined") {
+            try {
+                localStorage.setItem("kuttawaala_favorites", JSON.stringify(favoriteIds));
+            } catch (e) {
+                console.warn("Failed to persist favorites to localStorage:", e);
+            }
         }
     }, [favoriteIds, user]);
 

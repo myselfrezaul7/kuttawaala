@@ -38,7 +38,7 @@ export const MemorialSchema = z.object({
 export const ProfileUpdateSchema = z.object({
     full_name: z.string().max(100, "Full name must be 100 characters or less").optional(),
     avatar_url: z.string().url("Invalid avatar URL").max(500).optional().nullable(),
-    phone: z.string().max(20, "Phone number must be 20 characters or less").optional(),
+    phone: z.string().max(20, "Phone number must be 20 characters or less").nullable().optional(),
     favorites: z.array(z.string()).optional(),
 });
 

@@ -10,7 +10,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { db } from "@/utils/firebase";
 import { collection, addDoc } from "firebase/firestore";
 
-export function AdoptionForm({ dogName }: { dogName: string }) {
+export function AdoptionForm({ dogName, dogId }: { dogName: string; dogId?: string }) {
     const { user } = useAuth();
     const [submitted, setSubmitted] = useState(false);
     const [serverError, setServerError] = useState<string | null>(null);
@@ -37,6 +37,7 @@ export function AdoptionForm({ dogName }: { dogName: string }) {
             // Save to Firebase for tracking
             try {
                 await addDoc(collection(db, "adoptions"), {
+                    dogId: dogId || "",
                     dogName: dogName,
                     applicantName: data.name,
                     applicantEmail: data.email || "",

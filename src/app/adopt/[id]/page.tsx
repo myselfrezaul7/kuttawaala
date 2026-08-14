@@ -23,6 +23,10 @@ export default async function DogDetailPage({ params }: Props) {
         return notFound();
     }
 
+    const isVaccinated = Boolean(dog.vaccinated || (dog as any).attributes?.vaccinated);
+    const isNeutered = Boolean(dog.neutered || (dog as any).attributes?.neutered);
+    const isGoodWithKids = Boolean(dog.goodWithKids || (dog as any).attributes?.goodWithKids);
+
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-950 pb-24">
             {/* Back Button */}
@@ -55,66 +59,66 @@ export default async function DogDetailPage({ params }: Props) {
                     <div>
                         <div className="flex justify-between items-start mb-4">
                             <h1 className="text-4xl md:text-6xl font-bold font-heading text-foreground dark:text-muted">{dog.name}</h1>
-                            <span className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider ${dog.tag === 'Urgent' ? 'bg-secondary/500 text-white' :
+                            <span className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider ${dog.tag === 'Urgent' ? 'bg-amber-500 text-white' :
                                 dog.tag === 'New' ? 'bg-indigo-500 text-white' : 'bg-green-100 text-green-700 dark:bg-zinc-800 dark:text-green-400'
                                 }`}>
                                 {dog.tag || 'Available'}
                             </span>
                         </div>
-
-                        <p className="text-xl text-muted-foreground dark:text-muted-foreground/80 flex items-center gap-2 mb-6">
-                            <MapPin className="w-5 h-5 text-primary" /> {dog.location}
+                        <p className="text-xl text-primary font-medium flex items-center gap-2">
+                            <MapPin className="w-5 h-5" /> {dog.location}
                         </p>
+                    </div>
 
-                        <div className="grid grid-cols-3 gap-4 border-y border-border dark:border-zinc-800 py-6">
-                            <div className="text-center border-r border-border dark:border-zinc-800 last:border-0">
-                                <span className="block text-xs uppercase tracking-wider text-muted-foreground/80 mb-1">Breed</span>
-                                <span className="font-bold text-foreground dark:text-muted text-sm md:text-base">{dog.breed}</span>
-                            </div>
-                            <div className="text-center border-r border-border dark:border-zinc-800 last:border-0">
-                                <span className="block text-xs uppercase tracking-wider text-muted-foreground/80 mb-1">Age</span>
-                                <span className="font-bold text-foreground dark:text-muted">{dog.age}</span>
-                            </div>
-                            <div className="text-center">
-                                <span className="block text-xs uppercase tracking-wider text-muted-foreground/80 mb-1">Gender</span>
-                                <span className="font-bold text-foreground dark:text-muted">{dog.gender}</span>
-                            </div>
+                    {/* Quick Stats Grid */}
+                    <div className="grid grid-cols-3 gap-4">
+                        <div className="p-4 rounded-2xl bg-secondary/30 dark:bg-zinc-900 border border-border dark:border-zinc-800 text-center">
+                            <span className="block text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">Breed</span>
+                            <span className="font-bold text-foreground dark:text-white line-clamp-1">{dog.breed}</span>
+                        </div>
+                        <div className="p-4 rounded-2xl bg-secondary/30 dark:bg-zinc-900 border border-border dark:border-zinc-800 text-center">
+                            <span className="block text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">Age</span>
+                            <span className="font-bold text-foreground dark:text-white">{dog.age}</span>
+                        </div>
+                        <div className="p-4 rounded-2xl bg-secondary/30 dark:bg-zinc-900 border border-border dark:border-zinc-800 text-center">
+                            <span className="block text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">Gender</span>
+                            <span className="font-bold text-foreground dark:text-white">{dog.gender}</span>
                         </div>
                     </div>
 
-                    <div>
-                        <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-primary dark:text-primary/80">
-                            <Info className="w-5 h-5" /> About {dog.name}
-                        </h3>
-                        <p className="text-muted-foreground dark:text-muted-foreground leading-relaxed text-lg">
-                            {dog.description}
+                    {/* Story / Description */}
+                    <div className="space-y-3">
+                        <h2 className="text-xl font-bold font-heading text-foreground dark:text-white flex items-center gap-2">
+                            <Info className="w-5 h-5 text-primary" /> My Story
+                        </h2>
+                        <p className="text-muted-foreground leading-relaxed text-base">
+                            {dog.description || "A very sweet and loving dog looking for their forever family in Bangladesh."}
                         </p>
-
-                        <div className="mt-6 flex flex-wrap gap-2">
-                            {dog.temperamentTags.map(tag => (
-                                <span key={tag} className="px-3 py-1 bg-muted dark:bg-zinc-800 rounded-lg text-sm text-muted-foreground dark:text-muted-foreground">
-                                    #{tag}
-                                </span>
-                            ))}
-                        </div>
                     </div>
 
-                    <div>
-                        <h3 className="text-xl font-bold mb-4">Medical Status</h3>
-                        <div className="flex flex-wrap gap-3">
-                            {dog.vaccinated && <span className="px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 rounded-lg text-sm font-medium flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Vaccinated</span>}
-                            {dog.neutered && <span className="px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg text-sm font-medium flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Spayed/Neutered</span>}
-                            {dog.goodWithKids ? (
-                                <span className="px-4 py-2 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-400 rounded-lg text-sm font-medium flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Good with Kids</span>
+                    {/* Health & Habits */}
+                    <div className="space-y-3">
+                        <h2 className="text-xl font-bold font-heading text-foreground dark:text-white flex items-center gap-2">
+                            <CheckCircle className="w-5 h-5 text-green-500" /> Health & Habits
+                        </h2>
+                        <div className="flex flex-wrap gap-2">
+                            {isVaccinated && (
+                                <span className="px-4 py-2 bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-400 rounded-lg text-sm font-medium flex items-center gap-2">✓ Vaccinated</span>
+                            )}
+                            {isNeutered && (
+                                <span className="px-4 py-2 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 rounded-lg text-sm font-medium flex items-center gap-2">✓ Neutered/Spayed</span>
+                            )}
+                            {isGoodWithKids ? (
+                                <span className="px-4 py-2 bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-400 rounded-lg text-sm font-medium flex items-center gap-2">✓ Great with Kids</span>
                             ) : (
                                 <span className="px-4 py-2 bg-secondary/50 dark:bg-primary/20 text-primary dark:text-primary rounded-lg text-sm font-medium flex items-center gap-2">Best in quiet home</span>
                             )}
                         </div>
                     </div>
 
-                    <div className="pt-6 border-t border-border dark:border-zinc-800">
+                    <div className="pt-6 border-t border-border dark:border-zinc-800 space-y-6">
                         {/* PetBhai Contextual Upsell */}
-                        <div className="bg-gradient-to-r from-purple-50 to-fuchsia-50 dark:from-purple-900/20 dark:to-fuchsia-900/20 border border-purple-100 dark:border-purple-800/50 p-6 rounded-2xl mb-6 flex items-center justify-between gap-4">
+                        <div className="bg-gradient-to-r from-purple-50 to-fuchsia-50 dark:from-purple-900/20 dark:to-fuchsia-900/20 border border-purple-100 dark:border-purple-800/50 p-6 rounded-2xl flex items-center justify-between gap-4">
                             <div>
                                 <h3 className="text-lg font-bold mb-1 text-purple-900 dark:text-purple-300 flex items-center gap-2">
                                     <ShoppingBag className="w-5 h-5" /> Get Ready for {dog.name}
@@ -133,7 +137,7 @@ export default async function DogDetailPage({ params }: Props) {
                             </a>
                         </div>
 
-                        <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-zinc-900 dark:to-zinc-800 p-6 rounded-2xl mb-8">
+                        <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-zinc-900 dark:to-zinc-800 p-6 rounded-2xl">
                             <h3 className="text-xl font-bold mb-2 font-heading text-stone-800 dark:text-white">Can't adopt right now?</h3>
                             <p className="text-stone-500 dark:text-stone-400 mb-4 text-sm">
                                 You can still be a hero! Sponsor {dog.name}'s meals or medical care.
@@ -142,7 +146,7 @@ export default async function DogDetailPage({ params }: Props) {
                         </div>
 
                         <h3 className="text-2xl font-bold mb-6 font-heading text-foreground dark:text-white">Adopt {dog.name}</h3>
-                        <AdoptionForm dogName={dog.name} />
+                        <AdoptionForm dogName={dog.name} dogId={dog.id} />
                     </div>
                 </div>
             </div>

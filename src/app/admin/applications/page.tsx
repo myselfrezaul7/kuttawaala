@@ -7,7 +7,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2, FileText, CheckCircle, XCircle, Trash, Mail } from "lucide-react";
 import { toast } from "sonner";
-import { formatDistanceToNow } from "date-fns";
+import { safeTimeAgo } from "@/utils/safeDateFormat";
 
 type Application = {
     id: string;
@@ -123,7 +123,7 @@ export default function AdminApplicationsPage() {
                                     </div>
                                     <div className="flex flex-col md:items-end gap-2 w-full md:w-auto">
                                         <p className="text-xs text-muted-foreground font-medium bg-background px-2 py-1 rounded-md border border-border shadow-sm">
-                                            {app.created_at ? formatDistanceToNow(new Date(app.created_at), { addSuffix: true }) : 'Recently'}
+                                            {safeTimeAgo(app.created_at)}
                                         </p>
                                         <div className="flex gap-2 mt-1 md:mt-0 flex-wrap justify-end">
                                             <a href={`mailto:${app.applicantEmail}?subject=Regarding your adoption application for ${app.dogName}`}>

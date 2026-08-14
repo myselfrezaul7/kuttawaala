@@ -63,7 +63,7 @@ export function SponsorshipModal({ dogName }: SponsorshipModalProps) {
     };
 
     return (
-        <Dialog>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
                 <Button className="w-full h-14 text-lg bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-xl shadow-lg shadow-orange-200/50 transition-all hover:scale-105">
                     <Heart className="w-5 h-5 mr-2 fill-white animate-pulse" />

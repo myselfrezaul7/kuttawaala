@@ -7,9 +7,9 @@ export function middleware(request: NextRequest) {
     default-src 'self';
     script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://va.vercel-scripts.com https://apis.google.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-    img-src 'self' blob: data: https://images.unsplash.com https://*.firebaseapp.com https://*.googleapis.com https://lh3.googleusercontent.com https://www.google.com;
+    img-src 'self' blob: data: https://images.unsplash.com https://*.firebaseapp.com https://*.googleapis.com https://lh3.googleusercontent.com https://www.google.com https://*.tile.openstreetmap.org https://*.basemaps.cartocdn.com https://ui-avatars.com;
     font-src 'self' https://fonts.gstatic.com;
-    connect-src 'self' https://firestore.googleapis.com https://*.firebaseio.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firebaseinstallations.googleapis.com;
+    connect-src 'self' https://firestore.googleapis.com https://*.firebaseio.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firebaseinstallations.googleapis.com https://api.web3forms.com;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
@@ -46,7 +46,7 @@ export function middleware(request: NextRequest) {
     response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
     response.headers.set(
         'Permissions-Policy',
-        'camera=(), microphone=(), geolocation=()'
+        'camera=(), microphone=(), geolocation=(self)'
     );
     response.headers.set(
         'Strict-Transport-Security',

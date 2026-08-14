@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { VetService, VetClinic } from "@/services/VetService";
 import { Button } from "@/components/ui/button";
 import { MapPin, Search, Filter, X, Building2, Stethoscope, Loader2, Sparkles } from "lucide-react";
@@ -10,7 +11,9 @@ import { DataErrorState } from "@/components/shared/DataErrorState";
 import { SkeletonGrid } from "@/components/shared/SkeletonCard";
 
 export function VetFinder() {
-    const [searchQuery, setSearchQuery] = useState("");
+    const searchParams = useSearchParams();
+    const initialQuery = searchParams.get("query") || "";
+    const [searchQuery, setSearchQuery] = useState(initialQuery);
     const [selectedDistrict, setSelectedDistrict] = useState<string>("all");
     const [selectedService, setSelectedService] = useState<string>("all");
     const [showEmergencyOnly, setShowEmergencyOnly] = useState(false);
@@ -38,7 +41,7 @@ export function VetFinder() {
 
     // Extract unique districts
     const districts = useMemo(() => {
-        return Array.from(new Set(vets.map(v => v.district))).sort();
+        return Array.from(new Set(vets.map(v => v.district).filter(Boolean))).sort();
     }, [vets]);
 
     // Popular services for chips
@@ -53,15 +56,15 @@ export function VetFinder() {
             const searchTerms = searchLower.split(" ").filter(Boolean);
 
             const matchesSearch = searchQuery === "" || searchTerms.every(term =>
-                vet.name.toLowerCase().includes(term) ||
-                vet.address.toLowerCase().includes(term) ||
-                vet.district.toLowerCase().includes(term) ||
-                vet.services.some(s => s.toLowerCase().includes(term))
+                (vet.name || "").toLowerCase().includes(term) ||
+                (vet.address || "").toLowerCase().includes(term) ||
+                (vet.district || "").toLowerCase().includes(term) ||
+                (vet.services || []).some(s => s?.toLowerCase().includes(term))
             );
 
             const matchesDistrict = selectedDistrict === "all" || vet.district === selectedDistrict;
-            const matchesService = selectedService === "all" || vet.services.some(s => s.toLowerCase().includes(selectedService.toLowerCase()));
-            const matchesEmergency = showEmergencyOnly ? (vet.services.some(s => s.toLowerCase().includes("24") || s.toLowerCase().includes("emergency"))) : true;
+            const matchesService = selectedService === "all" || (vet.services || []).some(s => s?.toLowerCase().includes(selectedService.toLowerCase()));
+            const matchesEmergency = showEmergencyOnly ? ((vet.services || []).some(s => s?.toLowerCase().includes("24") || s?.toLowerCase().includes("emergency")) || (vet.hours || "").toLowerCase().includes("24")) : true;
 
             return matchesSearch && matchesDistrict && matchesService && matchesEmergency;
         });

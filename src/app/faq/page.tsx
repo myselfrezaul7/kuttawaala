@@ -92,6 +92,17 @@ export default function FAQPage() {
         }
     ];
 
+    // Helper to extract plain text from React JSX nodes
+    const extractText = (node: React.ReactNode): string => {
+        if (node == null) return "";
+        if (typeof node === "string" || typeof node === "number") return String(node);
+        if (Array.isArray(node)) return node.map(extractText).join(" ");
+        if (typeof node === "object" && "props" in (node as any) && (node as any).props?.children) {
+            return extractText((node as any).props.children);
+        }
+        return "";
+    };
+
     // Filter Logic
     const filteredCategories = faqData.map(category => {
         // If searching, ignore tabs
@@ -99,7 +110,7 @@ export default function FAQPage() {
             const query = searchQuery.toLowerCase();
             const matchedItems = category.items.filter(item =>
                 item.q.toLowerCase().includes(query) ||
-                (item.a && item.a.toString().toLowerCase().includes(query))
+                extractText(item.a).toLowerCase().includes(query)
             );
             return { ...category, items: matchedItems };
         }

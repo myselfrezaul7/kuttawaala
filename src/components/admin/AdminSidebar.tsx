@@ -14,6 +14,7 @@ export function AdminSidebar() {
         { href: "/admin/applications", label: "Adoptions", icon: FileText },
         { href: "/admin/volunteers", label: "Volunteers", icon: HandHeart },
         { href: "/admin/donations", label: "Donations", icon: DollarSign },
+        { href: "/admin/memorials", label: "Memorials", icon: Heart },
         { href: "/admin/reports", label: "Rescue Reports", icon: AlertTriangle },
         { href: "/admin/users", label: "Users", icon: Users },
         { href: "/admin/dogs", label: "Manage Dogs", icon: Dog },
