@@ -1,11 +1,11 @@
 {
-    "name": "Catwaala",
-    "short_name": "Catwaala",
-    "description": "Adoption & rescue platform for cats in Bangladesh",
+    "name": "Kuttawaala",
+    "short_name": "Kuttawaala",
+    "description": "Dog adoption & rescue platform in Bangladesh",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#f43f5e",
+    "background_color": "#fcfbf9",
+    "theme_color": "#d97706",
     "icons": [
         {
             "src": "/logo.png",

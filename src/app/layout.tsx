@@ -5,6 +5,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { FavoritesProvider } from "@/contexts/FavoritesContext";
 import { Header } from "@/components/layout/Header";
 import { PetBhaiBanner } from "@/components/layout/PetBhaiBanner";
+import { PWAInstallPrompt } from "@/components/layout/PWAInstallPrompt";
 import { Footer } from "@/components/layout/Footer";
 import { EmergencyFAB } from "@/components/shared/EmergencyFAB";
 import "./globals.css";
@@ -22,7 +23,7 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 export const viewport: Viewport = {
-    themeColor: "#f43f5e",
+    themeColor: "#d97706",
     width: "device-width",
     initialScale: 1,
     maximumScale: 1,
@@ -114,7 +115,6 @@ export default function RootLayout({
                             <LanguageProvider>
                                 <RemoteConfigProvider>
                                     <div className="flex flex-col min-h-screen">
-                                        <PetBhaiBanner />
                                         <Header />
                                         <main className="flex-grow pt-24 pb-24 md:pb-0">
                                             <PageTransition>
@@ -123,6 +123,8 @@ export default function RootLayout({
                                         </main>
                                         <Footer />
                                     </div>
+                                    <PetBhaiBanner />
+                                    <PWAInstallPrompt />
                                     <EmergencyFAB />
                                     <Toaster position="top-center" richColors />
                                 </RemoteConfigProvider>
