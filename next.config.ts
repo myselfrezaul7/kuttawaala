@@ -1,6 +1,17 @@
 import type { NextConfig } from "next";
+import withPWAInit from "@ducanh2912/next-pwa";
+
+const withPWA = withPWAInit({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+  register: true,
+  workboxOptions: {
+    skipWaiting: true,
+  },
+});
 
 const nextConfig: NextConfig = {
+  turbopack: {},
   images: {
     remotePatterns: [
       {
@@ -44,7 +55,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=(self)",
+            value: "camera=(self), microphone=(), geolocation=(self)",
           },
         ],
       },
@@ -53,4 +64,4 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
 };
 
-export default nextConfig;
+export default withPWA(nextConfig);

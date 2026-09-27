@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { collection, onSnapshot, deleteDoc, doc, query, orderBy } from "firebase/firestore";
+import { collection, onSnapshot, deleteDoc, updateDoc, doc, query, orderBy } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, Heart, Trash } from "lucide-react";
+import { Loader2, Heart, Trash, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 import { safeTimeAgo } from "@/utils/safeDateFormat";
 import Image from "next/image";
@@ -32,6 +32,18 @@ export default function AdminMemorialsPage() {
 
         return () => unsubscribe();
     }, []);
+
+    const handleApprove = async (id: string) => {
+        try {
+            await updateDoc(doc(db, "memorials", id), {
+                status: "Approved"
+            });
+            toast.success("Memorial approved and live on the wall!");
+        } catch (error) {
+            console.error("Error approving memorial:", error);
+            toast.error("Failed to approve memorial");
+        }
+    };
 
     const handleDelete = async (id: string) => {
         if (!confirm("Delete this memorial permanently? This cannot be undone.")) return;
@@ -81,14 +93,34 @@ export default function AdminMemorialsPage() {
                                                 <h3 className="font-bold text-lg text-foreground truncate">{memorial.pet_name}</h3>
                                                 <p className="text-xs text-muted-foreground">by {memorial.owner_name || "Anonymous"}</p>
                                             </div>
-                                            <Button
-                                                size="icon"
-                                                variant="ghost"
-                                                className="text-rose-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-xl h-9 w-9 opacity-80 group-hover:opacity-100 transition-opacity shrink-0"
-                                                onClick={() => handleDelete(memorial.id)}
-                                            >
-                                                <Trash className="w-4 h-4" />
-                                            </Button>
+                                            <div className="flex items-center gap-2">
+                                                <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${
+                                                    memorial.status === "Approved" 
+                                                        ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                                                        : "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+                                                }`}>
+                                                    {memorial.status || "Pending"}
+                                                </span>
+                                                {memorial.status !== "Approved" && (
+                                                    <Button
+                                                        size="sm"
+                                                        variant="outline"
+                                                        className="h-8 gap-1.5 rounded-xl border-emerald-300 dark:border-emerald-700 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 hover:text-emerald-700 text-xs font-semibold"
+                                                        onClick={() => handleApprove(memorial.id)}
+                                                    >
+                                                        <CheckCircle className="w-3.5 h-3.5" />
+                                                        Approve
+                                                    </Button>
+                                                )}
+                                                <Button
+                                                    size="icon"
+                                                    variant="ghost"
+                                                    className="text-rose-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-xl h-8 w-8 opacity-80 group-hover:opacity-100 transition-opacity shrink-0"
+                                                    onClick={() => handleDelete(memorial.id)}
+                                                >
+                                                    <Trash className="w-4 h-4" />
+                                                </Button>
+                                            </div>
                                         </div>
                                         <p className="text-muted-foreground text-sm italic line-clamp-3 mb-2">
                                             &quot;{memorial.tribute}&quot;

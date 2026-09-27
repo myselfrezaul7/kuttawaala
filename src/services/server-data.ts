@@ -21,6 +21,7 @@ export type Dog = {
     vaccinated: boolean;
     neutered: boolean;
     goodWithKids: boolean;
+    status?: string;
     created_at?: string;
 };
 

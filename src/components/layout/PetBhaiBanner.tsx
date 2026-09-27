@@ -12,14 +12,20 @@ export function PetBhaiBanner() {
         const isDismissed = localStorage.getItem("petbhai-banner-dismissed");
         if (!isDismissed) {
             // Small delay for smooth entrance
-            const timer = setTimeout(() => setIsVisible(true), 600);
+            const timer = setTimeout(() => {
+                setIsVisible(true);
+                window.dispatchEvent(new CustomEvent("petbhai-banner-change", { detail: { isVisible: true } }));
+            }, 600);
             return () => clearTimeout(timer);
+        } else {
+            window.dispatchEvent(new CustomEvent("petbhai-banner-change", { detail: { isVisible: false } }));
         }
     }, []);
 
     const handleDismiss = () => {
         setIsVisible(false);
         localStorage.setItem("petbhai-banner-dismissed", "true");
+        window.dispatchEvent(new CustomEvent("petbhai-banner-change", { detail: { isVisible: false } }));
     };
 
     return (
@@ -31,7 +37,7 @@ export function PetBhaiBanner() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 20, scale: 0.95 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="fixed bottom-24 md:bottom-6 left-4 md:left-6 z-40 max-w-sm print:hidden bg-zinc-900/90 dark:bg-zinc-800/90 backdrop-blur-xl border border-white/10 text-white rounded-full px-4 py-2.5 shadow-2xl flex items-center gap-3"
+                    className="fixed bottom-24 md:bottom-6 left-4 md:left-6 right-20 md:right-auto max-w-[calc(100vw-6rem)] md:max-w-sm z-40 print:hidden bg-zinc-900/90 dark:bg-zinc-800/90 backdrop-blur-xl border border-white/10 text-white rounded-full px-4 py-2.5 shadow-2xl flex items-center gap-3"
                 >
                     <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-600 to-fuchsia-500 flex items-center justify-center shrink-0 shadow-inner">
                         <ShoppingBag className="w-4 h-4 text-white" />

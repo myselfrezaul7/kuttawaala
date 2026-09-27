@@ -23,7 +23,7 @@ export const resources: Resource[] = [
         badge: "Guide",
         readTime: "6 min",
         color: "blue",
-        coverImage: "/assets/puppy-guide.png",
+        coverImage: "/assets/hero-puppies.png",
         content: `
 # Welcome to the Pack!
 

@@ -17,6 +17,27 @@ interface BeforeInstallPromptEvent extends Event {
 export function PWAInstallPrompt() {
     const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
     const [canInstall, setCanInstall] = useState(false);
+    const [isPetBhaiActive, setIsPetBhaiActive] = useState(false);
+
+    useEffect(() => {
+        // Check if PetBhai is active
+        const petBhaiDismissed = localStorage.getItem("petbhai-banner-dismissed");
+        if (!petBhaiDismissed) {
+            setIsPetBhaiActive(true);
+        }
+
+        const handleBannerChange = (e: Event) => {
+            const customEvent = e as CustomEvent<{ isVisible: boolean }>;
+            if (customEvent.detail !== undefined) {
+                setIsPetBhaiActive(customEvent.detail.isVisible);
+            }
+        };
+
+        window.addEventListener("petbhai-banner-change", handleBannerChange);
+        return () => {
+            window.removeEventListener("petbhai-banner-change", handleBannerChange);
+        };
+    }, []);
 
     useEffect(() => {
         // Check if user previously dismissed the prompt
@@ -71,7 +92,9 @@ export function PWAInstallPrompt() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 20, scale: 0.95 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="fixed bottom-24 md:bottom-6 left-4 md:left-6 z-40 max-w-sm print:hidden bg-zinc-900/90 dark:bg-zinc-800/90 backdrop-blur-xl border border-white/10 text-white rounded-full px-4 py-2.5 shadow-2xl flex items-center gap-3"
+                    className={`fixed ${
+                        isPetBhaiActive ? "bottom-[148px] md:bottom-20" : "bottom-24 md:bottom-6"
+                    } left-4 md:left-6 right-20 md:right-auto max-w-[calc(100vw-6rem)] md:max-w-sm z-40 print:hidden bg-zinc-900/90 dark:bg-zinc-800/90 backdrop-blur-xl border border-white/10 text-white rounded-full px-4 py-2.5 shadow-2xl flex items-center gap-3 transition-all duration-300`}
                 >
                     <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 border border-amber-500/40 bg-amber-500/10 flex items-center justify-center">
                         <Image

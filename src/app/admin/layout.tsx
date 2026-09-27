@@ -32,7 +32,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-amber-500/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none" />
             
             <AdminSidebar />
-            <main className="md:ml-64 p-8 relative z-10">
+            <main className="md:ml-64 p-4 pt-16 md:p-8 relative z-10">
                 {children}
             </main>
         </div>

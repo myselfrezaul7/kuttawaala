@@ -9,6 +9,7 @@ import { db, storage } from "@/utils/firebase";
 import { Button } from "@/components/ui/button";
 import { X, Camera, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { ProfileService } from "@/services/ProfileService";
 
 export function ProfileModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
     const { user, userData } = useAuth();
@@ -34,20 +35,7 @@ export function ProfileModal({ isOpen, onClose }: { isOpen: boolean, onClose: ()
 
             // 1. Upload new photo if selected
             if (imageFile) {
-                const storageRef = ref(storage, `users/${user.uid}/profile_${Date.now()}`);
-                const uploadTask = uploadBytesResumable(storageRef, imageFile);
-
-                photoURL = await new Promise((resolve, reject) => {
-                    uploadTask.on(
-                        "state_changed",
-                        () => { },
-                        (error) => reject(error),
-                        async () => {
-                            const url = await getDownloadURL(uploadTask.snapshot.ref);
-                            resolve(url);
-                        }
-                    );
-                });
+                photoURL = await ProfileService.uploadAvatar(user.uid, imageFile);
             }
 
             // 2. Update Auth Profile
@@ -62,7 +50,7 @@ export function ProfileModal({ isOpen, onClose }: { isOpen: boolean, onClose: ()
             await updateDoc(doc(db, "users", user.uid), {
                 name: name,
                 phone: phone,
-                photoURL: photoURL
+                avatar_url: photoURL,
             });
 
             toast.success("Profile updated successfully!");

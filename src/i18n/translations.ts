@@ -11,13 +11,21 @@ export const translations = {
             dashboard: "Dashboard",
             login: "Login",
             search: "Search",
-            theme: "Theme"
+            theme: "Theme",
+            shop: "Shop",
+            more: "More"
         },
         hero: {
             title: "Save a Stray, Gain a Friend",
             subtitle: "Every dog deserves a loving home. Join us in making a difference.",
             cta_adopt: "Adopt Now",
             cta_donate: "Donate"
+        },
+        community: {
+            hub: "Community Hub",
+            title: "Kuttawaala Community Hub",
+            subtitle: "Join our pack of dog lovers in Dhaka. From adoption drives to doggy day outs, there's always something happening!",
+            join_fb: "Visit Facebook Community"
         },
         footer: {
             about: "Non-Profit Animal Welfare Organization",
@@ -38,13 +46,21 @@ export const translations = {
             dashboard: "ড্যাশবোর্ড",
             login: "লগইন",
             search: "অনুসন্ধান",
-            theme: "থিম"
+            theme: "থিম",
+            shop: "শপ",
+            more: "আরও"
         },
         hero: {
             title: "একটি পথশিশু কুকুরকে বাঁচান, একটি বন্ধু পান",
             subtitle: "প্রতিটি কুকুর একটি সুন্দর আবাসের যোগ্য। আমাদের সাথে যোগ দিন।",
             cta_adopt: "দত্তক নিন",
             cta_donate: "দান করুন"
+        },
+        community: {
+            hub: "কমিউনিটি হাব",
+            title: "কুত্তাওয়ালা কমিউনিটি হাব",
+            subtitle: "ঢাকায় আমাদের কুকুরপ্রেমীদের দলে যোগ দিন। অ্যাডপশন ক্যাম্প থেকে পেট মিটআপ, সবসময়ই কিছু না কিছু আয়োজন থাকে!",
+            join_fb: "ফেসবুক কমিউনিটিতে যুক্ত হোন"
         },
         footer: {
             about: "অলাভজনক প্রাণী কল্যাণ সংস্থা",

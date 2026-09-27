@@ -66,7 +66,7 @@ export const ProfileService = {
         }
     },
 
-    async uploadAvatar(file: File): Promise<string> {
+    async uploadAvatar(userId: string, file: File): Promise<string> {
         if (!file.type.startsWith("image/")) {
             throw new Error("Invalid file type. Only images are allowed for avatars.");
         }
@@ -83,8 +83,7 @@ export const ProfileService = {
         }
 
         try {
-            const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-            const storageRef = ref(storage, `avatars/${fileName}`);
+            const storageRef = ref(storage, `avatars/${userId}/${file.name}`);
 
             await uploadBytes(storageRef, file);
             return await getDownloadURL(storageRef);

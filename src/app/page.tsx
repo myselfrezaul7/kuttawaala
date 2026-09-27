@@ -1,11 +1,12 @@
 "use client";
 
 import { Hero } from "@/components/home/Hero";
+import { FeaturedDogs } from "@/components/home/FeaturedDogs";
 import { PromoPetBhai } from "@/components/home/PromoPetBhai";
 import { SuccessStories } from "@/components/home/SuccessStories";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Sparkles, Heart, Users, Stethoscope, ArrowRight, Cat } from "lucide-react";
+import { Sparkles, Heart, Users, Stethoscope, ArrowRight, Dog } from "lucide-react";
 import { motion } from "framer-motion";
 import { BeforeAfterSlider } from "@/components/shared/BeforeAfterSlider";
 
@@ -15,6 +16,11 @@ export default function Home() {
     return (
         <div className="flex flex-col min-h-screen bg-background">
             <Hero />
+
+            {/* Featured Dogs Section */}
+            <section className="py-12 md:py-20 bg-secondary/20 dark:bg-stone-900/20">
+                <FeaturedDogs />
+            </section>
 
             {/* PetBhai Integration Promo */}
             <PromoPetBhai />

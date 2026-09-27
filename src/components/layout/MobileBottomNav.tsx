@@ -19,7 +19,7 @@ export function MobileBottomNav({ onMoreTap, isMenuOpen }: MobileBottomNavProps)
         { name: t.nav.home, href: "/", icon: Home },
         { name: t.nav.adopt, href: "/adopt", icon: Dog },
         { name: t.nav.report, href: "/report", icon: AlertTriangle },
-        { name: "Shop", href: "https://www.petbhai.com", icon: ShoppingBag, external: true },
+        { name: t.nav.shop || "Shop", href: "https://www.petbhai.com", icon: ShoppingBag, external: true },
     ];
 
     return (
@@ -66,7 +66,7 @@ export function MobileBottomNav({ onMoreTap, isMenuOpen }: MobileBottomNavProps)
                             <Menu className={`w-5 h-5 transition-colors duration-300 ${isMenuOpen ? 'text-primary' : 'text-muted-foreground'}`} />
                         )}
                         <span className={`text-[10px] font-bold mt-1 uppercase tracking-wider transition-colors duration-300 ${isMenuOpen ? 'text-primary' : 'text-muted-foreground'}`}>
-                            More
+                            {t.nav.more || "More"}
                         </span>
                     </motion.div>
                 </button>

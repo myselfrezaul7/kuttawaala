@@ -12,6 +12,7 @@ export type Dog = {
     vaccinated: boolean;
     neutered: boolean;
     goodWithKids: boolean;
+    status?: string;
 };
 
 export const dogs: Dog[] = [
@@ -67,7 +68,7 @@ export const dogs: Dog[] = [
         age: '5 weeks',
         gender: 'Female',
         location: "Mirpur, Dhaka",
-        description: 'Mishti is a sweet 5-week-old puppy learning to take her first wobbly steps! She loves soft belly rubs and purrs in her own little puppy way.',
+        description: 'Mishti is a sweet 5-week-old puppy learning to take her first wobbly steps! She loves soft belly rubs and wags her tail in her own little puppy way.',
         imageUrl: '/assets/dog_success_1.png',
         tag: 'Adopted',
         temperamentTags: ['Puppy', 'Playful', 'Wobbly Steps', 'Apartment Friendly'],

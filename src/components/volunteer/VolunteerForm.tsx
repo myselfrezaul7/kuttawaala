@@ -96,7 +96,7 @@ export function VolunteerForm() {
                         Join the Rescue Team
                     </h1>
                     <p className="text-xl text-muted-foreground dark:text-muted-foreground/80 max-w-2xl mx-auto leading-relaxed">
-                        We need more hands to pet dogs (and scoop litter). Whether you can foster, transport, or help with events, we have a spot for you.
+                        We need more hands to pet dogs (and kennel cleaning & enrichment). Whether you can foster, transport, or help with events, we have a spot for you.
                     </p>
                 </div>
 
@@ -114,7 +114,8 @@ export function VolunteerForm() {
                                 "Make a direct impact on animal welfare in Dhaka.",
                                 "Gain experience in rescue operations and care.",
                                 "Join a community of passionate animal lovers.",
-                                "Unlimited purrs and headbutts (guaranteed)."
+                                "Walking shelter dogs & wagging tails (guaranteed).",
+                                "Help shy dogs feel safe in loving environments."
                             ].map((item, index) => (
                                 <li key={index} className="flex gap-4 items-start text-muted-foreground font-medium text-lg group">
                                     <div className="w-2 h-2 rounded-full bg-amber-500 mt-2.5 shrink-0 group-hover:scale-150 transition-transform duration-300" />

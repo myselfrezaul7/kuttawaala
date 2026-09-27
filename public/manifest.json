@@ -1,21 +1,26 @@
 {
+    "id": "/",
+    "scope": "/",
     "name": "Kuttawaala",
     "short_name": "Kuttawaala",
     "description": "Dog adoption & rescue platform in Bangladesh",
     "start_url": "/",
     "display": "standalone",
+    "orientation": "portrait-primary",
     "background_color": "#fcfbf9",
     "theme_color": "#d97706",
     "icons": [
         {
             "src": "/logo.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "maskable any"
         },
         {
             "src": "/logo.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "maskable any"
         }
     ]
 }

@@ -57,7 +57,7 @@ export function DogForm({ initialData, onSuccess, onCancel }: DogFormProps) {
 
             // 1. Upload new image if selected
             if (imageFile) {
-                const storageRef = ref(storage, `dogs/${Date.now()}_${imageFile.name}`);
+                const storageRef = ref(storage, `dog-images/${Date.now()}_${imageFile.name}`);
                 const uploadTask = uploadBytesResumable(storageRef, imageFile);
 
                 finalImageUrl = await new Promise((resolve, reject) => {
@@ -85,6 +85,7 @@ export function DogForm({ initialData, onSuccess, onCancel }: DogFormProps) {
                 location: formData.location,
                 description: formData.description,
                 imageUrl: finalImageUrl,
+                status: initialData?.status || "Available",
                 tag: formData.tag === "Available" ? "" : formData.tag, // Firebase doesn't like strict nulls sometimes without proper rules, use empty string
                 temperamentTags: formData.temperamentTags.split(",").map(t => t.trim()).filter(Boolean),
                 vaccinated: formData.vaccinated,
