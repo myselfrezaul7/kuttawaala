@@ -1,11 +1,31 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Heart, ArrowRight, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RemoteConfigService } from "@/services/RemoteConfigService";
+
+const HeroDogCanvas = dynamic(
+    () => import("@/components/3d/HeroDogCanvas").then((mod) => mod.HeroDogCanvas),
+    {
+        ssr: false,
+        loading: () => (
+            <Image
+                src="/assets/hero-dog.jpg"
+                alt="Small native Bangladeshi Desi stray dog"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                priority
+                placeholder="blur"
+                blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY0Ii8+PC9zdmc+"
+            />
+        ),
+    }
+);
 
 export function Hero() {
     return (
@@ -97,17 +117,8 @@ export function Hero() {
                     transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
                     className="relative order-1 lg:order-2 flex justify-center"
                 >
-                    <div className="relative w-full max-w-md aspect-[3/4] rounded-t-full rounded-b-[200px] overflow-hidden border-8 border-white/50 dark:border-white/10 shadow-2xl bg-secondary flex items-center justify-center">
-                        <Image
-                            src="/assets/hero-dog.jpg"
-                            alt="Small native Bangladeshi Desi stray dog"
-                            fill
-                            className="object-cover"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            priority
-                            placeholder="blur"
-                            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY0Ii8+PC9zdmc+"
-                        />
+                    <div className="relative w-full max-w-md aspect-[3/4] rounded-t-full rounded-b-[200px] overflow-hidden border-8 border-white/50 dark:border-white/10 shadow-2xl bg-gradient-to-b from-amber-100/50 via-secondary/40 to-amber-200/40 dark:from-zinc-900 dark:via-zinc-900/90 dark:to-zinc-950 flex items-center justify-center">
+                        <HeroDogCanvas />
 
                         {/* Floating badge */}
                         <motion.div

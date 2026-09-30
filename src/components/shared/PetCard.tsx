@@ -1,18 +1,25 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Heart, MapPin, Sparkles, Dog } from "lucide-react";
+import { Heart, MapPin, Dog, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFavorites } from "@/contexts/FavoritesContext";
 import { motion } from "framer-motion";
 import { type Dog as DogType } from "@/data/dogs";
+import { ShareModal } from "@/components/shared/ShareModal";
 
 interface DogProps extends DogType { }
 
 export function PetCard({ dog }: { dog: DogProps }) {
     const { isFavorite, toggleFavorite } = useFavorites();
+    const [isShareOpen, setIsShareOpen] = useState(false);
     const favorite = isFavorite(dog.id);
+
+    const shareUrl = typeof window !== "undefined"
+        ? `${window.location.origin}/adopt/${dog.id}`
+        : `https://www.kuttawaala.com/adopt/${dog.id}`;
 
     return (
         <motion.div
@@ -33,20 +40,34 @@ export function PetCard({ dog }: { dog: DogProps }) {
                 {/* Sophisticated gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                {/* Favorite button with glass effect */}
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        toggleFavorite(dog.id);
-                    }}
-                    className={`absolute top-4 right-4 p-3 rounded-full backdrop-blur-md border border-white/10 transition-all duration-300 ${favorite
-                        ? "bg-rose-500 text-white shadow-lg shadow-rose-500/30"
-                        : "bg-black/20 text-white hover:bg-white/20 hover:scale-110"
-                        }`}
-                >
-                    <Heart className={`w-5 h-5 transition-transform duration-300 ${favorite ? "fill-current" : ""}`} />
-                </button>
+                {/* Action buttons: Share & Favorite with glass effect */}
+                <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setIsShareOpen(true);
+                        }}
+                        aria-label={`Share ${dog.name}'s profile`}
+                        className="p-3 rounded-full backdrop-blur-md border border-white/10 bg-black/20 text-white hover:bg-white/20 hover:scale-110 transition-all duration-300"
+                    >
+                        <Share2 className="w-5 h-5" />
+                    </button>
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            toggleFavorite(dog.id);
+                        }}
+                        aria-label={favorite ? "Remove from favorites" : "Save to favorites"}
+                        className={`p-3 rounded-full backdrop-blur-md border border-white/10 transition-all duration-300 ${favorite
+                            ? "bg-rose-500 text-white shadow-lg shadow-rose-500/30"
+                            : "bg-black/20 text-white hover:bg-white/20 hover:scale-110"
+                            }`}
+                    >
+                        <Heart className={`w-5 h-5 transition-transform duration-300 ${favorite ? "fill-current" : ""}`} />
+                    </button>
+                </div>
 
                 {/* Tag badge with glass effect */}
                 {dog.tag && (
@@ -90,6 +111,14 @@ export function PetCard({ dog }: { dog: DogProps }) {
                     </Button>
                 </Link>
             </div>
+
+            <ShareModal
+                isOpen={isShareOpen}
+                onClose={() => setIsShareOpen(false)}
+                title={`Adopt ${dog.name} | Kuttawaala`}
+                text={`Meet ${dog.name} (${dog.breed}, ${dog.age}), looking for a forever home in ${dog.location}! 🐾`}
+                url={shareUrl}
+            />
         </motion.div>
     );
 }

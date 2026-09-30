@@ -1,12 +1,14 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
 import { dogs } from "@/data/dogs";
 import { DogService } from "@/services/DogService";
 import { Button } from "@/components/ui/button";
-import { MapPin, Info, CheckCircle, ArrowLeft, Share2, Heart, ShoppingBag } from "lucide-react";
+import { MapPin, Info, CheckCircle, ArrowLeft, ShoppingBag } from "lucide-react";
 import { AdoptionForm } from "@/components/adopt/AdoptionForm";
 import { SponsorshipModal } from "@/components/adopt/SponsorshipModal";
+import { DogDetailActions } from "@/components/adopt/DogDetailActions";
 
 type Props = {
     params: Promise<{ id: string }>;
@@ -15,9 +17,58 @@ type Props = {
 // Revalidate page data every 60 seconds (ISR)
 export const revalidate = 60;
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { id } = await params;
+    const dog = (await DogService.getById(id)) || dogs.find((c) => c.id === id);
+
+    if (!dog) {
+        return {
+            title: "Dog Not Found | Kuttawaala",
+            description: "The dog you are looking for is no longer available or does not exist.",
+        };
+    }
+
+    const baseUrl = "https://www.kuttawaala.com";
+    const imageUrl = dog.imageUrl?.startsWith("http")
+        ? dog.imageUrl
+        : `${baseUrl}${dog.imageUrl?.startsWith("/") ? "" : "/"}${dog.imageUrl || "assets/hero-dog.jpg"}`;
+    const pageUrl = `${baseUrl}/adopt/${dog.id}`;
+    const title = `Adopt ${dog.name} - ${dog.breed} in ${dog.location} | Kuttawaala`;
+    const description =
+        dog.description ||
+        `Meet ${dog.name}, a friendly ${dog.breed} looking for a loving home in ${dog.location}, Bangladesh. Adopt don't shop!`;
+
+    return {
+        title,
+        description,
+        openGraph: {
+            title,
+            description,
+            url: pageUrl,
+            siteName: "Kuttawaala",
+            type: "website",
+            images: [
+                {
+                    url: imageUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: dog.name,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+            images: [imageUrl],
+            creator: "@kuttawaala",
+        },
+    };
+}
+
 export default async function DogDetailPage({ params }: Props) {
     const { id } = await params;
-    const dog = (await DogService.getById(id)) || dogs.find(c => c.id === id);
+    const dog = (await DogService.getById(id)) || dogs.find((c) => c.id === id);
 
     if (!dog) {
         return notFound();
@@ -43,14 +94,7 @@ export default async function DogDetailPage({ params }: Props) {
                 <div className="space-y-4">
                     <div className="relative aspect-[4/5] md:aspect-square rounded-3xl overflow-hidden border border-border dark:border-zinc-800 shadow-xl shadow-secondary/50 dark:shadow-none">
                         <Image src={dog.imageUrl} alt={dog.name} fill className="object-cover" priority sizes="(max-width: 768px) 100vw, 50vw" />
-                        <div className="absolute top-4 right-4 flex gap-2">
-                            <button className="p-3 bg-white/90 rounded-full shadow-md text-muted-foreground/80 hover:text-primary transition-colors">
-                                <Heart className="w-5 h-5" />
-                            </button>
-                            <button className="p-3 bg-white/90 rounded-full shadow-md text-muted-foreground/80 hover:text-blue-500 transition-colors">
-                                <Share2 className="w-5 h-5" />
-                            </button>
-                        </div>
+                        <DogDetailActions dog={dog} />
                     </div>
                 </div>
 

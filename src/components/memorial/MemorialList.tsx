@@ -108,12 +108,16 @@ export function MemorialList() {
             [id]: (prev[id] || 0) + 1
         }));
         setLitCandles(prev => [...prev, id]);
+
+        if (typeof window !== "undefined") {
+            window.dispatchEvent(new CustomEvent("kuttawaala:light-candle", { detail: { id } }));
+        }
     };
 
     return (
         <div className="min-h-screen pb-24 relative overflow-hidden bg-[#FFFDF8] dark:bg-zinc-950">
             {/* Header section */}
-            <div className="relative pt-32 pb-16 px-4 bg-gradient-to-b from-orange-100/50 to-transparent dark:from-zinc-900 dark:to-transparent text-center">
+            <div className="relative pt-12 md:pt-16 pb-16 px-4 bg-gradient-to-b from-orange-100/50 to-transparent dark:from-zinc-900 dark:to-transparent text-center">
                 <div className="container mx-auto max-w-3xl">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 dark:bg-zinc-800 text-orange-600 dark:text-orange-400 font-semibold text-sm mb-6">
                         <Sparkles className="w-4 h-4" /> Rainbow Bridge Memorial

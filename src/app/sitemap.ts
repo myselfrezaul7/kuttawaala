@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { DogService } from "@/services/DogService";
+import { resources } from "@/data/resources";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = "https://www.kuttawaala.com"; // Replace with actual domain
@@ -11,6 +12,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(dog.created_at || new Date()),
         changeFrequency: "weekly",
         priority: 0.8,
+    }));
+
+    const resourceUrls: MetadataRoute.Sitemap = resources.map((r) => ({
+        url: `${baseUrl}/resources/${r.slug}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.7,
     }));
 
     return [
@@ -56,6 +64,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: "monthly",
             priority: 0.5,
         },
+        {
+            url: `${baseUrl}/donate`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
+            url: `${baseUrl}/community`,
+            lastModified: new Date(),
+            changeFrequency: "weekly",
+            priority: 0.8,
+        },
+        {
+            url: `${baseUrl}/quiz`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
+        ...resourceUrls,
         ...dogUrls,
     ];
 }
