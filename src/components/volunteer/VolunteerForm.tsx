@@ -9,6 +9,7 @@ import { submitToWeb3Forms } from "@/lib/web3forms";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { volunteerSchema, type VolunteerSchema } from "@/lib/schemas";
+import { sanitizeInput } from "@/lib/validation";
 import confetti from "canvas-confetti";
 
 export function VolunteerForm() {
@@ -32,11 +33,17 @@ export function VolunteerForm() {
 
         // 1. Save to Firestore (primary)
         try {
-            await addDoc(collection(db, "volunteers"), {
+            const sanitizedData = {
                 ...data,
+                name: sanitizeInput(data.name || ""),
+                email: sanitizeInput(data.email || ""),
+                phone: sanitizeInput(data.phone || ""),
+                interest: sanitizeInput(data.interest || ""),
+                message: data.message ? sanitizeInput(data.message) : "",
                 status: "Pending",
                 created_at: new Date().toISOString()
-            });
+            };
+            await addDoc(collection(db, "volunteers"), sanitizedData);
         } catch (e) {
             console.error("Failed to save volunteer app to Firestore", e);
             setServerError("Something went wrong. Please try again.");

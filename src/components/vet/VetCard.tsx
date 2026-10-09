@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Phone, Clock, ExternalLink, Star } from "lucide-react";
+import { MapPin, Phone, Clock, ExternalLink, Star, Globe } from "lucide-react";
 import { VetClinic } from "@/services/VetService";
+import { isSafeUrl } from "@/lib/validation";
 
 interface VetCardProps {
     vet: VetClinic;
@@ -65,6 +66,19 @@ export function VetCard({ vet, index = 0 }: VetCardProps) {
                             {vet.hours || "Hours unavailable"}
                         </p>
                     </div>
+                    {vet.website && isSafeUrl(vet.website) && (
+                        <div className="flex items-center gap-3">
+                            <Globe className="w-4 h-4 text-primary shrink-0" />
+                            <a
+                                href={vet.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-medium hover:underline text-primary truncate max-w-[200px]"
+                            >
+                                {vet.website.replace(/^https?:\/\/(www\.)?/, '')}
+                            </a>
+                        </div>
+                    )}
                 </div>
 
                 {/* Services */}

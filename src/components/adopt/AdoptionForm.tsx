@@ -9,6 +9,7 @@ import { adoptionSchema, type AdoptionSchema } from "@/lib/schemas";
 import { useAuth } from "@/contexts/AuthContext";
 import { db } from "@/utils/firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { sanitizeInput } from "@/lib/validation";
 
 export function AdoptionForm({ dogName, dogId }: { dogName: string; dogId?: string }) {
     const { user } = useAuth();
@@ -37,14 +38,14 @@ export function AdoptionForm({ dogName, dogId }: { dogName: string; dogId?: stri
             // Save to Firebase for tracking
             try {
                 await addDoc(collection(db, "adoptions"), {
-                    dogId: dogId || "",
-                    dogName: dogName,
-                    applicantName: data.name,
-                    applicantEmail: data.email || "",
-                    applicantPhone: data.phone,
+                    dogId: dogId ? sanitizeInput(dogId) : "",
+                    dogName: sanitizeInput(dogName),
+                    applicantName: sanitizeInput(data.name),
+                    applicantEmail: data.email ? sanitizeInput(data.email) : "",
+                    applicantPhone: sanitizeInput(data.phone),
                     status: "Pending",
                     created_at: Date.now(),
-                    experience: data.message,
+                    experience: data.message ? sanitizeInput(data.message) : "",
                     userId: user?.uid || null,
                 });
             } catch (e) {

@@ -146,10 +146,10 @@ export function ReportForm() {
                 message: `
                     <strong>Type:</strong> ${data.type} <br/>
                     <strong>Location:</strong> ${escapeHtml(data.locationDetails)} <br/>
-                    <strong>Coordinates:</strong> <a href="https://www.google.com/maps?q=${data.latitude},${data.longitude}">${data.latitude}, ${data.longitude}</a> <br/>
+                    <strong>Coordinates:</strong> <a href="https://www.google.com/maps?q=${data.latitude},${data.longitude}" target="_blank" rel="noopener noreferrer">${data.latitude}, ${data.longitude}</a> <br/>
                     <strong>Description:</strong> ${escapeHtml(data.description)} <br/>
                     <strong>Contact:</strong> ${escapeHtml(data.contact)} <br/>
-                    <strong>Image:</strong> ${imageUrl ? `<a href="${imageUrl}">View Image</a>` : "No image uploaded"}
+                    <strong>Image:</strong> ${imageUrl ? `<a href="${imageUrl}" target="_blank" rel="noopener noreferrer">View Image</a>` : "No image uploaded"}
                 `,
                 // Web3Forms specific fields to make the email look better
                 from_name: "Kuttawaala Reporter",

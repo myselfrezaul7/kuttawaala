@@ -7,6 +7,7 @@ import { auth, db } from "@/utils/firebase";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { friendlyAuthMessage } from "@/utils/friendlyErrors";
+import { rateLimiter } from "@/lib/rate-limit";
 
 export type UserData = {
     email: string;
@@ -94,13 +95,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     const signInWithEmail = async (email: string, password: string) => {
+        const normalizedEmail = (email || "").trim().toLowerCase();
+        const emailKey = `auth_login_${normalizedEmail || 'anonymous'}`;
+        const clientKey = "auth_login_client";
+
+        // Check if user or client is currently locked out under cooldown
+        const emailLock = rateLimiter.isLocked(emailKey);
+        const clientLock = rateLimiter.isLocked(clientKey);
+
+        if (emailLock.locked || clientLock.locked) {
+            toast.error("Too many failed login attempts. Please wait 1 minute before trying again.");
+            throw new Error("Too many failed login attempts. Please wait 1 minute before trying again.");
+        }
+
         try {
             await signInWithEmailAndPassword(auth, email, password);
+            // Reset failed login counter and lockout on successful login
+            rateLimiter.reset(emailKey);
+            rateLimiter.reset(clientKey);
             toast.success("Welcome back!");
             router.push("/dashboard");
         } catch (error: any) {
             console.error("Login error", error);
-            toast.error(friendlyAuthMessage(error.code));
+            // Track failed attempts: 5 failures within 5 minutes triggers 60-second cooldown
+            const emailFail = rateLimiter.recordFailure(emailKey, 5, 5 * 60 * 1000, 60 * 1000);
+            const clientFail = rateLimiter.recordFailure(clientKey, 5, 5 * 60 * 1000, 60 * 1000);
+
+            if (emailFail.locked || clientFail.locked) {
+                toast.error("Too many failed login attempts. Please wait 1 minute before trying again.");
+            } else {
+                toast.error(friendlyAuthMessage(error.code));
+            }
             throw error;
         }
     };
