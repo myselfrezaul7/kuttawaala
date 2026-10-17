@@ -62,7 +62,7 @@ export default function AdminDogsPage() {
                 gender: 'Female',
                 location: "Dhanmondi, Dhaka",
                 description: 'Mimi is the queen of her neighborhood.',
-                imageUrl: '/assets/dog1.jpg',
+                imageUrl: '/assets/dog_success_1.png',
                 tag: 'Urgent',
                 temperamentTags: ['Smart', 'Affectionate'],
                 vaccinated: true,

@@ -155,11 +155,12 @@ export function MemorialList() {
                                                 src={memorial.image_url}
                                                 alt={memorial.pet_name}
                                                 fill
+                                                sizes="(max-width: 750px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                                 className="object-cover"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                                             <div className="absolute bottom-4 left-4 text-white">
-                                                <h3 className="text-2xl font-bold font-heading">{memorial.pet_name}</h3>
+                                                <h2 className="text-2xl font-bold font-heading">{memorial.pet_name}</h2>
                                             </div>
                                         </div>
                                     ) : (
@@ -167,7 +168,7 @@ export function MemorialList() {
                                             <div className="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-zinc-800 flex items-center justify-center text-orange-500">
                                                 <Heart className="w-6 h-6 fill-orange-500" />
                                             </div>
-                                            <h3 className="text-2xl font-bold font-heading text-foreground dark:text-white">{memorial.pet_name}</h3>
+                                            <h2 className="text-2xl font-bold font-heading text-foreground dark:text-white">{memorial.pet_name}</h2>
                                         </div>
                                     )}
 

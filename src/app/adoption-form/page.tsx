@@ -9,7 +9,7 @@ export default function AdoptionFormPage() {
     };
 
     return (
-        <div className="min-h-screen bg-white text-black p-8 md:p-12 font-sans print:p-0">
+        <div className="min-h-screen bg-white text-black p-4 sm:p-8 md:p-12 font-sans print:p-0">
             {/* Print Button (Hidden when printing) */}
             <div className="max-w-[210mm] mx-auto mb-8 print:hidden flex flex-col items-end gap-2">
                 <Button onClick={handlePrint} className="bg-primary hover:bg-primary/90 text-white gap-2 px-8 py-6 text-lg font-bold rounded-xl shadow-lg shadow-primary/20">
@@ -37,7 +37,7 @@ export default function AdoptionFormPage() {
                 {/* Section 1: Adopter Information */}
                 <section className="mb-8">
                     <h2 className="text-xl font-bold uppercase bg-gray-100 p-2 mb-4 border border-gray-300">1. Adopter Information</h2>
-                    <div className="grid grid-cols-2 gap-6 text-sm">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 print:grid-cols-2 gap-6 text-sm">
                         <div className="space-y-4">
                             <div>
                                 <label className="block font-bold mb-1">Full Name:</label>
@@ -78,7 +78,7 @@ export default function AdoptionFormPage() {
                 <section className="mb-8">
                     <h2 className="text-xl font-bold uppercase bg-gray-100 p-2 mb-4 border border-gray-300">2. Home Environment</h2>
                     <div className="space-y-4 text-sm">
-                        <div className="grid grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 print:grid-cols-2 gap-6">
                             <div>
                                 <label className="block font-bold mb-1">Type of Residence:</label>
                                 <div className="flex gap-4 mt-1">
@@ -162,7 +162,7 @@ export default function AdoptionFormPage() {
                 </section>
 
                 {/* Signatures */}
-                <section className="grid grid-cols-2 gap-12 mt-20">
+                <section className="grid grid-cols-1 sm:grid-cols-2 print:grid-cols-2 gap-8 sm:gap-12 mt-12 sm:mt-20">
                     <div>
                         <div className="border-t border-black pt-2 text-center">
                             <p className="font-bold">Signature of Adopter</p>

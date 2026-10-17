@@ -385,7 +385,7 @@ export function RainbowBridgeCanvas() {
             />
 
             {/* Overlay Header Elements */}
-            <div className="relative z-10 p-6 md:p-8 flex items-center justify-between w-full pointer-events-auto">
+            <div className="relative z-10 p-4 sm:p-6 md:p-8 flex flex-wrap items-center justify-between gap-2 w-full pointer-events-auto">
                 <div className="flex items-center gap-3 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-amber-500/20 text-xs md:text-sm text-amber-200">
                     <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
                     <span>Sky Sanctuary • <strong>{lanternCount}</strong> Lanterns Floating</span>

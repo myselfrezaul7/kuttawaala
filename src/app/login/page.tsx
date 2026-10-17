@@ -137,7 +137,7 @@ export default function LoginPage() {
 
 
 
-            <div className="max-w-md w-full bg-white dark:bg-zinc-900/60 rounded-3xl shadow-2xl p-8 border border-border/50 dark:border-zinc-800 relative z-10 backdrop-blur-xl">
+            <div className="max-w-md w-full bg-white dark:bg-zinc-900/60 rounded-3xl shadow-2xl p-5 sm:p-8 border border-border/50 dark:border-zinc-800 relative z-10 backdrop-blur-xl">
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold mb-2 font-heading text-foreground dark:text-white">
                         {isSignUp ? "Join the Pack" : "Welcome Back"}
@@ -237,13 +237,15 @@ export default function LoginPage() {
 
                         <div className="flex justify-center pt-2 overflow-hidden max-w-full">
                             {!useMathChallenge ? (
-                                <ReCAPTCHA
-                                    ref={recaptchaRef}
-                                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LchaGgsAAAAAE-tlzeD1ApfHA2C6C-nM9Os41bf"}
-                                    onChange={setCaptchaValue}
-                                    theme="light"
-                                    onError={handleRecaptchaError}
-                                />
+                                <div className="scale-[0.85] sm:scale-100 origin-center">
+                                    <ReCAPTCHA
+                                        ref={recaptchaRef}
+                                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LchaGgsAAAAAE-tlzeD1ApfHA2C6C-nM9Os41bf"}
+                                        onChange={setCaptchaValue}
+                                        theme="light"
+                                        onError={handleRecaptchaError}
+                                    />
+                                </div>
                             ) : (
                                 <div className="text-center space-y-3 w-full">
                                     <div className="bg-muted/30 p-4 rounded-xl border border-border shadow-sm">

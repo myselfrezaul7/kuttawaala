@@ -1,13 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Calendar, MapPin, Clock, Star, Download, ChevronRight, Users, Heart, Facebook, FileText } from "lucide-react";
+import { Calendar, Star, ChevronRight, Users, Facebook, FileText } from "lucide-react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { resources } from "@/data/resources";
 
 export default function CommunityPage() {
@@ -16,7 +12,7 @@ export default function CommunityPage() {
             {/* Header */}
             {/* Ideally Header is in layout, but putting here if needed or assuming layout wraps it */}
 
-            <main className="flex-1 pb-24">
+            <div className="flex-1 pb-24">
                 {/* Hero Section */}
                 <section className="relative pt-24 md:pt-32 pb-12 md:pb-20 px-4 overflow-hidden">
                     <div className="absolute top-0 inset-x-0 h-96 bg-gradient-to-b from-orange-100/50 to-transparent dark:from-orange-900/20 pointer-events-none" />
@@ -176,7 +172,7 @@ export default function CommunityPage() {
                         </Link>
                     </section>
                 </div>
-            </main>
+            </div>
         </div>
     );
 }

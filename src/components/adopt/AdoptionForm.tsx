@@ -7,9 +7,7 @@ import { Button } from "@/components/ui/button";
 import { submitToWeb3Forms } from "@/lib/web3forms";
 import { adoptionSchema, type AdoptionSchema } from "@/lib/schemas";
 import { useAuth } from "@/contexts/AuthContext";
-import { db } from "@/utils/firebase";
-import { collection, addDoc } from "firebase/firestore";
-import { sanitizeInput } from "@/lib/validation";
+import { AdoptionService } from "@/services/AdoptionService";
 
 export function AdoptionForm({ dogName, dogId }: { dogName: string; dogId?: string }) {
     const { user } = useAuth();
@@ -37,15 +35,13 @@ export function AdoptionForm({ dogName, dogId }: { dogName: string; dogId?: stri
         if (result.success) {
             // Save to Firebase for tracking
             try {
-                await addDoc(collection(db, "adoptions"), {
-                    dogId: dogId ? sanitizeInput(dogId) : "",
-                    dogName: sanitizeInput(dogName),
-                    applicantName: sanitizeInput(data.name),
-                    applicantEmail: data.email ? sanitizeInput(data.email) : "",
-                    applicantPhone: sanitizeInput(data.phone),
-                    status: "Pending",
-                    created_at: Date.now(),
-                    experience: data.message ? sanitizeInput(data.message) : "",
+                await AdoptionService.submitApplication({
+                    dogId: dogId || "",
+                    dogName: dogName,
+                    applicantName: data.name,
+                    applicantEmail: data.email || "",
+                    applicantPhone: data.phone,
+                    experience: data.message || "",
                     userId: user?.uid || null,
                 });
             } catch (e) {
@@ -82,10 +78,11 @@ export function AdoptionForm({ dogName, dogId }: { dogName: string; dogId?: stri
                 </div>
             )}
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                    <label className="text-sm font-bold text-foreground/90 dark:text-muted-foreground">Name</label>
+                    <label htmlFor="adopt-name" className="text-sm font-bold text-foreground/90 dark:text-muted-foreground">Name</label>
                     <input
+                        id="adopt-name"
                         {...register("name")}
                         className="w-full p-3 rounded-xl border bg-white dark:bg-black focus:ring-2 focus:ring-primary outline-none"
                         placeholder="Your Name"
@@ -93,8 +90,9 @@ export function AdoptionForm({ dogName, dogId }: { dogName: string; dogId?: stri
                     {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
                 </div>
                 <div className="space-y-2">
-                    <label className="text-sm font-bold text-foreground/90 dark:text-muted-foreground">Phone</label>
+                    <label htmlFor="adopt-phone" className="text-sm font-bold text-foreground/90 dark:text-muted-foreground">Phone</label>
                     <input
+                        id="adopt-phone"
                         {...register("phone")}
                         type="tel"
                         className="w-full p-3 rounded-xl border bg-white dark:bg-black focus:ring-2 focus:ring-primary outline-none"
@@ -104,8 +102,9 @@ export function AdoptionForm({ dogName, dogId }: { dogName: string; dogId?: stri
                 </div>
             </div>
             <div className="space-y-2">
-                <label className="text-sm font-bold text-foreground/90 dark:text-muted-foreground">Email (Optional)</label>
+                <label htmlFor="adopt-email" className="text-sm font-bold text-foreground/90 dark:text-muted-foreground">Email (Optional)</label>
                 <input
+                    id="adopt-email"
                     {...register("email")}
                     type="email"
                     className="w-full p-3 rounded-xl border bg-white dark:bg-black focus:ring-2 focus:ring-primary outline-none"
@@ -114,8 +113,9 @@ export function AdoptionForm({ dogName, dogId }: { dogName: string; dogId?: stri
                 {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
             </div>
             <div className="space-y-2">
-                <label className="text-sm font-bold text-foreground/90 dark:text-muted-foreground">Why do you want to adopt {dogName}?</label>
+                <label htmlFor="adopt-message" className="text-sm font-bold text-foreground/90 dark:text-muted-foreground">Why do you want to adopt {dogName}?</label>
                 <textarea
+                    id="adopt-message"
                     {...register("message")}
                     className="w-full p-3 rounded-xl border bg-white dark:bg-black focus:ring-2 focus:ring-primary outline-none min-h-[100px]"
                     placeholder="Tell us about your home and experience with dogs..."

@@ -104,20 +104,3 @@ export const ProfileUpdateSchema = z.object({
     phone: z.string().max(50, "Phone number must be 20 characters or less").nullable().optional(),
     favorites: z.array(z.string()).optional(),
 });
-
-export const AdoptionApplicationSchema = z.object({
-    pet_id: z.string().min(1, "Pet ID is required"),
-    applicant_name: z.string().min(1, "Applicant name is required").max(100),
-    applicant_email: z.string().email("Invalid email address"),
-    applicant_phone: z.string().min(5, "Valid phone number required").max(20),
-    reason: z.string().min(10, "Please provide a reason of at least 10 characters").max(1000),
-    experience: z.string().max(1000).optional(),
-});
-
-export const VolunteerApplicationSchema = z.object({
-    full_name: z.string().min(1, "Full name is required").max(100),
-    email: z.string().email("Invalid email address"),
-    phone: z.string().min(5, "Valid phone number required").max(20),
-    skills: z.string().max(500).optional(),
-    availability: z.string().max(200).optional(),
-});

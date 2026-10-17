@@ -145,6 +145,7 @@ export function VetFinder() {
                         <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-muted-foreground/80 w-5 h-5 group-focus-within:text-primary transition-colors" />
                         <input
                             type="text"
+                            aria-label="Search clinics, doctors, or areas"
                             placeholder="Search by clinic name, area, or service..."
                             className="w-full pl-14 pr-12 py-4 rounded-2xl border-2 border-transparent bg-muted/50 dark:bg-zinc-800/50 focus:bg-white dark:focus:bg-zinc-900 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none transition-all text-lg shadow-inner"
                             value={searchQuery}
@@ -152,6 +153,8 @@ export function VetFinder() {
                         />
                         {searchQuery && (
                             <button
+                                type="button"
+                                aria-label="Clear search"
                                 onClick={() => setSearchQuery("")}
                                 className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-all"
                             >
@@ -164,11 +167,12 @@ export function VetFinder() {
                     <div className="flex flex-col lg:flex-row gap-6">
                         {/* District Dropdown */}
                         <div className="w-full lg:w-1/4 space-y-2">
-                            <label className="text-sm font-semibold text-muted-foreground ml-1">
+                            <label htmlFor="vet-district-select" className="text-sm font-semibold text-muted-foreground ml-1">
                                 <MapPin className="w-4 h-4 inline mr-1.5" /> Location
                             </label>
                             <div className="relative">
                                 <select
+                                    id="vet-district-select"
                                     value={selectedDistrict}
                                     onChange={(e) => setSelectedDistrict(e.target.value)}
                                     className="w-full appearance-none p-3 pl-4 pr-10 rounded-xl border border-border dark:border-zinc-700 bg-white dark:bg-zinc-900 focus:ring-2 focus:ring-primary outline-none transition-all cursor-pointer hover:border-primary/50"

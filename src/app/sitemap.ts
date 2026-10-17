@@ -14,12 +14,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
     }));
 
-    const resourceUrls: MetadataRoute.Sitemap = resources.map((r) => ({
-        url: `${baseUrl}/resources/${r.slug}`,
-        lastModified: new Date(),
-        changeFrequency: "weekly",
-        priority: 0.7,
-    }));
+    const resourceUrls: MetadataRoute.Sitemap = resources
+        .filter((resource) => resource.slug !== "emergency-vet-list")
+        .map((resource) => ({
+            url: `${baseUrl}/resources/${resource.slug}`,
+            lastModified: new Date(resource.date),
+            changeFrequency: "monthly" as const,
+            priority: 0.7,
+        }));
 
     return [
         {
@@ -37,7 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         {
             url: `${baseUrl}/report`,
             lastModified: new Date(),
-            changeFrequency: "never",
+            changeFrequency: "monthly",
             priority: 0.8,
         },
         {

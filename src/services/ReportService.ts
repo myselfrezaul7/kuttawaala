@@ -68,8 +68,8 @@ export const ReportService = {
             throw new Error("Invalid file type. Only images are allowed.");
         }
 
-        // Validate file size (e.g., max 5MB)
-        const MAX_SIZE_MB = 5;
+        // Validate file size (e.g., max 10MB)
+        const MAX_SIZE_MB = 10;
         if (file.size > MAX_SIZE_MB * 1024 * 1024) {
             throw new Error(`File size exceeds ${MAX_SIZE_MB}MB limit.`);
         }

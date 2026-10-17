@@ -119,6 +119,7 @@ export function Header() {
                         <LanguageToggle />
                         <button
                             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                            aria-label="Toggle color theme"
                             className="p-2 text-muted-foreground dark:text-muted-foreground hover:text-primary transition-colors rounded-full"
                         >
                             {mounted && theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
@@ -151,12 +152,14 @@ export function Header() {
                     <div className="md:hidden flex items-center gap-1 ml-auto">
                         <button
                             onClick={() => setIsSearchOpen(true)}
+                            aria-label="Open search"
                             className="p-2 text-foreground/90 dark:text-stone-300 hover:bg-muted dark:hover:bg-zinc-800 rounded-full transition-colors"
                         >
                             <Search className="w-5 h-5" />
                         </button>
                         <button
                             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                            aria-label="Toggle color theme"
                             className="p-2 text-foreground/90 dark:text-stone-300 hover:bg-muted dark:hover:bg-zinc-800 rounded-full transition-colors"
                         >
                             {mounted && theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
@@ -261,6 +264,7 @@ export function Header() {
                                     <LanguageToggle />
                                     <button
                                         onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                                        aria-label="Toggle color theme"
                                         className="p-2 bg-muted dark:bg-zinc-800 rounded-full hover:bg-muted/80 transition-colors"
                                     >
                                         {mounted && theme === 'dark' ? <Sun className="w-4 h-4 text-stone-300" /> : <Moon className="w-4 h-4 text-foreground/80" />}
@@ -284,6 +288,7 @@ export function Header() {
                     >
                     <button
                         onClick={() => setIsSearchOpen(false)}
+                        aria-label="Close search"
                         className="absolute top-6 right-6 p-2 rounded-full hover:bg-muted dark:hover:bg-zinc-800 transition-colors"
                     >
                         <X className="w-8 h-8 text-muted-foreground" />
@@ -295,6 +300,7 @@ export function Header() {
                             <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground/80 w-6 h-6" />
                             <input
                                 type="text"
+                                aria-label="Search Kuttawaala"
                                 placeholder="Search for dogs, vets, or volunteer..."
                                 autoFocus
                                 className="w-full pl-16 pr-6 py-6 text-xl rounded-2xl bg-muted/30 dark:bg-zinc-900 border-2 border-border/50 dark:border-zinc-800 focus:border-primary focus:ring-0 outline-none transition-all shadow-xl"

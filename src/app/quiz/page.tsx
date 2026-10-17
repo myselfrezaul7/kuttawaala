@@ -60,26 +60,31 @@ export default function QuizPage() {
     const [matchedDogs, setMatchedDogs] = useState<typeof dogs>([]);
 
     const handleAnswer = (tags: string[]) => {
-        setSelectedTags(prev => [...prev, ...tags]);
+        const updatedTags = [...selectedTags, ...tags];
+        setSelectedTags(updatedTags);
 
         if (currentQuestion < QUIZ_QUESTIONS.length - 1) {
             setTimeout(() => setCurrentQuestion(prev => prev + 1), 300);
         } else {
-            finishQuiz();
+            finishQuiz(updatedTags);
         }
     };
 
-    const finishQuiz = () => {
+    const finishQuiz = (finalTags: string[] = selectedTags) => {
         setIsCalculating(true);
         setTimeout(() => {
             // Scoring Logic
             const scoredDogs = dogs.map(dog => {
                 let score = 0;
                 // Add points for matching tags
-                selectedTags.forEach(tag => {
+                finalTags.forEach(tag => {
                     if (dog.temperamentTags.includes(tag)) score += 2;
                 });
-                // Random drift to make it feel organic
+                // Semantic matching for tags in dogs.ts
+                if (finalTags.includes("Calm") && (dog.temperamentTags.includes("Quiet") || dog.temperamentTags.includes("Sleepyhead"))) score += 2;
+                if (finalTags.includes("Affectionate") && (dog.temperamentTags.includes("Cuddly") || dog.temperamentTags.includes("Loving") || dog.temperamentTags.includes("Sweet"))) score += 2;
+                if (finalTags.includes("Playful") && (dog.temperamentTags.includes("Playful") || dog.temperamentTags.includes("Cute"))) score += 2;
+                // Organic drift
                 score += Math.random();
                 return { ...dog, score };
             });
@@ -93,7 +98,7 @@ export default function QuizPage() {
             setMatchedDogs(topDogs);
             setIsCalculating(false);
             setShowResults(true);
-        }, 2000);
+        }, 1200);
     };
 
     const resetQuiz = () => {
@@ -108,7 +113,7 @@ export default function QuizPage() {
 
     if (isCalculating) {
         return (
-            <div className="min-h-screen bg-[#FFFDF8] flex flex-col items-center justify-center p-4">
+            <div className="min-h-screen bg-[#FFFDF8] dark:bg-zinc-950 flex flex-col items-center justify-center p-4">
                 <motion.div
                     animate={{
                         scale: [1, 1.2, 1],
@@ -117,35 +122,35 @@ export default function QuizPage() {
                     transition={{ duration: 1.5, repeat: Infinity }}
                     className="mb-8 relative"
                 >
-                    <div className="w-32 h-32 bg-orange-100 rounded-full flex items-center justify-center">
+                    <div className="w-32 h-32 bg-orange-100 dark:bg-orange-950/40 rounded-full flex items-center justify-center">
                         <PawPrint className="w-16 h-16 text-orange-500" />
                     </div>
                 </motion.div>
-                <h2 className="text-2xl font-bold text-stone-800 font-heading mb-2">Sniffing out your best friend...</h2>
-                <p className="text-stone-500">Analyzing temperament compatibility...</p>
+                <h2 className="text-2xl font-bold text-stone-800 dark:text-stone-100 font-heading mb-2">Sniffing out your best friend...</h2>
+                <p className="text-stone-500 dark:text-stone-400">Analyzing temperament compatibility...</p>
             </div>
         );
     }
 
     if (showResults) {
         return (
-            <div className="min-h-screen bg-[#FFFDF8] py-12 md:py-20 px-4">
+            <div className="min-h-screen bg-[#FFFDF8] dark:bg-zinc-950 py-12 md:py-20 px-4">
                 <div className="container mx-auto max-w-6xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="text-center mb-16"
                     >
-                        <div className="inline-block p-3 rounded-full bg-green-100 mb-6 animate-bounce">
+                        <div className="inline-block p-3 rounded-full bg-green-100 dark:bg-green-950/40 mb-6 animate-bounce">
                             <Sparkles className="w-8 h-8 text-green-600 fill-green-600" />
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-bold text-stone-800 font-heading mb-4">
+                        <h1 className="text-4xl md:text-5xl font-bold text-stone-800 dark:text-stone-100 font-heading mb-4">
                             We found your Paw-fect Matches! 🎉
                         </h1>
-                        <p className="text-xl text-stone-500 mb-8">
+                        <p className="text-xl text-stone-500 dark:text-stone-400 mb-8">
                             Based on your lifestyle, these dogs would love to meet you.
                         </p>
-                        <Button onClick={resetQuiz} variant="outline" className="rounded-full border-2 border-stone-200 hover:bg-stone-100 text-stone-600">
+                        <Button onClick={resetQuiz} variant="outline" className="rounded-full border-2 border-stone-200 dark:border-zinc-800 hover:bg-stone-100 dark:hover:bg-zinc-800 text-stone-600 dark:text-stone-300">
                             <RefreshCw className="w-4 h-4 mr-2" /> Retake Quiz
                         </Button>
                     </motion.div>
@@ -164,7 +169,7 @@ export default function QuizPage() {
                         ))}
                     </div>
 
-                    <div className="mt-16 text-center bg-stone-900 rounded-[3rem] p-12 text-white relative overflow-hidden">
+                    <div className="mt-16 text-center bg-stone-900 dark:bg-zinc-900 border border-transparent dark:border-zinc-800 rounded-[3rem] p-12 text-white relative overflow-hidden">
                         <div className="relative z-10">
                             <h2 className="text-3xl font-bold mb-4">Not sure about these matches?</h2>
                             <p className="text-stone-400 mb-8 max-w-xl mx-auto">
@@ -185,22 +190,22 @@ export default function QuizPage() {
     }
 
     return (
-        <div className="min-h-screen bg-[#FFFDF8] flex flex-col">
+        <div className="min-h-screen bg-[#FFFDF8] dark:bg-zinc-950 flex flex-col">
             {/* Header / Nav */}
             <div className="p-4 md:p-6 flex justify-between items-center">
                 <Link href="/">
-                    <Button variant="ghost" className="rounded-full hover:bg-stone-100">
+                    <Button variant="ghost" className="rounded-full hover:bg-stone-100 dark:hover:bg-zinc-800 dark:text-stone-200">
                         <ArrowLeft className="w-5 h-5 mr-2" /> Exit
                     </Button>
                 </Link>
-                <div className="text-stone-400 font-bold text-sm tracking-widest uppercase">
+                <div className="text-stone-400 dark:text-stone-500 font-bold text-sm tracking-widest uppercase">
                     Step {currentQuestion + 1} of {QUIZ_QUESTIONS.length}
                 </div>
                 <div className="w-20" /> {/* Spacer */}
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full h-2 bg-stone-100 mb-8 md:mb-12">
+            <div className="w-full h-2 bg-stone-100 dark:bg-zinc-800 mb-8 md:mb-12">
                 <motion.div
                     className="h-full bg-gradient-to-r from-orange-400 to-orange-600"
                     initial={{ width: 0 }}
@@ -220,7 +225,7 @@ export default function QuizPage() {
                         transition={{ duration: 0.3 }}
                         className="w-full"
                     >
-                        <h1 className="text-3xl md:text-5xl font-bold text-stone-800 font-heading mb-12 text-center leading-tight">
+                        <h1 className="text-3xl md:text-5xl font-bold text-stone-800 dark:text-stone-100 font-heading mb-12 text-center leading-tight">
                             {QUIZ_QUESTIONS[currentQuestion].question}
                         </h1>
 
@@ -231,17 +236,17 @@ export default function QuizPage() {
                                     onClick={() => handleAnswer(option.tags)}
                                     whileHover={{ scale: 1.02, backgroundColor: "rgba(255, 255, 255, 0.8)" }}
                                     whileTap={{ scale: 0.98 }}
-                                    className="relative group w-full bg-white p-4 sm:p-6 rounded-2xl border-2 border-stone-100 hover:border-orange-200 hover:shadow-xl hover:shadow-orange-100/50 transition-all text-left flex items-center justify-between"
+                                    className="relative group w-full bg-white dark:bg-zinc-900 p-4 sm:p-6 rounded-2xl border-2 border-stone-100 dark:border-zinc-800 hover:border-orange-200 dark:hover:border-orange-500/40 hover:shadow-xl hover:shadow-orange-100/50 dark:hover:shadow-none transition-all text-left flex items-center justify-between"
                                 >
                                     <div className="flex items-center gap-4">
-                                        <span className="text-3xl bg-stone-50 w-14 h-14 rounded-xl flex items-center justify-center group-hover:bg-orange-50 transition-colors">
+                                        <span className="text-3xl bg-stone-50 dark:bg-zinc-800 w-14 h-14 rounded-xl flex items-center justify-center group-hover:bg-orange-50 dark:group-hover:bg-orange-950/40 transition-colors">
                                             {option.icon}
                                         </span>
-                                        <span className="text-xl font-bold text-stone-600 group-hover:text-stone-800">
+                                        <span className="text-xl font-bold text-stone-600 dark:text-stone-300 group-hover:text-stone-800 dark:group-hover:text-white">
                                             {option.text}
                                         </span>
                                     </div>
-                                    <div className="w-8 h-8 rounded-full border-2 border-stone-200 group-hover:border-orange-500 group-hover:bg-orange-500 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
+                                    <div className="w-8 h-8 rounded-full border-2 border-stone-200 dark:border-zinc-700 group-hover:border-orange-500 group-hover:bg-orange-500 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
                                         <Check className="w-5 h-5 text-white" />
                                     </div>
                                 </motion.button>

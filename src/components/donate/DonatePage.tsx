@@ -96,9 +96,18 @@ export function DonatePage() {
                                 transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.08 }}
                                 viewport={{ once: true, margin: "-50px" }}
                                 key={option.id}
+                                role="button"
+                                tabIndex={0}
+                                aria-pressed={isSelected}
                                 onClick={() => setSelectedOption(option.id)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        e.preventDefault();
+                                        setSelectedOption(option.id);
+                                    }
+                                }}
                                 className={`
-                                    cursor-pointer rounded-2xl md:rounded-[2rem] p-4 sm:p-5 border-[3px] md:border-2 transition-all duration-300 relative overflow-hidden group
+                                    cursor-pointer rounded-2xl md:rounded-[2rem] p-4 sm:p-5 border-[3px] md:border-2 transition-all duration-300 relative overflow-hidden group focus:outline-none focus:ring-2 focus:ring-primary
                                     ${isSelected
                                         ? "bg-white dark:bg-zinc-900 border-primary shadow-xl scale-[1.02] md:scale-105 z-10"
                                         : "bg-white/80 dark:bg-zinc-900/80 border-border/40 dark:border-border/60 md:border-transparent hover:border-border hover:shadow-lg backdrop-blur-md"}
@@ -107,7 +116,7 @@ export function DonatePage() {
                                 <div className={`w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl ${option.bgColor} flex items-center justify-center mb-3 md:mb-6 group-hover:scale-110 transition-transform duration-300`}>
                                     <Icon className={`w-5 h-5 md:w-7 md:h-7 ${option.color}`} />
                                 </div>
-                                <h3 className="text-base md:text-xl font-bold mb-1 md:mb-2 font-heading">{option.title}</h3>
+                                <h2 className="text-base md:text-xl font-bold mb-1 md:mb-2 font-heading">{option.title}</h2>
                                 <p className="text-xs md:text-sm text-muted-foreground mb-3">{option.description}</p>
                                 <div className={`inline-block px-2 py-1 md:px-3 md:py-1 rounded-md md:rounded-lg text-[10px] md:text-xs font-bold uppercase tracking-wider ${option.bgColor} ${option.color}`}>
                                     {option.amount}
@@ -216,7 +225,7 @@ export function DonatePage() {
                     viewport={{ once: true, margin: "-50px" }}
                     className="max-w-3xl mx-auto mt-12 md:mt-24 text-center"
                 >
-                    <h3 className="text-xl md:text-2xl font-bold mb-6 md:mb-8">Where does the money go?</h3>
+                    <h2 className="text-xl md:text-2xl font-bold mb-6 md:mb-8">Where does the money go?</h2>
                     <div className="grid grid-cols-3 gap-3 md:gap-8">
                         <div>
                             <div className="w-10 h-10 md:w-16 md:h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-2 md:mb-4 text-lg md:text-2xl">🥬</div>

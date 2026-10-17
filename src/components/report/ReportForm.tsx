@@ -146,7 +146,7 @@ export function ReportForm() {
                 message: `
                     <strong>Type:</strong> ${data.type} <br/>
                     <strong>Location:</strong> ${escapeHtml(data.locationDetails)} <br/>
-                    <strong>Coordinates:</strong> <a href="https://www.google.com/maps?q=${data.latitude},${data.longitude}" target="_blank" rel="noopener noreferrer">${data.latitude}, ${data.longitude}</a> <br/>
+                    <strong>Coordinates:</strong> ${data.latitude && data.longitude ? `<a href="https://www.google.com/maps?q=${data.latitude},${data.longitude}" target="_blank" rel="noopener noreferrer">${data.latitude}, ${data.longitude}</a>` : "Location not pinned on map"} <br/>
                     <strong>Description:</strong> ${escapeHtml(data.description)} <br/>
                     <strong>Contact:</strong> ${escapeHtml(data.contact)} <br/>
                     <strong>Image:</strong> ${imageUrl ? `<a href="${imageUrl}" target="_blank" rel="noopener noreferrer">View Image</a>` : "No image uploaded"}
@@ -223,13 +223,13 @@ export function ReportForm() {
                                     <Facebook className="w-7 h-7 fill-current" />
                                 </div>
                                 <div className="text-white text-center sm:text-left">
-                                    <h3 className="text-xl font-bold mb-1 flex items-center justify-center sm:justify-start gap-2">
+                                    <h2 className="text-xl font-bold mb-1 flex items-center justify-center sm:justify-start gap-2">
                                         Join 17K+ Rescuers
                                         <span className="relative flex h-3 w-3">
                                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
                                             <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
                                         </span>
-                                    </h3>
+                                    </h2>
                                     <p className="text-blue-100 text-sm font-medium">Post directly in our Facebook Group for immediate local help!</p>
                                 </div>
                             </div>
@@ -247,7 +247,7 @@ export function ReportForm() {
                         {currentStep === 1 && (
                             <div className="space-y-6 animate-in slide-in-from-right-8 fade-in duration-300">
                                 <div className="text-center mb-8">
-                                    <h2 className="text-2xl font-bold font-heading">What's the situation?</h2>
+                                    <h1 className="text-2xl font-bold font-heading">What's the situation?</h1>
                                     <p className="text-muted-foreground">Choose the option that best describes the emergency.</p>
                                 </div>
                                 <div className="grid grid-cols-3 gap-2 md:gap-4">
@@ -297,6 +297,7 @@ export function ReportForm() {
                                 <div className="relative">
                                     <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-primary w-5 h-5" />
                                     <input
+                                        aria-label="Specific landmarks or location details"
                                         {...register("locationDetails", {
                                             required: "Please provide specific location details",
                                             minLength: { value: 5, message: "Location details must be at least 5 characters long." },
@@ -320,6 +321,7 @@ export function ReportForm() {
 
                                 <div className="space-y-4">
                                     <textarea
+                                        aria-label="Describe the dog's condition"
                                         {...register("description", {
                                             required: "Please provide a description",
                                             minLength: { value: 10, message: "Description details must be at least 10 characters long." },
@@ -334,6 +336,7 @@ export function ReportForm() {
                                         <div className={`border-2 border-dashed rounded-3xl p-8 text-center transition-all cursor-pointer relative overflow-hidden ${imagePreview ? 'border-primary bg-background' : 'border-border bg-secondary/10 hover:bg-secondary/20 hover:border-primary/50'}`}>
                                             <input
                                                 type="file"
+                                                aria-label="Upload photo of the dog"
                                                 className="absolute inset-0 z-20 opacity-0 cursor-pointer"
                                                 accept="image/*"
                                                 {...register("image", {
@@ -381,6 +384,7 @@ export function ReportForm() {
                                     <div className="relative">
                                         <Shield className="absolute left-4 top-1/2 -translate-y-1/2 text-primary w-5 h-5" />
                                         <input
+                                            aria-label="Your name and phone number"
                                             {...register("contact", {
                                                 required: "Contact info is required",
                                                 pattern: {
@@ -397,23 +401,26 @@ export function ReportForm() {
                                     {errors.contact && <p className="text-sm text-red-500 font-bold ml-2">{errors.contact.message}</p>}
                                 </div>
 
-                                <div className="bg-secondary/20 p-6 rounded-2xl border border-border">
+                                <div className="bg-secondary/20 p-4 sm:p-6 rounded-2xl border border-border">
                                     <p className="text-muted-foreground text-sm font-bold mb-4 text-center uppercase tracking-wider">Security Check</p>
-                                    <div className="flex justify-center">
+                                    <div className="flex justify-center overflow-hidden">
                                         {!useMathChallenge ? (
-                                            <ReCAPTCHA
-                                                ref={recaptchaRef}
-                                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LchaGgsAAAAAE-tlzeD1ApfHA2C6C-nM9Os41bf"}
-                                                onChange={(val) => setCaptchaValue(val)}
-                                                onError={handleRecaptchaError} // Trigger fallback on error
-                                                onExpired={() => setCaptchaValue(null)}
-                                            />
+                                            <div className="scale-[0.82] sm:scale-100 origin-center">
+                                                <ReCAPTCHA
+                                                    ref={recaptchaRef}
+                                                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LchaGgsAAAAAE-tlzeD1ApfHA2C6C-nM9Os41bf"}
+                                                    onChange={(val) => setCaptchaValue(val)}
+                                                    onError={handleRecaptchaError} // Trigger fallback on error
+                                                    onExpired={() => setCaptchaValue(null)}
+                                                />
+                                            </div>
                                         ) : (
                                             <div className="text-center space-y-3 w-full max-w-xs">
                                                 <div className="bg-background p-4 rounded-xl border border-border shadow-sm">
                                                     <p className="text-lg font-bold mb-2">What is {mathChallenge.q}?</p>
                                                     <input
                                                         type="number"
+                                                        aria-label="Security math question answer"
                                                         className="w-full p-2 text-center text-xl font-bold border rounded-lg focus:ring-2 focus:ring-primary outline-none bg-background"
                                                         placeholder="?"
                                                         value={userMathAnswer}

@@ -1,31 +1,11 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Heart, ArrowRight, AlertCircle } from "lucide-react";
+import { Heart, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RemoteConfigService } from "@/services/RemoteConfigService";
-
-const HeroDogCanvas = dynamic(
-    () => import("@/components/3d/HeroDogCanvas").then((mod) => mod.HeroDogCanvas),
-    {
-        ssr: false,
-        loading: () => (
-            <Image
-                src="/assets/hero-dog.jpg"
-                alt="Small native Bangladeshi Desi stray dog"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                priority
-                placeholder="blur"
-                blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY0Ii8+PC9zdmc+"
-            />
-        ),
-    }
-);
 
 export function Hero() {
     return (
@@ -81,59 +61,45 @@ export function Hero() {
                             </Link>
                         </div>
                     </motion.div>
-                        
-                    {/* Floating Companion Badge Redirect */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-                        className="mt-8 md:mt-12 flex justify-start"
-                    >
-                        <a
-                            href="https://www.catwaala.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group relative inline-flex items-center gap-2 sm:gap-4 bg-white/70 dark:bg-zinc-900/60 backdrop-blur-md border border-border/50 dark:border-zinc-800 px-2 py-2 pr-4 sm:pr-6 rounded-full shadow-lg shadow-zinc-200/20 dark:shadow-none hover:bg-white dark:hover:bg-zinc-900 transition-all duration-300 overflow-hidden"
-                        >
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-teal-500/5 to-teal-500/10 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700 ease-out" />
-                            <div className="relative w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-900/40 flex items-center justify-center shrink-0 border border-teal-200/50 dark:border-teal-800/50 text-xl group-hover:scale-105 transition-transform">
-                                🐈
-                            </div>
-                            <div className="relative z-10 flex flex-col justify-center">
-                                <span className="hidden sm:block text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-wider leading-none mb-1">Also love cats?</span>
-                                <span className="text-sm font-bold text-foreground leading-none group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors flex items-center gap-1">
-                                    Visit Catwaala
-                                    <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-teal-500" />
-                                </span>
-                            </div>
-                        </a>
-                    </motion.div>
                 </motion.div>
 
-                {/* Hero Illustration/Image Placeholder */}
+                {/* Hero Newborn Stray Puppy Visual — Subtle & Clean Design */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                     className="relative order-1 lg:order-2 flex justify-center"
                 >
-                    <div className="relative w-full max-w-md aspect-[3/4] rounded-t-full rounded-b-[200px] overflow-hidden border-8 border-white/50 dark:border-white/10 shadow-2xl bg-gradient-to-b from-amber-100/50 via-secondary/40 to-amber-200/40 dark:from-zinc-900 dark:via-zinc-900/90 dark:to-zinc-950 flex items-center justify-center">
-                        <HeroDogCanvas />
-
-                        {/* Floating badge */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                            transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.5 }}
-                            viewport={{ once: true }}
-                            className="absolute bottom-6 sm:bottom-20 left-4 sm:-left-6 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-md p-2.5 sm:p-4 rounded-full sm:rounded-2xl shadow-xl flex items-center gap-2 sm:gap-3 z-20"
-                        >
-                            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-secondary rounded-full flex items-center justify-center text-primary shrink-0">
-                                <Heart className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+                    <div className="relative w-full max-w-[380px] sm:max-w-[420px]">
+                        <div className="relative aspect-[4/5] w-full rounded-[2rem] overflow-hidden bg-stone-100 dark:bg-zinc-900 border border-stone-200/80 dark:border-zinc-800/80 shadow-[0_20px_50px_rgba(28,25,23,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+                            <Image
+                                src="/assets/hero-newborn-puppy.jpg"
+                                alt="Rescued newborn native Bangladeshi Desi stray puppy resting warmly"
+                                fill
+                                priority
+                                sizes="(max-width: 640px) 92vw, (max-width: 1024px) 420px, 420px"
+                                className="object-cover object-center transition-transform duration-700 hover:scale-[1.02]"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+                            <div className="absolute bottom-4 right-4 bg-black/45 backdrop-blur-md text-white/95 px-3 py-1 rounded-full text-xs font-medium tracking-wide border border-white/10">
+                                Newborn Street Rescue • Dhaka
                             </div>
-                            <div className="pr-2 sm:pr-0 flex items-center gap-2 sm:block">
-                                <p className="font-bold text-sm">500+ Rescued</p>
-                                <p className="text-xs text-muted-foreground hidden sm:block">Since 2020</p>
+                        </div>
+
+                        {/* Subtle Floating Status Badge (positioned outside overflow-hidden so it never clips) */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 12 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                            viewport={{ once: true }}
+                            className="absolute -bottom-4 left-4 sm:-left-4 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-lg border border-stone-200/80 dark:border-zinc-800 flex items-center gap-3 z-20"
+                        >
+                            <div className="w-8 h-8 sm:w-9 sm:h-9 bg-secondary rounded-full flex items-center justify-center text-primary shrink-0">
+                                <Heart className="w-4 h-4 fill-current" />
+                            </div>
+                            <div>
+                                <p className="font-bold text-xs sm:text-sm text-foreground dark:text-stone-100 leading-tight">500+ Rescued</p>
+                                <p className="text-[11px] text-muted-foreground leading-tight">Since 2020</p>
                             </div>
                         </motion.div>
                     </div>

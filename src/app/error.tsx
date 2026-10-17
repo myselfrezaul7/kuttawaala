@@ -30,7 +30,7 @@ export default function Error({
             <div className="flex gap-4">
                 <Button
                     onClick={() => reset()}
-                    className="gap-2 bg-card dark:bg-muted text-white dark:text-foreground hover:bg-card dark:hover:bg-muted"
+                    className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
                 >
                     <RefreshCcw className="w-4 h-4" /> Try again
                 </Button>

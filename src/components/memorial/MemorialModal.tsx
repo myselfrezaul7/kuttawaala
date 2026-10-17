@@ -102,7 +102,7 @@ export function MemorialModal({ onAddTribute }: MemorialModalProps) {
                     <Plus className="w-5 h-5" /> Add a Tribute
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px] bg-white dark:bg-zinc-900 border-border shadow-2xl rounded-[2rem] p-0 overflow-hidden">
+            <DialogContent className="w-[calc(100%-1.5rem)] sm:max-w-[500px] max-h-[90vh] overflow-y-auto bg-white dark:bg-zinc-900 border-border shadow-2xl rounded-[2rem] p-0">
                 <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-zinc-800 dark:to-zinc-800/60 p-6 border-b border-border">
                     <DialogHeader>
                         <DialogTitle className="text-2xl font-bold font-heading flex items-center gap-2 text-foreground dark:text-white">
@@ -115,7 +115,7 @@ export function MemorialModal({ onAddTribute }: MemorialModalProps) {
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-6 space-y-5">
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="petName" className="text-sm font-semibold text-foreground dark:text-zinc-300">Pet's Name</Label>
                             <Input

@@ -6,10 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Heart, Hand, CheckCircle, AlertTriangle, User, Mail, Phone, MessageSquare } from "lucide-react";
 import { submitToWeb3Forms } from "@/lib/web3forms";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "@/utils/firebase";
+import { VolunteerService } from "@/services/VolunteerService";
 import { volunteerSchema, type VolunteerSchema } from "@/lib/schemas";
-import { sanitizeInput } from "@/lib/validation";
 import confetti from "canvas-confetti";
 
 export function VolunteerForm() {
@@ -33,20 +31,16 @@ export function VolunteerForm() {
 
         // 1. Save to Firestore (primary)
         try {
-            const sanitizedData = {
-                ...data,
-                name: sanitizeInput(data.name || ""),
-                email: sanitizeInput(data.email || ""),
-                phone: sanitizeInput(data.phone || ""),
-                interest: sanitizeInput(data.interest || ""),
-                message: data.message ? sanitizeInput(data.message) : "",
-                status: "Pending",
-                created_at: new Date().toISOString()
-            };
-            await addDoc(collection(db, "volunteers"), sanitizedData);
-        } catch (e) {
-            console.error("Failed to save volunteer app to Firestore", e);
-            setServerError("Something went wrong. Please try again.");
+            await VolunteerService.submitApplication({
+                name: data.name,
+                email: data.email,
+                phone: data.phone,
+                interest: data.interest,
+                message: data.message,
+            });
+        } catch (e: any) {
+            console.error("Failed to save volunteer app", e);
+            setServerError(e?.message || "Something went wrong. Please try again.");
             return;
         }
 
@@ -99,7 +93,7 @@ export function VolunteerForm() {
                     <div className="inline-flex items-center justify-center p-3 bg-amber-100 dark:bg-amber-900/30 rounded-2xl mb-4 text-amber-600 dark:text-amber-500">
                         <Hand className="w-8 h-8" />
                     </div>
-                    <h1 className="text-5xl font-bold mb-6 font-heading flex items-center justify-center gap-3 text-foreground">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 font-heading flex items-center justify-center gap-3 text-foreground">
                         Join the Rescue Team
                     </h1>
                     <p className="text-xl text-muted-foreground dark:text-muted-foreground/80 max-w-2xl mx-auto leading-relaxed">
@@ -109,13 +103,13 @@ export function VolunteerForm() {
 
                 <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
                     {/* Info Card */}
-                    <div className="glass-card p-10 rounded-[2.5rem] bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl border border-white/40 dark:border-zinc-800/50 shadow-xl shadow-amber-500/5 sticky top-24">
-                        <h3 className="text-2xl font-bold mb-8 flex items-center gap-3 text-foreground">
+                    <div className="glass-card p-6 sm:p-10 rounded-3xl sm:rounded-[2.5rem] bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl border border-white/40 dark:border-zinc-800/50 shadow-xl shadow-amber-500/5 sticky top-24">
+                        <h2 className="text-2xl font-bold mb-8 flex items-center gap-3 text-foreground">
                             <div className="p-2 bg-rose-100 dark:bg-rose-900/30 rounded-lg text-rose-500">
                                 <Heart className="w-6 h-6 fill-rose-500" />
                             </div>
                             Why Volunteer?
-                        </h3>
+                        </h2>
                         <ul className="space-y-6">
                             {[
                                 "Make a direct impact on animal welfare in Dhaka.",
@@ -133,7 +127,7 @@ export function VolunteerForm() {
                     </div>
 
                     {/* Form Card */}
-                    <div className="glass-card p-10 rounded-[2.5rem] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border border-white/50 dark:border-zinc-800/50 shadow-2xl shadow-amber-500/10">
+                    <div className="glass-card p-6 sm:p-10 rounded-3xl sm:rounded-[2.5rem] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border border-white/50 dark:border-zinc-800/50 shadow-2xl shadow-amber-500/10">
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                             {serverError && (
                                 <div className="p-4 bg-destructive/10 text-destructive text-sm rounded-2xl flex items-center gap-3 border border-destructive/20 animate-in slide-in-from-top-2">
@@ -142,10 +136,11 @@ export function VolunteerForm() {
                             )}
 
                             <div className="space-y-2">
-                                <label className="block text-sm font-bold text-foreground/80 ml-1">Full Name</label>
+                                <label htmlFor="vol-name" className="block text-sm font-bold text-foreground/80 ml-1">Full Name</label>
                                 <div className="relative">
                                     <User className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/60 w-5 h-5" />
                                     <input
+                                        id="vol-name"
                                         {...register("name")}
                                         className="w-full pl-12 pr-4 py-4 rounded-2xl border bg-muted/30 dark:bg-zinc-800 border-border dark:border-zinc-700 focus:ring-4 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all placeholder:text-muted-foreground/40 text-foreground font-medium"
                                         placeholder="Enter your full name"
@@ -155,10 +150,11 @@ export function VolunteerForm() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="block text-sm font-bold text-foreground/80 ml-1">Email Address</label>
+                                <label htmlFor="vol-email" className="block text-sm font-bold text-foreground/80 ml-1">Email Address</label>
                                 <div className="relative">
                                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/60 w-5 h-5" />
                                     <input
+                                        id="vol-email"
                                         {...register("email")}
                                         type="email"
                                         className="w-full pl-12 pr-4 py-4 rounded-2xl border bg-muted/30 dark:bg-zinc-800 border-border dark:border-zinc-700 focus:ring-4 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all placeholder:text-muted-foreground/40 text-foreground font-medium"
@@ -169,10 +165,11 @@ export function VolunteerForm() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="block text-sm font-bold text-foreground/80 ml-1">Phone Number <span className="text-destructive font-normal">*</span></label>
+                                <label htmlFor="vol-phone" className="block text-sm font-bold text-foreground/80 ml-1">Phone Number <span className="text-destructive font-normal">*</span></label>
                                 <div className="relative">
                                     <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/60 w-5 h-5" />
                                     <input
+                                        id="vol-phone"
                                         {...register("phone")}
                                         type="tel"
                                         className="w-full pl-12 pr-4 py-4 rounded-2xl border bg-muted/30 dark:bg-zinc-800 border-border dark:border-zinc-700 focus:ring-4 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all placeholder:text-muted-foreground/40 text-foreground font-medium"
@@ -183,9 +180,10 @@ export function VolunteerForm() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="block text-sm font-bold text-foreground/80 ml-1">I want to help with...</label>
+                                <label htmlFor="vol-interest" className="block text-sm font-bold text-foreground/80 ml-1">I want to help with...</label>
                                 <div className="relative">
                                     <select
+                                        id="vol-interest"
                                         {...register("interest")}
                                         className="w-full pl-4 pr-10 py-4 rounded-2xl border bg-muted/30 dark:bg-zinc-800 border-border dark:border-zinc-700 focus:ring-4 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all text-foreground font-medium appearance-none cursor-pointer hover:bg-muted/50 dark:hover:bg-zinc-800/80"
                                     >
@@ -201,10 +199,11 @@ export function VolunteerForm() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="block text-sm font-bold text-foreground/80 ml-1">Message <span className="text-muted-foreground/60 font-normal">(Optional)</span></label>
+                                <label htmlFor="vol-message" className="block text-sm font-bold text-foreground/80 ml-1">Message <span className="text-muted-foreground/60 font-normal">(Optional)</span></label>
                                 <div className="relative">
                                     <MessageSquare className="absolute left-4 top-5 text-muted-foreground/60 w-5 h-5" />
                                     <textarea
+                                        id="vol-message"
                                         {...register("message")}
                                         className="w-full pl-12 pr-4 py-4 rounded-2xl border bg-muted/30 dark:bg-zinc-800 border-border dark:border-zinc-700 focus:ring-4 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all placeholder:text-muted-foreground/40 text-foreground font-medium min-h-[120px] resize-none"
                                         placeholder="Tell us a bit about yourself..."

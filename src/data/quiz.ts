@@ -27,9 +27,9 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
         id: 3,
         questionText: 'How much time can you dedicate to play?',
         options: [
-            { text: 'Lots of time for feather wands! 🎣', tags: ['Active', 'Puppy'] },
+            { text: 'Lots of time for fetch and walks! 🎾', tags: ['Active', 'Puppy'] },
             { text: 'Some play, mostly chilling 😌', tags: ['Adult', 'Calm'] },
-            { text: 'I prefer a dog who entertains themselves 🧶', tags: ['Independent', 'Senior'] },
+            { text: 'I prefer a calm dog who relaxes nearby 🦴', tags: ['Independent', 'Senior'] },
         ],
     },
 ];

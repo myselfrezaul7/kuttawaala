@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 
 export default function MemorialPage() {
     return (
-        <main className="min-h-screen">
+        <div className="min-h-screen">
             <RainbowBridgeClient />
             <MemorialList />
-        </main>
+        </div>
     );
 }

@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     if (!dog) {
         return {
-            title: "Dog Not Found | Kuttawaala",
+            title: "Dog Not Found",
             description: "The dog you are looking for is no longer available or does not exist.",
         };
     }
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ? dog.imageUrl
         : `${baseUrl}${dog.imageUrl?.startsWith("/") ? "" : "/"}${dog.imageUrl || "assets/hero-dog.jpg"}`;
     const pageUrl = `${baseUrl}/adopt/${dog.id}`;
-    const title = `Adopt ${dog.name} - ${dog.breed} in ${dog.location} | Kuttawaala`;
+    const title = `Adopt ${dog.name} - ${dog.breed} in ${dog.location}`;
     const description =
         dog.description ||
         `Meet ${dog.name}, a friendly ${dog.breed} looking for a loving home in ${dog.location}, Bangladesh. Adopt don't shop!`;
@@ -102,7 +102,7 @@ export default async function DogDetailPage({ params }: Props) {
                 <div className="space-y-8">
                     <div>
                         <div className="flex justify-between items-start mb-4">
-                            <h1 className="text-4xl md:text-6xl font-bold font-heading text-foreground dark:text-muted">{dog.name}</h1>
+                            <h1 className="text-4xl md:text-6xl font-bold font-heading text-foreground dark:text-stone-100">{dog.name}</h1>
                             <span className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider ${dog.tag === 'Urgent' ? 'bg-amber-500 text-white' :
                                 dog.tag === 'New' ? 'bg-indigo-500 text-white' : 'bg-green-100 text-green-700 dark:bg-zinc-800 dark:text-green-400'
                                 }`}>

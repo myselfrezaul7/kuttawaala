@@ -78,7 +78,7 @@ export function ProfileModal({ isOpen, onClose }: { isOpen: boolean, onClose: ()
                         <div className="relative w-24 h-24 group cursor-pointer">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
-                                src={imagePreview || user.photoURL || "/images/placeholder-avatar.png"}
+                                src={imagePreview || user.photoURL || "/logo.png"}
                                 alt="Profile"
                                 className="w-24 h-24 rounded-full object-cover border-4 border-background shadow-sm"
                                 onError={(e) => { e.currentTarget.src = 'https://ui-avatars.com/api/?name=' + name + '&background=random' }}

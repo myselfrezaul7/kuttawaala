@@ -11,7 +11,7 @@ import { Heart, Gift, LogOut, Award, Trophy, FileText, AlertTriangle, FileCheck,
 import { Badges } from "@/components/dashboard/Badges";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProfileModal } from "@/components/dashboard/ProfileModal";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, orderBy, limit } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { safeTimeAgo } from "@/utils/safeDateFormat";
 import { toast } from "sonner";
@@ -49,11 +49,16 @@ export default function DashboardPage() {
                 const repSnap = await getDocs(repQ);
                 setReports(repSnap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a: any, b: any) => (b.created_at || 0) - (a.created_at || 0)));
 
-                // Fetch Leaderboard (sort in JS to avoid missing index errors)
-                const leadSnap = await getDocs(collection(db, "users"));
-                const usersList = leadSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-                usersList.sort((a: any, b: any) => (b.points || 0) - (a.points || 0));
-                setLeaderboard(usersList.slice(0, 10));
+                // Fetch Leaderboard (bounded top 10 query)
+                const leaderboardQuery = query(
+                    collection(db, "users"),
+                    where("points", ">", 0),
+                    orderBy("points", "desc"),
+                    limit(10)
+                );
+                const usersSnap = await getDocs(leaderboardQuery);
+                const sortedUsers = usersSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+                setLeaderboard(sortedUsers);
             } catch (e) {
                 console.error("Error fetching user data:", e);
                 toast.error("Failed to sync some dashboard data.");
@@ -114,7 +119,7 @@ export default function DashboardPage() {
 
                         {/* User Info */}
                         <div className="flex-1 text-center md:text-left space-y-2">
-                            <h1 className="text-4xl font-bold text-foreground dark:text-muted font-heading flex flex-col sm:flex-row items-center sm:items-baseline gap-2">
+                            <h1 className="text-4xl font-bold text-foreground dark:text-stone-100 font-heading flex flex-col sm:flex-row items-center sm:items-baseline gap-2">
                                 {user.displayName || "User"}
                                 <span className="text-xl text-orange-500 bg-orange-100 dark:bg-orange-900/30 px-3 py-1 rounded-full">{userData?.points || 0} pts</span>
                             </h1>
@@ -133,7 +138,7 @@ export default function DashboardPage() {
                                     Edit Profile
                                 </Button>
                                 <Link href="/adopt">
-                                    <Button className="rounded-xl bg-card text-white hover:bg-primary/90">
+                                    <Button className="rounded-xl bg-primary text-primary-foreground hover:bg-primary/90">
                                         Find a Dog
                                     </Button>
                                 </Link>
@@ -188,7 +193,7 @@ export default function DashboardPage() {
                             </div>
                         ) : (
                             <div className="text-center bg-card p-12 rounded-[2.5rem] border border-dashed border-border">
-                                <div className="text-6xl mb-4">😿</div>
+                                <div className="text-6xl mb-4">🐶</div>
                                 <h3 className="text-xl font-bold mb-2 text-foreground">No favorites yet</h3>
                                 <p className="text-muted-foreground mb-6">Go find some furry friends to add to your list.</p>
                                 <Link href="/adopt">

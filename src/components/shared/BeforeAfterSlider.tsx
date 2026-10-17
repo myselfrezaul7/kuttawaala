@@ -56,7 +56,22 @@ export function BeforeAfterSlider({
     return (
         <div
             ref={containerRef}
-            className={`relative w-full h-full overflow-hidden select-none cursor-ew-resize group touch-none ${className}`}
+            role="slider"
+            tabIndex={0}
+            aria-label="Before and after rescue image comparison slider"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(sliderPosition)}
+            onKeyDown={(e) => {
+                if (e.key === "ArrowLeft") {
+                    e.preventDefault();
+                    setSliderPosition((p) => Math.max(0, p - 5));
+                } else if (e.key === "ArrowRight") {
+                    e.preventDefault();
+                    setSliderPosition((p) => Math.min(100, p + 5));
+                }
+            }}
+            className={`relative w-full h-full overflow-hidden select-none cursor-ew-resize group touch-none focus:outline-none focus:ring-2 focus:ring-primary ${className}`}
             onMouseDown={handleMouseDown}
             onTouchStart={handleMouseDown}
         >
@@ -66,8 +81,8 @@ export function BeforeAfterSlider({
                     src={afterImage}
                     alt="After transformation"
                     fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
-                    priority
                 />
                 <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider">
                     {afterLabel}
@@ -83,8 +98,8 @@ export function BeforeAfterSlider({
                     src={beforeImage}
                     alt="Before transformation"
                     fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
-                    priority
                 />
                 <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider">
                     {beforeLabel}
