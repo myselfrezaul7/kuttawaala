@@ -10,11 +10,14 @@ import { motion } from "framer-motion";
 import { type Dog as DogType } from "@/data/dogs";
 import { ShareModal } from "@/components/shared/ShareModal";
 
+import { resolveDogImage } from "@/utils/imageFallback";
+
 interface DogProps extends DogType { }
 
 export function PetCard({ dog }: { dog: DogProps }) {
     const { isFavorite, toggleFavorite } = useFavorites();
     const [isShareOpen, setIsShareOpen] = useState(false);
+    const [imgSrc, setImgSrc] = useState(() => resolveDogImage(dog.imageUrl));
     const favorite = isFavorite(dog.id);
 
     const shareUrl = typeof window !== "undefined"
@@ -28,15 +31,16 @@ export function PetCard({ dog }: { dog: DogProps }) {
                 show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
             }}
             whileHover={{ y: -6, scale: 1.02 }}
-            className="group relative bg-card rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border border-border shadow-md hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500"
+            className="group relative bg-card rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border border-border shadow-md hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 flex flex-col h-full"
         >
-            <div className="relative aspect-[4/5] overflow-hidden">
+            <div className="relative aspect-[4/5] overflow-hidden shrink-0">
                 <Image
-                    src={dog.imageUrl}
+                    src={imgSrc}
                     alt={dog.name}
                     fill
                     sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    onError={() => setImgSrc("/assets/dog_success_1.png")}
                 />
                 {/* Sophisticated gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -95,7 +99,7 @@ export function PetCard({ dog }: { dog: DogProps }) {
             </div>
 
             {/* Card content */}
-            <div className="p-4 md:p-5 bg-card space-y-3 md:space-y-4">
+            <div className="p-4 md:p-5 bg-card space-y-3 md:space-y-4 flex-1 flex flex-col justify-between">
                 <div className="flex justify-between items-center gap-2">
                     <span className="inline-flex items-center gap-1 md:gap-1.5 text-xs md:text-sm font-semibold text-foreground/80 bg-secondary/50 px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl truncate max-w-[60%]">
                         <Dog className="w-3 h-3 md:w-4 md:h-4 text-primary shrink-0" />
@@ -106,7 +110,7 @@ export function PetCard({ dog }: { dog: DogProps }) {
                     </span>
                 </div>
 
-                <Link href={`/adopt/${dog.id}`} className="block">
+                <Link href={`/adopt/${dog.id}`} className="block mt-auto pt-2">
                     <Button className="w-full h-10 md:h-12 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs md:text-base shadow-lg shadow-primary/20 transition-all duration-300 group-hover:translate-y-[-2px]">
                         Meet {dog.name}
                     </Button>

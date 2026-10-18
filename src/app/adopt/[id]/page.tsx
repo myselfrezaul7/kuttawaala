@@ -9,6 +9,7 @@ import { MapPin, Info, CheckCircle, ArrowLeft, ShoppingBag } from "lucide-react"
 import { AdoptionForm } from "@/components/adopt/AdoptionForm";
 import { SponsorshipModal } from "@/components/adopt/SponsorshipModal";
 import { DogDetailActions } from "@/components/adopt/DogDetailActions";
+import { DogDetailImage } from "@/components/adopt/DogDetailImage";
 
 type Props = {
     params: Promise<{ id: string }>;
@@ -93,7 +94,7 @@ export default async function DogDetailPage({ params }: Props) {
                 {/* Image Gallery */}
                 <div className="space-y-4">
                     <div className="relative aspect-[4/5] md:aspect-square rounded-3xl overflow-hidden border border-border dark:border-zinc-800 shadow-xl shadow-secondary/50 dark:shadow-none">
-                        <Image src={dog.imageUrl} alt={dog.name} fill className="object-cover" priority sizes="(max-width: 768px) 100vw, 50vw" />
+                        <DogDetailImage imageUrl={dog.imageUrl} alt={dog.name} />
                         <DogDetailActions dog={dog} />
                     </div>
                 </div>
@@ -115,18 +116,18 @@ export default async function DogDetailPage({ params }: Props) {
                     </div>
 
                     {/* Quick Stats Grid */}
-                    <div className="grid grid-cols-3 gap-4">
-                        <div className="p-4 rounded-2xl bg-secondary/30 dark:bg-zinc-900 border border-border dark:border-zinc-800 text-center">
-                            <span className="block text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">Breed</span>
-                            <span className="font-bold text-foreground dark:text-white line-clamp-1">{dog.breed}</span>
+                    <div className="grid grid-cols-3 gap-2.5 sm:gap-4">
+                        <div className="p-3 sm:p-4 rounded-2xl bg-secondary/30 dark:bg-zinc-900 border border-border dark:border-zinc-800 text-center">
+                            <span className="block text-[11px] sm:text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">Breed</span>
+                            <span className="font-bold text-xs sm:text-base text-foreground dark:text-white line-clamp-1">{dog.breed}</span>
                         </div>
-                        <div className="p-4 rounded-2xl bg-secondary/30 dark:bg-zinc-900 border border-border dark:border-zinc-800 text-center">
-                            <span className="block text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">Age</span>
-                            <span className="font-bold text-foreground dark:text-white">{dog.age}</span>
+                        <div className="p-3 sm:p-4 rounded-2xl bg-secondary/30 dark:bg-zinc-900 border border-border dark:border-zinc-800 text-center">
+                            <span className="block text-[11px] sm:text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">Age</span>
+                            <span className="font-bold text-xs sm:text-base text-foreground dark:text-white line-clamp-1">{dog.age}</span>
                         </div>
-                        <div className="p-4 rounded-2xl bg-secondary/30 dark:bg-zinc-900 border border-border dark:border-zinc-800 text-center">
-                            <span className="block text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">Gender</span>
-                            <span className="font-bold text-foreground dark:text-white">{dog.gender}</span>
+                        <div className="p-3 sm:p-4 rounded-2xl bg-secondary/30 dark:bg-zinc-900 border border-border dark:border-zinc-800 text-center">
+                            <span className="block text-[11px] sm:text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">Gender</span>
+                            <span className="font-bold text-xs sm:text-base text-foreground dark:text-white line-clamp-1">{dog.gender}</span>
                         </div>
                     </div>
 
@@ -162,12 +163,12 @@ export default async function DogDetailPage({ params }: Props) {
 
                     <div className="pt-6 border-t border-border dark:border-zinc-800 space-y-6">
                         {/* PetBhai Contextual Upsell */}
-                        <div className="bg-gradient-to-r from-purple-50 to-fuchsia-50 dark:from-purple-900/20 dark:to-fuchsia-900/20 border border-purple-100 dark:border-purple-800/50 p-6 rounded-2xl flex items-center justify-between gap-4">
+                        <div className="bg-gradient-to-r from-purple-50 to-fuchsia-50 dark:from-purple-900/20 dark:to-fuchsia-900/20 border border-purple-100 dark:border-purple-800/50 p-5 sm:p-6 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div>
-                                <h3 className="text-lg font-bold mb-1 text-purple-900 dark:text-purple-300 flex items-center gap-2">
-                                    <ShoppingBag className="w-5 h-5" /> Get Ready for {dog.name}
+                                <h3 className="text-base sm:text-lg font-bold mb-1 text-purple-900 dark:text-purple-300 flex items-center gap-2">
+                                    <ShoppingBag className="w-5 h-5 shrink-0" /> Get Ready for {dog.name}
                                 </h3>
-                                <p className="text-purple-700/80 dark:text-purple-300/80 text-sm">
+                                <p className="text-purple-700/80 dark:text-purple-300/80 text-xs sm:text-sm">
                                     Grab their starter kit, food, and toys at our new store!
                                 </p>
                             </div>
@@ -175,7 +176,7 @@ export default async function DogDetailPage({ params }: Props) {
                                 href="https://www.petbhai.com"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="shrink-0 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm"
+                                className="w-full sm:w-auto text-center shrink-0 px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm"
                             >
                                 Shop Now
                             </a>

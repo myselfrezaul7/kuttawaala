@@ -9,7 +9,7 @@ export default function AdoptionFormPage() {
     };
 
     return (
-        <div className="min-h-screen bg-white text-black p-4 sm:p-8 md:p-12 font-sans print:p-0">
+        <div className="min-h-screen bg-white text-black pt-24 pb-20 px-4 sm:p-8 md:pt-28 md:p-12 font-sans print:p-0">
             {/* Print Button (Hidden when printing) */}
             <div className="max-w-[210mm] mx-auto mb-8 print:hidden flex flex-col items-end gap-2">
                 <Button onClick={handlePrint} className="bg-primary hover:bg-primary/90 text-white gap-2 px-8 py-6 text-lg font-bold rounded-xl shadow-lg shadow-primary/20">

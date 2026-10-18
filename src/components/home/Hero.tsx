@@ -47,14 +47,14 @@ export function Hero() {
                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start pt-2 sm:pt-4 w-full sm:w-auto">
                             <Link href="/adopt" className="w-full sm:w-auto">
                                 <motion.div whileTap={{ scale: 0.96 }} className="w-full">
-                                    <Button size="lg" className="w-full text-lg h-16 sm:h-14 rounded-2xl shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 transition-transform hover:-translate-y-1">
+                                    <Button size="lg" className="w-full sm:w-auto text-base sm:text-lg h-14 px-8 rounded-2xl shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 transition-transform hover:-translate-y-1 font-bold">
                                         Adopt a Dog
                                     </Button>
                                 </motion.div>
                             </Link>
-                            <Link href="/volunteer" className="w-full sm:w-auto text-center">
+                            <Link href="/volunteer" className="w-full sm:w-auto">
                                 <motion.div whileTap={{ scale: 0.96 }} className="w-full">
-                                    <Button size="lg" variant="outline" className="w-full sm:w-auto text-muted-foreground sm:text-primary text-base sm:text-lg h-12 sm:h-14 rounded-2xl border-none sm:border-2 border-border/50 hover:bg-secondary/50 transition-transform sm:hover:-translate-y-1 bg-transparent hover:text-primary underline sm:no-underline">
+                                    <Button size="lg" variant="outline" className="w-full sm:w-auto text-foreground dark:text-stone-200 text-base sm:text-lg h-14 px-8 rounded-2xl border-2 border-border/80 dark:border-zinc-800 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-sm hover:bg-secondary/50 transition-transform hover:-translate-y-1 font-semibold">
                                         Become a Volunteer
                                     </Button>
                                 </motion.div>
@@ -68,7 +68,7 @@ export function Hero() {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                    className="relative order-1 lg:order-2 flex justify-center"
+                    className="relative order-1 lg:order-2 flex justify-center mb-8 lg:mb-0"
                 >
                     <div className="relative w-full max-w-[380px] sm:max-w-[420px]">
                         <div className="relative aspect-[4/5] w-full rounded-[2rem] overflow-hidden bg-stone-100 dark:bg-zinc-900 border border-stone-200/80 dark:border-zinc-800/80 shadow-[0_20px_50px_rgba(28,25,23,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)]">

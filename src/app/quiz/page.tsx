@@ -134,7 +134,7 @@ export default function QuizPage() {
 
     if (showResults) {
         return (
-            <div className="min-h-screen bg-[#FFFDF8] dark:bg-zinc-950 py-12 md:py-20 px-4">
+            <div className="min-h-screen bg-[#FFFDF8] dark:bg-zinc-950 pt-28 pb-20 md:pt-32 md:pb-24 px-4">
                 <div className="container mx-auto max-w-6xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -192,7 +192,7 @@ export default function QuizPage() {
     return (
         <div className="min-h-screen bg-[#FFFDF8] dark:bg-zinc-950 flex flex-col">
             {/* Header / Nav */}
-            <div className="p-4 md:p-6 flex justify-between items-center">
+            <div className="pt-24 px-4 pb-4 md:pt-28 md:px-6 flex justify-between items-center">
                 <Link href="/">
                     <Button variant="ghost" className="rounded-full hover:bg-stone-100 dark:hover:bg-zinc-800 dark:text-stone-200">
                         <ArrowLeft className="w-5 h-5 mr-2" /> Exit
@@ -238,15 +238,15 @@ export default function QuizPage() {
                                     whileTap={{ scale: 0.98 }}
                                     className="relative group w-full bg-white dark:bg-zinc-900 p-4 sm:p-6 rounded-2xl border-2 border-stone-100 dark:border-zinc-800 hover:border-orange-200 dark:hover:border-orange-500/40 hover:shadow-xl hover:shadow-orange-100/50 dark:hover:shadow-none transition-all text-left flex items-center justify-between"
                                 >
-                                    <div className="flex items-center gap-4">
-                                        <span className="text-3xl bg-stone-50 dark:bg-zinc-800 w-14 h-14 rounded-xl flex items-center justify-center group-hover:bg-orange-50 dark:group-hover:bg-orange-950/40 transition-colors">
+                                    <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                                        <span className="text-2xl sm:text-3xl bg-stone-50 dark:bg-zinc-800 w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center group-hover:bg-orange-50 dark:group-hover:bg-orange-950/40 transition-colors shrink-0">
                                             {option.icon}
                                         </span>
-                                        <span className="text-xl font-bold text-stone-600 dark:text-stone-300 group-hover:text-stone-800 dark:group-hover:text-white">
+                                        <span className="text-base sm:text-xl font-bold text-stone-600 dark:text-stone-300 group-hover:text-stone-800 dark:group-hover:text-white leading-snug">
                                             {option.text}
                                         </span>
                                     </div>
-                                    <div className="w-8 h-8 rounded-full border-2 border-stone-200 dark:border-zinc-700 group-hover:border-orange-500 group-hover:bg-orange-500 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
+                                    <div className="w-8 h-8 rounded-full border-2 border-stone-200 dark:border-zinc-700 group-hover:border-orange-500 group-hover:bg-orange-500 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shrink-0 ml-2">
                                         <Check className="w-5 h-5 text-white" />
                                     </div>
                                 </motion.button>

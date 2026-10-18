@@ -104,9 +104,9 @@ export function SuccessStories() {
                                 key={`${story.id}-${index}`}
                                 className="flex-[0_0_85%] sm:flex-[0_0_70%] min-w-0 md:flex-[0_0_50%] lg:flex-[0_0_33.33%] pl-4 md:pl-6"
                             >
-                                <div className="h-full relative w-full flex-shrink-0 bg-white dark:bg-stone-900 rounded-2xl md:rounded-[2rem] p-4 md:p-6 shadow-lg border border-stone-100/50 dark:border-stone-800 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500">
-                                    <div className="flex items-start gap-4">
-                                        <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-orange-100 dark:border-orange-900/30 shrink-0">
+                                <div className="h-full relative w-full flex-shrink-0 bg-white dark:bg-stone-900 rounded-2xl md:rounded-[2rem] p-5 sm:p-6 shadow-lg border border-stone-100/50 dark:border-stone-800 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500">
+                                    <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4">
+                                        <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-4 border-orange-100 dark:border-orange-900/30 shrink-0 shadow-sm">
                                             <Image
                                                 src={story.image}
                                                 alt={story.name}
@@ -115,8 +115,8 @@ export function SuccessStories() {
                                                 sizes="96px"
                                             />
                                         </div>
-                                        <div className="flex-1">
-                                            <div className="mb-2 text-orange-400">
+                                        <div className="flex-1 flex flex-col justify-between">
+                                            <div className="mb-2 text-orange-400 flex justify-center sm:justify-start">
                                                 ★★★★★
                                             </div>
                                             <p className="text-stone-600 dark:text-stone-300 italic mb-4 text-sm md:text-base leading-relaxed">

@@ -128,19 +128,20 @@ export function AdoptPageContent() {
             href={FACEBOOK_GROUP_URL}
             target="_blank"
             rel="noopener noreferrer"
+            className="w-full sm:w-auto inline-block"
           >
             <motion.div
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="inline-block"
+              className="w-full sm:w-auto inline-block"
             >
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-amber-500 to-teal-500 hover:from-amber-600 hover:to-teal-600 text-white rounded-2xl shadow-xl shadow-amber-500/25 px-10 h-16 text-lg font-bold gap-3 transition-shadow hover:shadow-2xl hover:shadow-amber-500/30"
+                className="w-full sm:w-auto bg-gradient-to-r from-amber-500 to-teal-500 hover:from-amber-600 hover:to-teal-600 text-white rounded-2xl shadow-xl shadow-amber-500/25 px-6 sm:px-10 h-14 sm:h-16 text-base sm:text-lg font-bold gap-2.5 sm:gap-3 transition-shadow hover:shadow-2xl hover:shadow-amber-500/30"
               >
-                <ExternalLink className="w-5 h-5" />
-                Visit Our Facebook Group
+                <ExternalLink className="w-5 h-5 shrink-0" />
+                <span>Visit Our Facebook Group</span>
               </Button>
             </motion.div>
           </a>
@@ -210,19 +211,20 @@ export function AdoptPageContent() {
               href={FACEBOOK_GROUP_URL}
               target="_blank"
               rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-block"
             >
               <motion.div
                 whileHover={{ scale: 1.04, y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className="inline-block"
+                className="w-full sm:w-auto inline-block"
               >
                 <Button
                   size="lg"
-                  className="bg-white text-amber-700 hover:bg-white/90 rounded-2xl shadow-xl shadow-black/10 px-10 h-16 text-lg font-bold gap-3 transition-all"
+                  className="w-full sm:w-auto bg-white text-amber-700 hover:bg-white/90 rounded-2xl shadow-xl shadow-black/10 px-6 sm:px-10 h-14 sm:h-16 text-base sm:text-lg font-bold gap-2.5 sm:gap-3 transition-all"
                 >
-                  <ExternalLink className="w-5 h-5" />
-                  Join the Facebook Group
+                  <ExternalLink className="w-5 h-5 shrink-0" />
+                  <span>Join the Facebook Group</span>
                 </Button>
               </motion.div>
             </a>

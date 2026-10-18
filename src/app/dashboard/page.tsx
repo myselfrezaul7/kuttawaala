@@ -97,16 +97,16 @@ export default function DashboardPage() {
 
     return (
         <div className="min-h-screen bg-secondary/50/30 dark:bg-zinc-900 pb-24">
-            <div className="container mx-auto px-4 py-12">
+            <div className="container mx-auto px-4 pt-24 pb-12 md:pt-28">
 
                 {/* Profile Card */}
-                <div className="bg-card border border-border rounded-[2.5rem] p-8 md:p-12 mb-12 shadow-sm">
+                <div className="bg-card border border-border rounded-[2.5rem] p-6 sm:p-8 md:p-12 mb-8 md:mb-12 shadow-sm">
                     <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
                         {/* Avatar */}
                         <div className="relative group cursor-pointer" onClick={() => setIsEditModalOpen(true)}>
                             {user.photoURL ? (
                                 // eslint-disable-next-line @next/next/no-img-element
-                                <img src={user.photoURL || ""} alt={user.displayName || "User"} className="w-32 h-32 rounded-full object-cover border-4 border-background shadow-sm bg-secondary" />
+                                <img src={user.photoURL || ""} alt={user.displayName || "User"} onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/logo.png"; }} className="w-32 h-32 rounded-full object-cover border-4 border-background shadow-sm bg-secondary" />
                             ) : (
                                 <div className="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center border-4 border-background shadow-sm text-primary text-4xl font-bold">
                                     {getInitials(user.displayName || "User")}
@@ -118,8 +118,8 @@ export default function DashboardPage() {
                         </div>
 
                         {/* User Info */}
-                        <div className="flex-1 text-center md:text-left space-y-2">
-                            <h1 className="text-4xl font-bold text-foreground dark:text-stone-100 font-heading flex flex-col sm:flex-row items-center sm:items-baseline gap-2">
+                        <div className="flex-1 text-center md:text-left space-y-2 w-full">
+                            <h1 className="text-3xl sm:text-4xl font-bold text-foreground dark:text-stone-100 font-heading flex flex-col sm:flex-row items-center sm:items-baseline gap-2">
                                 {user.displayName || "User"}
                                 <span className="text-xl text-orange-500 bg-orange-100 dark:bg-orange-900/30 px-3 py-1 rounded-full">{userData?.points || 0} pts</span>
                             </h1>
@@ -133,16 +133,16 @@ export default function DashboardPage() {
                                 </div>
                             </div>
 
-                            <div className="pt-6 flex flex-wrap gap-3 justify-center md:justify-start">
-                                <Button onClick={() => setIsEditModalOpen(true)} variant="outline" className="rounded-xl border-border text-primary hover:bg-secondary/50">
+                            <div className="pt-6 flex flex-col sm:flex-row flex-wrap gap-3 justify-center md:justify-start w-full">
+                                <Button onClick={() => setIsEditModalOpen(true)} variant="outline" className="w-full sm:w-auto rounded-xl border-border text-primary hover:bg-secondary/50">
                                     Edit Profile
                                 </Button>
-                                <Link href="/adopt">
-                                    <Button className="rounded-xl bg-primary text-primary-foreground hover:bg-primary/90">
+                                <Link href="/adopt" className="w-full sm:w-auto">
+                                    <Button className="w-full rounded-xl bg-primary text-primary-foreground hover:bg-primary/90">
                                         Find a Dog
                                     </Button>
                                 </Link>
-                                <Button onClick={signOut} variant="ghost" className="rounded-xl text-muted-foreground hover:text-red-600">
+                                <Button onClick={signOut} variant="ghost" className="w-full sm:w-auto rounded-xl text-muted-foreground hover:text-red-600">
                                     <LogOut className="w-4 h-4 mr-2" /> Sign Out
                                 </Button>
                             </div>
@@ -273,7 +273,7 @@ export default function DashboardPage() {
                                         {report.image_url && (
                                             <div className="w-24 h-24 rounded-2xl overflow-hidden shrink-0 shadow-sm border border-border">
                                                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                <img src={report.image_url} alt="Reported" className="w-full h-full object-cover" />
+                                                <img src={report.image_url} alt="Reported" onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/assets/dog_success_1.png"; }} className="w-full h-full object-cover" />
                                             </div>
                                         )}
                                     </div>
@@ -317,7 +317,7 @@ export default function DashboardPage() {
                                                     <div className="w-10 h-10 bg-background rounded-full flex items-center justify-center text-sm border border-border overflow-hidden">
                                                         {u.photoURL ? (
                                                             // eslint-disable-next-line @next/next/no-img-element
-                                                            <img src={u.photoURL} className="w-full h-full object-cover" alt="" />
+                                                            <img src={u.photoURL} onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/logo.png"; }} className="w-full h-full object-cover" alt="" />
                                                         ) : (
                                                             getInitials(u.name || 'User')
                                                         )}

@@ -185,7 +185,7 @@ export function ReportForm() {
     }
 
     return (
-        <div className="min-h-screen py-12 px-4 flex items-center justify-center">
+        <div className="min-h-screen pt-24 pb-28 md:py-28 px-4 flex items-center justify-center">
             <div className="w-full max-w-2xl">
 
                 {/* Steps Header */}
@@ -217,23 +217,23 @@ export function ReportForm() {
                         className="group block relative overflow-hidden rounded-[2rem] bg-gradient-to-r from-blue-600 to-blue-500 p-1 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all cursor-pointer"
                     >
                         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
-                        <div className="relative bg-white/10 backdrop-blur-md rounded-[1.85rem] p-6 flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/20 group-hover:bg-white/20 transition-colors">
-                            <div className="flex items-center gap-5">
-                                <div className="w-14 h-14 bg-white text-blue-600 rounded-full flex items-center justify-center shadow-inner flex-shrink-0 group-hover:scale-110 transition-transform">
-                                    <Facebook className="w-7 h-7 fill-current" />
+                        <div className="relative bg-white/10 backdrop-blur-md rounded-[1.85rem] p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 border border-white/20 group-hover:bg-white/20 transition-colors">
+                            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5 text-center sm:text-left">
+                                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white text-blue-600 rounded-full flex items-center justify-center shadow-inner shrink-0 group-hover:scale-110 transition-transform">
+                                    <Facebook className="w-6 h-6 sm:w-7 sm:h-7 fill-current" />
                                 </div>
-                                <div className="text-white text-center sm:text-left">
-                                    <h2 className="text-xl font-bold mb-1 flex items-center justify-center sm:justify-start gap-2">
+                                <div className="text-white">
+                                    <h2 className="text-lg sm:text-xl font-bold mb-1 flex items-center justify-center sm:justify-start gap-2">
                                         Join 17K+ Rescuers
                                         <span className="relative flex h-3 w-3">
                                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
                                             <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
                                         </span>
                                     </h2>
-                                    <p className="text-blue-100 text-sm font-medium">Post directly in our Facebook Group for immediate local help!</p>
+                                    <p className="text-blue-100 text-xs sm:text-sm font-medium">Post directly in our Facebook Group for immediate local help!</p>
                                 </div>
                             </div>
-                            <Button variant="secondary" className="rounded-xl font-bold bg-white text-blue-600 hover:bg-blue-50 shadow-md group-hover:scale-105 transition-all">
+                            <Button variant="secondary" className="w-full sm:w-auto rounded-xl font-bold bg-white text-blue-600 hover:bg-blue-50 shadow-md group-hover:scale-105 transition-all shrink-0">
                                 Post in Group <ExternalLink className="w-4 h-4 ml-2" />
                             </Button>
                         </div>

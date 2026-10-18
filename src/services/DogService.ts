@@ -3,6 +3,8 @@ import { collection, getDocs, doc, getDoc, query, where } from "firebase/firesto
 import { Dog } from "./server-data";
 import { dogs } from "@/data/dogs";
 
+import { resolveDogImage } from "@/utils/imageFallback";
+
 const COLLECTION_NAME = "dogs";
 
 export const DogService = {
@@ -16,11 +18,18 @@ export const DogService = {
             if (querySnapshot.empty) {
                 return [...dogs];
             }
-            const mappedDocs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Dog));
+            const mappedDocs = querySnapshot.docs.map((doc, index) => {
+                const data = doc.data() as any;
+                return {
+                    id: doc.id,
+                    ...data,
+                    imageUrl: resolveDogImage(data.imageUrl || data.image_url, index),
+                } as Dog;
+            });
             return mappedDocs.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
         } catch (error) {
             console.error("Error fetching dogs:", error);
-            return [];
+            return [...dogs];
         }
     },
 
@@ -30,7 +39,12 @@ export const DogService = {
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
-                return { id: docSnap.id, ...docSnap.data() } as Dog;
+                const data = docSnap.data() as any;
+                return {
+                    id: docSnap.id,
+                    ...data,
+                    imageUrl: resolveDogImage(data.imageUrl || data.image_url),
+                } as Dog;
             } else {
                 return dogs.find(d => d.id === id) || null;
             }

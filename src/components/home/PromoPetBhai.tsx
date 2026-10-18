@@ -73,13 +73,13 @@ export function PromoPetBhai() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.3 }}
-                            className="pt-2 sm:pt-4"
+                            className="pt-2 sm:pt-4 w-full sm:w-auto"
                         >
                             <a
                                 href="https://www.petbhai.com"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2.5 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-500 to-fuchsia-600 hover:from-purple-400 hover:to-fuchsia-500 text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:scale-105 transition-all duration-200 shadow-lg shadow-purple-500/30 border border-purple-400/40"
+                                className="w-full sm:w-auto justify-center inline-flex items-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-purple-500 to-fuchsia-600 hover:from-purple-400 hover:to-fuchsia-500 text-white rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base hover:scale-105 transition-all duration-200 shadow-lg shadow-purple-500/30 border border-purple-400/40"
                             >
                                 <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
                                 Explore PetBhai Shop

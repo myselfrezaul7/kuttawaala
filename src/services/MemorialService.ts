@@ -6,6 +6,8 @@ import { rateLimiter } from "@/lib/rate-limit";
 import { MemorialSchema, sanitizeInput } from "@/lib/validation";
 import { ValidationError, RateLimitError, handleServiceError } from "@/lib/errors";
 
+import { resolveMemorialImage } from "@/utils/imageFallback";
+
 const COLLECTION_NAME = "memorials";
 
 export const MemorialService = {
@@ -16,9 +18,13 @@ export const MemorialService = {
                 where("status", "==", "Approved")
             );
             const querySnapshot = await getDocs(q);
-            const docs = querySnapshot.docs.map(doc => {
-                const data = doc.data();
-                return { id: doc.id, ...data } as Memorial;
+            const docs = querySnapshot.docs.map((doc, index) => {
+                const data = doc.data() as any;
+                return {
+                    id: doc.id,
+                    ...data,
+                    image_url: resolveMemorialImage(data.image_url || data.imageUrl, index),
+                } as Memorial;
             });
             return docs.sort((a, b) => {
                 const aTime = a.created_at as any;
@@ -40,9 +46,13 @@ export const MemorialService = {
                 where("user_id", "==", userId)
             );
             const querySnapshot = await getDocs(q);
-            const docs = querySnapshot.docs.map(doc => {
-                const data = doc.data();
-                return { id: doc.id, ...data } as Memorial;
+            const docs = querySnapshot.docs.map((doc, index) => {
+                const data = doc.data() as any;
+                return {
+                    id: doc.id,
+                    ...data,
+                    image_url: resolveMemorialImage(data.image_url || data.imageUrl, index),
+                } as Memorial;
             });
             return docs.sort((a, b) => {
                 const aTime = a.created_at as any;

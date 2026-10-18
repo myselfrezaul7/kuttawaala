@@ -161,7 +161,7 @@ export default function Home() {
                         <h2 className="text-4xl md:text-6xl font-bold mb-8 text-foreground font-heading tracking-tight">
                             Our Mission
                         </h2>
-                        <p className="text-xl md:text-2xl text-muted-foreground mb-20 leading-relaxed max-w-3xl mx-auto">
+                        <p className="text-xl md:text-2xl text-muted-foreground mb-10 md:mb-16 leading-relaxed max-w-3xl mx-auto">
                             We are dedicated to improving the lives of street dogs in Bangladesh through rescue, rehabilitation, and adoption programs.
                         </p>
                     </motion.div>

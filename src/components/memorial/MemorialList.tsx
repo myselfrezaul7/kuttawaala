@@ -11,6 +11,7 @@ import { MemorialService } from "@/services/MemorialService";
 import { MemorialModal } from "./MemorialModal";
 import { SkeletonGrid } from "@/components/shared/SkeletonCard";
 import { DataErrorState } from "@/components/shared/DataErrorState";
+import { resolveMemorialImage } from "@/utils/imageFallback";
 
 const DEFAULT_MEMORIALS: Memorial[] = [
     {
@@ -59,6 +60,84 @@ const DEFAULT_MEMORIALS: Memorial[] = [
         status: "Approved",
     }
 ];
+
+function MemorialCard({
+    memorial,
+    isLit,
+    candleCount,
+    onLight,
+}: {
+    memorial: Memorial;
+    isLit: boolean;
+    candleCount: number;
+    onLight: () => void;
+}) {
+    const [imgSrc, setImgSrc] = useState(() => resolveMemorialImage(memorial.image_url));
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-white dark:bg-zinc-900 rounded-[2rem] overflow-hidden shadow-xl shadow-stone-200/50 dark:shadow-none hover:-translate-y-2 transition-transform duration-500 border border-stone-100 dark:border-zinc-800 flex flex-col h-full"
+        >
+            {memorial.image_url ? (
+                <div className="relative h-64 bg-stone-100 dark:bg-zinc-800 shrink-0">
+                    <Image
+                        src={imgSrc}
+                        alt={memorial.pet_name}
+                        fill
+                        sizes="(max-width: 750px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover"
+                        onError={() => setImgSrc("/assets/dog_memorial_1.png")}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                    <div className="absolute bottom-4 left-4 text-white">
+                        <h2 className="text-2xl font-bold font-heading">{memorial.pet_name}</h2>
+                    </div>
+                </div>
+            ) : (
+                <div className="p-6 pb-0 flex items-center gap-3 shrink-0">
+                    <div className="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-zinc-800 flex items-center justify-center text-orange-500">
+                        <Heart className="w-6 h-6 fill-orange-500" />
+                    </div>
+                    <h2 className="text-2xl font-bold font-heading text-foreground dark:text-white">{memorial.pet_name}</h2>
+                </div>
+            )}
+
+            <div className="p-6 flex-1 flex flex-col justify-between">
+                <div className="mb-6">
+                    <Quote className="w-8 h-8 text-orange-200 fill-orange-200 mb-2" />
+                    <p className="text-stone-600 dark:text-zinc-300 italic leading-relaxed">
+                        "{memorial.tribute}"
+                    </p>
+                    <p className="text-right text-sm font-bold text-stone-400 dark:text-zinc-500 mt-4">
+                        — {memorial.owner_name}
+                    </p>
+                </div>
+
+                <div className="border-t border-stone-100 dark:border-zinc-800 pt-4 flex justify-between items-center mt-auto">
+                    <div className="text-sm text-stone-400 dark:text-zinc-500 font-medium">
+                        Running Free 🌈
+                    </div>
+                    <Button
+                        variant="ghost"
+                        onClick={onLight}
+                        className={`rounded-full gap-2 transition-all ${isLit
+                            ? "bg-orange-50 dark:bg-orange-950/40 text-orange-500"
+                            : "text-stone-400 hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-zinc-800"
+                            }`}
+                    >
+                        <Flame
+                            className={`w-5 h-5 ${isLit ? "fill-orange-500 animate-pulse text-orange-500" : ""}`}
+                        />
+                        <span className="font-bold">{candleCount}</span>
+                    </Button>
+                </div>
+            </div>
+        </motion.div>
+    );
+}
 
 export function MemorialList() {
     const [memorials, setMemorials] = useState<Memorial[]>([]);
@@ -142,67 +221,13 @@ export function MemorialList() {
                     <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 1024: 3 }}>
                         <Masonry gutter="2rem">
                             {memorials.map((memorial) => (
-                                <motion.div
+                                <MemorialCard
                                     key={memorial.id}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    className="bg-white dark:bg-zinc-900 rounded-[2rem] overflow-hidden shadow-xl shadow-stone-200/50 dark:shadow-none hover:-translate-y-2 transition-transform duration-500 border border-stone-100 dark:border-zinc-800"
-                                >
-                                    {memorial.image_url ? (
-                                        <div className="relative h-64 bg-stone-100 dark:bg-zinc-800">
-                                            <Image
-                                                src={memorial.image_url}
-                                                alt={memorial.pet_name}
-                                                fill
-                                                sizes="(max-width: 750px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                                                className="object-cover"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                                            <div className="absolute bottom-4 left-4 text-white">
-                                                <h2 className="text-2xl font-bold font-heading">{memorial.pet_name}</h2>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div className="p-6 pb-0 flex items-center gap-3">
-                                            <div className="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-zinc-800 flex items-center justify-center text-orange-500">
-                                                <Heart className="w-6 h-6 fill-orange-500" />
-                                            </div>
-                                            <h2 className="text-2xl font-bold font-heading text-foreground dark:text-white">{memorial.pet_name}</h2>
-                                        </div>
-                                    )}
-
-                                    <div className="p-6">
-                                        <div className="mb-6">
-                                            <Quote className="w-8 h-8 text-orange-200 fill-orange-200 mb-2" />
-                                            <p className="text-stone-600 dark:text-zinc-300 italic leading-relaxed">
-                                                "{memorial.tribute}"
-                                            </p>
-                                            <p className="text-right text-sm font-bold text-stone-400 dark:text-zinc-500 mt-4">
-                                                — {memorial.owner_name}
-                                            </p>
-                                        </div>
-
-                                        <div className="border-t border-stone-100 dark:border-zinc-800 pt-4 flex justify-between items-center">
-                                            <div className="text-sm text-stone-400 dark:text-zinc-500 font-medium">
-                                                Running Free 🌈
-                                            </div>
-                                            <Button
-                                                variant="ghost"
-                                                onClick={() => lightCandle(memorial.id)}
-                                                className={`rounded-full gap-2 transition-all ${litCandles.includes(memorial.id)
-                                                    ? "bg-orange-50 dark:bg-orange-950/40 text-orange-500"
-                                                    : "text-stone-400 hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-zinc-800"
-                                                    }`}
-                                            >
-                                                <Flame
-                                                    className={`w-5 h-5 ${litCandles.includes(memorial.id) ? "fill-orange-500 animate-pulse text-orange-500" : ""}`}
-                                                />
-                                                <span className="font-bold">{candles[memorial.id] || 0}</span>
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </motion.div>
+                                    memorial={memorial}
+                                    isLit={litCandles.includes(memorial.id)}
+                                    candleCount={candles[memorial.id] || 0}
+                                    onLight={() => lightCandle(memorial.id)}
+                                />
                             ))}
                         </Masonry>
                     </ResponsiveMasonry>

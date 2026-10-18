@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
     default-src 'self';
     script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://va.vercel-scripts.com https://apis.google.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-    img-src 'self' blob: data: https://images.unsplash.com https://*.firebaseapp.com https://*.googleapis.com https://lh3.googleusercontent.com https://*.googleusercontent.com https://www.google.com https://*.tile.openstreetmap.org https://*.basemaps.cartocdn.com https://ui-avatars.com https://firebasestorage.googleapis.com https://unpkg.com;
+    img-src 'self' blob: data: https://images.unsplash.com https://*.firebaseapp.com https://*.googleapis.com https://lh3.googleusercontent.com https://*.googleusercontent.com https://www.google.com https://*.tile.openstreetmap.org https://*.basemaps.cartocdn.com https://ui-avatars.com https://firebasestorage.googleapis.com https://unpkg.com https://i.imgur.com https://images.pexels.com;
     font-src 'self' https://fonts.gstatic.com;
     connect-src 'self' https://firebasestorage.googleapis.com https://*.googleapis.com https://firestore.googleapis.com https://*.firebaseio.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firebaseinstallations.googleapis.com https://api.web3forms.com;
     object-src 'none';

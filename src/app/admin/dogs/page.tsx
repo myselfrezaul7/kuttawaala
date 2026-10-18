@@ -132,7 +132,7 @@ export default function AdminDogsPage() {
                                             <td className="px-6 py-4 font-bold text-foreground">
                                                 <div className="flex items-center gap-3">
                                                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                    <img src={dog.imageUrl || "/logo.png"} alt={dog.name} className="w-10 h-10 rounded-full object-cover" />
+                                                    <img src={dog.imageUrl || "/assets/dog_success_1.png"} alt={dog.name} onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/assets/dog_success_1.png"; }} className="w-10 h-10 rounded-full object-cover" />
                                                     {dog.name}
                                                 </div>
                                             </td>
