@@ -46,15 +46,15 @@ export function Hero() {
                     <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}>
                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start pt-2 sm:pt-4 w-full sm:w-auto">
                             <Link href="/adopt" className="w-full sm:w-auto">
-                                <motion.div whileTap={{ scale: 0.96 }} className="w-full">
-                                    <Button size="lg" className="w-full sm:w-auto text-base sm:text-lg h-14 px-8 rounded-2xl shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 transition-transform hover:-translate-y-1 font-bold">
+                                <motion.div whileTap={{ scale: 0.98 }} className="w-full">
+                                    <Button size="lg" className="w-full sm:w-auto text-base h-13 sm:h-14 px-8 rounded-2xl shadow-md shadow-primary/15 bg-primary hover:bg-primary/90 transition-all duration-200 hover:-translate-y-0.5 font-semibold">
                                         Adopt a Dog
                                     </Button>
                                 </motion.div>
                             </Link>
                             <Link href="/volunteer" className="w-full sm:w-auto">
-                                <motion.div whileTap={{ scale: 0.96 }} className="w-full">
-                                    <Button size="lg" variant="outline" className="w-full sm:w-auto text-foreground dark:text-stone-200 text-base sm:text-lg h-14 px-8 rounded-2xl border-2 border-border/80 dark:border-zinc-800 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-sm hover:bg-secondary/50 transition-transform hover:-translate-y-1 font-semibold">
+                                <motion.div whileTap={{ scale: 0.98 }} className="w-full">
+                                    <Button size="lg" variant="outline" className="w-full sm:w-auto text-foreground dark:text-stone-200 text-base h-13 sm:h-14 px-8 rounded-2xl border border-stone-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm hover:bg-secondary/50 transition-all duration-200 hover:-translate-y-0.5 font-semibold shadow-sm">
                                         Become a Volunteer
                                     </Button>
                                 </motion.div>

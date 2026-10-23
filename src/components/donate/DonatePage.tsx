@@ -1,10 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check, Heart, Pill, Syringe, Scissors, Wallet, ArrowRight, Mail, MessageCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Check, Heart, Pill, Syringe, Scissors, Wallet, ArrowRight, Mail, MessageCircle, Utensils, Stethoscope, Megaphone } from "lucide-react";
 import { toast } from "sonner";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 type DonationOption = {
@@ -107,14 +105,14 @@ export function DonatePage() {
                                     }
                                 }}
                                 className={`
-                                    cursor-pointer rounded-2xl md:rounded-[2rem] p-4 sm:p-5 border-[3px] md:border-2 transition-all duration-300 relative overflow-hidden group focus:outline-none focus:ring-2 focus:ring-primary
+                                    cursor-pointer rounded-2xl md:rounded-3xl p-4 sm:p-6 border transition-all duration-200 relative overflow-hidden group focus:outline-none focus:ring-2 focus:ring-primary
                                     ${isSelected
-                                        ? "bg-white dark:bg-zinc-900 border-primary shadow-xl scale-[1.02] md:scale-105 z-10"
-                                        : "bg-white/80 dark:bg-zinc-900/80 border-border/40 dark:border-border/60 md:border-transparent hover:border-border hover:shadow-lg backdrop-blur-md"}
+                                        ? "bg-white dark:bg-zinc-900 border-primary ring-2 ring-primary/20 shadow-md z-10"
+                                        : "bg-white/90 dark:bg-zinc-900/90 border-stone-200/80 dark:border-zinc-800/80 hover:border-primary/40 hover:shadow-sm"}
                                 `}
                             >
-                                <div className={`w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl ${option.bgColor} flex items-center justify-center mb-3 md:mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                                    <Icon className={`w-5 h-5 md:w-7 md:h-7 ${option.color}`} />
+                                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl ${option.bgColor} flex items-center justify-center mb-3 md:mb-5 transition-transform duration-200`}>
+                                    <Icon className={`w-5 h-5 md:w-6 md:h-6 ${option.color}`} />
                                 </div>
                                 <h2 className="text-base md:text-xl font-bold mb-1 md:mb-2 font-heading">{option.title}</h2>
                                 <p className="text-xs md:text-sm text-muted-foreground mb-3">{option.description}</p>
@@ -225,22 +223,28 @@ export function DonatePage() {
                     viewport={{ once: true, margin: "-50px" }}
                     className="max-w-3xl mx-auto mt-12 md:mt-24 text-center"
                 >
-                    <h2 className="text-xl md:text-2xl font-bold mb-6 md:mb-8">Where does the money go?</h2>
+                    <h2 className="text-xl md:text-2xl font-bold mb-6 md:mb-8 tracking-tight">Where does the money go?</h2>
                     <div className="grid grid-cols-3 gap-3 md:gap-8">
-                        <div>
-                            <div className="w-10 h-10 md:w-16 md:h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-2 md:mb-4 text-lg md:text-2xl">🥬</div>
-                            <h4 className="text-xs md:text-base font-bold mb-1 md:mb-2 leading-tight">70% Food & Care</h4>
-                            <p className="hidden md:block text-sm text-muted-foreground">Daily meals for 150+ dogs and shelter maintenance.</p>
+                        <div className="bg-white/80 dark:bg-zinc-900/60 border border-stone-200/70 dark:border-zinc-800/80 rounded-2xl p-4 md:p-6">
+                            <div className="w-10 h-10 md:w-12 md:h-12 mx-auto bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-xl flex items-center justify-center mb-3">
+                                <Utensils className="w-5 h-5 md:w-6 md:h-6" />
+                            </div>
+                            <h4 className="text-xs md:text-base font-bold mb-1 leading-tight">70% Food & Care</h4>
+                            <p className="hidden md:block text-xs text-muted-foreground leading-relaxed">Daily meals for 150+ dogs and shelter maintenance.</p>
                         </div>
-                        <div>
-                            <div className="w-10 h-10 md:w-16 md:h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-2 md:mb-4 text-lg md:text-2xl">⚕️</div>
-                            <h4 className="text-xs md:text-base font-bold mb-1 md:mb-2 leading-tight">20% Medical</h4>
-                            <p className="hidden md:block text-sm text-muted-foreground">Emergency surgeries, vaccinations, and treatments.</p>
+                        <div className="bg-white/80 dark:bg-zinc-900/60 border border-stone-200/70 dark:border-zinc-800/80 rounded-2xl p-4 md:p-6">
+                            <div className="w-10 h-10 md:w-12 md:h-12 mx-auto bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center mb-3">
+                                <Stethoscope className="w-5 h-5 md:w-6 md:h-6" />
+                            </div>
+                            <h4 className="text-xs md:text-base font-bold mb-1 leading-tight">20% Medical</h4>
+                            <p className="hidden md:block text-xs text-muted-foreground leading-relaxed">Emergency surgeries, vaccinations, and treatments.</p>
                         </div>
-                        <div>
-                            <div className="w-10 h-10 md:w-16 md:h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-2 md:mb-4 text-lg md:text-2xl">📢</div>
-                            <h4 className="text-xs md:text-base font-bold mb-1 md:mb-2 leading-tight">10% Outreach</h4>
-                            <p className="hidden md:block text-sm text-muted-foreground">Adoption drives and awareness campaigns.</p>
+                        <div className="bg-white/80 dark:bg-zinc-900/60 border border-stone-200/70 dark:border-zinc-800/80 rounded-2xl p-4 md:p-6">
+                            <div className="w-10 h-10 md:w-12 md:h-12 mx-auto bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-400 rounded-xl flex items-center justify-center mb-3">
+                                <Megaphone className="w-5 h-5 md:w-6 md:h-6" />
+                            </div>
+                            <h4 className="text-xs md:text-base font-bold mb-1 leading-tight">10% Outreach</h4>
+                            <p className="hidden md:block text-xs text-muted-foreground leading-relaxed">Adoption drives and community awareness.</p>
                         </div>
                     </div>
                 </motion.div>

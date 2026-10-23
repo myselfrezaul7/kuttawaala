@@ -3,11 +3,11 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { Menu, X, Sun, Moon, Heart, User, LogIn, Dog, Search, MapPin, Users, HelpCircle, LayoutDashboard, Settings } from "lucide-react";
+import { Menu, X, Sun, Moon, Heart, User, LogIn, Dog, Search, MapPin, Users, HelpCircle, LayoutDashboard, Settings, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { LanguageToggle } from "@/components/shared/LanguageToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MobileBottomNav } from "./MobileBottomNav";
@@ -15,6 +15,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export function Header() {
     const router = useRouter();
+    const pathname = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
@@ -81,34 +82,41 @@ export function Header() {
 
     return (
         <>
-            <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-6xl w-[calc(100%-2rem)] transition-all duration-300 ease-out bg-white/50 dark:bg-zinc-900/50 backdrop-blur-2xl border border-border/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-[100px] print:hidden ${navVisible ? "translate-y-0 opacity-100" : "-translate-y-[120%] opacity-0"}`}>
+            <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-6xl w-[calc(100%-2rem)] transition-all duration-300 ease-out bg-white/85 dark:bg-zinc-900/85 backdrop-blur-xl border border-stone-200/80 dark:border-zinc-800/80 shadow-[0_4px_20px_rgba(0,0,0,0.04)] rounded-full print:hidden ${navVisible ? "translate-y-0 opacity-100" : "-translate-y-[120%] opacity-0"}`}>
                 <div className="px-5 py-2.5 flex justify-between items-center">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2 group shrink-0">
-                        <img src="/logo.png" alt="Kuttawaala Logo" className="w-8 h-8 object-contain transition-transform group-hover:scale-110" />
-                        <span className="text-lg lg:text-2xl font-bold font-sans text-foreground dark:text-white group-hover:text-primary dark:group-hover:text-primary transition-colors">
+                    <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+                        <img src="/logo.png" alt="Kuttawaala Logo" className="w-8 h-8 object-contain transition-transform duration-200 group-hover:scale-105" />
+                        <span className="text-lg lg:text-xl font-bold tracking-tight font-sans text-foreground dark:text-white group-hover:text-primary dark:group-hover:text-primary transition-colors">
                             KUTTAWAALA
                         </span>
                     </Link>
 
                     {/* Desktop Nav */}
-                    <nav className="hidden md:flex items-center gap-1 lg:gap-4 xl:gap-6">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.href}
-                                href={link.href}
-                                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                                className="text-xs lg:text-sm font-medium text-foreground/90 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors flex items-center gap-1 px-1.5 lg:px-2 py-1 rounded-md"
-                            >
-                                {link.name}
-                                {link.external && <span className="px-1 py-0.5 rounded-md bg-purple-100 text-purple-700 text-[9px] lg:text-[10px] font-bold">NEW</span>}
-                            </Link>
-                        ))}
+                    <nav className="hidden md:flex items-center gap-1 lg:gap-1.5">
+                        {navLinks.map((link) => {
+                            const isActive = !link.external && (pathname === link.href || (link.href !== "/" && pathname?.startsWith(link.href)));
+                            return (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                    className={`text-xs lg:text-sm transition-colors flex items-center gap-1 px-2.5 lg:px-3 py-1.5 rounded-full ${
+                                        isActive
+                                            ? "bg-primary/10 dark:bg-primary/15 text-primary font-semibold"
+                                            : "font-medium text-stone-600 dark:text-stone-300 hover:text-foreground dark:hover:text-white hover:bg-stone-100/80 dark:hover:bg-zinc-800/60"
+                                    }`}
+                                >
+                                    {link.name}
+                                    {link.external && <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground opacity-70" />}
+                                </Link>
+                            );
+                        })}
                         <button
                             onClick={() => setIsSearchOpen(true)}
-                            className="text-xs lg:text-sm font-medium text-foreground/90 dark:text-stone-300 hover:text-primary dark:hover:text-primary transition-colors flex items-center gap-1.5 px-1.5 lg:px-2 py-1"
+                            className="text-xs lg:text-sm font-medium text-stone-600 dark:text-stone-300 hover:text-foreground dark:hover:text-white hover:bg-stone-100/80 dark:hover:bg-zinc-800/60 transition-colors flex items-center gap-1.5 px-2.5 lg:px-3 py-1.5 rounded-full"
                         >
-                            <Search className="w-4 h-4" /> {t.nav.search}
+                            <Search className="w-3.5 h-3.5" /> {t.nav.search}
                         </button>
                     </nav>
 
@@ -322,14 +330,14 @@ export function Header() {
                                             setIsSearchOpen(false);
                                             router.push(`/adopt?query=${encodeURIComponent(searchQuery)}`);
                                         }}
-                                        className="flex-1 p-6 rounded-2xl bg-primary/10 hover:bg-primary/20 border border-primary/20 transition-all text-left flex items-start gap-4 group"
+                                        className="flex-1 p-5 rounded-2xl bg-primary/5 hover:bg-primary/10 border border-primary/20 transition-all text-left flex items-start gap-4 group"
                                     >
-                                        <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                                            🐕
+                                        <div className="w-11 h-11 rounded-xl bg-primary/15 text-primary flex items-center justify-center flex-shrink-0">
+                                            <Dog className="w-5 h-5" />
                                         </div>
                                         <div>
-                                            <h3 className="font-bold text-foreground text-lg mb-1">Search Adoptions</h3>
-                                            <p className="text-muted-foreground line-clamp-1">Find dogs matching "{searchQuery}"</p>
+                                            <h3 className="font-semibold text-foreground text-base mb-0.5">Search Adoptions</h3>
+                                            <p className="text-muted-foreground text-sm line-clamp-1">Find dogs matching &ldquo;{searchQuery}&rdquo;</p>
                                         </div>
                                     </button>
 
@@ -338,14 +346,14 @@ export function Header() {
                                             setIsSearchOpen(false);
                                             router.push(`/find-vet?query=${encodeURIComponent(searchQuery)}`);
                                         }}
-                                        className="flex-1 p-6 rounded-2xl bg-secondary hover:bg-secondary/80 border border-border transition-all text-left flex items-start gap-4 group dark:bg-zinc-800 dark:hover:bg-zinc-700"
+                                        className="flex-1 p-5 rounded-2xl bg-secondary/50 hover:bg-secondary/80 border border-border transition-all text-left flex items-start gap-4 group dark:bg-zinc-900 dark:hover:bg-zinc-800"
                                     >
-                                        <div className="w-12 h-12 rounded-full bg-background flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform dark:bg-zinc-900">
-                                            🏥
+                                        <div className="w-11 h-11 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
+                                            <MapPin className="w-5 h-5" />
                                         </div>
                                         <div>
-                                            <h3 className="font-bold text-foreground text-lg mb-1">Search Vets</h3>
-                                            <p className="text-muted-foreground line-clamp-1">Find clinics matching "{searchQuery}"</p>
+                                            <h3 className="font-semibold text-foreground text-base mb-0.5">Search Vets</h3>
+                                            <p className="text-muted-foreground text-sm line-clamp-1">Find clinics matching &ldquo;{searchQuery}&rdquo;</p>
                                         </div>
                                     </button>
                                 </div>

@@ -87,19 +87,23 @@ export function VetFinder() {
     const hasActiveFilters = searchQuery || selectedDistrict !== "all" || selectedService !== "all" || showEmergencyOnly;
 
     return (
-        <div className="min-h-screen bg-muted/30 dark:bg-zinc-950 pb-20">
+        <div className="min-h-screen bg-stone-50/50 dark:bg-zinc-950 pb-20">
             {/* Hero Header */}
-            <div className="bg-gradient-to-br from-primary via-orange-500 to-amber-600 text-white py-20 text-center px-4 relative overflow-hidden">
-                <div className="relative z-10 container mx-auto">
+            <div className="bg-secondary/30 dark:bg-zinc-900/50 border-b border-stone-200/70 dark:border-zinc-800/80 py-16 md:py-24 text-center px-4 relative overflow-hidden">
+                <div className="relative z-10 container mx-auto max-w-3xl">
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
+                        transition={{ duration: 0.45 }}
                     >
-                        <h1 className="text-4xl md:text-6xl font-bold mb-6 font-heading drop-shadow-md">
-                            Find Trusted Vet Care
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-zinc-800 shadow-sm border border-stone-200/80 dark:border-zinc-700 text-primary text-xs font-semibold mb-6">
+                            <Stethoscope className="w-3.5 h-3.5" />
+                            <span>Verified Veterinary Directory</span>
+                        </div>
+                        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-5 font-heading tracking-tight text-foreground">
+                            Find Trusted <span className="text-primary">Vet Care</span>
                         </h1>
-                        <p className="text-orange-50 max-w-2xl mx-auto text-lg md:text-xl font-medium leading-relaxed">
+                        <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg md:text-xl leading-relaxed">
                             Connect with {stats.total}+ verified clinics across {stats.districts} districts.
                             From routine checkups to 24/7 emergency care.
                         </p>
@@ -107,38 +111,36 @@ export function VetFinder() {
 
                     {/* Stats Pills */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="flex flex-wrap justify-center gap-4 mt-10"
+                        transition={{ duration: 0.45, delay: 0.15 }}
+                        className="flex flex-wrap justify-center gap-3 mt-8"
                     >
-                        <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-5 py-2.5 rounded-full shadow-lg">
-                            <Building2 className="w-5 h-5 text-orange-200" />
-                            <span className="font-semibold">{stats.total} Clinics</span>
+                        <div className="flex items-center gap-2 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-stone-200/80 dark:border-zinc-800 px-4 py-2 rounded-full shadow-sm text-xs sm:text-sm">
+                            <Building2 className="w-4 h-4 text-primary" />
+                            <span className="font-semibold text-foreground">{stats.total} Clinics</span>
                         </div>
-                        <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-5 py-2.5 rounded-full shadow-lg">
-                            <MapPin className="w-5 h-5 text-orange-200" />
-                            <span className="font-semibold">{stats.districts} Districts</span>
+                        <div className="flex items-center gap-2 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-stone-200/80 dark:border-zinc-800 px-4 py-2 rounded-full shadow-sm text-xs sm:text-sm">
+                            <MapPin className="w-4 h-4 text-primary" />
+                            <span className="font-semibold text-foreground">{stats.districts} Districts</span>
                         </div>
-                        <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-5 py-2.5 rounded-full shadow-lg">
-                            <Stethoscope className="w-5 h-5 text-orange-200" />
-                            <span className="font-semibold">{stats.emergency} Emergency Centers</span>
+                        <div className="flex items-center gap-2 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-stone-200/80 dark:border-zinc-800 px-4 py-2 rounded-full shadow-sm text-xs sm:text-sm">
+                            <Stethoscope className="w-4 h-4 text-primary" />
+                            <span className="font-semibold text-foreground">{stats.emergency} Emergency Centers</span>
                         </div>
                     </motion.div>
                 </div>
 
-                {/* Decorative Elements */}
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-400/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-                <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-amber-800/20 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2" />
+                <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
             </div>
 
-            <div className="container mx-auto px-4 -mt-10 relative z-20">
+            <div className="container mx-auto px-4 mt-8 md:mt-10 relative z-20">
                 {/* Search & Filter Card */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl shadow-xl border border-white/20 dark:border-zinc-800 space-y-6"
+                    transition={{ duration: 0.45, delay: 0.2 }}
+                    className="bg-white dark:bg-zinc-900 p-5 sm:p-6 md:p-8 rounded-3xl shadow-sm border border-stone-200/80 dark:border-zinc-800/80 space-y-6"
                 >
                     {/* Main Search */}
                     <div className="relative group">
@@ -198,9 +200,9 @@ export function VetFinder() {
                             <div className="flex flex-wrap gap-2">
                                 <button
                                     onClick={() => setSelectedService("all")}
-                                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${selectedService === "all"
-                                        ? "bg-primary text-primary-foreground border-primary shadow-md shadow-primary/20 scale-105"
-                                        : "bg-white dark:bg-zinc-900 border-border dark:border-zinc-700 text-muted-foreground hover:border-primary hover:text-primary"
+                                    className={`px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-colors duration-200 border ${selectedService === "all"
+                                        ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                                        : "bg-white dark:bg-zinc-900 border-border dark:border-zinc-700 text-muted-foreground hover:border-primary/50 hover:text-foreground"
                                         }`}
                                 >
                                     All Services
@@ -209,9 +211,9 @@ export function VetFinder() {
                                     <button
                                         key={service}
                                         onClick={() => setSelectedService(selectedService === service ? "all" : service)}
-                                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${selectedService === service
-                                            ? "bg-primary text-primary-foreground border-primary shadow-md shadow-primary/20 scale-105"
-                                            : "bg-white dark:bg-zinc-900 border-border dark:border-zinc-700 text-muted-foreground hover:border-primary hover:text-primary"
+                                        className={`px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-colors duration-200 border ${selectedService === service
+                                            ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                                            : "bg-white dark:bg-zinc-900 border-border dark:border-zinc-700 text-muted-foreground hover:border-primary/50 hover:text-foreground"
                                             }`}
                                     >
                                         {service}

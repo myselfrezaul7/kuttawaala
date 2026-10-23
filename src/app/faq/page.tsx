@@ -142,9 +142,9 @@ export default function FAQPage() {
                 </div>
             </div>
 
-            <div className="container mx-auto px-4 -mt-10 relative z-20 max-w-4xl">
+            <div className="container mx-auto px-4 mt-8 md:mt-10 relative z-20 max-w-4xl">
                 {/* Search & Tabs Controls - Sticky */}
-                <div className="sticky top-[16px] transition-[top] duration-300 z-30 bg-stone-50/90 dark:bg-zinc-950/90 backdrop-blur-md pt-3 pb-3 md:pt-4 md:pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 mb-8 border-b border-border/50 shadow-sm md:shadow-none">
+                <div className="sticky top-20 transition-[top] duration-300 z-30 bg-stone-50/90 dark:bg-zinc-950/90 backdrop-blur-md py-3 md:py-4 -mx-4 px-4 sm:mx-0 sm:px-0 mb-8 border-b border-stone-200/70 dark:border-zinc-800/80">
                     <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
                         {/* Tabs */}
                         <div className="relative w-full md:w-auto -mx-2 px-2 md:mx-0 md:px-0">
@@ -208,20 +208,20 @@ export default function FAQPage() {
                                 transition={{ duration: 0.5 }}
                                 className="mb-8"
                             >
-                                <div className="bg-white dark:bg-zinc-900 rounded-[2rem] p-6 md:p-8 shadow-xl border border-border/50">
-                                    <h2 className="text-2xl font-bold mb-6 flex items-center gap-3 text-foreground pb-4 border-b border-border/50">
+                                <div className="bg-white dark:bg-zinc-900 rounded-3xl p-6 md:p-8 shadow-sm border border-stone-200/80 dark:border-zinc-800/80">
+                                    <h2 className="text-xl sm:text-2xl font-bold mb-6 flex items-center gap-3 text-foreground pb-4 border-b border-stone-200/70 dark:border-zinc-800/80">
                                         <div className={`p-2 rounded-xl ${badgeClasses}`}>
-                                            <Icon className="w-6 h-6" />
+                                            <Icon className="w-5 h-5" />
                                         </div>
                                         {category.title}
                                     </h2>
-                                    <Accordion type="single" collapsible className="w-full space-y-4">
+                                    <Accordion type="single" collapsible className="w-full space-y-3">
                                         {category.items.map((item) => (
-                                            <AccordionItem key={item.id} value={item.id} className="border border-border rounded-xl px-2 data-[state=open]:bg-secondary/30 transition-colors">
-                                                <AccordionTrigger className="hover:no-underline font-bold text-left px-4 text-lg py-4">
+                                            <AccordionItem key={item.id} value={item.id} className="border border-stone-200/80 dark:border-zinc-800 rounded-2xl px-2 data-[state=open]:bg-secondary/20 transition-colors">
+                                                <AccordionTrigger className="hover:no-underline font-semibold text-left px-4 text-base sm:text-lg py-4">
                                                     {item.q}
                                                 </AccordionTrigger>
-                                                <AccordionContent className="text-muted-foreground leading-relaxed px-4 pb-4 text-base">
+                                                <AccordionContent className="text-muted-foreground leading-relaxed px-4 pb-4 text-sm sm:text-base">
                                                     {item.a}
                                                 </AccordionContent>
                                             </AccordionItem>
