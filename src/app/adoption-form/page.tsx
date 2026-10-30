@@ -24,7 +24,7 @@ export default function AdoptionFormPage() {
             <div className="max-w-[210mm] mx-auto bg-white print:w-full print:max-w-none relative">
                 {/* Watermark Logo */}
                 <div className="absolute top-[600px] left-0 right-0 flex items-center justify-center opacity-10 pointer-events-none z-0">
-                    <img src="/assets/kuttawaala-logo.png" alt="Kuttawaala Watermark" className="w-[400px] h-auto object-contain grayscale" />
+                    <img src="/assets/kuttawaala-watermark-dark-full.png" alt="Kuttawaala Watermark" className="w-[400px] h-auto object-contain" />
                 </div>
 
                 {/* Header */}

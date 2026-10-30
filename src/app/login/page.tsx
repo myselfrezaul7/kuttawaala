@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { Mail, Lock, User, ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Dog } from "lucide-react"; // Kuttawaala branding
+import { KuttawaalaLogo } from "@/components/shared/KuttawaalaLogo";
 
 export default function LoginPage() {
     const { signInWithGoogle, signInWithEmail, signUpWithEmail, user, loading } = useAuth();
@@ -131,7 +132,7 @@ export default function LoginPage() {
                     <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                         <Dog className="w-10 h-10 text-primary" />
                     </div>
-                    <span className="text-2xl font-bold text-foreground dark:text-white tracking-tight">KUTTAWAALA</span>
+                    <KuttawaalaLogo className="h-8 sm:h-9" priority />
                 </div>
             </Link>
 

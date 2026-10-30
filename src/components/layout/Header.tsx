@@ -12,6 +12,7 @@ import { LanguageToggle } from "@/components/shared/LanguageToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MobileBottomNav } from "./MobileBottomNav";
 import { motion, AnimatePresence } from "framer-motion";
+import { KuttawaalaLogo } from "@/components/shared/KuttawaalaLogo";
 
 export function Header() {
     const router = useRouter();
@@ -85,11 +86,8 @@ export function Header() {
             <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-6xl w-[calc(100%-2rem)] transition-all duration-300 ease-out bg-white/85 dark:bg-zinc-900/85 backdrop-blur-xl border border-stone-200/80 dark:border-zinc-800/80 shadow-[0_4px_20px_rgba(0,0,0,0.04)] rounded-full print:hidden ${navVisible ? "translate-y-0 opacity-100" : "-translate-y-[120%] opacity-0"}`}>
                 <div className="px-5 py-2.5 flex justify-between items-center">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-                        <img src="/logo.png" alt="Kuttawaala Logo" className="w-8 h-8 object-contain transition-transform duration-200 group-hover:scale-105" />
-                        <span className="text-lg lg:text-xl font-bold tracking-tight font-sans text-foreground dark:text-white group-hover:text-primary dark:group-hover:text-primary transition-colors">
-                            KUTTAWAALA
-                        </span>
+                    <Link href="/" className="flex items-center group shrink-0 py-0.5" aria-label="Kuttawaala Home">
+                        <KuttawaalaLogo className="h-7 sm:h-8 md:h-9" priority />
                     </Link>
 
                     {/* Desktop Nav */}

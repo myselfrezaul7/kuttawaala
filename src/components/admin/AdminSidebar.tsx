@@ -19,6 +19,7 @@ import {
     X 
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { KuttawaalaLogo } from "@/components/shared/KuttawaalaLogo";
 
 export function AdminSidebar() {
     const pathname = usePathname();
@@ -71,9 +72,8 @@ export function AdminSidebar() {
             >
                 <div className="p-6 border-b border-border dark:border-zinc-800 flex items-center justify-between">
                     <div>
-                        <Link href="/" className="flex items-center gap-2">
-                            <img src="/logo.png" alt="Kuttawaala Logo" className="w-8 h-8 object-contain" />
-                            <span className="text-xl font-bold font-heading">Kuttawaala</span>
+                        <Link href="/" className="flex items-center gap-2 group" aria-label="Kuttawaala Home">
+                            <KuttawaalaLogo className="h-7 sm:h-8" />
                         </Link>
                         <div className="mt-2 text-xs font-bold text-muted-foreground bg-secondary/50 px-2 py-1 rounded inline-block">
                             ADMIN PANEL

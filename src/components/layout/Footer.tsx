@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Facebook, Instagram, Mail, Dog, Youtube, ArrowRight, Heart } from "lucide-react";
+import { KuttawaalaLogo } from "@/components/shared/KuttawaalaLogo";
 
 export function Footer() {
     return (
@@ -20,9 +21,8 @@ export function Footer() {
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10 text-center sm:text-left">
                             {/* Brand */}
                             <div className="col-span-1 md:col-span-1 space-y-3 flex flex-col items-center sm:items-start">
-                                <div className="flex items-center gap-2">
-                                    <Dog className="w-7 h-7 text-primary" />
-                                    <h3 className="text-xl font-bold tracking-tight text-foreground dark:text-white">KUTTAWAALA</h3>
+                                <div className="flex items-center">
+                                    <KuttawaalaLogo className="h-9 sm:h-10 md:h-11" />
                                 </div>
                                 <p className="text-xs font-semibold text-primary dark:text-primary/80">
                                     Non-Profit Animal Welfare Organization
