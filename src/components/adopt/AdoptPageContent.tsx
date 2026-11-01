@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Heart, Printer, Clock, MessageCircle, Facebook, Dog, Cat } from "lucide-react";
+import { ExternalLink, Heart, Printer, Clock, MessageCircle, Facebook, Dog, Cat, Search, HeartHandshake } from "lucide-react";
 
 const FACEBOOK_GROUP_URL = "https://www.facebook.com/groups/721498465956239/";
+const FACEBOOK_PAGE_URL = "https://www.facebook.com/kuttawaalaa/";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -19,23 +20,23 @@ const infoCards = [
   {
     icon: Clock,
     color: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
-    title: "Real-Time Updates",
+    title: "Real-Time Rescues",
     description:
-      "See new rescues the moment they're posted. Every dog has a story, and you'll find it on our community page.",
+      "See newly rescued puppies and dogs the moment they are posted by rescuers and fosters across Bangladesh.",
   },
   {
     icon: MessageCircle,
     color: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
-    title: "Direct Communication",
+    title: "Direct Rescuer Chat",
     description:
-      "Chat directly with our rescue volunteers. Ask questions, schedule visits, and get to know your future companion.",
+      "Chat directly with independent rescuers and fosters. Ask about medical history, schedule visits, and arrange adoptions.",
   },
   {
     icon: Heart,
     color: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
-    title: "Hundreds of Lives",
+    title: "Active Rescue Network",
     description:
-      "Over 500 dogs rescued and counting. From tiny puppies to wise seniors, there's a perfect match waiting for you.",
+      "Join over 17,000 members sharing real-time rescues, foster requests, and adoption stories every day.",
   },
 ];
 
@@ -58,10 +59,10 @@ export function AdoptPageContent() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-5 font-heading tracking-tight text-foreground">
-            Find Your Canine <span className="text-primary">Soulmate</span>
+            Find or Rehome a <span className="text-primary">Soulmate</span>
           </h1>
           <p className="text-muted-foreground max-w-xl mx-auto mb-8 text-base sm:text-lg md:text-xl leading-relaxed">
-            Every dog deserves a loving home. Browse, connect, and adopt through our verified rescue community.
+            Every dog deserves a loving home. Whether you are looking to adopt a rescue or need to rehome a rescued pup, connect directly through our community.
           </p>
 
           {/* Actions & Companion Link */}
@@ -72,7 +73,7 @@ export function AdoptPageContent() {
                 className="gap-2 bg-white dark:bg-zinc-900 border-stone-200 dark:border-zinc-800 text-foreground hover:bg-stone-50 dark:hover:bg-zinc-800 rounded-xl shadow-sm px-5 h-11 text-sm font-semibold"
               >
                 <Printer className="w-4 h-4 text-primary" />
-                Print Adoption Form
+                Print Adoption Agreement
               </Button>
             </a>
 
@@ -105,29 +106,135 @@ export function AdoptPageContent() {
           </div>
 
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading tracking-tight text-foreground mb-4">
-            Adopt Through Our Facebook Community
+            Adopt &amp; Rehome in Our Facebook Community
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-            We have hundreds of rescued dogs waiting for their forever homes.
-            Our Facebook community is where all adoptions happen — see real-time
-            posts, photos, and connect directly with our rescue team.
+            Kuttawaala is a community platform connecting rescuers, fosters, and adopters.
+            Our active Facebook group with 17,000+ members is where all daily adoptions and rehoming requests happen — see real-time posts, photos, and contact rescuers directly.
           </p>
 
-          <a
-            href={FACEBOOK_GROUP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-block"
-          >
-            <Button
-              size="lg"
-              className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-sm px-6 sm:px-8 h-12 sm:h-13 text-sm sm:text-base font-semibold gap-2 transition-all hover:-translate-y-0.5"
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
+            <a
+              href={FACEBOOK_GROUP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-block"
             >
-              <ExternalLink className="w-4 h-4 shrink-0" />
-              <span>Visit Our Facebook Group</span>
-            </Button>
-          </a>
+              <Button
+                size="lg"
+                className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-sm px-6 sm:px-8 h-12 sm:h-13 text-sm sm:text-base font-semibold gap-2 transition-all hover:-translate-y-0.5"
+              >
+                <Facebook className="w-4 h-4 fill-current" />
+                <span>Visit Facebook Group (17K+ Members)</span>
+                <ExternalLink className="w-4 h-4 shrink-0" />
+              </Button>
+            </a>
+            <a
+              href={FACEBOOK_PAGE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-block"
+            >
+              <Button
+                size="lg"
+                variant="outline"
+                className="w-full sm:w-auto border-stone-200 dark:border-zinc-800 hover:bg-stone-50 dark:hover:bg-zinc-800 text-foreground rounded-xl shadow-sm px-6 sm:px-8 h-12 sm:h-13 text-sm sm:text-base font-semibold gap-2 transition-all hover:-translate-y-0.5"
+              >
+                <span>Message Our Page</span>
+                <ExternalLink className="w-4 h-4 shrink-0" />
+              </Button>
+            </a>
+          </div>
         </motion.div>
+
+        {/* ───────────── TWO CLEAR PATHWAYS: ADOPT VS REHOME ───────────── */}
+        <div className="grid md:grid-cols-2 gap-6 mt-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            variants={fadeUp}
+            custom={1}
+            className="bg-white dark:bg-zinc-900 border border-stone-200/80 dark:border-zinc-800/80 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-sm"
+          >
+            <div className="space-y-3 mb-6">
+              <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center">
+                <Search className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold font-heading text-foreground">
+                Looking to Adopt a Dog?
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Browse dogs and puppies rescued from streets across Dhaka and all 64 districts. View medical records, photos, and reach out directly to the rescuer or foster parent.
+              </p>
+              <ul className="text-xs text-muted-foreground space-y-1.5 pt-1">
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  No adoption fees — ever
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  Direct phone / WhatsApp contact with rescuers
+                </li>
+              </ul>
+            </div>
+            <a
+              href={FACEBOOK_GROUP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl h-11 text-sm gap-2">
+                <Facebook className="w-4 h-4 fill-current" />
+                <span>Browse Dogs to Adopt</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </Button>
+            </a>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            variants={fadeUp}
+            custom={2}
+            className="bg-white dark:bg-zinc-900 border border-stone-200/80 dark:border-zinc-800/80 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-sm"
+          >
+            <div className="space-y-3 mb-6">
+              <div className="w-12 h-12 rounded-2xl bg-orange-500/10 border border-orange-500/20 text-orange-600 dark:text-orange-400 flex items-center justify-center">
+                <HeartHandshake className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold font-heading text-foreground">
+                Need to Rehome / Put for Adoption?
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Found or fostered a street puppy that needs a permanent home? Post your adoption plea in our 17,000+ member group following community safety guidelines.
+              </p>
+              <ul className="text-xs text-muted-foreground space-y-1.5 pt-1">
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
+                  Reach thousands of verified animal lovers in BD
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
+                  Use our standard Adoption Agreement form
+                </li>
+              </ul>
+            </div>
+            <a
+              href={FACEBOOK_GROUP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <Button variant="outline" className="w-full border-stone-200 dark:border-zinc-700 hover:bg-secondary/50 text-foreground font-semibold rounded-xl h-11 text-sm gap-2">
+                <Facebook className="w-4 h-4 text-[#1877F2] fill-current" />
+                <span>Post Rehoming Request</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </Button>
+            </a>
+          </motion.div>
+        </div>
 
         {/* ───────────── THREE INFO CARDS ───────────── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
@@ -172,10 +279,10 @@ export function AdoptPageContent() {
             </div>
 
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading tracking-tight text-foreground mb-3">
-              Ready to Meet Your New Best Friend?
+              Ready to Give a Rescue Dog a Life?
             </h2>
             <p className="text-muted-foreground text-sm sm:text-base mb-8 max-w-xl mx-auto leading-relaxed">
-              Your companion is just a click away. Join thousands of animal lovers in our community and give a rescued dog the life they deserve.
+              Your future companion or lifelong foster is waiting. Join 17,000+ compassionate animal lovers in Bangladesh and make a real difference today.
             </p>
 
             <a
@@ -189,8 +296,8 @@ export function AdoptPageContent() {
                 variant="outline"
                 className="w-full sm:w-auto border-stone-200 dark:border-zinc-800 hover:bg-stone-50 dark:hover:bg-zinc-800 text-foreground rounded-xl shadow-sm px-6 sm:px-8 h-12 sm:h-13 text-sm sm:text-base font-semibold gap-2 transition-all hover:-translate-y-0.5"
               >
-                <ExternalLink className="w-4 h-4 text-primary shrink-0" />
-                <span>Join the Facebook Group</span>
+                <Facebook className="w-4 h-4 text-[#1877F2] fill-current" />
+                <span>Join the Facebook Community</span>
               </Button>
             </a>
           </div>

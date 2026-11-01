@@ -5,11 +5,14 @@ import { Metadata } from "next";
 import { dogs } from "@/data/dogs";
 import { DogService } from "@/services/DogService";
 import { Button } from "@/components/ui/button";
-import { MapPin, Info, CheckCircle, ArrowLeft, ShoppingBag } from "lucide-react";
+import { MapPin, Info, CheckCircle, ArrowLeft, ShoppingBag, Heart, Facebook, ExternalLink } from "lucide-react";
 import { AdoptionForm } from "@/components/adopt/AdoptionForm";
 import { SponsorshipModal } from "@/components/adopt/SponsorshipModal";
 import { DogDetailActions } from "@/components/adopt/DogDetailActions";
 import { DogDetailImage } from "@/components/adopt/DogDetailImage";
+
+const FACEBOOK_GROUP_URL = "https://www.facebook.com/groups/721498465956239/";
+const FACEBOOK_PAGE_URL = "https://www.facebook.com/kuttawaalaa/";
 
 type Props = {
     params: Promise<{ id: string }>;
@@ -29,15 +32,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         };
     }
 
+    const isAdopted = dog.tag === 'Adopted' || dog.status === 'Adopted';
     const baseUrl = "https://www.kuttawaala.com";
     const imageUrl = dog.imageUrl?.startsWith("http")
         ? dog.imageUrl
         : `${baseUrl}${dog.imageUrl?.startsWith("/") ? "" : "/"}${dog.imageUrl || "assets/hero-dog.jpg"}`;
     const pageUrl = `${baseUrl}/adopt/${dog.id}`;
-    const title = `Adopt ${dog.name} - ${dog.breed} in ${dog.location}`;
+    const title = isAdopted 
+        ? `${dog.name} (Adopted) - ${dog.breed} in ${dog.location}`
+        : `Adopt ${dog.name} - ${dog.breed} in ${dog.location}`;
     const description =
         dog.description ||
-        `Meet ${dog.name}, a friendly ${dog.breed} looking for a loving home in ${dog.location}, Bangladesh. Adopt don't shop!`;
+        `Meet ${dog.name}, a friendly ${dog.breed} in ${dog.location}, Bangladesh. Adopt don't shop!`;
 
     return {
         title,
@@ -75,6 +81,7 @@ export default async function DogDetailPage({ params }: Props) {
         return notFound();
     }
 
+    const isAdopted = dog.tag === 'Adopted' || dog.status === 'Adopted';
     const isVaccinated = Boolean(dog.vaccinated || (dog as any).attributes?.vaccinated);
     const isNeutered = Boolean(dog.neutered || (dog as any).attributes?.neutered);
     const isGoodWithKids = Boolean(dog.goodWithKids || (dog as any).attributes?.goodWithKids);
@@ -104,10 +111,16 @@ export default async function DogDetailPage({ params }: Props) {
                     <div>
                         <div className="flex justify-between items-start mb-4">
                             <h1 className="text-4xl md:text-6xl font-bold font-heading text-foreground dark:text-stone-100">{dog.name}</h1>
-                            <span className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider ${dog.tag === 'Urgent' ? 'bg-amber-500 text-white' :
-                                dog.tag === 'New' ? 'bg-indigo-500 text-white' : 'bg-green-100 text-green-700 dark:bg-zinc-800 dark:text-green-400'
+                            <span className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider ${
+                                isAdopted 
+                                    ? 'bg-emerald-600 text-white shadow-sm'
+                                    : dog.tag === 'Urgent' 
+                                        ? 'bg-amber-500 text-white' 
+                                        : dog.tag === 'New' 
+                                            ? 'bg-indigo-500 text-white' 
+                                            : 'bg-green-100 text-green-700 dark:bg-zinc-800 dark:text-green-400'
                                 }`}>
-                                {dog.tag || 'Available'}
+                                {isAdopted ? 'Adopted 🎉' : (dog.tag || 'Available')}
                             </span>
                         </div>
                         <p className="text-xl text-primary font-medium flex items-center gap-2">
@@ -144,7 +157,7 @@ export default async function DogDetailPage({ params }: Props) {
                     {/* Health & Habits */}
                     <div className="space-y-3">
                         <h2 className="text-xl font-bold font-heading text-foreground dark:text-white flex items-center gap-2">
-                            <CheckCircle className="w-5 h-5 text-green-500" /> Health & Habits
+                            <CheckCircle className="w-5 h-5 text-green-500" /> Health &amp; Habits
                         </h2>
                         <div className="flex flex-wrap gap-2">
                             {isVaccinated && (
@@ -166,10 +179,10 @@ export default async function DogDetailPage({ params }: Props) {
                         <div className="bg-gradient-to-r from-purple-50 to-fuchsia-50 dark:from-purple-900/20 dark:to-fuchsia-900/20 border border-purple-100 dark:border-purple-800/50 p-5 sm:p-6 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div>
                                 <h3 className="text-base sm:text-lg font-bold mb-1 text-purple-900 dark:text-purple-300 flex items-center gap-2">
-                                    <ShoppingBag className="w-5 h-5 shrink-0" /> Get Ready for {dog.name}
+                                    <ShoppingBag className="w-5 h-5 shrink-0" /> Dog Supplies &amp; Essentials
                                 </h3>
                                 <p className="text-purple-700/80 dark:text-purple-300/80 text-xs sm:text-sm">
-                                    Grab their starter kit, food, and toys at our new store!
+                                    Grab puppy starter kits, food, tick shampoo, and toys at PetBhai!
                                 </p>
                             </div>
                             <a
@@ -178,20 +191,65 @@ export default async function DogDetailPage({ params }: Props) {
                                 rel="noopener noreferrer"
                                 className="w-full sm:w-auto text-center shrink-0 px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white text-sm font-bold rounded-xl transition-colors shadow-sm"
                             >
-                                Shop Now
+                                Shop PetBhai
                             </a>
                         </div>
 
-                        <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-zinc-900 dark:to-zinc-800 p-6 rounded-2xl">
-                            <h3 className="text-xl font-bold mb-2 font-heading text-stone-800 dark:text-white">Can't adopt right now?</h3>
-                            <p className="text-stone-500 dark:text-stone-400 mb-4 text-sm">
-                                You can still be a hero! Sponsor {dog.name}'s meals or medical care.
-                            </p>
-                            <SponsorshipModal dogName={dog.name} />
-                        </div>
+                        {/* Adopted Status Banner OR Active Adoption Form */}
+                        {isAdopted ? (
+                            <div className="bg-emerald-50/70 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800/40 p-6 sm:p-8 rounded-3xl text-center space-y-4">
+                                <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-center mx-auto">
+                                    <Heart className="w-6 h-6 fill-current" />
+                                </div>
+                                <div>
+                                    <h3 className="text-2xl font-bold font-heading text-emerald-900 dark:text-emerald-200 mb-2">
+                                        {dog.name} Has Found a Loving Forever Family! 🎉
+                                    </h3>
+                                    <p className="text-sm sm:text-base text-emerald-800/80 dark:text-emerald-300/80 max-w-xl mx-auto leading-relaxed">
+                                        This sweet rescue dog has happily been adopted. Looking to adopt another rescue dog, or have a rescued puppy you need to rehome? Connect directly with rescuers across Bangladesh in our active Facebook community!
+                                    </p>
+                                </div>
 
-                        <h3 className="text-2xl font-bold mb-6 font-heading text-foreground dark:text-white">Adopt {dog.name}</h3>
-                        <AdoptionForm dogName={dog.name} dogId={dog.id} />
+                                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-3">
+                                    <a
+                                        href={FACEBOOK_GROUP_URL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-full sm:w-auto"
+                                    >
+                                        <Button className="w-full sm:w-auto bg-[#1877F2] hover:bg-[#1877F2]/90 text-white rounded-xl shadow-sm px-6 h-12 text-sm font-semibold gap-2">
+                                            <Facebook className="w-4 h-4 fill-current" />
+                                            <span>Join Facebook Group to Adopt</span>
+                                            <ExternalLink className="w-3.5 h-3.5" />
+                                        </Button>
+                                    </a>
+                                    <a
+                                        href={FACEBOOK_PAGE_URL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-full sm:w-auto"
+                                    >
+                                        <Button variant="outline" className="w-full sm:w-auto border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 hover:bg-emerald-100/50 dark:hover:bg-emerald-900/40 rounded-xl h-12 text-sm font-semibold gap-2">
+                                            <span>Message Official Page</span>
+                                            <ExternalLink className="w-3.5 h-3.5" />
+                                        </Button>
+                                    </a>
+                                </div>
+                            </div>
+                        ) : (
+                            <>
+                                <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-zinc-900 dark:to-zinc-800 p-6 rounded-2xl">
+                                    <h3 className="text-xl font-bold mb-2 font-heading text-stone-800 dark:text-white">Can&apos;t adopt right now?</h3>
+                                    <p className="text-stone-500 dark:text-stone-400 mb-4 text-sm">
+                                        You can still be a hero! Sponsor {dog.name}&apos;s meals or medical care.
+                                    </p>
+                                    <SponsorshipModal dogName={dog.name} />
+                                </div>
+
+                                <h3 className="text-2xl font-bold mb-6 font-heading text-foreground dark:text-white">Adopt {dog.name}</h3>
+                                <AdoptionForm dogName={dog.name} dogId={dog.id} />
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

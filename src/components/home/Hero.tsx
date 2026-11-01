@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Heart, AlertCircle } from "lucide-react";
+import { Users, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RemoteConfigService } from "@/services/RemoteConfigService";
 
@@ -40,7 +40,7 @@ export function Hero() {
                     </motion.div>
                     <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}>
                         <p className="text-xl text-muted-foreground dark:text-stone-300 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                            Join us in transforming the lives of street dogs in Bangladesh through rescue, care, and adoption.
+                            Bangladesh&apos;s open community platform supporting dog rescuers, fosters, and adopters with verified care and resources.
                         </p>
                     </motion.div>
                     <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}>
@@ -63,7 +63,7 @@ export function Hero() {
                     </motion.div>
                 </motion.div>
 
-                {/* Hero Newborn Stray Puppy Visual — Subtle & Clean Design */}
+                {/* Hero Newborn Stray Puppy Visual — Clean Design with No Text Overlay */}
                 <motion.div
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -80,10 +80,7 @@ export function Hero() {
                                 sizes="(max-width: 640px) 92vw, (max-width: 1024px) 420px, 420px"
                                 className="object-cover object-center transition-transform duration-700 hover:scale-[1.02]"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
-                            <div className="absolute bottom-4 right-4 bg-black/45 backdrop-blur-md text-white/95 px-3 py-1 rounded-full text-xs font-medium tracking-wide border border-white/10">
-                                Newborn Street Rescue • Dhaka
-                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
                         </div>
 
                         {/* Subtle Floating Status Badge (positioned outside overflow-hidden so it never clips) */}
@@ -95,11 +92,11 @@ export function Hero() {
                             className="absolute -bottom-4 left-4 sm:-left-4 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-lg border border-stone-200/80 dark:border-zinc-800 flex items-center gap-3 z-20"
                         >
                             <div className="w-8 h-8 sm:w-9 sm:h-9 bg-secondary rounded-full flex items-center justify-center text-primary shrink-0">
-                                <Heart className="w-4 h-4 fill-current" />
+                                <Users className="w-4 h-4 text-primary" />
                             </div>
                             <div>
-                                <p className="font-bold text-xs sm:text-sm text-foreground dark:text-stone-100 leading-tight">500+ Rescued</p>
-                                <p className="text-[11px] text-muted-foreground leading-tight">Since 2020</p>
+                                <p className="font-bold text-xs sm:text-sm text-foreground dark:text-stone-100 leading-tight">Community Support Platform</p>
+                                <p className="text-[11px] text-muted-foreground leading-tight">Connecting Rescuers &amp; Adopters</p>
                             </div>
                         </motion.div>
                     </div>

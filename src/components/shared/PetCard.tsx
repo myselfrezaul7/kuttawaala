@@ -19,6 +19,7 @@ export function PetCard({ dog }: { dog: DogProps }) {
     const [isShareOpen, setIsShareOpen] = useState(false);
     const [imgSrc, setImgSrc] = useState(() => resolveDogImage(dog.imageUrl));
     const favorite = isFavorite(dog.id);
+    const isAdopted = dog.tag === 'Adopted' || dog.status === 'Adopted';
 
     const shareUrl = typeof window !== "undefined"
         ? `${window.location.origin}/adopt/${dog.id}`
@@ -75,14 +76,17 @@ export function PetCard({ dog }: { dog: DogProps }) {
                 </div>
 
                 {/* Tag badge with glass effect */}
-                {dog.tag && (
-                    <span className={`absolute top-3.5 left-3.5 px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider backdrop-blur-md shadow-sm border border-white/15 ${dog.tag === 'Urgent'
-                        ? 'bg-rose-500/90 text-white'
-                        : dog.tag === 'New'
-                            ? 'bg-blue-500/90 text-white'
-                            : 'bg-emerald-500/90 text-white'
+                {(dog.tag || isAdopted) && (
+                    <span className={`absolute top-3.5 left-3.5 px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider backdrop-blur-md shadow-sm border border-white/15 ${
+                        isAdopted
+                            ? 'bg-emerald-600/95 text-white font-bold'
+                            : dog.tag === 'Urgent'
+                                ? 'bg-rose-500/90 text-white'
+                                : dog.tag === 'New'
+                                    ? 'bg-blue-500/90 text-white'
+                                    : 'bg-emerald-500/90 text-white'
                         }`}>
-                        {dog.tag}
+                        {isAdopted ? 'Adopted 🎉' : dog.tag}
                     </span>
                 )}
 
@@ -111,8 +115,15 @@ export function PetCard({ dog }: { dog: DogProps }) {
                 </div>
 
                 <Link href={`/adopt/${dog.id}`} className="block mt-auto pt-1">
-                    <Button className="w-full h-10 md:h-11 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-xs sm:text-sm shadow-sm transition-all duration-200">
-                        Meet {dog.name}
+                    <Button 
+                        variant={isAdopted ? "outline" : "default"}
+                        className={`w-full h-10 md:h-11 rounded-xl font-semibold text-xs sm:text-sm shadow-sm transition-all duration-200 ${
+                            isAdopted
+                                ? 'border-emerald-500/30 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-500/50'
+                                : 'bg-primary hover:bg-primary/90 text-primary-foreground'
+                        }`}
+                    >
+                        {isAdopted ? `Adopted ❤️ • Read Story` : `Meet ${dog.name}`}
                     </Button>
                 </Link>
             </div>
@@ -121,7 +132,9 @@ export function PetCard({ dog }: { dog: DogProps }) {
                 isOpen={isShareOpen}
                 onClose={() => setIsShareOpen(false)}
                 title={`Adopt ${dog.name} | Kuttawaala`}
-                text={`Meet ${dog.name} (${dog.breed}, ${dog.age}), looking for a forever home in ${dog.location}! 🐾`}
+                text={isAdopted 
+                    ? `Read ${dog.name}'s rescue & adoption success story on Kuttawaala! 🐾`
+                    : `Meet ${dog.name} (${dog.breed}, ${dog.age}), looking for a forever home in ${dog.location}! 🐾`}
                 url={shareUrl}
             />
         </motion.div>

@@ -10,7 +10,6 @@ import { Sparkles, Heart, Users, Stethoscope, ArrowRight, ShieldAlert, Home as H
 import { motion } from "framer-motion";
 import { BeforeAfterSlider } from "@/components/shared/BeforeAfterSlider";
 
-
 export default function Home() {
 
     return (
@@ -40,7 +39,7 @@ export default function Home() {
                             Incredible <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-500">Transformations</span>
                         </h2>
                         <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                            See the difference love, medical care, and a warm home can make. Drag the slider to see how we change lives, one dog at a time.
+                            See the difference love, medical care, and a warm home can make. Drag the slider to see how rescue transforms lives.
                         </p>
                     </div>
 
@@ -60,7 +59,7 @@ export default function Home() {
                                         </div>
                                         <div>
                                             <h3 className="text-lg font-bold text-foreground">The Rescue</h3>
-                                            <p className="text-sm text-muted-foreground">Found abandoned with severe skin issues.</p>
+                                            <p className="text-sm text-muted-foreground">Found abandoned and malnourished on the street.</p>
                                         </div>
                                     </div>
                                     <motion.div 
@@ -82,7 +81,7 @@ export default function Home() {
                                         </div>
                                         <div>
                                             <h3 className="text-lg font-bold text-foreground">The Recovery</h3>
-                                            <p className="text-sm text-muted-foreground">After 3 months of medical care and love.</p>
+                                            <p className="text-sm text-muted-foreground">Thriving, healthy, and happy in a permanent home.</p>
                                         </div>
                                     </motion.div>
                                 </motion.div>
@@ -93,8 +92,8 @@ export default function Home() {
                                     viewport={{ once: true }}
                                     className="bg-stone-50 dark:bg-zinc-900/60 p-6 rounded-2xl border border-stone-200/80 dark:border-zinc-800/80 shadow-sm relative overflow-hidden"
                                 >
-                                    <p className="italic text-muted-foreground text-sm sm:text-base leading-relaxed relative z-10">&ldquo;Max was scared of his own shadow. Now he&apos;s the king of our sofa!&rdquo;</p>
-                                    <p className="font-semibold text-sm mt-3 text-foreground relative z-10">— Sarah, Adopter</p>
+                                    <p className="italic text-muted-foreground text-sm sm:text-base leading-relaxed relative z-10">&ldquo;We found Shonai weak, shivering, and malnourished near our street. With guidance from the Kuttawaala community and a local vet, she recovered completely. She&apos;s now the heart of our home!&rdquo;</p>
+                                    <p className="font-semibold text-sm mt-3 text-foreground relative z-10">— Rupa, Adopter (রুপা)</p>
                                 </motion.div>
                             </div>
 
@@ -106,8 +105,8 @@ export default function Home() {
                                 className="order-1 md:order-2 h-[300px] md:h-[460px] rounded-3xl overflow-hidden shadow-lg border border-stone-200/80 dark:border-zinc-800"
                             >
                                 <BeforeAfterSlider
-                                    beforeImage="/images/resi-before.png"
-                                    afterImage="/images/resi-after.png"
+                                    beforeImage="/images/transformation-before.jpg"
+                                    afterImage="/images/transformation-after.jpg"
                                     beforeLabel="Rescued"
                                     afterLabel="Adopted"
                                 />
@@ -116,7 +115,6 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-
 
             {/* Visit Catwaala Section */}
             <section className="py-4 relative overflow-hidden">
@@ -164,15 +162,15 @@ export default function Home() {
                             Our Mission
                         </h2>
                         <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-10 md:mb-14 leading-relaxed max-w-2xl mx-auto">
-                            We are dedicated to improving the lives of street dogs in Bangladesh through rescue, rehabilitation, and adoption programs.
+                            We are dedicated to supporting dog rescuers, fosters, and adopters across Bangladesh through verified community networks, vet connections, and resources.
                         </p>
                     </motion.div>
 
                     <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 sm:gap-6 pb-6 sm:pb-0 sm:grid sm:grid-cols-3 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
                         {[
-                            { icon: Heart, count: "500+", label: "Dogs Rescued", color: "text-rose-500", bg: "bg-rose-500/10 border-rose-500/20" },
-                            { icon: Users, count: "200+", label: "Adoptions", color: "text-blue-500", bg: "bg-blue-500/10 border-blue-500/20" },
-                            { icon: Stethoscope, count: "50+", label: "Vet Camps", color: "text-emerald-500", bg: "bg-emerald-500/10 border-emerald-500/20" }
+                            { icon: Users, count: "17K+", label: "Community Members", color: "text-blue-500", bg: "bg-blue-500/10 border-blue-500/20" },
+                            { icon: Stethoscope, count: "64", label: "Districts Covered", color: "text-emerald-500", bg: "bg-emerald-500/10 border-emerald-500/20" },
+                            { icon: Heart, count: "100%", label: "Free Support", color: "text-rose-500", bg: "bg-rose-500/10 border-rose-500/20" }
                         ].map((stat, index) => (
                             <motion.div 
                                 key={index} 
@@ -208,7 +206,7 @@ export default function Home() {
                                 <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-primary/60 opacity-60"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                             </span>
-                            Over 500+ dogs rescued and counting
+                            Supporting dog rescuers and adopters across Bangladesh
                         </div>
 
                         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-stone-800 dark:text-stone-100 mb-4 font-heading tracking-tight">
