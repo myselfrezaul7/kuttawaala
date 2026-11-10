@@ -100,11 +100,11 @@ export function VetCard({ vet, index = 0 }: VetCardProps) {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-                duration: 0.35,
-                delay: Math.min(index * 0.03, 0.25),
-                ease: [0.22, 1, 0.36, 1],
+                duration: 0.28,
+                delay: Math.min(index * 0.02, 0.18),
+                ease: [0.16, 1, 0.3, 1],
             }}
-            className="group relative bg-white dark:bg-zinc-900 rounded-2xl p-5 sm:p-6 border border-stone-200/80 dark:border-zinc-800/80 shadow-sm hover:shadow-md hover:border-primary/30 dark:hover:border-primary/30 transition-all duration-200 flex flex-col justify-between h-full"
+            className="group relative bg-white dark:bg-zinc-900 rounded-2xl p-5 sm:p-6 border border-stone-200/80 dark:border-zinc-800/80 shadow-sm hover:shadow-md hover:border-primary/30 dark:hover:border-primary/30 transition-[border-color,box-shadow] duration-200 flex flex-col justify-between h-full cv-card"
         >
             <div>
                 {/* Top Metadata Row */}

@@ -76,7 +76,7 @@ export function SuccessStories() {
     }, [emblaApi]);
 
     return (
-        <section className="py-16 md:py-24 bg-stone-50/50 dark:bg-zinc-900/40 overflow-hidden transition-colors duration-300">
+        <section className="py-16 md:py-24 bg-stone-50/50 dark:bg-zinc-900/40 overflow-hidden transition-colors duration-300 cv-auto">
             <div className="container mx-auto px-4 mb-12 md:mb-16 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 16 }}

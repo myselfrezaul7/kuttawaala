@@ -42,8 +42,8 @@ export function PetBhaiBanner() {
                     initial={{ opacity: 0, y: 16, scale: 0.98 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 12, scale: 0.98 }}
-                    transition={{ duration: 0.25, ease: "easeOut" }}
-                    className="fixed bottom-24 md:bottom-6 left-4 md:left-6 right-20 md:right-auto max-w-[calc(100vw-5.5rem)] md:max-w-sm z-40 print:hidden bg-zinc-900/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-white/10 text-white rounded-full px-3.5 py-2 shadow-lg flex items-center gap-3"
+                    transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                    className="fixed bottom-24 md:bottom-6 left-4 md:left-6 right-20 md:right-auto max-w-[calc(100vw-5.5rem)] md:max-w-sm z-40 print:hidden bg-zinc-900/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-white/10 text-white rounded-full px-3.5 py-2 shadow-lg flex items-center gap-3 hardware-accelerated"
                 >
                     <div className="w-7 h-7 rounded-full bg-purple-600/90 flex items-center justify-center shrink-0">
                         <ShoppingBag className="w-3.5 h-3.5 text-white" />

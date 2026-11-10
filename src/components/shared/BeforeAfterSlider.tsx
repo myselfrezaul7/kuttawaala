@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { GripVertical } from "lucide-react";
 
@@ -22,26 +22,52 @@ export function BeforeAfterSlider({
     const [sliderPosition, setSliderPosition] = useState(50);
     const [isDragging, setIsDragging] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
+    const rafId = useRef<number | null>(null);
+    const containerRectRef = useRef<DOMRect | null>(null);
 
-    const handleMove = (event: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent) => {
-        if (!isDragging || !containerRef.current) return;
-
-        const containerRect = containerRef.current.getBoundingClientRect();
-        const clientX = 'touches' in event ? event.touches[0].clientX : (event as any).clientX;
-
-        const position = ((clientX - containerRect.left) / containerRect.width) * 100;
+    const updatePosition = useCallback((clientX: number) => {
+        if (!containerRef.current) return;
+        const rect = containerRectRef.current || containerRef.current.getBoundingClientRect();
+        if (rect.width === 0) return;
+        const position = ((clientX - rect.left) / rect.width) * 100;
         setSliderPosition(Math.min(Math.max(position, 0), 100));
+    }, []);
+
+    const handleMove = useCallback((event: MouseEvent | TouchEvent) => {
+        if (!isDragging) return;
+        const clientX = 'touches' in event ? event.touches[0].clientX : event.clientX;
+        if (rafId.current !== null) {
+            cancelAnimationFrame(rafId.current);
+        }
+        rafId.current = requestAnimationFrame(() => {
+            updatePosition(clientX);
+            rafId.current = null;
+        });
+    }, [isDragging, updatePosition]);
+
+    const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+        if (containerRef.current) {
+            containerRectRef.current = containerRef.current.getBoundingClientRect();
+        }
+        setIsDragging(true);
+        const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+        updatePosition(clientX);
     };
 
-    const handleMouseDown = () => setIsDragging(true);
-    const handleMouseUp = () => setIsDragging(false);
+    const handleMouseUp = useCallback(() => {
+        setIsDragging(false);
+        if (rafId.current !== null) {
+            cancelAnimationFrame(rafId.current);
+            rafId.current = null;
+        }
+    }, []);
 
     useEffect(() => {
         if (isDragging) {
-            window.addEventListener('mousemove', handleMove);
-            window.addEventListener('mouseup', handleMouseUp);
-            window.addEventListener('touchmove', handleMove);
-            window.addEventListener('touchend', handleMouseUp);
+            window.addEventListener('mousemove', handleMove, { passive: true });
+            window.addEventListener('mouseup', handleMouseUp, { passive: true });
+            window.addEventListener('touchmove', handleMove, { passive: true });
+            window.addEventListener('touchend', handleMouseUp, { passive: true });
         }
 
         return () => {
@@ -49,9 +75,12 @@ export function BeforeAfterSlider({
             window.removeEventListener('mouseup', handleMouseUp);
             window.removeEventListener('touchmove', handleMove);
             window.removeEventListener('touchend', handleMouseUp);
+            if (rafId.current !== null) {
+                cancelAnimationFrame(rafId.current);
+                rafId.current = null;
+            }
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isDragging]);
+    }, [isDragging, handleMove, handleMouseUp]);
 
     return (
         <div
@@ -83,6 +112,7 @@ export function BeforeAfterSlider({
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
+                    decoding="async"
                 />
                 <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider">
                     {afterLabel}
@@ -100,6 +130,7 @@ export function BeforeAfterSlider({
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
+                    decoding="async"
                 />
                 <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider">
                     {beforeLabel}
@@ -108,7 +139,7 @@ export function BeforeAfterSlider({
 
             {/* Slider Handle */}
             <div
-                className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize shadow-[0_0_10px_rgba(0,0,0,0.5)] z-20"
+                className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize shadow-[0_0_10px_rgba(0,0,0,0.5)] z-20 will-change-[left]"
                 style={{ left: `${sliderPosition}%` }}
             >
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-xl text-primary transform transition-transform group-hover:scale-110">

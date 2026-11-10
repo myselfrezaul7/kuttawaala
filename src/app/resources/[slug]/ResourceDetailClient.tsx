@@ -19,13 +19,26 @@ export function ResourceDetailClient({ resource, otherResources }: ResourceDetai
     const [isShareOpen, setIsShareOpen] = useState(false);
 
     useEffect(() => {
+        let rafId: number | null = null;
+        let ticking = false;
+
         const handleScroll = () => {
-            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollProgress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
-            setProgress(scrollProgress);
+            if (!ticking) {
+                rafId = requestAnimationFrame(() => {
+                    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const scrollProgress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
+                    setProgress(scrollProgress);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            if (rafId !== null) cancelAnimationFrame(rafId);
+        };
     }, []);
 
     // Extract headings for TOC
@@ -38,7 +51,7 @@ export function ResourceDetailClient({ resource, otherResources }: ResourceDetai
         <div className="min-h-screen bg-[#FFFDF8] dark:bg-stone-950 pb-24 relative">
             {/* Reading Progress Bar */}
             <div
-                className="fixed top-0 left-0 h-1.5 bg-orange-500 z-50 transition-all duration-100 ease-out"
+                className="fixed top-0 left-0 h-1.5 bg-orange-500 z-50 will-change-[width] transition-[width] duration-75 ease-out"
                 style={{ width: `${progress}%` }}
             />
             {/* Header / Cover Image */}

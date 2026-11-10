@@ -20,7 +20,7 @@ export function Hero() {
                     animate="visible"
                     variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } }}
                 >
-                    <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}>
+                    <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } } }}>
                         {RemoteConfigService.isHeroAnnouncementEnabled ? (
                             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 dark:bg-amber-900/30 text-sm font-semibold text-amber-700 dark:text-amber-400 mb-6 border border-amber-200 dark:border-amber-800/50">
                                 <AlertCircle className="w-4 h-4" />
@@ -33,17 +33,17 @@ export function Hero() {
                             </div>
                         )}
                     </motion.div>
-                    <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}>
+                    <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } } }}>
                         <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-foreground dark:text-white leading-[1.1] mb-6 font-heading">
                             Every Dog Deserves a <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-500">Loving Home</span>
                         </h1>
                     </motion.div>
-                    <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}>
+                    <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } } }}>
                         <p className="text-xl text-muted-foreground dark:text-stone-300 max-w-lg mx-auto lg:mx-0 leading-relaxed">
                             Bangladesh&apos;s open community platform supporting dog rescuers, fosters, and adopters with verified care and resources.
                         </p>
                     </motion.div>
-                    <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } }}>
+                    <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } } }}>
                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start pt-2 sm:pt-4 w-full sm:w-auto">
                             <Link href="/adopt" className="w-full sm:w-auto">
                                 <motion.div whileTap={{ scale: 0.98 }} className="w-full">
@@ -67,7 +67,7 @@ export function Hero() {
                 <motion.div
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                     className="relative order-1 lg:order-2 flex justify-center mb-8 lg:mb-0"
                 >
                     <div className="relative w-full max-w-[380px] sm:max-w-[420px]">
@@ -78,7 +78,8 @@ export function Hero() {
                                 fill
                                 priority
                                 sizes="(max-width: 640px) 92vw, (max-width: 1024px) 420px, 420px"
-                                className="object-cover object-center transition-transform duration-700 hover:scale-[1.02]"
+                                decoding="async"
+                                className="object-cover object-center transition-transform duration-500 ease-out hover:scale-[1.02] will-change-transform"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
                         </div>
@@ -87,9 +88,9 @@ export function Hero() {
                         <motion.div
                             initial={{ opacity: 0, y: 12 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.3 }}
+                            transition={{ duration: 0.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                             viewport={{ once: true }}
-                            className="absolute -bottom-4 left-4 sm:-left-4 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-lg border border-stone-200/80 dark:border-zinc-800 flex items-center gap-3 z-20"
+                            className="absolute -bottom-4 left-4 sm:-left-4 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-lg border border-stone-200/80 dark:border-zinc-800 flex items-center gap-3 z-20 hardware-accelerated"
                         >
                             <div className="w-8 h-8 sm:w-9 sm:h-9 bg-secondary rounded-full flex items-center justify-center text-primary shrink-0">
                                 <Users className="w-4 h-4 text-primary" />

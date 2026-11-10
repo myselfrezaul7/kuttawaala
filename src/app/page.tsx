@@ -17,7 +17,7 @@ export default function Home() {
             <Hero />
 
             {/* Featured Dogs Section */}
-            <section className="py-12 md:py-20 bg-secondary/20 dark:bg-stone-900/20">
+            <section className="py-12 md:py-20 bg-secondary/20 dark:bg-stone-900/20 cv-auto">
                 <FeaturedDogs />
             </section>
 
@@ -28,7 +28,7 @@ export default function Home() {
             <SuccessStories />
 
             {/* Transformations Section */}
-            <section className="py-12 md:py-24 relative overflow-hidden">
+            <section className="py-12 md:py-24 relative overflow-hidden cv-auto">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-10 md:mb-16">
                         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 font-semibold text-xs uppercase tracking-wider mb-5">
@@ -100,7 +100,7 @@ export default function Home() {
                             <motion.div 
                                 initial={{ opacity: 0, scale: 0.98 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.6, ease: "easeOut" }}
+                                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                                 viewport={{ once: true }}
                                 className="order-1 md:order-2 h-[300px] md:h-[460px] rounded-3xl overflow-hidden shadow-lg border border-stone-200/80 dark:border-zinc-800"
                             >
@@ -123,7 +123,7 @@ export default function Home() {
                     <motion.div
                         initial={{ opacity: 0, y: 12 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                         viewport={{ once: true }}
                         className="flex justify-center -mt-2 mb-4"
                     >
@@ -145,12 +145,12 @@ export default function Home() {
             </section>
 
             {/* Mission Section */}
-            <section className="py-12 md:py-24 relative overflow-hidden">
+            <section className="py-12 md:py-24 relative overflow-hidden cv-auto">
                 <div className="container mx-auto px-4 relative z-10 text-center max-w-5xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.45, ease: "easeOut" }}
+                        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                         viewport={{ once: true }}
                     >
                         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-semibold uppercase tracking-wider mb-5">
@@ -176,7 +176,7 @@ export default function Home() {
                                 key={index} 
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.45, ease: "easeOut", delay: index * 0.08 }}
+                                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
                                 viewport={{ once: true, margin: "-50px" }}
                                 className="min-w-[75%] sm:min-w-0 snap-center flex-shrink-0 bg-white/80 dark:bg-zinc-900/70 backdrop-blur-md rounded-2xl md:rounded-3xl p-6 md:p-8 hover:-translate-y-1 transition-all duration-300 border border-stone-200/80 dark:border-zinc-800/80 shadow-sm hover:shadow-md"
                             >
@@ -192,12 +192,12 @@ export default function Home() {
             </section>
 
             {/* CTA Section */}
-            <section className="py-12 md:py-20 relative overflow-hidden">
+            <section className="py-12 md:py-20 relative overflow-hidden cv-auto">
                 <div className="container mx-auto px-4 relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.45, ease: "easeOut" }}
+                        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                         viewport={{ once: true, margin: "-50px" }}
                         className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl rounded-3xl p-8 md:p-16 text-center max-w-4xl mx-auto border border-stone-200/80 dark:border-zinc-800/80 shadow-sm"
                     >

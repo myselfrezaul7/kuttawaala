@@ -78,7 +78,7 @@ export function FeaturedDogs() {
                     hidden: {},
                     show: {
                         transition: {
-                            staggerChildren: 0.1
+                            staggerChildren: 0.06
                         }
                     }
                 }}
@@ -100,7 +100,7 @@ export function FeaturedDogs() {
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 }}
+                transition={{ duration: 0.4, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-10 sm:mt-14 bg-gradient-to-br from-stone-50 via-white to-orange-50/30 dark:from-zinc-900 dark:via-zinc-900/90 dark:to-zinc-800/40 border border-stone-200/80 dark:border-zinc-800 rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm"
             >
                 <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">

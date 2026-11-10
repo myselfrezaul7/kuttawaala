@@ -24,7 +24,6 @@ export function Header() {
     const [mounted, setMounted] = useState(false);
     const [navVisible, setNavVisible] = useState(true);
     const lastScrollY = useRef(0);
-    const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
     const { user, userData, loading } = useAuth();
     const { t } = useLanguage();
 
@@ -35,20 +34,21 @@ export function Header() {
             if (!ticking) {
                 requestAnimationFrame(() => {
                     const currentScrollY = window.scrollY;
+                    const diff = currentScrollY - lastScrollY.current;
 
-                    if (currentScrollY <= 20) {
+                    // Near top of page, always show header
+                    if (currentScrollY <= 40) {
                         setNavVisible(true);
-                    } else if (currentScrollY > lastScrollY.current && currentScrollY > 60) {
-                        setNavVisible(false); // scrolling down
-                    } else if (currentScrollY < lastScrollY.current) {
-                        setNavVisible(true); // scrolling up
+                    } 
+                    // Scrolling down with minimum threshold to avoid micro-stutter
+                    else if (diff > 12 && currentScrollY > 80) {
+                        setNavVisible(false);
+                    } 
+                    // Scrolling up with minimum threshold
+                    else if (diff < -8) {
+                        setNavVisible(true);
                     }
                     lastScrollY.current = currentScrollY;
-
-                    if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-                    scrollTimeout.current = setTimeout(() => {
-                        setNavVisible(true);
-                    }, 150);
                     ticking = false;
                 });
                 ticking = true;
@@ -57,7 +57,6 @@ export function Header() {
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => {
             window.removeEventListener("scroll", handleScroll);
-            if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
         };
     }, []);
 
@@ -83,7 +82,7 @@ export function Header() {
 
     return (
         <>
-            <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-6xl w-[calc(100%-2rem)] transition-all duration-300 ease-out bg-white/85 dark:bg-zinc-900/85 backdrop-blur-xl border border-stone-200/80 dark:border-zinc-800/80 shadow-[0_4px_20px_rgba(0,0,0,0.04)] rounded-full print:hidden ${navVisible ? "translate-y-0 opacity-100" : "-translate-y-[120%] opacity-0"}`}>
+            <header className={`fixed top-4 left-0 right-0 z-50 mx-auto max-w-6xl w-[calc(100%-2rem)] transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] bg-white/85 dark:bg-zinc-900/85 backdrop-blur-xl border border-stone-200/80 dark:border-zinc-800/80 shadow-[0_4px_20px_rgba(0,0,0,0.04)] rounded-full print:hidden hardware-accelerated ${navVisible ? "translate-y-0 opacity-100" : "-translate-y-[130%] opacity-0 pointer-events-none"}`}>
                 <div className="px-5 py-2.5 flex justify-between items-center">
                     {/* Logo */}
                     <Link href="/" className="flex items-center group shrink-0 py-0.5" aria-label="Kuttawaala Home">

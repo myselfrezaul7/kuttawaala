@@ -59,7 +59,6 @@ export function RainbowBridgeCanvas() {
         let animationFrameId: number | null = null;
         let isVisible = true;
         let lastFrameTime = performance.now();
-        const TARGET_FRAME_MS = 1000 / 30; // Capped 30 FPS for optimal battery and performance
 
         // 1. Scene & Camera setup
         const scene = new THREE.Scene();
@@ -271,18 +270,18 @@ export function RainbowBridgeCanvas() {
         };
         window.addEventListener("resize", handleResize);
 
-        // 10. Animation Loop (Capped 30 FPS)
+        // 10. Animation Loop (Native 120Hz/60Hz display sync with frame-rate independent delta)
         let clockTime = 0;
         const animate = (currentTime: number) => {
             animationFrameId = requestAnimationFrame(animate);
 
             if (!isVisible) return;
 
-            const elapsed = currentTime - lastFrameTime;
-            if (elapsed < TARGET_FRAME_MS) return;
-            lastFrameTime = currentTime - (elapsed % TARGET_FRAME_MS);
+            const deltaSeconds = Math.min((currentTime - lastFrameTime) / 1000, 0.1);
+            lastFrameTime = currentTime;
+            const dt = deltaSeconds * 30; // normalized to 30fps baseline physics
 
-            clockTime += 0.033;
+            clockTime += deltaSeconds;
 
             // Subtle starlight shimmer
             if (!prefersReducedMotion) {
@@ -293,8 +292,8 @@ export function RainbowBridgeCanvas() {
             for (let i = 0; i < INSTANCE_COUNT; i++) {
                 const data = lanternData[i];
                 if (!prefersReducedMotion) {
-                    data.y += data.vy;
-                    data.x += Math.sin(clockTime * data.wobbleSpeed + data.wobblePhase) * 0.006 + data.vx;
+                    data.y += data.vy * dt;
+                    data.x += (Math.sin(clockTime * data.wobbleSpeed + data.wobblePhase) * 0.006 + data.vx) * dt;
 
                     // Reset when floating out of top view
                     if (data.y > 18) {
@@ -317,18 +316,18 @@ export function RainbowBridgeCanvas() {
             const dynamicList = dynamicLanternsRef.current;
             for (let i = dynamicList.length - 1; i >= 0; i--) {
                 const item = dynamicList[i];
-                item.age += 1;
+                item.age += dt;
 
                 if (!prefersReducedMotion) {
-                    item.mesh.position.y += item.vy;
-                    item.mesh.position.x += item.vx + Math.sin(clockTime * 2 + i) * 0.005;
-                    item.mesh.position.z -= 0.01; // drifts gently into distance
-                    item.mesh.rotation.y += item.rotSpeed;
+                    item.mesh.position.y += item.vy * dt;
+                    item.mesh.position.x += (item.vx + Math.sin(clockTime * 2 + i) * 0.005) * dt;
+                    item.mesh.position.z -= 0.01 * dt; // drifts gently into distance
+                    item.mesh.rotation.y += item.rotSpeed * dt;
                 }
 
                 // Fade out near end of life
                 if (item.age > item.life - 60) {
-                    const factor = (item.life - item.age) / 60;
+                    const factor = Math.max(0, (item.life - item.age) / 60);
                     item.light.intensity = 2.5 * factor;
                 }
 

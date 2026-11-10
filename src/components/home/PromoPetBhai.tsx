@@ -5,7 +5,7 @@ import { ArrowRight, ShoppingBag, Sparkles } from "lucide-react";
 
 export function PromoPetBhai() {
     return (
-        <section className="py-10 md:py-16 relative overflow-hidden bg-stone-50/70 dark:bg-zinc-900/40">
+        <section className="py-10 md:py-16 relative overflow-hidden bg-stone-50/70 dark:bg-zinc-900/40 cv-auto">
             <div className="container mx-auto px-4 max-w-5xl relative z-10">
                 <div className="relative bg-gradient-to-br from-zinc-900 via-zinc-900 to-purple-950/90 border border-purple-500/20 rounded-3xl p-8 sm:p-10 md:p-12 overflow-hidden shadow-lg text-white">
                     {/* Subtle Ambient Glow */}

@@ -6,7 +6,7 @@ import { KuttawaalaLogo } from "@/components/shared/KuttawaalaLogo";
 
 export function Footer() {
     return (
-        <footer className="relative overflow-hidden bg-stone-100/50 dark:bg-zinc-950 border-t border-stone-200/70 dark:border-zinc-800/80">
+        <footer className="relative overflow-hidden bg-stone-100/50 dark:bg-zinc-950 border-t border-stone-200/70 dark:border-zinc-800/80 cv-auto">
             <div className="relative z-10 pt-10 md:pt-14 pb-6 md:pb-8">
                 <div className="container mx-auto px-4">
                     {/* Compact Donate Pill */}

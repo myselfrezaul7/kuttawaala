@@ -6,7 +6,9 @@
     .pb-safe {
         padding-bottom: env(safe-area-inset-bottom, 0px);
     }
-}@layer base {
+}
+
+@layer base {
     :root {
         /* Portfolio Light Theme - Updated for Kuttawaala */
         --background: 45 20% 96%;
@@ -98,11 +100,21 @@
 
     html {
         scroll-behavior: smooth;
+        overscroll-behavior-y: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 
     body {
         @apply bg-background text-foreground font-sans antialiased;
         min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    /* Ultra-responsive touch handling for 120Hz screens (removes 300ms mobile tap delay) */
+    button, a, input, select, textarea, [role="button"] {
+        touch-action: manipulation;
     }
 }
 
@@ -122,21 +134,31 @@
         background-clip: text;
     }
 
-    /* Glassmorphic Button Surface */
+    /* Glassmorphic Button Surface - scoped to explicit glass overlays */
     .glass-btn {
-        backdrop-filter: blur(16px) saturate(1.6);
-        -webkit-backdrop-filter: blur(16px) saturate(1.6);
+        backdrop-filter: blur(12px) saturate(1.4);
+        -webkit-backdrop-filter: blur(12px) saturate(1.4);
     }
 
-    button:active:not(:disabled) {
-        transform: scale(0.97);
-        transition: transform 0.1s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    /* GPU-promote fixed navigation layers */
+    /* Hardware acceleration promotion for fixed/sticky view layers */
+    .gpu-accelerated,
     header[class*="fixed"],
     .md\:hidden[class*="fixed"] {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        perspective: 1000px;
         will-change: transform, opacity;
+    }
+
+    /* 120Hz Content Visibility for massive DOM scroll speedup */
+    .cv-auto {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 600px;
+    }
+
+    .cv-card {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 280px;
     }
 
     /* Print Media Queries */

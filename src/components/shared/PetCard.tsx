@@ -29,10 +29,10 @@ export function PetCard({ dog }: { dog: DogProps }) {
         <motion.div
             variants={{
                 hidden: { opacity: 0, y: 12 },
-                show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } }
+                show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] } }
             }}
             whileHover={{ y: -4 }}
-            className="group relative bg-card rounded-2xl md:rounded-3xl overflow-hidden border border-stone-200/80 dark:border-zinc-800/80 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full"
+            className="group relative bg-card rounded-2xl md:rounded-3xl overflow-hidden border border-stone-200/80 dark:border-zinc-800/80 shadow-sm hover:shadow-lg transition-[border-color,box-shadow] duration-200 flex flex-col h-full cv-card"
         >
             <div className="relative aspect-[4/5] overflow-hidden shrink-0">
                 <Image
@@ -117,7 +117,7 @@ export function PetCard({ dog }: { dog: DogProps }) {
                 <Link href={`/adopt/${dog.id}`} className="block mt-auto pt-1">
                     <Button 
                         variant={isAdopted ? "outline" : "default"}
-                        className={`w-full h-10 md:h-11 rounded-xl font-semibold text-xs sm:text-sm shadow-sm transition-all duration-200 ${
+                        className={`w-full h-10 md:h-11 rounded-xl font-semibold text-xs sm:text-sm shadow-sm transition-[transform,opacity,background-color,border-color] duration-150 ${
                             isAdopted
                                 ? 'border-emerald-500/30 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-500/50'
                                 : 'bg-primary hover:bg-primary/90 text-primary-foreground'
